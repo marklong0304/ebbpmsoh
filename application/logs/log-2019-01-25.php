@@ -1848,3 +1848,1066 @@ DEBUG - 2019-01-25 09:29:22 --> Final output sent to browser
 ERROR - 2019-01-25 09:29:22 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
 DEBUG - 2019-01-25 09:29:22 --> Total execution time: 0.1337
 ERROR - 2019-01-25 09:29:22 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> No URI present. Default controller set.
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:00 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:00 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:00 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:00 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Home MX_Controller Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/controllers/../../modules/login/controllers/login.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/login/models/m_login.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/login/views/v_login.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/templates/views/login/header.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/templates/views/login/content.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/templates/views/login/footer.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> File loaded: application/../modules/templates/views/login/index.php
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Final output sent to browser
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:01 --> Total execution time: 0.5311
+ERROR - 2019-01-25 17:05:01 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:30 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:30 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:30 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:30 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> XSS Filtering completed
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> XSS Filtering completed
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> File loaded: application/../modules/login/models/m_login.php
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:30 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:30 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> XSS Filtering completed
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> XSS Filtering completed
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> File loaded: application/../modules/login/models/m_login.php
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:31 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:31 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:32 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:32 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:32 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:32 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Home MX_Controller Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/controllers/../../modules/login/controllers/login.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:32 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/home/views/v_home.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/templates/views/default/header.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/templates/views/default/content.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/templates/views/default/footer.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> File loaded: application/../modules/templates/views/default/index.php
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Final output sent to browser
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:32 --> Total execution time: 0.0452
+ERROR - 2019-01-25 17:05:32 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Home MX_Controller Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/controllers/../../modules/login/controllers/login.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> 404 Page Not Found --> home/assets
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:33 --> Final output sent to browser
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:33 --> Total execution time: 0.0078
+ERROR - 2019-01-25 17:05:33 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/login/models/m_login.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/login/views/v_login.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/templates/views/login/header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/templates/views/login/content.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/templates/views/login/footer.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/templates/views/login/index.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Final output sent to browser
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Total execution time: 0.1385
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Hooks Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Utf8 Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> UTF-8 Support Enabled
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> URI Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Router Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Output Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Security Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Config Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Loader Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: url_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: mydb_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: form_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Helper loaded: jqgrid_helper
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Zend Class Zend/Session/Namespace Loaded
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Language file loaded: language/english/display_lang.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/home/models/m_home.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Controller Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Login MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Menu MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/models/m_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/v_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Menu_header MX_Controller Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/models/m_menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> Database Driver Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2019-01-25 17:05:37 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /var/www/html/app_core/system/database/drivers/mysql/mysql_driver.php 91
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/v_menu_header.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/home/views/inc_home.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> File loaded: application/../modules/menu/views/inc_menu.php
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Model Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Input Class Initialized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+DEBUG - 2019-01-25 17:05:37 --> Global POST and COOKIE data sanitized
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
+ERROR - 2019-01-25 17:05:37 --> 404 Page Not Found --> login/assets
+ERROR - 2019-01-25 17:05:37 --> Severity: Warning  --> chmod(): Operation not permitted /var/www/html/app_core/system/libraries/Log.php 106
