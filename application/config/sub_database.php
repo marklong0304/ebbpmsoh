@@ -17,9 +17,9 @@
 
     $appList = array(
         
-        'schedulercheck'=> array('erp_scheduler',"H?zdwDb[kU1z%}@)",'hrd'),
-        'erp_ga'        =>array('erp_ga','6Mgc(n!7RDJf}','ga'),
-        'hrd'           =>array('erp_hrd','\eEB<Cm:]Twem<56','hrd')
+        /*'schedulercheck'=> array('erp_scheduler',"H?zdwDb[kU1z%}@)",'hrd'),
+        'erp_ga'        =>array('erp_ga','6Mgc(n!7RDJf}','ga'),*/
+        'hrd'           =>array('root','pmansur','hrd')
     );
 
     foreach($appList as $k => $v){

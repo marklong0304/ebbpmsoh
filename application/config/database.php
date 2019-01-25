@@ -67,8 +67,8 @@ $active_record = TRUE;
 
 
 $db['default']['hostname'] = $host;
-$db['default']['username'] = 'npl_erp';
-$db['default']['password'] = 'Npl_erp01';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'pmansur';
 $db['default']['database'] = 'erp_privi';
 
 $db['default']['dbdriver'] = 'mysql';
@@ -85,8 +85,8 @@ $db['default']['stricton'] = FALSE;
 
 
 $db['hrd']['hostname'] = $host;
-$db['hrd']['username'] = 'npl_hrd';
-$db['hrd']['password'] = 'Npl_hrd01';
+$db['hrd']['username'] = 'root';
+$db['hrd']['password'] = 'pmansur';
 $db['hrd']['database'] = 'hrd';
 
 $db['hrd']['dbdriver'] = 'mysql';
@@ -105,8 +105,8 @@ $db['hrd']['stricton'] = FALSE;
 
 /*gpsm*/
 $db['gps_msg']['hostname'] = $host;
-$db['gps_msg']['username'] = 'nplnet';
-$db['gps_msg']['password'] = 'nplnet01';
+$db['gps_msg']['username'] = 'root';
+$db['gps_msg']['password'] = 'pmansur';
 $db['gps_msg']['database'] = 'gps_msg';
 $db['gps_msg']['dbdriver'] = 'mysql';
 $db['gps_msg']['dbprefix'] = '';
