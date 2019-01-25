@@ -2,16 +2,16 @@
 class generatemodul extends MX_Controller {
     function __construct() {
         parent::__construct();
-$this->db_schedulercheck = $this->load->database('schedulercheck',false, true);
+        $this->dbset = $this->load->database('hrd',false, true);
         $this->load->library('auth');
-        $this->dbset = $this->load->database('hrd', true);
+        //$this->dbset = $this->load->database('hrd', true);
         $this->user = $this->auth->user();
     }
     function index($action = '') {
         $action = $this->input->get('action') ? $this->input->get('action') : 'piew';   
         $grid = new Grid;
         $grid->setTitle('CRUD Master'); 
-        $grid->setTable('hrd.scheduler_group_pic');     
+        $grid->setTable('hrd.employee');     
         $grid->setUrl('generatemodul'); 
         
         switch ($action) {
@@ -20,7 +20,7 @@ $this->db_schedulercheck = $this->load->database('schedulercheck',false, true);
                             'url'=>base_url().'processor/schedulercheck/generatemodul?action=write',
                             'url2'=>base_url().'processor/schedulercheck/generatemodul?action=addTable',
                             'url3'=>base_url().'processor/schedulercheck/generatemodul?action=getField',
-                            'db' => $this->db_schedulercheck->query('SHOW DATABASES')->result_array(),
+                            'db' => $this->dbset->query('SHOW DATABASES')->result_array(),
                             'modules' =>  scandir('modules',1),
                         );
                         $this->load->view('crudmaster/modul_pallete',$data); 
@@ -42,7 +42,7 @@ $this->db_schedulercheck = $this->load->database('schedulercheck',false, true);
     function addTable(){
         $nameDB = $this->input->post('nameDB');
         $tables = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE `TABLE_SCHEMA` ='".$nameDB."'"; 
-        $load_tb = $this->db_schedulercheck->query($tables)->result_array();
+        $load_tb = $this->dbset->query($tables)->result_array();
 
         echo '<select id="openTable" class="openTable" name="openTable">';
         echo '<option value="">-Select Table-</option>';
@@ -65,7 +65,7 @@ $this->db_schedulercheck = $this->load->database('schedulercheck',false, true);
     	
 
     	$query ="SELECT c.`COLUMN_NAME`,c.`COLUMN_KEY` , c.`COLUMN_TYPE`, c.`DATA_TYPE`, c.`CHARACTER_MAXIMUM_LENGTH` FROM `information_schema`.`COLUMNS` c WHERE c.`TABLE_SCHEMA` = '".$nameDB."' AND c.`TABLE_NAME`='".$nameTb."'"; 
-        $fields = $this->db_schedulercheck->query($query)->result_array();
+        $fields = $this->dbset->query($query)->result_array();
 
         $data['judul']='Ini Judul';
         $data['fields']=$fields;
@@ -160,7 +160,7 @@ $this->db_schedulercheck = $this->load->database('schedulercheck',false, true);
 
         $query ="SELECT c.`COLUMN_NAME`,c.`COLUMN_KEY` , c.`COLUMN_TYPE`, c.`DATA_TYPE`, c.`CHARACTER_MAXIMUM_LENGTH` FROM `information_schema`.`COLUMNS` c WHERE c.`TABLE_SCHEMA` = '".$openDatabase."' AND c.`TABLE_NAME`='".$openTable."'"; 
 
-        $field = $this->db_schedulercheck->query($query)->result_array();
+        $field = $this->dbset->query($query)->result_array();
 
         $field_tb = "";
         $field_pk = "";
@@ -221,7 +221,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class ".$createname_space." extends MX_Controller {
     function __construct() {
         parent::__construct();
-        \$this->db_schedulercheck = \$this->load->database('schedulercheck',false, true);
+        \$this->dbset = \$this->load->database('schedulercheck',false, true);
         \$this->load->library('auth');
         \$this->db = \$this->load->database('hrd',false, true);
         \$this->user = \$this->auth->user();
@@ -435,7 +435,7 @@ if ($ada) {
 
                                         foreach(\$sql as \$q) {
                                             try {
-                                                \$this->db_schedulercheck->query(\$q);
+                                                \$this->dbset->query(\$q);
                                             }catch(Exception \$e) {
                                                 die(\$e);
                                             }
@@ -600,7 +600,7 @@ if ($ada) {
                                                             
 
                                                             ';
-                                                    \$this->db_schedulercheck->query(\$sql1);
+                                                    \$this->dbset->query(\$sql1);
                                                 }else{
                                                     \$tgl= date('Y-m-d H:i:s');
                                                     \$sql1 = 'update ".$openDatabase.".".$openTable."_".trim($v)."
@@ -611,7 +611,7 @@ if ($ada) {
                                                             ".$field_pk1." = ".'"'.""."'.\$lastId.'"."".'"'." 
 
                                                             ';
-                                                    \$this->db_schedulercheck->query(\$sql1);
+                                                    \$this->dbset->query(\$sql1);
                                                 }
 
 
@@ -657,7 +657,7 @@ if ($ada) {
 
                                                 foreach(\$sql as \$q) {
                                                     try {
-                                                        \$this->db_schedulercheck->query(\$q);
+                                                        \$this->dbset->query(\$q);
                                                     }catch(Exception \$e) {
                                                         die(\$e);
                                                     }
@@ -692,7 +692,7 @@ if ($ada) {
                                                             
 
                                                             ';
-                                                    \$this->db_schedulercheck->query(\$sql1);
+                                                    \$this->dbset->query(\$sql1);
                                                 }else{
                                                     \$tgl= date('Y-m-d H:i:s');
                                                     \$sql1 = 'update ".$openDatabase.".".$openTable."_".trim($v)."
@@ -703,7 +703,7 @@ if ($ada) {
                                                             ".$field_pk1." = ".'"'.""."'.\$lastId.'"."".'"'." 
 
                                                             ';
-                                                    \$this->db_schedulercheck->query(\$sql1);
+                                                    \$this->dbset->query(\$sql1);
                                                 }
 
 
@@ -937,7 +937,7 @@ foreach ($_POST['txtinput'] as $f =>$v) {
                         $html .="
                             
                             \$sql = 'select * from hrd.employee a  limit 10 ';
-                            \$pilihan = \$this->db_schedulercheck->query(\$sql)->result_array();
+                            \$pilihan = \$this->dbset->query(\$sql)->result_array();
 
                             \$return = '<select class=".'"input_rows1 required"'." name=".'"'.""."'.\$field.'"."".'"'."  id=".'"'.""."'.\$id.'"."".'"'.">';            
                             foreach(\$pilihan as \$me) {
@@ -959,12 +959,12 @@ foreach ($_POST['txtinput'] as $f =>$v) {
 
                             if (\$this->input->get('action') == 'view') {
                                 \$sql = 'select * from hrd.employee a  where a.cNip ="."'."."\$value".".'"." ';
-                                \$me = \$this->db_schedulercheck->query(\$sql)->row_array();
+                                \$me = \$this->dbset->query(\$sql)->row_array();
 
                                 \$return = \$me['vName'];
                             } else {
                                 \$sql = 'select * from hrd.employee a  limit 10 ';
-                                \$pilihan = \$this->db_schedulercheck->query(\$sql)->result_array();
+                                \$pilihan = \$this->dbset->query(\$sql)->result_array();
 
                                 \$return = '<select  class=".'"input_rows1 required"'." name=".'"'.""."'.\$field.'"."".'"'."  id=".'"'.""."'.\$id.'"."".'"'.">';            
                                 foreach(\$pilihan as \$me) {
@@ -1029,7 +1029,7 @@ foreach ($_POST['txtinput'] as $f =>$v) {
 
 
                             \$qr='select * from ".$openDatabase.".".$openTable."_".trim($v)." where lDeleted=0 and  ".$field_pk1." ="."'."."\$rowData[".$field_pk."]".".'"."  ';
-                            \$data['rows'] = \$this->db_schedulercheck->query(\$qr)->result_array();
+                            \$data['rows'] = \$this->dbset->query(\$qr)->result_array();
 
 
                            \$data['date'] = date('Y-m-d H:i:s');    
@@ -1269,7 +1269,7 @@ $html .="
         /*
         \$cNip = \$this->sess_auth->gNIP; 
         \$sql = 'Place Query In Here';
-        \$this->db_schedulercheck->query(\$sql);
+        \$this->dbset->query(\$sql);
         */
     }
 
@@ -1278,7 +1278,7 @@ $html .="
         /*
         \$cNip = \$this->sess_auth->gNIP; 
         \$sql = 'Place Query In Here';
-        \$this->db_schedulercheck->query(\$sql);
+        \$this->dbset->query(\$sql);
         */
     }
 ";
@@ -1346,7 +1346,7 @@ $html .="
                         where a.cNip =".'"'."'."."\$nip".".'".'"'."
                         ';
         
-        \$data = \$this->db_schedulercheck->query(\$sql)->row_array();
+        \$data = \$this->dbset->query(\$sql)->row_array();
         return \$data;
     }
 ";
