@@ -43,7 +43,7 @@
 		 					if ($isPk) {
 		 						echo '<input type="hidden" name="showonform[]" value="0">';	
 		 					}else{
-		 						$fideal=0;
+		 						$fideal=1;
 			 					$ljenis = array( 0=>'No',1=>'Yes');
 					            $o  = "<select name='showonform[]' id='showonform'>";            
 					            foreach($ljenis as $k=>$v) {

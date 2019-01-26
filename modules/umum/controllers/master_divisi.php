@@ -51,12 +51,12 @@ class master_divisi extends MX_Controller {
         $grid->setUrl('master_divisi');
 
         //List Table
-        $grid->addList('igrpdivid','vDescription','vAbbreviation','tCreated','cCreatedBy','tUpdated','cUpdatedBy','lDeleted'); 
+        $grid->addList('vDescription','vAbbreviation'); 
         $grid->setSortBy('iDivID');
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('igrpdivid','vDescription','vAbbreviation','tCreated','cCreatedBy','tUpdated','cUpdatedBy','lDeleted'); 
+        $grid->addFields('vDescription','vAbbreviation'); 
 
         //Setting Grid Width Name 
         /*
@@ -65,12 +65,12 @@ class master_divisi extends MX_Controller {
 
         */
 
-        $grid->setWidth('vDescription', '100');
+        $grid->setWidth('vDescription', '200');
         $grid->setAlign('vDescription', 'left');
         $grid->setLabel('vDescription','Nama Divisi');
     
         $grid->setWidth('vAbbreviation', '100');
-        $grid->setAlign('vAbbreviation', 'left');
+        $grid->setAlign('vAbbreviation', 'center');
         $grid->setLabel('vAbbreviation','Abbreviation');
     
 //Example modifikasi GRID ERP
@@ -94,10 +94,10 @@ class master_divisi extends MX_Controller {
 */
 
     //set search
-        $grid->setSearch('igrpdivid','vDescription','vAbbreviation','tCreated','cCreatedBy','tUpdated','cUpdatedBy','lDeleted');
+        $grid->setSearch('vDescription','vAbbreviation');
         
     //set required
-        $grid->setRequired('igrpdivid','vDescription','vAbbreviation','tCreated','cCreatedBy','tUpdated','cUpdatedBy','lDeleted'); 
+        $grid->setRequired('vDescription','vAbbreviation'); 
         $grid->setGridView('grid');
 
 
@@ -339,11 +339,11 @@ class master_divisi extends MX_Controller {
         $postData['cCreated']=$this->user->gNIP;
 
 
-        if($postData['isdraft']==true){
+        /*if($postData['isdraft']==true){
             $postData['iSubmit']=0;
         } else{
             $postData['iSubmit']=1;
-        } 
+        } */
 
 
         return $postData;
@@ -353,11 +353,11 @@ class master_divisi extends MX_Controller {
         $postData['dUpdate'] = date('Y-m-d H:i:s');
         $postData['cUpdate'] = $this->user->gNIP;
 
-        if($postData['isdraft']==true){
+        /*if($postData['isdraft']==true){
             $postData['iSubmit']=0;
         } else{
             $postData['iSubmit']=1;
-        } 
+        } */
 
 
         return $postData; 
@@ -381,7 +381,7 @@ class master_divisi extends MX_Controller {
         */
     }
 
-    function manipulate_insert_button($buttons) { 
+    /*function manipulate_insert_button($buttons) { 
         //Load Javascript In Here 
         $cNip= $this->user->gNIP;
         $js = $this->load->view('js/standard_js');
@@ -427,7 +427,7 @@ class master_divisi extends MX_Controller {
         }
         
         return $buttons;
-    }
+    }*/
 
     function whoAmI($nip) { 
         $sql = 'select b.vDescription as vdepartemen,a.*,b.*,c.iLvlemp 

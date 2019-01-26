@@ -45,7 +45,7 @@
 <script type="text/javascript">
 	function send_nodejs_tes(){
 		grid = 'send_mail';
-		var socket = io.connect( 'http://10.1.49.8:19391' );
+		var socket = io.connect( 'http://localhost:19391' );
 		var req = $('#form_create_'+grid+' input.required, #form_create_'+grid+' select.required, #form_create_'+grid+' textarea.required');
 		var conf=0;
 		var alert_message = '';

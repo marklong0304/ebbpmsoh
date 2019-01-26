@@ -96,7 +96,7 @@ if($_SERVER["HTTP_HOST"] == 'www.npl-net.com' ||$_SERVER["HTTP_HOST"] == 'npl-ne
 		var tabs = $( "#tabsContent" ).tabs();
 		var countmessage =$("#new_count_message_header_<?php echo $gNIP ?>").html();
 		/*var label = "<span>Message (<span class='new_count_message_<?php echo $gNIP ?>'>" +countmessage+ "</span>)<span>",*/
-		var socket11 = io.connect( 'http://10.1.49.8:19391');
+		var socket11 = io.connect( 'http://localhost:19391');
 		$.ajax({
 			url: base_url+'processor/schedulercheck/inbox/erp?action=getJSONCountbyNIP',
 			success:function(data){

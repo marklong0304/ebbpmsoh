@@ -177,7 +177,8 @@
 
 
 			/*Node JS Kangge reload pesan*/
-			var socket = io.connect( 'http://10.1.49.8:19391' );
+			/*var socket = io.connect( 'http://10.1.49.8:19391' );*/
+			var socket = io.connect( 'http://localhost:19391' );
 			socket.on( 'new_count_message_<?php echo $NIPUser ?>', function( data ) {
 			    $( ".new_count_message_<?php echo $NIPUser ?>" ).html( data.new_count_message );
 			    $("span #new_count_message_header_<?php echo $NIPUser ?>").removeAttr('style');

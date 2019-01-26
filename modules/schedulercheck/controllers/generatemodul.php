@@ -410,7 +410,7 @@ if ($ada) {
 
                                                 if(move_uploaded_file(\$tmp_name, \$path.'/'.\$lastId.'/'.\$name_generate)) {
                                                     \$sql[]= '
-                                                        insert into ".$openDatabase.".".$openTable."_".trim($v)."('.\$tabel_file_pk.', vFilename, vFilename_generate, vKeterangan, dCreate, cCreate)
+                                                        insert into ".$openDatabase.".".$openTable."_".trim($v)."('.\$tabel_file_pk.', vFilename, vFilename_generate, vKeterangan, dCreated, cCreate)
                                                         values('.\$lastId.'
                                                         ,".'"'.""."'.\$name.'"."".'"'." 
                                                         ,".'"'.""."'.\$name_generate.'"."".'"'." 
@@ -591,8 +591,8 @@ if ($ada) {
                                                     \$tgl= date('Y-m-d H:i:s');
                                                      \$sql1 = 'update ".$openDatabase.".".$openTable."_".trim($v)."
                                                             set lDeleted=1
-                                                            ,dUpdate= ".'"'.""."'.\$tgl.'"."".'"'." 
-                                                            ,cUpdate= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
+                                                            ,dUpdated= ".'"'.""."'.\$tgl.'"."".'"'." 
+                                                            ,cUpdated= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
                                                             where 
                                                             ".$field_pk1." = ".'"'.""."'.\$lastId.'"."".'"'." 
                                                             and 
@@ -605,8 +605,8 @@ if ($ada) {
                                                     \$tgl= date('Y-m-d H:i:s');
                                                     \$sql1 = 'update ".$openDatabase.".".$openTable."_".trim($v)."
                                                             set lDeleted=1
-                                                            ,dUpdate= ".'"'.""."'.\$tgl.'"."".'"'." 
-                                                            ,cUpdate= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
+                                                            ,dUpdated= ".'"'.""."'.\$tgl.'"."".'"'." 
+                                                            ,cUpdated= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
                                                             where 
                                                             ".$field_pk1." = ".'"'.""."'.\$lastId.'"."".'"'." 
 
@@ -632,7 +632,7 @@ if ($ada) {
 
                                                         if(move_uploaded_file(\$tmp_name, \$path.'/'.\$lastId.'/'.\$name_generate)) {
                                                             \$sql[]= '
-                                                                insert into ".$openDatabase.".".$openTable."_".trim($v)."('.\$tabel_file_pk.', vFilename, vFilename_generate, vKeterangan, dCreate, cCreate)
+                                                                insert into ".$openDatabase.".".$openTable."_".trim($v)."('.\$tabel_file_pk.', vFilename, vFilename_generate, vKeterangan, dCreated, cCreate)
                                                                 values('.\$lastId.'
                                                                 ,".'"'.""."'.\$name.'"."".'"'." 
                                                                 ,".'"'.""."'.\$name_generate.'"."".'"'." 
@@ -683,8 +683,8 @@ if ($ada) {
                                                     \$tgl= date('Y-m-d H:i:s');
                                                      \$sql1 = 'update ".$openDatabase.".".$openTable."_".trim($v)."
                                                             set lDeleted=1
-                                                            ,dUpdate= ".'"'.""."'.\$tgl.'"."".'"'." 
-                                                            ,cUpdate= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
+                                                            ,dUpdated= ".'"'.""."'.\$tgl.'"."".'"'." 
+                                                            ,cUpdated= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
                                                             where 
                                                             ".$field_pk1." = ".'"'.""."'.\$lastId.'"."".'"'." 
                                                             and 
@@ -697,8 +697,8 @@ if ($ada) {
                                                     \$tgl= date('Y-m-d H:i:s');
                                                     \$sql1 = 'update ".$openDatabase.".".$openTable."_".trim($v)."
                                                             set lDeleted=1
-                                                            ,dUpdate= ".'"'.""."'.\$tgl.'"."".'"'." 
-                                                            ,cUpdate= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
+                                                            ,dUpdated= ".'"'.""."'.\$tgl.'"."".'"'." 
+                                                            ,cUpdated= ".'"'.""."'.\$this->user->gNIP.'"."".'"'." 
                                                             where 
                                                             ".$field_pk1." = ".'"'.""."'.\$lastId.'"."".'"'." 
 
@@ -1232,9 +1232,9 @@ $html .="
 
 
 $html .="
-    //Standart Setiap table harus memiliki dCreate , cCreated, dupdate, cUpdate
+    //Standart Setiap table harus memiliki dCreated , cCreated, dUpdated, cUpdated
     function before_insert_processor(\$row, \$postData) {
-        \$postData['dCreate'] = date('Y-m-d H:i:s');
+        \$postData['dCreated'] = date('Y-m-d H:i:s');
         \$postData['cCreated']=\$this->user->gNIP;
 
 
@@ -1249,8 +1249,8 @@ $html .="
 
     }
     function before_update_processor(\$row, \$postData) {
-        \$postData['dUpdate'] = date('Y-m-d H:i:s');
-        \$postData['cUpdate'] = \$this->user->gNIP;
+        \$postData['dUpdated'] = date('Y-m-d H:i:s');
+        \$postData['cUpdated'] = \$this->user->gNIP;
 
         if(\$postData['isdraft']==true){
             \$postData['iSubmit']=0;
@@ -1285,7 +1285,7 @@ $html .="
 
 
 $html .="
-    function manipulate_insert_button(\$buttons, \$rowData) { 
+    function manipulate_insert_button(\$buttons) { 
         //Load Javascript In Here 
         \$cNip= \$this->user->gNIP;
         \$js = \$this->load->view('js/standard_js');

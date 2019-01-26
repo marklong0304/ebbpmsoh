@@ -1,1 +1,0 @@
-php "C:\Scheduler\controllers\ws_batpacka_etc.php" 

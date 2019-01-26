@@ -254,7 +254,8 @@ class inbox_erp_core extends MX_Controller {
 		        $sql='select * from gps_msg.erp_inbox_details i where i.ldeleted=0 and i.istatus_read=0 and i.cnip like "%'.$this->user->gNIP.'%"';
 				$nilai=$this->db->query($sql)->num_rows();
     			$ret.='<script>';
-    			$ret.="var socket1 = io.connect( 'http://10.1.49.8:19391');";
+    			/*$ret.="var socket1 = io.connect( 'http://10.1.49.8:19391');";*/
+                $ret.="var socket1 = io.connect( 'http://localhost:19391');";
 		    	$ret.='socket1.emit("update_count_erp_message", { 
 					        new_count_erp: '.$nilai.',
 					        nip_erp:"'.$this->user->gNIP.'"
