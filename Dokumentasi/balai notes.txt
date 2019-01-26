@@ -1,0 +1,10 @@
+1. Buat Form Registrasi Untuk Customer
+	-> untuk Internal sudah ada modulnya di Aplikasi UMUM
+	-. Untuk isian yang Customer , tetang divisi dan jabatan dibuat default id nya, di mysql default value sudah disesuaikan dengan id customer
+
+2. Halam Login tampilkan logo
+
+3. Login menggunakan email perusahaan  dan password, default password nnti di generate ketika verifikasi registrasi oleh admin ,
+
+
+

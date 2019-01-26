@@ -32,7 +32,6 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class master_employee extends MX_Controller {
     function __construct() {
         parent::__construct();
-        /*$this->dbset = $this->load->database('hrd',false, true);*/
         $this->load->library('auth');
         $this->db = $this->load->database('hrd',false, true);
         $this->user = $this->auth->user();
@@ -49,12 +48,12 @@ class master_employee extends MX_Controller {
         $grid->setUrl('master_employee');
 
         //List Table
-        $grid->addList('cNip','vName','vEmail','vAddress','vTelepon','vEmail_company','vName_company','vAddress_company','vTelepon_company','vFax_company','iCompanyID','iDivisionID','iDepartementID','iPostID','vPassword','lDeleted','cCreated','dCreated','cUpdated','dUpdated'); 
+        $grid->addList('cNip','vName','vEmail','vEmail_company','vName_company'); 
         $grid->setSortBy('ID');
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('cNip','vName','vEmail','vAddress','vTelepon','vEmail_company','vName_company','vAddress_company','vTelepon_company','vFax_company','iCompanyID','iDivisionID','iDepartementID','iPostID','vPassword','lDeleted','cCreated','dCreated','cUpdated','dUpdated'); 
+        $grid->addFields('cNip','vName','vEmail','vAddress','vTelepon','iDivisionID','iDepartementID','iPostID','vPassword'); 
 
         //Setting Grid Width Name 
         /*
