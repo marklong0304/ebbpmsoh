@@ -221,13 +221,13 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class ".$createname_space." extends MX_Controller {
     function __construct() {
         parent::__construct();
-        \$this->dbset = \$this->load->database('schedulercheck',false, true);
+        /*\$this->dbset = \$this->load->database('schedulercheck',false, true);*/
         \$this->load->library('auth');
         \$this->db = \$this->load->database('hrd',false, true);
         \$this->user = \$this->auth->user();
 
-        \$checkMod = \$this->auth->modul_set(\$this->input->get('modul_id'));
-        \$this->validation =\$checkMod['iValidation'];
+       /* \$checkMod = \$this->auth->modul_set(\$this->input->get('modul_id'));
+        \$this->validation =\$checkMod['iValidation'];*/
 
     }
 
@@ -275,9 +275,9 @@ $i++;
 $html .= "
 //Example modifikasi GRID ERP
     //- Set Query
-        if (\$this->validation) {
+        /*if (\$this->validation) {
             \$grid->setQuery('lDeleted = 0 ', null); 
-        }
+        }*/
 
         
 
