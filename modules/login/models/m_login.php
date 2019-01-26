@@ -155,7 +155,8 @@ class M_login extends CI_Model{
 			foreach ($data as $row){
 				$idComp 	= $row['iCompanyId'];
 				$exp 		= explode(".", $row['vCompName']);
-				$nameComp	= $exp[0].'. '.ucwords(strtolower($exp[1]));
+				$nameComp	= $exp[0].''.$exp[1];
+				/*$nameComp	= $row['vCompName'];*/
 				$codeComp	= $row['vAcronim']; 
 				$preference[] = array( 'idComp'		=> $idComp
 									, 'nameComp'	=> $nameComp

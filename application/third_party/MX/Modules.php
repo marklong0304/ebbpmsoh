@@ -5,7 +5,7 @@
 global $CFG;
 /* get module locations from config settings or use the default module location and offset */
 is_array(Modules::$locations = $CFG->item('modules_locations')) OR Modules::$locations = array(	
-	APPPATH.'../../app_modules/' => '../../../app_modules/', 
+	APPPATH.'../../ebbpmsoh_modules/' => '../../../ebbpmsoh_modules/', 
 	APPPATH.'../modules/' => '../../modules/',
 );
 
