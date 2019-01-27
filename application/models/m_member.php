@@ -1,8 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class M_member extends CI_Model {
+	private $dbset;
 	function __construct() {
         parent::__construct();
     }
+	
+	function insert_entry($data_user) {
+		$dbset = $this->load->database('hrd', true);
+	    $dbset->insert('employee', $data_user);	
+	}
    
 	function get_activation($hash,$email) {
 		$this->db->where('hash',$hash);

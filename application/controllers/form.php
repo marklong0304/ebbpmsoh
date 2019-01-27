@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Form extends MX_Controller {
+	private $dbset;
 	private $url = 'form';
 	private $model = 'm_member';
 	private $limit = 5;
@@ -35,50 +36,52 @@ class Form extends MX_Controller {
 		//$inputCode = $this->input->post('imagecode');
 		
 		
-		//$post['hash'] = md5(rand(0,1000));
+		$nip 			= 'sdsdsss';
 		//$password = $post['vPassword'];
-		$post['vPassword'] = md5($post['vPassword']);
-		unset($post['vName']);
-		unset($post['vEmail']);
-		unset($post['vAddress']);
-		unset($post['vTelepon']);
-		unset($post['vEmail_company']);
-		unset($post['vName_company']);
-		unset($post['vAddress_company']);
-		unset($post['vTelepon_company']);
-		unset($post['vFax_company']);
+		$nama 			= $post['vName'];
+		$email 			= $post['vEmail'];
+		$alamat1 		= $post['vAddress'];
+		$telp1 			= $post['vTelepon'];
+		$emailcompany 	= $post['vEmail_company'];
+		$namacompany	= $post['vName_company'];
+		$alamat2		= $post['vAddress_company'];
+		$telpcompany	= $post['vTelepon_company'];
+		$faxcompany		= $post['vFax_company'];
+		$password		= md5($post['vPassword']);
+		
 		// $val->set_rules('recaptcha_challenge_field', 'Security Code', 'required|recaptcha_matches');
+		/*
+		$data_user = array('cNip'=>$nip,'vEmail'=>$email,'vPassword'=>$password,'vName'=>$nama,'vAddress'=>$alamat1,'vTelepon'=>$telp1,
+							'vEmail_company'=>$emailcompany,'vName_company'=>$namacompany,'vAddress_company'=>$alamat2,'vTelepon_company'=>$telpcompany
+							,'vFax_company'=>$faxcompany);
+							*/		
+		//$datanya = $this->m_member->insert_entry($post);
+		$dbset = $this->load->database('hrd', true);
+	    $datanya = $dbset->insert('employee', $post);
+		//print_r($post);exit;
 		
-		
-		$datanya = $this->db->insert('employee',$post);
-		print_r($post);exit;
-		if ($datanya) {
-			echo 1;
-		} else {
-			echo "Insert error";
-		}
-		if ($datanya == true){
-			if($this->db->insert('employee',$post)){
-				$ema=str_replace('@', '%40', $post['email']);
+			if($datanya){
+				/*
+				$ema=str_replace('@', '%40', $post['vEmail']);
 				$config['mailtype'] = 'html';
 				$config['charset'] = 'iso-8859-1';
 				$config['wordwrap'] = TRUE;
 				
 				$this->email->initialize($config);
-				$aktifasi	= anchor('home/user_activation/'.$ema.'/'.$post['hash'],'Activation Now');
+				//$aktifasi	= anchor('home/user_activation/'.$ema.'/'.$post['hash'],'Activation Now');
 				$message = ' <html>
 								<head>
 								</head>
 								<body>
 									<p>Selamat, account Anda telah sukses dibuat dengan data berikut: </p><br>
-									<p>Nama	 : '.$post['name'].'</p>
-									<p>Username : '.$post['email'].'</p>
+									<p>Nama	 : '.$post['vName'].'</p>
+									<p>Username : '.$post['vEmail'].'</p>
 									<p>Password : '.$password.'</p><br>
 									<p>Terima kasih telah mendaftarkan diri Anda sebagai member website apotik.medicastore.com dan medicastore.com.</p>
 									<p>
 										Selanjutnya lakukan verifikasi untuk mengaktifkan account Anda dengan meng-klik link dibawah ini.
 									</p>
-									<p>'.$aktifasi.'</p>
+									
 									<p>Setelah dikonfirmasi, Anda akan mendapatkan akses penuh ke website dan Forum Komentar Medicasatore.</p><br><br>
 									<p>- Medicastore Team</p>
 									<p>Media Informasi Obat dan Penyakit</p>
@@ -88,25 +91,30 @@ class Form extends MX_Controller {
 								</body>
 								</html>';
 			
-				$this->email->from('noreply@medicastore.com');
+				$this->email->from('noreply@krpl.com');
 				$this->email->to($post['email']);
 	
 				$this->email->subject('Signup | Verification');
 				$this->email->message($message);
 				
 				$this->email->send();
+				 * 
+				 */
 				echo 1;
+				redirect('success');
 				//echo $this->email->print_debugger();
 			}
 			else{
 				echo "Insert error";
 			}
-		}
-		else{
-			echo 'Kode Tidak Sama, Ulangi!';
-		}
+		
 	}
 
-
+	function success() {
+		$data['active_link']="";
+        $data['title']="Pendaftaran Sukses";
+		//$this->template->display('v_success_signup',$data);
+		$this->load->view('registrasi/success',$data);
+	}
 
 }

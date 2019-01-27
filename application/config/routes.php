@@ -47,6 +47,7 @@ $route['processor/(:any)'] = "processor";
 $route['home/(:num)'] 	   = "home/index/$1";
 //add noe
 $route['registrasi'] = "form/registrasi/";
+$route['success'] = "form/success/";
 $route['lupapassword'] = "form/lupapassword/";
 
 /* End of file routes.php */
