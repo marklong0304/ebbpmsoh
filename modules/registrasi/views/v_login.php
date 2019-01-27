@@ -231,6 +231,10 @@
 					              <h3 class="text-light-blue" >Data Pelanggan</h3>
 					            </div>
 					            <div class="form-group col-sm-12">
+				                	<label for="">NIP </label>
+				                  	<input type="text" class="form-control" id="cNip" name="cNip" placeholder="Nama anda" required="">
+				                </div>
+					            <div class="form-group col-sm-12">
 				                	<label for="">Nama </label>
 				                  	<input type="text" class="form-control" id="vName" name="vName" placeholder="Nama anda" required="">
 				                </div>
