@@ -8,7 +8,7 @@
 				baseUrl = '<?php echo site_url();?>'
 				
 			$( "#loginBox" ).dialog({
-				title:'Welcome',
+				title:'',
 				autoOpen: true,
 				width: 350,
 				modal: true,

@@ -9,7 +9,7 @@
 		<meta charset="utf-8">
 		<link rel="icon" href="<?php echo base_url()?>assets/image/button-blue.png">
 		<link rel="shortcut icon" href="assets/image/button-blue.png">
-		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>assets/themes/redmond/jquery-ui-1.9.2.custom.min.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>assets/themes/redmond/jquery-ui-1.9.2.custom.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>assets/style.css" />
 		<?php
 			$jsInclude 	= isset($jsInclude) ? $jsInclude : ""; echo $jsInclude;

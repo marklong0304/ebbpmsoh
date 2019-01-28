@@ -8,7 +8,7 @@
 				baseUrl = '<?php echo site_url();?>'
 				
 			$( "#loginBox" ).dialog({
-				title:'<?php echo $this->lang->line('login_box_header');?>',
+				title:'',
 				autoOpen: true,
 				width: 350,
 				modal: true,
@@ -147,6 +147,12 @@
 	</script>
 	
 	<div id="loginBox">
+		<div class="login-logo" align="center">
+
+				<a href="{{url('/')}}"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//logo-bbpmsoh.png' style='max-width: 100%;max-height:170px'/></a></a>
+				<h3>Portal Layanan Pengujian <br /> Sampel Obat Hewan Online
+				(e-Sampel)</h3>
+			</div><!-- /.login-logo -->
 		<p class="validateTips"></p>
 		<form id="formLogin">
 			<fieldset>
