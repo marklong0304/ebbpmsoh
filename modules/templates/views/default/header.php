@@ -226,7 +226,7 @@
 		}
 	</script>	
 </head>
-<body>
+<body style="background: url(<?php echo base_url()?>/assets/bbpmsoh/purple-background.jpg)">
 <div id="dialog-confirm" title="Confirmation" class="ui-helper-hidden">
 	<p>
 		<span class="ui-icon ui-icon-alert icon-box-alert" ></span>

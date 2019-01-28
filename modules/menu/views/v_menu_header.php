@@ -11,6 +11,7 @@ if($_SERVER["HTTP_HOST"] == 'www.npl-net.com' ||$_SERVER["HTTP_HOST"] == 'npl-ne
 }
 ?>
 <div id="topLeft" class="pullLeft"></div>
+
 <div id="topRight" class="pullRight" onmouseover="myLayout.allowOverflow('north')" onmouseout="myLayout.resetOverflow(this)">
 	<ul id="top_navigate" >
 		<li>

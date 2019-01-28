@@ -14,9 +14,9 @@
  * NOTE: For best code readability, view this with a fixed-space font and tabs equal to 4-chars
  */
  
-.ui-layout-pane { /* all 'panes' #99BCE8*/
-	background:	#FFF; 
-	border:		1px solid #99BCE8;
+.ui-layout-pane { /* all 'panes' #A54C9F*/
+	
+	border:		1px solid #A54C9F;
 	padding:	5px; 
 	overflow:	auto;
 	/* DO NOT add scrolling (or padding) to 'panes' that have a content-div,
@@ -24,6 +24,9 @@
 	   - use ui-layout-wrapper class if pane has a content-div
 	   - use ui-layout-container if pane has an inner-layout
 	*/
+}
+#westPanel {
+	background-color: #ffffff;
 }
 
 /* (scrolling) content-div inside pane allows for fixed header(s) and/or footer(s) */
@@ -57,7 +60,7 @@
  *	RESIZER-BARS
  */
 .ui-layout-resizer	{ /* all 'resizer-bars' */
-	background:		#C5DBEC;
+	background:		#A54C9F;
 	border:			1px solid #79B7E7;
 	border-width:	0;
 }
@@ -175,7 +178,7 @@ iframe.ui-layout-mask {}	/* extra mask for objects/applets */
 
 /*Custom DM Layout*/
 .northPanel{
-	background-color:#C5DBEC;
+	background-color:#A54C9F;
 	padding:3px;
 }
 

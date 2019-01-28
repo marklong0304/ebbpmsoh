@@ -25,4 +25,4 @@
 		?>
 
 </head>
-<body>
+<body style="background: url(<?php echo base_url()?>/assets/bbpmsoh/purple-background.jpg)">

@@ -1,3 +1,4 @@
+<a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//logo-bbpmsoh.png' style='max-width: 100%;max-height:170px'/></a>
 
 <div id="wrap-app">		
 	<?php		
