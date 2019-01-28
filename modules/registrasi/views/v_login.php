@@ -220,7 +220,7 @@
 			</div>
 
 			<div class="panel-body" style="padding:20px 0px 0px 0px">
-				<form class="form-horizontal" action="<?php echo base_url()?>form/prosesregis" method="post" enctype="multipart/form-data">
+				<form class="form-horizontal" action="<?php echo base_url()?>form/prosesregis" method="post" id="kirim" enctype="multipart/form-data">
 
 			
 
@@ -298,7 +298,7 @@
 							<label class="control-label col-sm-2"></label>
 							<div class="col-sm-10">
 								<a href="login" class="btn btn-default"><i class="fa fa-chevron-circle-left"></i> Back</a>								
-								<input type="submit" name="submit" value="Kirim" class="btn btn-success">
+								<input type="submit" name="" value="Kirim" class="btn btn-success">
 
 							</div>
 						</div>
