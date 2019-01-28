@@ -148,11 +148,10 @@
 	
 	<div id="loginBox">
 		<div class="login-logo" align="center">
-
-				<a href="{{url('/')}}"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//logo-bbpmsoh.png' style='max-width: 100%;max-height:170px'/></a></a>
-				<h3>Portal Layanan Pengujian <br /> Sampel Obat Hewan Online
-				(e-Sampel)</h3>
-			</div><!-- /.login-logo -->
+			<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//logo-bbpmsoh.png' style='max-width: 100%;max-height:170px'/></a></a>
+			<h3>Portal Layanan Pengujian <br /> Sampel Obat Hewan Online
+			(e-Sampel)</h3>
+		</div><!-- /.login-logo -->
 		<p class="validateTips"></p>
 		<form id="formLogin">
 			<fieldset>
@@ -160,9 +159,16 @@
 				<input type="text" name="username" id="username" class="text ui-widget-content ui-corner-all" />
 				<label for="password"><?php echo $this->lang->line('login_box_pass');?></label>
 				<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-				<label for="company"><?php echo $this->lang->line('login_box_comp');?></label>
+				<label for="company">Instansi <!-- <?php echo $this->lang->line('login_box_comp');?> --></label>
 				<select name="company" id="company" class="text ui-widget-content ui-corner-all" style="cursor:pointer;"><?php echo $getCompany;?></select>
 			</fieldset>
+			<div class='row'>
+                <div class='col-xs-12' align="left">
+                	<p style="padding:10px 0px 10px 0px">
+                	<a href='<?php echo base_url()?>registrasi'><strong>Form Registrasi</strong></a>, <br /> Jika Anda lupa Password 
+                	<a href='<?php echo base_url()?>lupapassword'><strong>Klik disini!</strong></a></p>
+                </div>
+            </div>
 		</form>
 	</div>
 	

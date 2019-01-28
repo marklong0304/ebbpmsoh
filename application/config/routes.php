@@ -45,6 +45,9 @@ $route['404_override'] = '';
 //$route['admin'] = "home";
 $route['processor/(:any)'] = "processor";
 $route['home/(:num)'] 	   = "home/index/$1";
+//add noe
+$route['registrasi'] = "form/registrasi/";
+$route['lupapassword'] = "form/lupapassword/";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
