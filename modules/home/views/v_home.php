@@ -49,23 +49,7 @@
 	
 	<br /><br />
 	
-	<div id="placeholder" style="width:600px;height:300px; ">
-		<span 
-			style='position: absolute;
-				bottom: 0;
-				padding: 10px;
-				color: #3c763d;
-background-color: #dff0d8;
-border-color: #d6e9c6;
-padding: 15px;
-margin-bottom: 20px;
-border: 1px solid transparent;
-border-radius: 4px;
-				
-				'
-				
-		><a style="text-decoration: none;" href='http://www.npl-net.com/bulletin/' target='_blank'><?php echo $vContent; ?></a></span>
-	</div>
+	
 	<!-- script language="javascript" type="text/javascript" src="<?php echo base_url()?>assets/js/chart/jquery.flot.js"></script> 
 	<script language="javascript" type="text/javascript" src="<?php echo base_url()?>assets/js/chart/jquery.flot.tooltip.min.js"></script> -->
 	<script type="text/javascript">					
