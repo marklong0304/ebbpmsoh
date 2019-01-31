@@ -69,7 +69,7 @@ $active_record = TRUE;
 $db['default']['hostname'] = $host;
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
-$db['default']['database'] = 'usersarerea_erp_privi';
+$db['default']['database'] = 'erp_privi';
 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
@@ -107,7 +107,7 @@ $db['hrd']['stricton'] = FALSE;
 $db['gps_msg']['hostname'] = $host;
 $db['gps_msg']['username'] = 'root';
 $db['gps_msg']['password'] = '';
-$db['gps_msg']['database'] = 'usersarerea_gps_msg';
+$db['gps_msg']['database'] = 'gps_msg';
 $db['gps_msg']['dbdriver'] = 'mysql';
 $db['gps_msg']['dbprefix'] = '';
 $db['gps_msg']['pconnect'] = TRUE;
