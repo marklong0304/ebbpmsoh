@@ -16,7 +16,7 @@
 				resizable: false,
 				closeText: "hide" ,
 				dialogClass: "noClose",
-				position: { my: "top-80%", at: "center", of: window  },
+				position: { my: "top-55%", at: "center", of: window  },
 				buttons: {
 					"<?php echo $this->lang->line('login_box_in');?>": function() {
 						var bValid = true;
@@ -148,7 +148,7 @@
 	
 	<div id="loginBox">
 		<div class="login-logo" align="center">
-			<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//logo-bbpmsoh.png' style='max-width: 100%;max-height:170px'/></a></a>
+			<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh/LogoBBPMSOH.png' style='max-width: 100%;max-height:170px'/></a></a>
 			<h3>Portal Layanan Pengujian <br /> Sampel Obat Hewan Online
 			(e-Sampel)</h3>
 		</div><!-- /.login-logo -->
