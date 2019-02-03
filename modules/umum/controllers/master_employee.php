@@ -497,11 +497,11 @@ class master_employee extends MX_Controller {
         $postData['cCreated']=$this->user->gNIP;
 
 
-        if($postData['isdraft']==true){
+       /* if($postData['isdraft']==true){
             $postData['iSubmit']=0;
         } else{
             $postData['iSubmit']=1;
-        } 
+        } */
 
 
         return $postData;
@@ -511,11 +511,11 @@ class master_employee extends MX_Controller {
         $postData['dUpdate'] = date('Y-m-d H:i:s');
         $postData['cUpdate'] = $this->user->gNIP;
 
-        if($postData['isdraft']==true){
+        /*if($postData['isdraft']==true){
             $postData['iSubmit']=0;
         } else{
             $postData['iSubmit']=1;
-        } 
+        } */
 
 
         return $postData; 

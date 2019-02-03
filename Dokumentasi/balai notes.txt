@@ -6,5 +6,9 @@
 
 3. Login menggunakan email perusahaan  dan password, default password nnti di generate ketika verifikasi registrasi oleh admin ,
 
+*NEED SOURCE REFFERENCE *
+	1. All Module erp 
+	2. Standard JS
 
+*NEED SOURCE REFFERENCE *
 
