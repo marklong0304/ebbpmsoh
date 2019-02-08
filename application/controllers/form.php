@@ -36,7 +36,7 @@ class Form extends MX_Controller {
 		//$inputCode = $this->input->post('imagecode');
 		
 		
-		$nip 			= 'sdsdsss';
+		$nip 			= $post['cNip'];
 		//$password = $post['vPassword'];
 		$nama 			= $post['vName'];
 		$email 			= $post['vEmail'];
@@ -47,18 +47,19 @@ class Form extends MX_Controller {
 		$alamat2		= $post['vAddress_company'];
 		$telpcompany	= $post['vTelepon_company'];
 		$faxcompany		= $post['vFax_company'];
-		$password		= md5($post['vPassword']);
+		$password5		= $post['vPassword'];
+		$password		= md5($password5);
 		
 		// $val->set_rules('recaptcha_challenge_field', 'Security Code', 'required|recaptcha_matches');
-		/*
+		
 		$data_user = array('cNip'=>$nip,'vEmail'=>$email,'vPassword'=>$password,'vName'=>$nama,'vAddress'=>$alamat1,'vTelepon'=>$telp1,
 							'vEmail_company'=>$emailcompany,'vName_company'=>$namacompany,'vAddress_company'=>$alamat2,'vTelepon_company'=>$telpcompany
 							,'vFax_company'=>$faxcompany);
-							*/		
+									
 		//$datanya = $this->m_member->insert_entry($post);
 		$dbset = $this->load->database('hrd', true);
-	    $datanya = $dbset->insert('employee', $post);
-		//print_r($post);exit;
+	    $datanya = $dbset->insert('employee', $data_user);
+		//print_r($password);exit;
 		
 			if($datanya){
 				/*
