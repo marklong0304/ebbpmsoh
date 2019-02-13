@@ -56,7 +56,7 @@ class mt01 extends MX_Controller {
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan'); 
+        $grid->addFields('iSubmit','iApprove','vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan'); 
 
         //Setting Grid Width Name 
         /*
@@ -88,6 +88,10 @@ class mt01 extends MX_Controller {
         $grid->setWidth('iCustomer', '100');
         $grid->setAlign('iCustomer', 'left');
         $grid->setLabel('iCustomer','Customer');
+    
+        $grid->setWidth('iType_pemohon', '100');
+        $grid->setAlign('iType_pemohon', 'left');
+        $grid->setLabel('iType_pemohon','Type Permohonan');
     
         $grid->setWidth('vNama_produsen', '100');
         $grid->setAlign('vNama_produsen', 'left');
@@ -193,11 +197,16 @@ class mt01 extends MX_Controller {
         $grid->changeFieldType('ideleted','combobox','',array(''=>'Pilih',0=>'Aktif',1=>'Tidak aktif'));
 */
 
+        $grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
+        $grid->changeFieldType('iApprove', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+        $grid->changeFieldType('iType_pemohon', 'combobox','',array(''=>'--select--', 1=>'Perorangan', 2=>'Perusahaan', 3=>'Dinas'));
+        $grid->changeFieldType('iSudah_beredar', 'combobox','',array(''=>'--select--', 0=>'Belum', 2=>'Sudah'));
+
     //set search
         $grid->setSearch('vNo_transaksi','vNomor','vPerihal','iCustomer','vNama_produsen','iM_tujuan_pengujian','iSubmit','iApprove');
         
     //set required
-        $grid->setRequired('vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','lDeleted','iSubmit','iApprove','dApprove','cApprove','vRemark','cCreated','dCreated','cUpdated','dUpdated'); 
+        $grid->setRequired('vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','lDeleted','iSubmit','iApprove','dApprove','cApprove','vRemark','cCreated','dCreated','cUpdated','dUpdated'); 
         $grid->setGridView('grid');
 
 
@@ -272,7 +281,7 @@ class mt01 extends MX_Controller {
     */
 
                         function insertBox_mt01_vNo_transaksi($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            $return = 'Auto Generated';
                             $return .= '<input type="hidden" name="isdraft"    class="input_rows1 " size="30"  />';
                             return $return;
                         }
@@ -402,7 +411,16 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_iM_tujuan_pengujian($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
+                            $this->db->select("*")
+                                    ->from("bbpmsoh.m_tujuan_pengujian")
+                                    ->where("lDeleted",0);
+                            $fo=$this->db->get()->result_array();
+                            $return="<select id='".$id."' name='".$field."' class='required'>";
+                            $return.="<option value=''>---Pilih---</option>";
+                            foreach ($fo as $kf => $vvf) {
+                                $return.="<option value='".$vvf['iM_tujuan_pengujian']."'>".$vvf["vNama_tujuan"]."</option>";
+                            }
+                            $return.="</select>";
                             return $return;
                         }
                         
@@ -450,7 +468,16 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_iM_jenis_sediaan($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
+                             $this->db->select("*")
+                                    ->from("bbpmsoh.m_jenis_sediaan")
+                                    ->where("lDeleted",0);
+                            $fo=$this->db->get()->result_array();
+                            $return="<select id='".$id."' name='".$field."' class='required'>";
+                            $return.="<option value=''>---Pilih---</option>";
+                            foreach ($fo as $kf => $vvf) {
+                                $return.="<option value='".$vvf['iM_jenis_sediaan']."'>".$vvf["vJenis_sediaan"]."</option>";
+                            }
+                            $return.="</select>";
                             return $return;
                         }
                         
@@ -674,34 +701,24 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_iSubmit($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
+                            $return = '-';
                             return $return;
                         }
                         
                         function updateBox_mt01_iSubmit($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
+                            $arr=array(0=>"Draft",1=>"Submited");
+                            $return=isset($arr[$value])?$arr[$value]:"-";                                
                             return $return;
                         }
                         
                         function insertBox_mt01_iApprove($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
+                            $return = '-';
                             return $return;
                         }
                         
                         function updateBox_mt01_iApprove($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
+                            $arr=array(0=>"Waiting Approval",1=>"Rejected",2=>"Approved");
+                            $return=isset($arr[$value])?$arr[$value]:"-";                                
                             return $return;
                         }
                         
@@ -866,12 +883,9 @@ class mt01 extends MX_Controller {
     }    
 
     function after_insert_processor($fields, $id, $postData) {
-        //Example After Insert
-        /*
-        $cNip = $this->sess_auth->gNIP; 
-        $sql = 'Place Query In Here';
-        $this->dbset->query($sql);
-        */
+        $nomor = "R".str_pad($id, 5, "0", STR_PAD_LEFT);
+        $sql = "UPDATE bbpmsoh.mt01 SET vNo_transaksi = '".$nomor."' WHERE iMt01=$id LIMIT 1";
+        $query = $this->db->query( $sql );
     }
 
     function after_update_processor($fields, $id, $postData) {
