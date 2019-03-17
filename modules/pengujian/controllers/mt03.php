@@ -51,12 +51,12 @@ class mt03 extends MX_Controller {
         $grid->setUrl('mt03');
 
         //List Table
-        $grid->addList('iMt01','iAda_batch','iTgl_expired','iEtiket_brosur','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','iSubmit','iApprove','dApprove','cApprove','vRemark','vCatatan','cCreated','dCreated','cUpdated','dUpdated','lDeleted'); 
+        $grid->addList('mt01.vNo_transaksi','mt01.vBatch_lot','vnomor_03','dtanggal_03','mt01.vNama_produsen','iSubmit','iApprove'); 
         $grid->setSortBy('iMt03');
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iMt01','iAda_batch','iTgl_expired','iEtiket_brosur','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','iSubmit','iApprove','dApprove','cApprove','vRemark','vCatatan','cCreated','dCreated','cUpdated','dUpdated','lDeleted'); 
+        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','iTgl_expired','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan'); 
 
         //Setting Grid Width Name 
         /*
@@ -65,29 +65,29 @@ class mt03 extends MX_Controller {
 
         */
 
-        $grid->setWidth('iMt01', '100');
-        $grid->setAlign('iMt01', 'left');
-        $grid->setLabel('iMt01','No Request');
+        $grid->setWidth('mt01.vNo_transaksi', '100');
+        $grid->setAlign('mt01.vNo_transaksi', 'left');
+        $grid->setLabel('mt01.vNo_transaksi','No Request');
     
-        $grid->setWidth('iAda_batch', '100');
-        $grid->setAlign('iAda_batch', 'left');
-        $grid->setLabel('iAda_batch','No Batch');
+        $grid->setWidth('mt01.vBatch_lot', '100');
+        $grid->setAlign('mt01.vBatch_lot', 'left');
+        $grid->setLabel('mt01.vBatch_lot','No Batch');
     
-        $grid->setWidth('iTgl_expired', '100');
-        $grid->setAlign('iTgl_expired', 'left');
-        $grid->setLabel('iTgl_expired','Tanggal Kadaluarsa');
+        $grid->setWidth('mt01.vNama_produsen', '200');
+        $grid->setAlign('mt01.vNama_produsen', 'left');
+        $grid->setLabel('mt01.vNama_produsen','Produsen');
     
-        $grid->setWidth('iEtiket_brosur', '100');
-        $grid->setAlign('iEtiket_brosur', 'left');
-        $grid->setLabel('iEtiket_brosur','iEtiket_brosur ');
+        $grid->setWidth('vnomor_03', '100');
+        $grid->setAlign('vnomor_03', 'left');
+        $grid->setLabel('vnomor_03','Nomor');
     
-        $grid->setWidth('iM_jenis_brosur', '100');
-        $grid->setAlign('iM_jenis_brosur', 'left');
-        $grid->setLabel('iM_jenis_brosur','Etiket ,Brosur ,Komposisi');
+        $grid->setWidth('dtanggal_03', '100');
+        $grid->setAlign('dtanggal_03', 'left');
+        $grid->setLabel('dtanggal_03','Tanggal');
     
-        $grid->setWidth('iReq_permohonan', '100');
-        $grid->setAlign('iReq_permohonan', 'left');
-        $grid->setLabel('iReq_permohonan','Permohonan Pengujian dari Perusahaan ybs');
+        $grid->setWidth('iM_tujuan_pengujian', '100');
+        $grid->setAlign('iM_tujuan_pengujian', 'left');
+        $grid->setLabel('iM_tujuan_pengujian','Tujuan Pengujian');
     
         $grid->setWidth('iPengantar_direktorat', '100');
         $grid->setAlign('iPengantar_direktorat', 'left');
@@ -109,6 +109,20 @@ class mt03 extends MX_Controller {
         $grid->setAlign('iApprove', 'left');
         $grid->setLabel('iApprove','Status Approval');
     
+        $grid->setLabel('iMt01','No Request');
+        $grid->setLabel('vNama_tujuan','Tujuan Pengujian');
+        $grid->setLabel('vCompName','Pemohon');
+        $grid->setLabel('vNama_sample','Nama Obat Hewan');
+        $grid->setLabel('vNama_produsen','Produsen');
+        $grid->setLabel('iAda_batch','Nomor Batch');
+        $grid->setLabel('iTgl_expired','Tanggal Kadaluarsa');
+        $grid->setLabel('iM_jenis_brosur','Etiket/Brosur/Komposisi');
+        $grid->setLabel('iReq_permohonan','Permohonan Pengujian dari Perusahaan ybs.');
+        $grid->setLabel('iPengantar_direktorat','Pengantar dari Direktorat Kesehatan Hewan');
+        $grid->setLabel('iHasil_ppoh','Hasil Rapat PPOH');
+        $grid->setLabel('iBahan_standard','Bahan Standart/Antigen Antiserum');
+        $grid->setLabel('tCatatan','Catatan');
+
 //Example modifikasi GRID ERP
     //- Set Query
         /*if ($this->validation) {
@@ -130,11 +144,14 @@ class mt03 extends MX_Controller {
 */
 
     //set search
-        $grid->setSearch('iMt01','iAda_batch','iTgl_expired');
+        $grid->setJoinTable('bbpmsoh.mt01', 'mt01.iMt01 = bbpmsoh.mt03.iMt01', 'inner');
+        $grid->setSearch('mt01.vNo_transaksi','mt01.vBatch_lot','mt01.vNama_produsen');
         
     //set required
-        $grid->setRequired('iMt01','iAda_batch','iTgl_expired','iEtiket_brosur','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','iSubmit','iApprove','dApprove','cApprove','vRemark','vCatatan','cCreated','dCreated','cUpdated','dUpdated','lDeleted'); 
+        $grid->setRequired('iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','iTgl_expired','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard'); 
         $grid->setGridView('grid');
+        $grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
+        $grid->changeFieldType('iApprove', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 
 
         switch ($action) {
@@ -167,26 +184,22 @@ class mt03 extends MX_Controller {
         
             case 'delete':
                     echo $grid->delete_row();
-                    break; 
-            /*
-                //Ini Merupakan Standart Case Untuk Approve
-
-                case 'approve':
-                    echo $this->approve_view();
-                    break;
-                case 'approve_process':
-                    echo $this->approve_process();
-                    break;
-                case 'reject':
-                    echo $this->reject_view();
-                    break;
-                case 'reject_process':
-                    echo $this->reject_process();
                     break;
 
-                
-            */ 
-                case 'download':
+           case 'approve':
+                echo $this->approve_view();
+                break;
+            case 'approve_process':
+                echo $this->approve_process();
+                break;
+            case 'reject':
+                echo $this->reject_view();
+                break;
+            case 'reject_process':
+                echo $this->reject_process();
+                break;
+
+            case 'download':
                     $this->download($this->input->get('file'));
                     break;
             default:
@@ -198,361 +211,488 @@ class mt03 extends MX_Controller {
 
 
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
-    /* 
-    function listBox_Action($row, $actions) {
-        if ($row->vNo_Or<>'' || $row->vNo_Or<>NULL) { 
+     function listBox_Action($row, $actions) {
+        if ($row->iApprove>0) { 
                 unset($actions['edit']);
+        }
+        if ($row->iSubmit>0) { 
+                unset($actions['delete']);
         }
         return $actions;
     } 
-    */
 
-                        function insertBox_mt03_iMt01($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iMt01($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iAda_batch($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iAda_batch($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iTgl_expired($field, $id) {
-                            $pilihan = array(0=>'--Pilih--',1=>'Satu', 2=>'Dua');
-                            $return = '<select class="input_rows1 required" name="'.$field.'"  id="'.$id.'">';            
-                            foreach($pilihan as $k=>$v) {
-                                $return .= '<option value="'.$k.'">'.$v.'</option>';
-                            }            
-                            $return .= '</select>';
-
-                        
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iTgl_expired($field, $id, $value, $rowData) {
-                            $pilihan = array(0=>'--Pilih--',1=>'Satu', 2=>'Dua');
-                            if ($this->input->get('action') == 'view') {
-                                $return = $pilihan[$value];
-                            } else {
-                                $return = '<select class="input_rows1 required" name="'.$field.'"  id="'.$id.'">';            
-                                foreach($pilihan as $k=>$v) {
-                                    if ($k == $value) $selected = ' selected';
-                                    else $selected = '';
-                                    $return .= '<option '.$selected.' value="'.$k.'">'.$v.'</option>';
-                                }            
-                                $return .= '</select>';
-                            }
-                                
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iEtiket_brosur($field, $id) {
-                            $pilihan = array(0=>'--Pilih--',1=>'Satu', 2=>'Dua');
-                            $return = '<select class="input_rows1 required" name="'.$field.'"  id="'.$id.'">';            
-                            foreach($pilihan as $k=>$v) {
-                                $return .= '<option value="'.$k.'">'.$v.'</option>';
-                            }            
-                            $return .= '</select>';
-
-                        
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iEtiket_brosur($field, $id, $value, $rowData) {
-                            $pilihan = array(0=>'--Pilih--',1=>'Satu', 2=>'Dua');
-                            if ($this->input->get('action') == 'view') {
-                                $return = $pilihan[$value];
-                            } else {
-                                $return = '<select class="input_rows1 required" name="'.$field.'"  id="'.$id.'">';            
-                                foreach($pilihan as $k=>$v) {
-                                    if ($k == $value) $selected = ' selected';
-                                    else $selected = '';
-                                    $return .= '<option '.$selected.' value="'.$k.'">'.$v.'</option>';
-                                }            
-                                $return .= '</select>';
-                            }
-                                
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iM_jenis_brosur($field, $id) {
-                            $pilihan = array(0=>'--Pilih--',1=>'Satu', 2=>'Dua');
-                            $return = '<select class="input_rows1 required" name="'.$field.'"  id="'.$id.'">';            
-                            foreach($pilihan as $k=>$v) {
-                                $return .= '<option value="'.$k.'">'.$v.'</option>';
-                            }            
-                            $return .= '</select>';
-
-                        
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iM_jenis_brosur($field, $id, $value, $rowData) {
-                            $pilihan = array(0=>'--Pilih--',1=>'Satu', 2=>'Dua');
-                            if ($this->input->get('action') == 'view') {
-                                $return = $pilihan[$value];
-                            } else {
-                                $return = '<select class="input_rows1 required" name="'.$field.'"  id="'.$id.'">';            
-                                foreach($pilihan as $k=>$v) {
-                                    if ($k == $value) $selected = ' selected';
-                                    else $selected = '';
-                                    $return .= '<option '.$selected.' value="'.$k.'">'.$v.'</option>';
-                                }            
-                                $return .= '</select>';
-                            }
-                                
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iReq_permohonan($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iReq_permohonan($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iPengantar_direktorat($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iPengantar_direktorat($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iHasil_ppoh($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iHasil_ppoh($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iBahan_standard($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iBahan_standard($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iSubmit($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iSubmit($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-                        function insertBox_mt03_iApprove($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" />';
-                            return $return;
-                        }
-                        
-                        function updateBox_mt03_iApprove($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
-
-                                }
-                                
-                            return $return;
-                        }
-                        
-    /*
-        //Ini Merupakan Standart Approve yang digunakan di erp
-        function approve_view() {
-            $echo = '<script type="text/javascript">
-                         function submit_ajax(form_id) {
-                            return $.ajax({
-                                url: $("#"+form_id).attr("action"),
-                                type: $("#"+form_id).attr("method"),
-                                data: $("#"+form_id).serialize(),
-                                success: function(data) {
-                                    var o = $.parseJSON(data);
-                                    var last_id = o.last_id;
-                                    var url = "'.base_url().'processor/pengujian/mt03";                             
-                                    if(o.status == true) { 
-                                        $("#alert_dialog_form").dialog("close");
-                                             $.get(url+"?action=update&id="+last_id, function(data) {
-                                             $("div#form_mt03").html(data);
-                                             
-                                        });
-                                        
-                                    }
-                                        reload_grid("grid_mt03");
-                                }
-                                
-                             })
-                         }
-                     </script>';
-            $echo .= '<h1>Approve</h1><br />';
-            $echo .= '<form id="form_mt03_approve" action="'.base_url().'processor/pengujian/mt03?action=approve_process" method="post">';
-            $echo .= '<div style="vertical-align: top;">';
-            $echo .= 'Remark : 
-                    <input type="hidden" name="iMt03" value="'.$this->input->get('iMt03').'" />
-                    <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
-                    <input type="hidden" name="lvl" value="'.$this->input->get('lvl').'" />
-                    <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
-                    
-                    <textarea name="vRemark"></textarea>
-            <button type="button" onclick="submit_ajax(\'form_mt03_approve\')">Approve</button>';
-                
-            $echo .= '</div>';
-            $echo .= '</form>';
-            return $echo;
-        } 
-
-        function approve_process() {
-            $post = $this->input->post();
-            $cNip= $this->user->gNIP;
-            $vName= $this->user->gName;
-            $iMt03 = $post['iMt03'];
-            $vRemark = $post['vRemark'];
-            $lvl = $post['lvl'];
-
-            //Letakan Query Update approve disini
-
-            $data['status']  = true;
-            $data['last_id'] = $post['iMt03'];
-            return json_encode($data);
-        }
-    */
-
-
-    /*
-        //Ini Merupakan Standart Reject yang digunakan di erp
-        function reject_view() {
-            $echo = '<script type="text/javascript">
-                         function submit_ajax(form_id) {
-                            var remark = $("#mt03_remark").val();
-                            if (remark=="") {
-                                alert("Remark tidak boleh kosong ");
-                                return
-                            }
-
-                            return $.ajax({
-                                url: $("#"+form_id).attr("action"),
-                                type: $("#"+form_id).attr("method"),
-                                data: $("#"+form_id).serialize(),
-                                success: function(data) {
-                                    var o = $.parseJSON(data);
-                                    var last_id = o.last_id;
-                                    var url = "'.base_url().'processor/pengujian/mt03";                             
-                                    if(o.status == true) { 
-                                        $("#alert_dialog_form").dialog("close");
-                                             $.get(url+"?action=update&id="+last_id, function(data) {
-                                             $("div#form_mt03").html(data);
-                                             
-                                        });
-                                        
-                                    }
-                                        reload_grid("grid_mt03");
-                                }
-                                
-                             })
-                         }
-                     </script>';
-            $echo .= '<h1>Reject</h1><br />';
-            $echo .= '<form id="form_mt03_reject" action="'.base_url().'processor/pengujian/mt03?action=reject_process" method="post">';
-            $echo .= '<div style="vertical-align: top;">';
-            $echo .= 'Remark : 
-                    <input type="hidden" name="iMt03" value="'.$this->input->get('iMt03').'" />
-                    <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
-                    <input type="hidden" name="lvl" value="'.$this->input->get('lvl').'" />
-                    <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
-                    
-                    <textarea name="vRemark" id="reject_mt03_remark"></textarea>
-            <button type="button" onclick="submit_ajax(\'form_mt03_reject\')">Reject</button>';
-                
-            $echo .= '</div>';
-            $echo .= '</form>';
-            return $echo;
+        function insertBox_mt03_imt01($field, $id) {
+            $return = '<script>
+                    $( "button.icon_pop" ).button({
+                        icons: {
+                            primary: "ui-icon-newwin"
+                        },
+                        text: false
+                    })
+                </script>';
+                    $return .= '<input type="hidden" name="isdraft" id="isdraft">';
+                    $return .= '<input type="hidden" name="'.$id.'" id="'.$id.'" class="input_rows1 required" />';
+                    $return .= '<input type="text" name="'.$id.'_dis" disabled="TRUE" id="'.$id.'_dis" class="input_rows1" size="20" />';
+                    $return .= '&nbsp;<button class="icon_pop"  onclick="browse(\''.base_url().'processor/pengujian/mt03_popup?field=mt03&last_id=0&modul_id='.$this->input->get('modul_id').'\',\'List UPB\')" type="button">&nbsp;</button>';
+            return $return;
         }
 
+        function insertBox_mt03_vnomor_03($field, $id) {
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="35" />';
+             return $return;
+        }
+        function insertBox_mt03_dtanggal_03($field, $id) {
+            $return = '<input name="'.$id.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
+            $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        </script>';
+            return $return;
+        }
+        function insertBox_mt03_iM_tujuan_pengujian($field, $id) {
+            $return = '<input name="'.$id.'" id="'.$id.'" type="text" size="35" class="input_tgl"/>';
+            return $return;
+        }
+        function insertBox_mt03_vNama_tujuan($field, $id) {
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'" disabled="TRUE"  class="input_rows1 required" size="35" />';
+             return $return;
+        }
+        function insertBox_mt03_vCompName($field, $id) {
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'" disabled="TRUE"  class="input_rows1 required" size="35" />';
+             return $return;
+        }
+        function insertBox_mt03_vNama_sample($field, $id) {
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'" disabled="TRUE"  class="input_rows1 required" size="35" />';
+             return $return;
+        }
+        function insertBox_mt03_iAda_batch($field, $id) {
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="text" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            return $return;
+        }
+        function insertBox_mt03_vNama_produsen($field, $id) {
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'" disabled="TRUE" class="input_rows1 required" size="35" />';
+             return $return;
+        }
+        function insertBox_mt03_iTgl_expired($field, $id) {
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="text" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            return $return;
+        }
+        function insertBox_mt03_iM_jenis_brosur($field, $id) {
+            $this->db->where('lDeleted',0);
+            $data=$this->db->get('bbpmsoh.m_jenis_brosur')->result_array();
+            $return="";
+            $return.='<select name="'.$field.'"  id="'.$id.'" class="required">';
+            $return.='<option value="0">Tidak Ada</option>';
+            foreach ($data as $kd => $vd) {
+                $return.='<option value="'.$vd['iM_jenis_brosur'].'">'.$vd['vJenis_brosur'].'</option>';
+            }
+            $return.='</select>';
+            return $return;
+        }
+        function insertBox_mt03_iReq_permohonan($field, $id) {
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            return $return;
+        }
+        function insertBox_mt03_iPengantar_direktorat($field, $id) {
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            return $return;
+        }
+        function insertBox_mt03_iHasil_ppoh($field, $id) {
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            return $return;
+        }
+        function insertBox_mt03_iBahan_standard($field, $id) {
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            return $return;
+        }
 
+        function updateBox_mt03_imt01($field, $id, $value, $rowData) {
+              $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+                $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                    ->from('bbpmsoh.mt01')
+                    ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                    ->where($where);
+                $row=$this->db->get()->row_array();
+            $return = '<script>
+                    $( "button.icon_pop" ).button({
+                        icons: {
+                            primary: "ui-icon-newwin"
+                        },
+                        text: false
+                    })
+                </script>';
+                    $return .= '<input type="hidden" name="isdraft" id="isdraft">';
+                    $return .= '<input type="hidden" name="'.$id.'" id="'.$id.'" class="input_rows1 required" value="'.$row['iMt01'].'" />';
+                    $return .= '<input type="text" name="'.$id.'_dis" disabled="TRUE" id="'.$id.'_dis" value="'.$row['vNo_transaksi'].'" class="input_rows1" size="20" />';
+                    $return .= '&nbsp;<button class="icon_pop"  onclick="browse(\''.base_url().'processor/pengujian/mt03_popup?field=mt03&last_id=0&modul_id='.$this->input->get('modul_id').'\',\'List UPB\')" type="button">&nbsp;</button>';
+            if($this->input->get('action')=='view'){
+                $return=$row['vNo_transaksi'];
+            }
+            return $return;
+        }
+
+        function updateBox_mt03_vnomor_03($field, $id, $value, $rowData) {
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="35" value="'.$value.'" />';
+            if($this->input->get('action')=='view'){
+                $return=$value;
+            }
+             return $return;
+        }
+        function updateBox_mt03_dtanggal_03($field, $id, $value, $rowData) {
+            $return = '<input value="'.$value.'" name="'.$id.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
+            $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        </script>';
+            if($this->input->get('action')=='view'){
+                $return=$value;
+            }
+            return $return;
+        }
+        function updateBox_mt03_iM_tujuan_pengujian($field, $id, $value, $rowData) {
+            $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $return = '<input name="'.$id.'" id="'.$id.'" type="text" value="'.$row['vNama_tujuan'].'" size="35" class="input_tgl"/>';
+            if($this->input->get('action')=='view'){
+                $return=$row['vNama_tujuan'];
+            }
+            return $return;
+        }
+        function updateBox_mt03_vNama_tujuan($field, $id, $value, $rowData) {
+           $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $return = '<input name="'.$id.'" id="'.$id.'" type="text" value="'.$row['vNama_tujuan'].'" size="35" />';
+            if($this->input->get('action')=='view'){
+                $return=$row['vNama_tujuan'];
+            }
+            return $return;
+        }
+        function updateBox_mt03_vCompName($field, $id, $value, $rowData) {
+             $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan,company.vCompName')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->join('hrd.company', 'company.iCompanyId = mt01.iCustomer', 'left')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $vCompName=str_replace('. ','',$row['vCompName']);
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'" disabled="TRUE" value="'.$vCompName.'" class="input_rows1 required" size="35" />';
+            if($this->input->get('action')=='view'){
+                $return=$vCompName;
+            }
+            return $return;
+        }
+        function updateBox_mt03_vNama_sample($field, $id, $value, $rowData) {
+            $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['vNama_sample'];
+            $return = '<input type="text" value="'.$value.'" name="'.$field.'"  id="'.$id.'" disabled="TRUE"  class="input_rows1 required" size="35" />';
+            if($this->input->get('action')=='view'){
+                $return=$value;
+            }
+            return $return;
+        }
+        function updateBox_mt03_iAda_batch($field, $id, $value, $rowData) {
+            $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $iada=$value==1?'checked':'';
+            $itada=$value==0?'checked':'';
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['vBatch_lot'];
+            $disable=' ';
+            if($this->input->get('action')=='view'){
+                $disable=' disabled="TRUE"';
+            }
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp<input type="text" value="'.$value.'" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            return $return;
+        }
+        function updateBox_mt03_vNama_produsen($field, $id, $value, $rowData) {
+            $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['vNama_produsen'];
+            $return = '<input type="text" name="'.$field.'" value="'.$value.'" id="'.$id.'" disabled="TRUE" class="input_rows1 required" size="35" />';
+            if($this->input->get('action')=='view'){
+                $return=$value;
+            }
+             return $return;
+        }
+        function updateBox_mt03_iTgl_expired($field, $id, $value, $rowData) {
+            $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $iada=$value==1?'checked':'';
+            $itada=$value==0?'checked':'';
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['dTgl_kadaluarsa'];
+            $disable=' ';
+            if($this->input->get('action')=='view'){
+                $disable=' disabled="TRUE"';
+            }
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" '.$iada.$disable.' value="1" /> Ada &nbsp&nbsp&nbsp<input type="text" value="'.$value.'" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            return $return;
+        }
+        function updateBox_mt03_iM_jenis_brosur($field, $id, $value, $rowData) {
+            $this->db->where('lDeleted',0);
+            $data=$this->db->get('bbpmsoh.m_jenis_brosur')->result_array();
+            $return="";
+            $nilai="";
+            $return.='<select name="'.$field.'"  id="'.$id.'" class="required">';
+            $return.='<option value="0">Tidak Ada</option>';
+            foreach ($data as $kd => $vd) {
+                $select=$value==$vd['iM_jenis_brosur']?'selected':'';
+                if($value==$vd['iM_jenis_brosur']){
+                    $nilai=$vd["vJenis_brosur"];
+                }
+                $return.='<option value="'.$vd['iM_jenis_brosur'].'" '.$select.'>'.$vd['vJenis_brosur'].'</option>';
+            }
+            $return.='</select>';
+            if($this->input->get('action')=='view'){
+                $return=$nilai;
+            }
+            return $return;
+        }
+        function updateBox_mt03_iReq_permohonan($field, $id, $value, $rowData) {
+            $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $iada=$value==1?'checked':'';
+            $itada=$value==0?'checked':'';
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['vBatch_lot'];
+            $disable=' ';
+            if($this->input->get('action')=='view'){
+                $disable=' disabled="TRUE"';
+            }
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            return $return;
+        }
+        function updateBox_mt03_iPengantar_direktorat($field, $id, $value, $rowData) {
+            $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $iada=$value==1?'checked':'';
+            $itada=$value==0?'checked':'';
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['vBatch_lot'];
+            $disable=' ';
+            if($this->input->get('action')=='view'){
+                $disable=' disabled="TRUE"';
+            }
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            return $return;
+        }
+        function updateBox_mt03_iHasil_ppoh($field, $id, $value, $rowData) {
+             $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $iada=$value==1?'checked':'';
+            $itada=$value==0?'checked':'';
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['vBatch_lot'];
+            $disable=' ';
+            if($this->input->get('action')=='view'){
+                $disable=' disabled="TRUE"';
+            }
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            return $return;
+        }
+        function updateBox_mt03_iBahan_standard($field, $id, $value, $rowData) {
+             $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
+            $iada=$value==1?'checked':'';
+            $itada=$value==0?'checked':'';
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                ->from('bbpmsoh.mt01')
+                ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                ->where($where);
+            $row=$this->db->get()->row_array();
+            $value=$row['vBatch_lot'];
+            $disable=' ';
+            if($this->input->get('action')=='view'){
+                $disable=' disabled="TRUE"';
+            }
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            return $return;
+        }
         
-        function reject_process() {
-            $post = $this->input->post();
-            $cNip= $this->user->gNIP;
-            $vName= $this->user->gName;
-            $iMt03 = $post['iMt03'];
-            $vRemark = $post['vRemark'];
-            $lvl = $post['lvl'];
+        function updateBox_mt03_mt01__vNo_transaksi($field, $id, $value, $rowData) {
+                if ($this->input->get('action') == 'view') {
+                     $return= $value; 
+                }else{ 
+                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 angka required" size="10" value="'.$value.'"/>';
 
-            //Letakan Query Update approve disini
-
-            $data['status']  = true;
-            $data['last_id'] = $post['iMt03'];
-            return json_encode($data);
+                }
+                
+            return $return;
         }
-    */
+        
+        function insertBox_mt03_iSubmit($field, $id) {
+            $return = '-';
+            return $return;
+        }
+        
+        function updateBox_mt03_iSubmit($field, $id, $value, $rowData) {
+            $arr=array(0=>"Draft",1=>"Submited");
+            $return=isset($arr[$value])?$arr[$value]:"-";                                
+            return $return;
+        }
+        
+        function insertBox_mt03_iApprove($field, $id) {
+            $return = '-';
+            return $return;
+        }
+        
+        function updateBox_mt03_iApprove($field, $id, $value, $rowData) {
+            $arr=array(0=>"Waiting Approval",1=>"Rejected",2=>"Approved");
+            $return=isset($arr[$value])?$arr[$value]:"-";                                
+            return $return;
+        }
+                        
+   function approve_view() {
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;                            
+                                if(o.status == true) {
+                                    $("#alert_dialog_form").dialog("close");
+                                        $.get(base_url+"processor/pengujian/mt03?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                             $("div#form_mt03").html(data);
+                                        });
+                                    
+                                }
+                                    reload_grid("grid_mt03");
+                            }
+                            
+                         })
+                     }
+                 </script>';
+        $echo .= '<h1>Approval</h1><br />';
+        $echo .= '<form id="form_mt03_approve" action="'.base_url().'processor/pengujian/mt03?action=approve_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_mt03_approve\')">Approve</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    }
+
+    function approve_process(){
+        $post = $this->input->post();
+        $dataupdate['cUpdated']= $this->user->gNIP;
+        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
+        $dataupdate['cApprove']= $this->user->gNIP;
+        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark']= $post['vRemark'];
+        $dataupdate['iApprove']= 2;
+        $this->db->where('iMt03',$post['last_id'])
+                    ->update('bbpmsoh.mt03',$dataupdate);
+
+        $data['group_id']=$post['group_id'];
+        $data['modul_id']=$post['modul_id'];
+        $data['status']  = true;
+        $data['last_id'] = $post['last_id'];
+        
+        return json_encode($data);
+    }
+
+    function reject_view() {
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+                        var remark = $("#reject_mt03_vRemark").val();
+                        if (remark=="") {
+                            alert("Remark tidak boleh kosong ");
+                            return
+                        }
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;
+                                var url = "'.base_url().'processor/pengujian/mt03";                             
+                                if(o.status == true) {
+                                    
+                                    $("#alert_dialog_form").dialog("close");
+                                         $.get(url+"?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                         $("div#form_mt03").html(data);
+                                    });
+                                    
+                                }
+                                    reload_grid("grid_mt03");
+                            }
+                            
+                         })
+                    
+                     }
+                 </script>';
+        $echo .= '<h1>Reject</h1><br />';
+        $echo .= '<form id="form_mt03_reject" action="'.base_url().'processor/pengujian/mt03?action=reject_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_mt03_reject\')">Reject</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    }
+
+    function reject_process () {
+         $post = $this->input->post();
+        $dataupdate['cUpdated']= $this->user->gNIP;
+        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
+        $dataupdate['cApprove']= $this->user->gNIP;
+        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark']= $post['vRemark'];
+        $dataupdate['iApprove']= 1;
+        $this->db->where('iMt03',$post['last_id'])
+                    ->update('bbpmsoh.mt03',$dataupdate);
+        $data['group_id']=$post['group_id'];
+        $data['modul_id']=$post['modul_id'];
+        $data['status']  = true;
+        $data['last_id'] = $post['last_id'];
+        
+        return json_encode($data);
+    }
 
 
     //Standart Setiap table harus memiliki dCreated , cCreated, dUpdated, cUpdated
@@ -635,8 +775,8 @@ class mt03 extends MX_Controller {
         $update_draft = '<button onclick="javascript:update_draft_btn(\'mt03\', \' '.base_url().'processor/pengujian/mt03?draft=true \',this,true )"  id="button_update_draft_mt03"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\'mt03\', \' '.base_url().'processor/pengujian/mt03?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_mt03"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
 
-        $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=approve&iMt03='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_mt03"  class="ui-button-text icon-save" >Approve</button>';
-        $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=reject&iMt03='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_mt03"  class="ui-button-text icon-save" >Reject</button>';
+        $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_mt03"  class="ui-button-text icon-save" >Approve</button>';
+        $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=reject&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_mt03"  class="ui-button-text icon-save" >Reject</button>';
         
 
 
@@ -645,7 +785,11 @@ class mt03 extends MX_Controller {
             unset($buttons['update']);
         }
         else{ 
-            $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
+                $buttons['update'] = $iframe.$approve.$reject;
+            }
         }
         
         return $buttons;

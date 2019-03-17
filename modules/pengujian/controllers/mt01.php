@@ -99,7 +99,7 @@ class mt01 extends MX_Controller {
     
         $grid->setWidth('vAlamat_produsen', '100');
         $grid->setAlign('vAlamat_produsen', 'left');
-        $grid->setLabel('vAlamat_produsen','Alamat Produses');
+        $grid->setLabel('vAlamat_produsen','Alamat Produsen');
     
         $grid->setWidth('iM_tujuan_pengujian', '100');
         $grid->setAlign('iM_tujuan_pengujian', 'left');
@@ -207,6 +207,12 @@ class mt01 extends MX_Controller {
         
     //set required
         $grid->setRequired('vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','lDeleted','iSubmit','iApprove','dApprove','cApprove','vRemark','cCreated','dCreated','cUpdated','dUpdated'); 
+
+        $grid->setQuery('mt01.lDeleted', 0); 
+
+        $grid->setRelation('iM_tujuan_pengujian','bbpmsoh.m_tujuan_pengujian','iM_tujuan_pengujian','vNama_tujuan','','inner',array('lDeleted'=>0),array('cKode'=>'asc'));
+        $grid->setRelation('iM_jenis_sediaan','bbpmsoh.m_jenis_sediaan','iM_jenis_sediaan','vJenis_sediaan','','inner',array('lDeleted'=>0),array('vJenis_sediaan'=>'asc'));
+
         $grid->setGridView('grid');
 
 
@@ -259,6 +265,20 @@ class mt01 extends MX_Controller {
 
                 
             */ 
+
+            case 'approve':
+                echo $this->approve_view();
+                break;
+            case 'approve_process':
+                echo $this->approve_process();
+                break;
+            case 'reject':
+                echo $this->reject_view();
+                break;
+            case 'reject_process':
+                echo $this->reject_process();
+                break;
+
                 case 'download':
                     $this->download($this->input->get('file'));
                     break;
@@ -271,14 +291,17 @@ class mt01 extends MX_Controller {
 
 
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
-    /* 
+     
     function listBox_Action($row, $actions) {
-        if ($row->vNo_Or<>'' || $row->vNo_Or<>NULL) { 
+        if ($row->iApprove>0) { 
                 unset($actions['edit']);
+        }
+        if ($row->iSubmit>0) { 
+                unset($actions['delete']);
         }
         return $actions;
     } 
-    */
+    
 
                         function insertBox_mt01_vNo_transaksi($field, $id) {
                             $return = 'Auto Generated';
@@ -290,8 +313,8 @@ class mt01 extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
-                                    $return .= '<input type="hidden" name="isdraft"   class="input_rows1 " size="30"  />';
+                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" readonly="readonly" size="30" value="'.$value.'"/>';
+                                    $return .= '<input type="hidden" name="isdraft" readonly="readonly" class="input_rows1 " size="30"  />';
 
                                 }
                                 
@@ -410,7 +433,7 @@ class mt01 extends MX_Controller {
                             return $return;
                         }
                         
-                        function insertBox_mt01_iM_tujuan_pengujian($field, $id) {
+                       /* function insertBox_mt01_iM_tujuan_pengujian($field, $id) {
                             $this->db->select("*")
                                     ->from("bbpmsoh.m_tujuan_pengujian")
                                     ->where("lDeleted",0);
@@ -433,7 +456,7 @@ class mt01 extends MX_Controller {
                                 }
                                 
                             return $return;
-                        }
+                        }*/
                         
                         function insertBox_mt01_vTujuan_pengujian_ket($field, $id) {
                             $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
@@ -467,7 +490,7 @@ class mt01 extends MX_Controller {
                             return $return;
                         }
                         
-                        function insertBox_mt01_iM_jenis_sediaan($field, $id) {
+                        /*function insertBox_mt01_iM_jenis_sediaan($field, $id) {
                              $this->db->select("*")
                                     ->from("bbpmsoh.m_jenis_sediaan")
                                     ->where("lDeleted",0);
@@ -506,7 +529,7 @@ class mt01 extends MX_Controller {
                                 }
                                 
                             return $return;
-                        }
+                        }*/
                         
                         function insertBox_mt01_vZat_aktif($field, $id) {
                             $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
@@ -918,7 +941,7 @@ class mt01 extends MX_Controller {
     function manipulate_update_button($buttons, $rowData) { 
         $peka=$rowData['iMt01'];
 
-
+         unset($buttons['update']);
         //Load Javascript In Here 
         $cNip= $this->user->gNIP;
         $js = $this->load->view('js/standard_js');
@@ -929,8 +952,8 @@ class mt01 extends MX_Controller {
         $update_draft = '<button onclick="javascript:update_draft_btn(\'mt01\', \' '.base_url().'processor/pengujian/mt01?draft=true \',this,true )"  id="button_update_draft_mt01"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\'mt01\', \' '.base_url().'processor/pengujian/mt01?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_mt01"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
 
-        $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt01?action=approve&iMt01='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_mt01"  class="ui-button-text icon-save" >Approve</button>';
-        $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt01?action=reject&iMt01='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_mt01"  class="ui-button-text icon-save" >Reject</button>';
+        $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt01?action=approve&last_id='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_mt01"  class="ui-button-text icon-save" >Approve</button>';
+        $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt01?action=reject&last_id='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_mt01"  class="ui-button-text icon-save" >Reject</button>';
         
 
 
@@ -939,7 +962,11 @@ class mt01 extends MX_Controller {
             unset($buttons['update']);
         }
         else{ 
-            $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
+                $buttons['update'] = $iframe.$approve.$reject;
+            }
         }
         
         return $buttons;
@@ -966,6 +993,129 @@ class mt01 extends MX_Controller {
         force_download($name, $path);
 
 
+    }
+
+    function approve_view() {
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;                            
+                                if(o.status == true) {
+                                    $("#alert_dialog_form").dialog("close");
+                                        $.get(base_url+"processor/pengujian/mt01?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                             $("div#form_mt01").html(data);
+                                        });
+                                    
+                                }
+                                    reload_grid("grid_mt01");
+                            }
+                            
+                         })
+                     }
+                 </script>';
+        $echo .= '<h1>Approval</h1><br />';
+        $echo .= '<form id="form_mt01_approve" action="'.base_url().'processor/pengujian/mt01?action=approve_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_mt01_approve\')">Approve</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    }
+
+    function approve_process(){
+        $post = $this->input->post();
+        $dataupdate['cUpdated']= $this->user->gNIP;
+        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
+        $dataupdate['cApprove']= $this->user->gNIP;
+        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark']= $post['vRemark'];
+        $dataupdate['iApprove']= 2;
+        $this->db->where('iMt01',$post['last_id'])
+                    ->update('bbpmsoh.mt01',$dataupdate);
+
+        $data['group_id']=$post['group_id'];
+        $data['modul_id']=$post['modul_id'];
+        $data['status']  = true;
+        $data['last_id'] = $post['last_id'];
+        
+        return json_encode($data);
+    }
+
+    function reject_view() {
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+                        var remark = $("#reject_mt01_vRemark").val();
+                        if (remark=="") {
+                            alert("Remark tidak boleh kosong ");
+                            return
+                        }
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;
+                                var url = "'.base_url().'processor/pengujian/mt01";                             
+                                if(o.status == true) {
+                                    
+                                    $("#alert_dialog_form").dialog("close");
+                                         $.get(url+"?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                         $("div#form_mt01").html(data);
+                                    });
+                                    
+                                }
+                                    reload_grid("grid_mt01");
+                            }
+                            
+                         })
+                    
+                     }
+                 </script>';
+        $echo .= '<h1>Reject</h1><br />';
+        $echo .= '<form id="form_mt01_reject" action="'.base_url().'processor/pengujian/mt01?action=reject_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_mt01_reject\')">Reject</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    }
+
+    function reject_process () {
+         $post = $this->input->post();
+        $dataupdate['cUpdated']= $this->user->gNIP;
+        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
+        $dataupdate['cApprove']= $this->user->gNIP;
+        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark']= $post['vRemark'];
+        $dataupdate['iApprove']= 1;
+        $this->db->where('iMt01',$post['last_id'])
+                    ->update('bbpmsoh.mt01',$dataupdate);
+
+        $data['group_id']=$post['group_id'];
+        $data['modul_id']=$post['modul_id'];
+        $data['status']  = true;
+        $data['last_id'] = $post['last_id'];
+        
+        return json_encode($data);
     }
 
     //Output

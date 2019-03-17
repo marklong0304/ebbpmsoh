@@ -1,28 +1,27 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class mt06 extends MX_Controller {
+class mt07 extends MX_Controller {
     function __construct() {
         parent::__construct();
 		 $this->load->library('auth');
         $this->db = $this->load->database('hrd',false, true);
         $this->user = $this->auth->user();
 
-		$this->title = 'MT 06';
-		$this->url = 'mt06';
+		$this->title = 'MT 07';
+		$this->url = 'mt07';
 		$this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
 
-		$this->maintable = 'bbpmsoh.mt06';	
+		$this->maintable = 'bbpmsoh.mt07';	
 		$this->main_table = $this->maintable;	
-		$this->main_table_pk = 'iMt06';	
+		$this->main_table_pk = 'iMt07';	
 		$datagrid['islist'] = array(
 			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			,'iApprove_sphu' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
+			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
 
 		$datagrid['addFields']=array(
-				'form_vKepada_yth'=>'Kepada'
-				,'form_vAlamat'=>'Alamat'
-				,'form_DistribusiUnit'=>'Distribusi Unit Uji'
+				'form_vKepada_yth'=>'Kepada Yth,'
+				,'form_dTanggal'=>'Tanggal'
 				,'form_sample_label'=>'Informasi Sample'
 				,'form_sample'=>''
 				);
@@ -110,7 +109,7 @@ class mt06 extends MX_Controller {
 		}
 
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
-		$grid->changeFieldType('iApprove_sphu', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 
 		$grid->setGridView('grid');
 
@@ -236,7 +235,7 @@ class mt06 extends MX_Controller {
 
     function manipulate_update_button($buttons, $rowData) {
          $cNip= $this->user->gNIP;
-        $js = $this->load->view('js/mt06_js');
+        $js = $this->load->view('js/standard_js');
         $js .= $this->load->view('js/upload_js');
 
         $iframe = '<iframe name="'.$this->url.'_frame" id="'.$this->url.'_frame" height="0" width="0"></iframe>';
@@ -250,9 +249,9 @@ class mt06 extends MX_Controller {
             unset($buttons['update']);
         }
         else{ 
-            if($rowData['iApprove_sphu']==0 && $rowData['iSubmit']==0){
+            if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }elseif($rowData['iApprove_sphu']==0 && $rowData['iSubmit']==1){
+            }elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
             }
         }
@@ -262,7 +261,7 @@ class mt06 extends MX_Controller {
 
 	function manipulate_insert_button($buttons){        
         $cNip= $this->user->gNIP;
-        $js = $this->load->view('js/mt06_js');
+        $js = $this->load->view('js/standard_js');
         $js .= $this->load->view('js/upload_js');
 
         $iframe = '<iframe name="'.$this->url.'_frame" id="'.$this->url.'_frame" height="0" width="0"></iframe>';
@@ -277,7 +276,7 @@ class mt06 extends MX_Controller {
 
 	/*List Box*/
 	 function listBox_Action($row, $actions) {
-        if ($row->iApprove_sphu>0) { 
+        if ($row->iApprove_unit_uji>0) { 
                 unset($actions['edit']);
         }
         if ($row->iSubmit>0) { 
@@ -285,14 +284,14 @@ class mt06 extends MX_Controller {
         }
         return $actions;
     }
-	function listBox_mt06_iappqa_uji($value) {
+	function listBox_mt07_iappqa_uji($value) {
 		if($value==0){$vstatus='Waiting for approval';}
 		elseif($value==1){$vstatus='Rejected';}
 		elseif($value==2){$vstatus='Approved';}
 		return $vstatus;
 	}
 
-	function listBox_mt06_ini_nilai($value, $pk, $name, $rowData) {
+	function listBox_mt07_ini_nilai($value, $pk, $name, $rowData) {
 		$this->db_plc0->select("formula.vNo_formula");
 		$this->db_plc0->from("pddetail.formula");
 		$this->db_plc0->join("pddetail.formula_process","formula_process.iFormula_process=formula.iFormula_process");
@@ -309,31 +308,35 @@ class mt06 extends MX_Controller {
 	}
 
 	/*Manipulate Insert/Update Form*/
-	function insertBox_mt06_form_vKepada_yth($field, $id) {
+	function insertBox_mt07_form_vKepada_yth($field, $id) {
 		$ff=str_replace("form_","", $field);
         $return = '<input type="text" name="'.$ff.'"  id="'.$id.'"  class="input_rows1 required" size="37"  />';
         $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
         return $return;
     }
 
-    function insertBox_mt06_form_vAlamat($field, $id) {
+    function insertBox_mt07_form_dTanggal($field, $id) {
     	$ff=str_replace("form_","", $field);
-        $return = '<textarea id="'.$id.'" name="'.$field.'" class="required"></textarea>';
+        $return = '<input name="'.$ff.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
+        $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        
+                    </script>';
         return $return;
     }
 
-    function insertBox_mt06_form_DistribusiUnit($field, $id) {
+    function insertBox_mt07_form_DistribusiUnit($field, $id) {
     	$return = "<input type='checkbox' name='iDist_virologi' value='1' class='getDistribusiUnit' />Virologi <br /><input type='checkbox' class='getDistribusiUnit' name='iDist_bakteri' value='1' />Bakteriologi <br /><input type='checkbox' name='iDist_farmastetik' value='1' class='getDistribusiUnit' />Farmasetik dan Premiks<br /><input type='checkbox' name='iDist_patologi' class='getDistribusiUnit' value='1' />Patologi";
         return $return;
     }
 
-   	function insertBox_mt06_form_sample_label($field, $id) {
+   	function insertBox_mt07_form_sample_label($field, $id) {
 		$return = '<script>
 			$("label[for=\''.$id.'\']").css({"border": "1px solid #A3619D", "background-color": "#A3619D", "border-collapse": "collapse","width":"99%","font-weight":"bold","color":"#ffffff","text-shadow": "0 1px 1px rgba(0, 0, 0, 0.3)","text-transform": "uppercase", "text-align":"center"});
 		</script>';
 		return $return;
 	}
-	function insertBox_mt06_form_sample($field, $id) {
+	function insertBox_mt07_form_sample($field, $id) {
 		
 		$data["field"]=$field;
 		$data["id"]=$id;
@@ -341,12 +344,12 @@ class mt06 extends MX_Controller {
 		$data["urlpath"]=$this->urlpath;
 		$data["get"]=$this->input->get();
 		$data["post"]=$this->input->post();
-		$return=$this->load->view('grid/mt06_details',$data,TRUE);
+		$return=$this->load->view('grid/mt07_details',$data,TRUE);
 		
 		return $return;
 	}
 
-	function updateBox_mt06_form_vKepada_yth($field,$id,$value,$rowData){
+	function updateBox_mt07_form_vKepada_yth($field,$id,$value,$rowData){
 		$ff=str_replace("form_","", $field);
 		$value=isset($rowData[$ff])?$rowData[$ff]:"";
 		$return = '<input type="text" name="'.$ff.'"  id="'.$id.'" value="'.$value.'"  class="input_rows1 required" size="37"  />';
@@ -354,13 +357,17 @@ class mt06 extends MX_Controller {
         return $return;
 	}
 
-	function updateBox_mt06_form_vAlamat($field,$id,$value,$rowData){
+	function updateBox_mt07_form_dTanggal($field,$id,$value,$rowData){
 		$ff=str_replace("form_","", $field);
 		$value=isset($rowData[$ff])?$rowData[$ff]:"";
-        $return = '<textarea id="'.$id.'" name="'.$ff.'" class="required">'.$value.'</textarea>';
+         $return = '<input name="'.$ff.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" value="'.$value.'" style="width:130px"/>';
+        $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        
+                    </script>';
         return $return;
     }
-    function updateBox_mt06_form_DistribusiUnit($field,$id,$value,$rowData){
+    function updateBox_mt07_form_DistribusiUnit($field,$id,$value,$rowData){
     	$iDist_virologi=$rowData["iDist_virologi"]==1?"checked=''":"";
     	$iDist_bakteri=$rowData["iDist_bakteri"]==1?"checked=''":"";
     	$iDist_farmastetik=$rowData["iDist_farmastetik"]==1?"checked=''":"";
@@ -369,13 +376,13 @@ class mt06 extends MX_Controller {
         return $return;
     }
 
-    function updateBox_mt06_form_sample_label($field,$id,$value,$rowData){
+    function updateBox_mt07_form_sample_label($field,$id,$value,$rowData){
 		$return = '<script>
 			$("label[for=\''.$id.'\']").css({"border": "1px solid #A3619D", "background-color": "#A3619D", "border-collapse": "collapse","width":"99%","font-weight":"bold","color":"#ffffff","text-shadow": "0 1px 1px rgba(0, 0, 0, 0.3)","text-transform": "uppercase", "text-align":"center"});
 		</script>';
 		return $return;
 	}
-	function updateBox_mt06_form_sample($field,$id,$value,$rowData){
+	function updateBox_mt07_form_sample($field,$id,$value,$rowData){
 		
 		$data["field"]=$field;
 		$data["id"]=$id;
@@ -383,8 +390,8 @@ class mt06 extends MX_Controller {
 		$data["urlpath"]=$this->urlpath;
 		$data["get"]=$this->input->get();
 		$data["post"]=$this->input->post();
-		$data["pk"]=$rowData['iMt06'];
-		$return=$this->load->view('grid/mt06_details',$data,TRUE);
+		$data["pk"]=$rowData['iMt07'];
+		$return=$this->load->view('grid/mt07_details',$data,TRUE);
 		
 		return $return;
 	}
@@ -513,26 +520,26 @@ class mt06 extends MX_Controller {
                                 var last_id = o.last_id;                            
                                 if(o.status == true) {
                                     $("#alert_dialog_form").dialog("close");
-                                        $.get(base_url+"processor/pengujian/mt06?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
-                                             $("div#form_mt06").html(data);
+                                        $.get(base_url+"processor/pengujian/mt07?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                             $("div#form_mt07").html(data);
                                         });
                                     
                                 }
-                                    reload_grid("grid_mt06");
+                                    reload_grid("grid_mt07");
                             }
                             
                          })
                      }
                  </script>';
         $echo .= '<h1>Approval</h1><br />';
-        $echo .= '<form id="form_mt06_approve" action="'.base_url().'processor/pengujian/mt06?action=approve_process" method="post">';
+        $echo .= '<form id="form_mt07_approve" action="'.base_url().'processor/pengujian/mt07?action=approve_process" method="post">';
         $echo .= '<div style="vertical-align: top;">';
         $echo .= 'Remark : 
                 <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
                 <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
                 <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
                 <textarea name="vRemark"></textarea>
-        <button type="button" onclick="submit_ajax(\'form_mt06_approve\')">Approve</button>';
+        <button type="button" onclick="submit_ajax(\'form_mt07_approve\')">Approve</button>';
             
         $echo .= '</div>';
         $echo .= '</form>';
@@ -543,12 +550,12 @@ class mt06 extends MX_Controller {
         $post = $this->input->post();
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-        $dataupdate['cApprove_sphu']= $this->user->gNIP;
-        $dataupdate['dApprove_sphu']= date('Y-m-d H:i:s');
-        $dataupdate['vRemark_sphu']= $post['vRemark'];
-        $dataupdate['iApprove_sphu']= 2;
-        $this->db->where('iMt06',$post['last_id'])
-                    ->update('bbpmsoh.mt06',$dataupdate);
+        $dataupdate['cApprove_unit_uji']= $this->user->gNIP;
+        $dataupdate['dApprove_unit_uji']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark_unit_uji']= $post['vRemark'];
+        $dataupdate['iApprove_unit_uji']= 2;
+        $this->db->where('iMt07',$post['last_id'])
+                    ->update('bbpmsoh.mt07',$dataupdate);
 
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
@@ -561,7 +568,7 @@ class mt06 extends MX_Controller {
     function reject_view() {
         $echo = '<script type="text/javascript">
                      function submit_ajax(form_id) {
-                        var remark = $("#reject_mt06_vRemark").val();
+                        var remark = $("#reject_mt07_vRemark").val();
                         if (remark=="") {
                             alert("Remark tidak boleh kosong ");
                             return
@@ -573,16 +580,16 @@ class mt06 extends MX_Controller {
                             success: function(data) {
                                 var o = $.parseJSON(data);
                                 var last_id = o.last_id;
-                                var url = "'.base_url().'processor/pengujian/mt06";                             
+                                var url = "'.base_url().'processor/pengujian/mt07";                             
                                 if(o.status == true) {
                                     
                                     $("#alert_dialog_form").dialog("close");
                                          $.get(url+"?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
-                                         $("div#form_mt06").html(data);
+                                         $("div#form_mt07").html(data);
                                     });
                                     
                                 }
-                                    reload_grid("grid_mt06");
+                                    reload_grid("grid_mt07");
                             }
                             
                          })
@@ -590,14 +597,14 @@ class mt06 extends MX_Controller {
                      }
                  </script>';
         $echo .= '<h1>Reject</h1><br />';
-        $echo .= '<form id="form_mt06_reject" action="'.base_url().'processor/pengujian/mt06?action=reject_process" method="post">';
+        $echo .= '<form id="form_mt07_reject" action="'.base_url().'processor/pengujian/mt07?action=reject_process" method="post">';
         $echo .= '<div style="vertical-align: top;">';
         $echo .= 'Remark : 
                 <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
                 <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
                 <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
                 <textarea name="vRemark"></textarea>
-        <button type="button" onclick="submit_ajax(\'form_mt06_reject\')">Reject</button>';
+        <button type="button" onclick="submit_ajax(\'form_mt07_reject\')">Reject</button>';
             
         $echo .= '</div>';
         $echo .= '</form>';
@@ -608,12 +615,12 @@ class mt06 extends MX_Controller {
         $post = $this->input->post();
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-        $dataupdate['cApprove_sphu']= $this->user->gNIP;
-        $dataupdate['dApprove_sphu']= date('Y-m-d H:i:s');
-        $dataupdate['vRemark_sphu']= $post['vRemark'];
-        $dataupdate['iApprove_sphu']= 1;
-        $this->db->where('iMt06',$post['last_id'])
-                    ->update('bbpmsoh.mt06',$dataupdate);
+        $dataupdate['cApprove_unit_uji']= $this->user->gNIP;
+        $dataupdate['dApprove_unit_uji']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark_unit_uji']= $post['vRemark'];
+        $dataupdate['iApprove_unit_uji']= 1;
+        $this->db->where('iMt07',$post['last_id'])
+                    ->update('bbpmsoh.mt07',$dataupdate);
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
         $data['status']  = true;
@@ -626,8 +633,8 @@ class mt06 extends MX_Controller {
     	$term = $this->input->get('term');
     	$sql='select mt01.*,m_tujuan_pengujian.cKode from bbpmsoh.mt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
-				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt05 where iApprove=2 and lDeleted=0) 
-				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0)
+				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where iApprove_sphu=2 and lDeleted=0) 
+				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt07 where lDeleted=0)
 				AND mt01.vNomor like "%'.$term.'%" and mt01.lDeleted=0 order by vNomor ASC';
     	$dt=$this->db->query($sql);
     	$data = array();
@@ -656,11 +663,11 @@ class mt06 extends MX_Controller {
 
     	$where=array(
     		$this->main_table_pk=>$id
-    		,'mt06.lDeleted'=>0
+    		,'mt07.lDeleted'=>0
     		);
-    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt06.iMt06")
-    				->from("bbpmsoh.mt06")
-    				->join("bbpmsoh.mt01","mt01.iMt01=mt06.iMt01")
+    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt07.iMt07")
+    				->from("bbpmsoh.mt07")
+    				->join("bbpmsoh.mt01","mt01.iMt01=mt07.iMt01")
     				->join("bbpmsoh.m_tujuan_pengujian","m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian")
     				->where($where);
     	$q=$this->db->get(); 
@@ -677,7 +684,7 @@ class mt06 extends MX_Controller {
 				if($dsel=="iAction"){
 					$dataar[$z]="<a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><center><span class='ui-icon ui-icon-trash'></span></center></a>";
 				}elseif($dsel=="vNomor"){
-					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt06."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
+					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt07."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
 				}else{
 					$dataar[$z]="<p id='grid_".$nmTable."_".$dsel."_".$i."'>".$k->{$dsel}."</p>";
 				}

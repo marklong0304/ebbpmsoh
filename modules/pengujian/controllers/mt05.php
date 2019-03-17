@@ -30,6 +30,7 @@ class mt05 extends MX_Controller {
 		$datagrid['setQuery']=array(
 								0=>array('vall'=>'lDeleted','nilai'=>0)
 								);
+		$datagrid['isRequired']=array('all_form');
 		
 		$this->datagrid=$datagrid;
     }
@@ -96,6 +97,15 @@ class mt05 extends MX_Controller {
 					$grid->setQuery($vlist['vall'], $vlist['nilai']);
 				}
 			}
+			if($kv=='isRequired'){
+                foreach ($vv as $list => $vlist) {
+                    if($vlist=="all_form"){
+                        foreach ($this->datagrid['addFields'] as $kfield => $vfield) {
+                            $grid->setRequired($kfield);
+                        }
+                    }
+                }
+            }
 
 		}
 
@@ -141,6 +151,18 @@ class mt05 extends MX_Controller {
                 break;
             case 'confirm_process':
                 echo $this->confirm_process();
+                break;
+            case 'approve':
+                echo $this->approve_view();
+                break;
+            case 'approve_process':
+                echo $this->approve_process();
+                break;
+            case 'reject':
+                echo $this->reject_view();
+                break;
+            case 'reject_process':
+                echo $this->reject_process;
                 break;
 			case 'uploadFile':
 				$lastId=$this->input->get('lastId');
@@ -208,27 +230,42 @@ class mt05 extends MX_Controller {
 		}
     }
 
+    function listBox_Action($row, $actions) {
+        if ($row->iApprove>0) { 
+                unset($actions['edit']);
+        }
+        if ($row->iSubmit>0) { 
+                unset($actions['delete']);
+        }
+        return $actions;
+    }
+
 	function output(){
     	$this->index($this->input->get('action'));
     }
 
     function manipulate_update_button($buttons, $rowData) {
          $cNip= $this->user->gNIP;
-        $js = $this->load->view('js/standard_js');
+        $js = $this->load->view('js/mt05_js');
         $js .= $this->load->view('js/upload_js');
 
         $iframe = '<iframe name="'.$this->url.'_frame" id="'.$this->url.'_frame" height="0" width="0"></iframe>';
         
+       
         $update_draft = '<button onclick="javascript:update_draft_btn(\''.$this->url.'\', \' '.base_url().'processor/'.$this->urlpath.'?draft=true&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').'\',this,true )"  id="button_update_draft_'.$this->url.'"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\''.$this->url.'\', \' '.base_url().'processor/'.$this->urlpath.'?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_'.$this->url.'"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
-       	$approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
-       	$reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
+        $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
+        $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
         
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
         }
         else{ 
-            $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
+                $buttons['update'] = $iframe.$approve.$reject;
+            }
         }
         
         return $buttons;
@@ -236,7 +273,7 @@ class mt05 extends MX_Controller {
 
 	function manipulate_insert_button($buttons){        
         $cNip= $this->user->gNIP;
-        $js = $this->load->view('js/standard_js');
+        $js = $this->load->view('js/mt05_js');
         $js .= $this->load->view('js/upload_js');
 
         $iframe = '<iframe name="'.$this->url.'_frame" id="'.$this->url.'_frame" height="0" width="0"></iframe>';
@@ -514,11 +551,135 @@ class mt05 extends MX_Controller {
         return json_encode($data);
     }
 
+    function approve_view() {
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;                            
+                                if(o.status == true) {
+                                    $("#alert_dialog_form").dialog("close");
+                                        $.get(base_url+"processor/pengujian/mt05?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                             $("div#form_mt05").html(data);
+                                        });
+                                    
+                                }
+                                    reload_grid("grid_mt05");
+                            }
+                            
+                         })
+                     }
+                 </script>';
+        $echo .= '<h1>Approval</h1><br />';
+        $echo .= '<form id="form_mt05_approve" action="'.base_url().'processor/pengujian/mt05?action=approve_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_mt05_approve\')">Approve</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    }
+
+    function approve_process(){
+        $post = $this->input->post();
+        $dataupdate['cUpdated']= $this->user->gNIP;
+        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
+        $dataupdate['cApprove']= $this->user->gNIP;
+        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark']= $post['vRemark'];
+        $dataupdate['iApprove']= 2;
+        $this->db->where('iMt05',$post['last_id'])
+                    ->update('bbpmsoh.mt05',$dataupdate);
+
+        $data['group_id']=$post['group_id'];
+        $data['modul_id']=$post['modul_id'];
+        $data['status']  = true;
+        $data['last_id'] = $post['last_id'];
+        
+        return json_encode($data);
+    }
+
+    function reject_view() {
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+                        var remark = $("#reject_mt05_vRemark").val();
+                        if (remark=="") {
+                            alert("Remark tidak boleh kosong ");
+                            return
+                        }
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;
+                                var url = "'.base_url().'processor/pengujian/mt05";                             
+                                if(o.status == true) {
+                                    
+                                    $("#alert_dialog_form").dialog("close");
+                                         $.get(url+"?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                         $("div#form_mt05").html(data);
+                                    });
+                                    
+                                }
+                                    reload_grid("grid_mt05");
+                            }
+                            
+                         })
+                    
+                     }
+                 </script>';
+        $echo .= '<h1>Reject</h1><br />';
+        $echo .= '<form id="form_mt05_reject" action="'.base_url().'processor/pengujian/mt05?action=reject_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_mt05_reject\')">Reject</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    }
+
+    function reject_process () {
+         $post = $this->input->post();
+        $dataupdate['cUpdated']= $this->user->gNIP;
+        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
+        $dataupdate['cApprove']= $this->user->gNIP;
+        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark']= $post['vRemark'];
+        $dataupdate['iApprove']= 1;
+        $this->db->where('iMt05',$post['last_id'])
+                    ->update('bbpmsoh.mt05',$dataupdate);
+        $data['group_id']=$post['group_id'];
+        $data['modul_id']=$post['modul_id'];
+        $data['status']  = true;
+        $data['last_id'] = $post['last_id'];
+        
+        return json_encode($data);
+    }
+
     function getDetailsReq() {
     	$term = $this->input->get('term');
     	$sql='select mt01.*,m_tujuan_pengujian.cKode from bbpmsoh.mt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
-				where mt01.vNomor like "%'.$term.'%" and mt01.lDeleted=0 order by vNomor ASC';
+				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt03 where iApprove=2 and lDeleted=0) 
+				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt05_detail where lDeleted=0)
+				AND mt01.vNomor like "%'.$term.'%" and mt01.lDeleted=0 order by vNomor ASC';
     	$dt=$this->db->query($sql);
     	$data = array();
     	if($dt->num_rows>0){
