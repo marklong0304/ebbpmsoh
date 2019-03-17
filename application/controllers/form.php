@@ -36,7 +36,7 @@ class Form extends MX_Controller {
 		//$inputCode = $this->input->post('imagecode');
 		
 		
-		$nip 			= $post['cNip'];
+		$nip 			= '1';
 		//$password = $post['vPassword'];
 		$nama 			= $post['vName'];
 		$email 			= $post['vEmail'];
@@ -58,10 +58,15 @@ class Form extends MX_Controller {
 									
 		//$datanya = $this->m_member->insert_entry($post);
 		$dbset = $this->load->database('hrd', true);
-	    $datanya = $dbset->insert('employee', $data_user);
+
+	    $datanya = $this->db->insert('hrd.employee', $data_user);
+	    
+	    $insert_id = $this->db->insert_id();
 		//print_r($password);exit;
 		
 			if($datanya){
+				/*$insert_id = $this->dbset->insert_id();*/
+
 				/*
 				$ema=str_replace('@', '%40', $post['vEmail']);
 				$config['mailtype'] = 'html';
@@ -101,6 +106,11 @@ class Form extends MX_Controller {
 				$this->email->send();
 				 * 
 				 */
+
+				$nomor = "C".str_pad($insert_id, 5, "0", STR_PAD_LEFT);
+				$sql = "UPDATE hrd.employee SET cNip = '".$nomor."' WHERE ID=$insert_id LIMIT 1";
+				$query = $this->db->query( $sql );
+
 				echo 1;
 				redirect('success');
 				//echo $this->email->print_debugger();
