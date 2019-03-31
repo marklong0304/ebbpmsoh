@@ -238,7 +238,14 @@ class mt02 extends MX_Controller {
         }
         else{ 
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
-                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+                
+                $groupnya = $this->checkgroup($this->user->gNIP);             
+                if( $groupnya['idprivi_group']== 7){
+                    $buttons['update'] = 'MT02 Belum disubmit oleh Admin Yanji <br>'.$iframe.$update_draft.$js; 
+                }else{
+                    $buttons['update'] = $iframe.$update_draft.$update.$js; 
+                }
+
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
                 $mt01Nya = $this->getMT01($rowData['iMt01']);
 
