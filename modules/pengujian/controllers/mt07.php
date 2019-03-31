@@ -16,8 +16,12 @@ class mt07 extends MX_Controller {
 		$datagrid['islist'] = array(
 			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
+			//,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
+
+		$datagrid['jointableinner']=array(
+            0=>array('bbpmsoh.mt06'=>'mt06.iMt01=bbpmsoh.mt07.iMt01')
+            );
 
 		$datagrid['addFields']=array(
 				'form_vKepada_yth'=>'Kepada Yth,'
@@ -28,7 +32,9 @@ class mt07 extends MX_Controller {
 		$datagrid['shortBy']=array('dUpdated'=>'Desc');
 	
 		$datagrid['setQuery']=array(
-								0=>array('vall'=>'lDeleted','nilai'=>0)
+								0=>array('vall'=>'mt07.lDeleted','nilai'=>0)
+								,1=>array('vall'=>'mt06.lDeleted','nilai'=>0)
+								,1=>array('vall'=>'mt07.iSubmit','nilai'=>1)
 								);
 		$datagrid['isRequired']=array('all_form');
 		$this->datagrid=$datagrid;
@@ -107,6 +113,45 @@ class mt07 extends MX_Controller {
             }
 
 		}
+
+		/*
+			idprivi_group;vNamaGroup
+			1;Administrator
+			2;Admini Yanji
+			3;Admin Biologik
+			4;Admin Virologi
+			5;Admin Farmastetik & Premiks
+			6;Admin SPHU
+			7;Customer
+
+
+		*/
+
+		$groupnya = $this->checkgroup($this->user->gNIP);  
+
+		switch ($groupnya['idprivi_group']) {
+		           	case '1':
+		           	case '2':
+		           		break;
+		           	case '3':
+		    			$grid->setQuery('mt06.iDist_bakteri',1);     
+		           		break;
+
+		           	case '4':
+		           		$grid->setQuery('mt06.iDist_virologi',1);     
+		           		break;
+
+		           	case '5':
+		           		$grid->setQuery('mt06.iDist_farmastetik',1);     
+		           		break;
+		           	
+		           	default:
+		           		# code...
+		           		break;
+		           }           
+        
+
+
 
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
 		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
@@ -229,6 +274,22 @@ class mt07 extends MX_Controller {
 		}
     }
 
+
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
+
+
+
 	function output(){
     	$this->index($this->input->get('action'));
     }
@@ -251,9 +312,9 @@ class mt07 extends MX_Controller {
         else{ 
             if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
+            }/*elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
-            }
+            }*/
         }
         
         return $buttons;
