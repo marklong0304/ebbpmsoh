@@ -56,7 +56,7 @@ class mt03 extends MX_Controller {
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','iTgl_expired','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan','vUploadFile');
+        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','vBatch','iTgl_expired','dTgl_expired','iM_jenis_brosur','vEtiket_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan','vUploadFile');
 
         //Setting Grid Width Name 
         /*
@@ -64,6 +64,12 @@ class mt03 extends MX_Controller {
         $grid->setLabel('nama field','nama field yang akan diubah');
 
         */
+
+
+        
+        $grid->setLabel('vBatch','No Batch');
+        $grid->setLabel('dTgl_expired','Tgl Kadaluarsa');
+        $grid->setLabel('vEtiket_brosur','Etiket/Brosur/Komposisi');
 
         $grid->setLabel('vBatch','No Batch');
         $grid->setLabel('dTgl_expired','Tanggal Kadaluarsa');
@@ -460,7 +466,31 @@ class mt03 extends MX_Controller {
                 unset($actions['delete']);
         }
         return $actions;
+    }
+
+/*    function insertBox_mt03_dTgl_expired($field, $id) {
+        $ff=str_replace("form_","", $field);
+       $return = '<input name="'.$ff.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
+        $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        
+                    </script>';
+        return $return;
     } 
+
+    function updateBox_mt03_dTgl_expired($field,$id,$value,$rowData){
+        $ff=str_replace("form_","", $field);
+        $return = '<input name="'.$ff.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" value="'.$value.'" style="width:130px"/>';
+        $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        
+                    </script>';
+        if($this->input->get('action')=='view'){
+            $return=$value;
+        }
+        return $return;
+    }*/
+
 
         function insertBox_mt03_imt01($field, $id) {
             $return = '<script>
@@ -651,16 +681,16 @@ class mt03 extends MX_Controller {
         }
         function updateBox_mt03_vCompName($field, $id, $value, $rowData) {
              $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$rowData['iMt01']);
-            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan,company.vCompName')
+            $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan,employee.vName_company')
                 ->from('bbpmsoh.mt01')
                 ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
-                ->join('hrd.company', 'company.iCompanyId = mt01.iCustomer', 'left')
+                ->join('hrd.employee', 'employee.cNip = mt01.iCustomer', 'left')
                 ->where($where);
             $row=$this->db->get()->row_array();
-            $vCompName=str_replace('. ','',$row['vCompName']);
-            $return = '<input type="text" name="'.$field.'"  id="'.$id.'" disabled="TRUE" value="'.$vCompName.'" class="input_rows1 required" size="35" />';
+            $vName_company=str_replace('. ','',$row['vName_company']);
+            $return = '<input type="text" name="'.$field.'"  id="'.$id.'" disabled="TRUE" value="'.$vName_company.'" class="input_rows1 required" size="35" />';
             if($this->input->get('action')=='view'){
-                $return=$vCompName;
+                $return=$vName_company;
             }
             return $return;
         }
@@ -692,7 +722,8 @@ class mt03 extends MX_Controller {
             if($this->input->get('action')=='view'){
                 $disable=' disabled="TRUE"';
             }
-            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp<input type="text" value="'.$value.'" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            /*$return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp<input type="text" value="'.$value.'" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';*/
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" '.$iada.$disable.' /> Ada &nbsp&nbsp&nbsp <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
             return $return;
         }
         function updateBox_mt03_vNama_produsen($field, $id, $value, $rowData) {
@@ -723,7 +754,8 @@ class mt03 extends MX_Controller {
             if($this->input->get('action')=='view'){
                 $disable=' disabled="TRUE"';
             }
-            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" '.$iada.$disable.' value="1" /> Ada &nbsp&nbsp&nbsp<input type="text" value="'.$value.'" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
+            /*$return = '<input type="radio" name="'.$field.'"  id="'.$id.'" '.$iada.$disable.' value="1" /> Ada &nbsp&nbsp&nbsp<input type="text" value="'.$value.'" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';*/
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" '.$iada.$disable.' value="1" /> Ada &nbsp&nbsp&nbsp <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" '.$itada.$disable.' /> Tidak Ada ';
             return $return;
         }
         function updateBox_mt03_iM_jenis_brosur($field, $id, $value, $rowData) {
