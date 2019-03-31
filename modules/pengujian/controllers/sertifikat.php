@@ -30,6 +30,7 @@
  
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class sertifikat extends MX_Controller {
+	var $masterUrl;
     function __construct() {
         parent::__construct();
          $this->load->library('auth');
@@ -39,6 +40,12 @@ class sertifikat extends MX_Controller {
         $this->title = 'Sertifikat';
         $this->url = 'sertifikat';
         $this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
+
+		$this->report    = $this->load->library('report');
+		$url             = $_SERVER['HTTP_REFERER'];
+		$company_id      = substr($url, strrpos($url, '/') + 1);
+		$this->masterUrl = base_url()."processor/pengujian/sertifikat?company_id={$this->input->get('company_id')}";
+
 
         $this->maintable = 'bbpmsoh.mt01';  
         $this->main_table = $this->maintable;   
@@ -54,9 +61,9 @@ class sertifikat extends MX_Controller {
             ,'iFa_app' => array('label'=>'Status Bagian Keuangan','width'=>200,'align'=>'center','search'=>true)
         );
 
-        //$datagrid['jointableinner']=array(
-        //    0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt02.iMt01')
-        //    );
+        $datagrid['jointableinner']=array(
+            0=>array('bbpmsoh.mt06'=>'mt06.iMt01=bbpmsoh.mt01.iMt01')
+            );
 
         $datagrid['addFields']=array(
         		'iStatus_sertifikat' => 'Status Sertifikat'
@@ -238,6 +245,9 @@ class sertifikat extends MX_Controller {
                     echo $this->reject_process();
                     break;
 
+                case 'getDataMemo':
+					echo $this->getDataMemo();
+				break;
                 
             
                 case 'download':
@@ -248,6 +258,40 @@ class sertifikat extends MX_Controller {
                     break;
         }
     }
+
+
+    function getDataMemo() {
+		$id   = $this->input->post('id');
+		$data = array();
+
+    	$sql = "select * 
+    			from bbpmsoh.mt01 a
+    			join hrd.employee b on cNip=a.iCustomer
+    			join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
+    			WHERE a.iMt01 = '{$id}'";
+
+    			
+    	$query = $this->db->query($sql);
+
+    	foreach ($query->result() as $row) {
+    		
+			$row_array['NAMA_PEMOHON']      = ucwords(strtolower($row->vName));
+			$row_array['ALAMAT_PEMOHON']      = ucwords(strtolower($row->vAddress));
+			$row_array['NAMA_PRODUSEN']      = ucwords(strtolower($row->vNama_produsen));
+			$row_array['ALAMAT_PRODUSEN']      = ucwords(strtolower($row->vAlamat_produsen));
+			$row_array['KADALUARSA']      = ucwords(strtolower($row->dTgl_kadaluarsa));
+			$row_array['NOREG']      = ucwords(strtolower($row->vNo_registrasi));
+			$row_array['KEMASAN']      = ucwords(strtolower($row->vKemasan));
+			$row_array['JENIS']      = ucwords(strtolower($row->vJenis_sediaan));
+			$row_array['NOMOR_UJI']      = ucwords(strtolower($row->vNomor));
+			
+
+			array_push($data, $row_array);
+    	}
+
+    	echo json_encode($data);
+    }
+
 
     function checkgroup($nip){
         $sql = "select *,a.idprivi_group,a.vNamaGroup 
@@ -1010,13 +1054,74 @@ class sertifikat extends MX_Controller {
         $update_draft = '<button onclick="javascript:update_draft_btn(\'sertifikat\', \' '.base_url().'processor/pengujian/sertifikat?draft=true \',this,true )"  id="button_update_draft_sertifikat"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\'sertifikat\', \' '.base_url().'processor/pengujian/sertifikat?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_sertifikat"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
 
-        
-        
+        $cekMT6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$peka.'"';
+        $dMt06 = $this->db->query($cekMT6)->row_array();
 
+
+
+        if($dMt06['iDist_virologi']==1 or $dMt06['iDist_bakteri']==1 ){
+        	// biologik
+        	$templatenya = 'sertifikatB.docx';
+
+        }else{
+        	// farmastetik
+        	$templatenya = 'sertifikatF.docx';
+        }
+
+        $grid          = $this->url;
+		$url           = $this->masterUrl;
+
+        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
+		$btnUpk .= "<script>
+						function btnUpk_{$this->url}(url, grid, dis) {
+
+							custom_confirm('Print Dokumen ?', function() {
+								template = '$templatenya';
+								var loadFile = function(url, callback) {
+									JSZipUtils.getBinaryContent(url, callback);
+								}
+								loadFile('../files/pengujian/template/'+template, function(err, content) {
+									if (err) {throw e};
+
+									$.ajax({
+										url: url+'&action=getDataMemo',
+										type: 'POST',
+										dataType: 'json',
+										data: '&id={$peka}',
+										success: function(data) {
+
+											doc = new Docxgen(content);
+
+											doc.setData({
+												'NAMA_PEMOHON' : data[0].NAMA_PEMOHON,
+												'ALAMAT_PEMOHON' : data[0].ALAMAT_PEMOHON,
+												'NAMA_PRODUSEN' : data[0].NAMA_PRODUSEN,
+												'ALAMAT_PRODUSEN' : data[0].ALAMAT_PRODUSEN,
+												'KADALUARSA' : data[0].KADALUARSA,
+												'NOREG' : data[0].NOREG,
+												'KEMASAN' : data[0].KEMASAN,
+												'JENIS' : data[0].JENIS,
+												'NOMOR_UJI' : data[0].NOMOR_UJI
+		    									
+											})
+
+											doc.render()
+		    								out = doc.getZip().generate({type:'blob'})
+
+		    								nmdok = 'Sertifikat';
+		    								saveAs(out, nmdok+' - ' + data[0].NOMOR_UJI + '.docx')
+										}
+									})
+								})
+							})
+						}
+					</script>";
 
 
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk;    
+            
         }
         else{ 
         	unset($buttons['update']);
