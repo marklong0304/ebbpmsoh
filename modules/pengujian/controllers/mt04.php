@@ -135,6 +135,36 @@ class mt04 extends MX_Controller {
 				break;
 			case 'createproses':
    				echo $grid->saved_form();
+                /*$post=$this->input->post();print_r($post);exit();
+                $datah=array();
+                $datah['iMt01']=$post['iMt01'];
+                $datah['dTgl_terima_sample']=$post['mt04_dTgl_terima_sample'];
+                $datah['dTgl_terima_serum']=$post['mt04_dTgl_terima_serum'];
+                $datah['iSubmit']=$post['isdraft']==TRUE?0:1;
+                $this->db->insert('bbpmsoh.mt04',$datah);
+                $last_id=$this->db->insert_id();
+                foreach ($post['mt04_iMt04_detail'] as $k => $vr) {
+                    if($k==0){
+                        foreach ($vr as $kvrd => $vrdet) {
+                            $datad=array();
+                            $datad['iMt04']=$last_id;
+                            $datad['vAntiserum']=$post['mt04_vAntiserum'][$k][$kvrd];
+                            $datad['vKadar']=$post['mt04_vAntiserum'][$k][$kvrd];
+                            $datad['vAsal']=$post['mt04_vAsal'][$k][$kvrd];
+                            $datad['vBatch']=$post['mt04_vBatch'][$k][$kvrd];
+                            $datad['dTgl_expired']=$post['mt04_dTgl_expired'][$k][$kvrd];
+                            $datad['vJumlah']=$post['mt04_vJumlah'][$k][$kvrd];
+                            $datad['vKeterangan']=$post['mt04_vKeterangan'][$k][$kvrd];
+                            $datad['cCreated']=$this->user->gNIP;
+                            $datad['dCreated']=date("Y-m-d H:i:s");
+                            $this->db->insert("bbpmsoh.mt04_detail",$datad);
+                        }
+                    }
+                }
+                $data['status']=TRUE;
+                $data['last_id']=$last_id;
+                $data['message']='data Berhasil di Update';
+                echo json_encode($data);*/
 				break;
 			case 'update':
 				$grid->render_form($this->input->get('id'));
@@ -143,6 +173,20 @@ class mt04 extends MX_Controller {
 				$grid->render_form($this->input->get('id'),TRUE);
 				break;
 			case 'updateproses':
+                $post=$this->input->post();
+                $iddet=array();
+                foreach ($post['mt04_iMt04_detail'] as $k => $vr) {
+                    if($k!=0){
+                        $iddet[]=$k;
+                    }
+                }
+                if(count($iddet)>0){
+                    $this->db->where_not_in('iMt04_detail',$iddet);
+                    $this->db->update('bbpmsoh.mt04_detail',array('lDeleted'=>1));
+                }else{
+                    $this->db->where('iMt04',$this->input->post('mt04_iMt04'));
+                    $this->db->update('bbpmsoh.mt04_detail',array('lDeleted'=>1));
+                }
 				echo $grid->updated_form();
 				break;	
 			case 'delete':
@@ -178,10 +222,10 @@ class mt04 extends MX_Controller {
                 break;
             case 'GetDataIM01':
                 $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$this->input->post('id'));
-                $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan,employee.*')
                     ->from('bbpmsoh.mt01')
                     ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
-                    ->join('hrd.employee','employee.cNip=bbpmsoh.mt01.iCustomer')
+                    ->join('hrd.employee','employee.cNip=bbpmsoh.mt01.iCustomer','left')
                     ->where($where);
                 $row=$this->db->get()->row_array();
                 echo json_encode($row);
@@ -277,7 +321,7 @@ class mt04 extends MX_Controller {
         $return='<select id="'.$id.'" name="'.$ff.'" class="required">';
         $return.='<option value="">---Pilih---</option>';
         foreach ($row as $kk => $vv) {
-        $return.='<option value="'.$vv['iMt01'].'">'.$vv['vAntiserum'].'</option>';
+            $return.='<option value="'.$vv['iMt01'].'">'.$vv['vAntiserum'].'</option>';
         }
         $return.='</select>';
         $return.='<script>';
@@ -290,7 +334,7 @@ class mt04 extends MX_Controller {
                 },
                 success: function( data ) {
                     var o = $.parseJSON(data);
-                    $("#mt04_vNama_sample").val(o.vNama_produsen);
+                    $("#mt04_vNama_sample").val(o.vNama_sample);
                     $("#mt04_vNama_perusahaan").val(o.vName_company);
                     $("#mt04_vAlamat_perusahaan").val(o.vAddress_company);
                     $("#mt04_vTelepon_perusahaan").val(o.vTelepon_company);
@@ -597,8 +641,8 @@ class mt04 extends MX_Controller {
     }
 
     /*After Insert*/
-    function after_insert_processor($fields, $id, $postData) {
-    	$post=$this->input->post();
+    function after_insert_processor($fields, $id, $post) {
+    	/*$post=$this->input->post();
     	foreach ($post as $kp => $vp) {
     		if($kp=="grid_details_iMt01"){
     			foreach ($vp as $key => $value) {
@@ -614,12 +658,31 @@ class mt04 extends MX_Controller {
     				}
     			}
     		}
-    	}
+    	}*/
+                $last_id=$id;
+                foreach ($post['mt04_iMt04_detail'] as $k => $vr) {
+                    if($k==0){
+                        foreach ($vr as $kvrd => $vrdet) {
+                            $datad=array();
+                            $datad['iMt04']=$last_id;
+                            $datad['vAntiserum']=$post['mt04_vAntiserum'][$k][$kvrd];
+                            $datad['vKadar']=$post['mt04_vAntiserum'][$k][$kvrd];
+                            $datad['vAsal']=$post['mt04_vAsal'][$k][$kvrd];
+                            $datad['vBatch']=$post['mt04_vBatch'][$k][$kvrd];
+                            $datad['dTgl_expired']=$post['mt04_dTgl_expired'][$k][$kvrd];
+                            $datad['vJumlah']=$post['mt04_vJumlah'][$k][$kvrd];
+                            $datad['vKeterangan']=$post['mt04_vKeterangan'][$k][$kvrd];
+                            $datad['cCreated']=$this->user->gNIP;
+                            $datad['dCreated']=date("Y-m-d H:i:s");
+                            $this->db->insert("bbpmsoh.mt04_detail",$datad);
+                        }
+                    }
+                }
     }
 
     /*After Update*/
-    function after_update_processor($fields, $id, $postData) {
-    	$post=$this->input->post();
+    function after_update_processor($fields, $id, $post) {
+    	/*$post=$this->input->post();
 	    $din=array();
 	    $dup=array();
 	    $pkid=array();
@@ -638,7 +701,7 @@ class mt04 extends MX_Controller {
     		}
     	}
 
-    	/*Insert Baru*/
+    	// Insert Baru
     	$this->db->where("iMt04",$id);
     	if(count($pkid)>0){
     		$this->db->where_not_in("iMt04_detail",$pkid);
@@ -665,7 +728,26 @@ class mt04 extends MX_Controller {
 				$datainsert['cCreated']=$this->user->gNIP;
 				$this->db->insert('bbpmsoh.mt04_detail',$datainsert);
 	    	}
-	    }
+	    }*/
+        $last_id=$id;
+        foreach ($post['mt04_iMt04_detail'] as $k => $vr) {
+            if($k==0){
+                foreach ($vr as $kvrd => $vrdet) {
+                    $datad=array();
+                    $datad['iMt04']=$last_id;
+                    $datad['vAntiserum']=$post['mt04_vAntiserum'][$k][$kvrd];
+                    $datad['vKadar']=$post['mt04_vAntiserum'][$k][$kvrd];
+                    $datad['vAsal']=$post['mt04_vAsal'][$k][$kvrd];
+                    $datad['vBatch']=$post['mt04_vBatch'][$k][$kvrd];
+                    $datad['dTgl_expired']=$post['mt04_dTgl_expired'][$k][$kvrd];
+                    $datad['vJumlah']=$post['mt04_vJumlah'][$k][$kvrd];
+                    $datad['vKeterangan']=$post['mt04_vKeterangan'][$k][$kvrd];
+                    $datad['cCreated']=$this->user->gNIP;
+                    $datad['dCreated']=date("Y-m-d H:i:s");
+                    $this->db->insert("bbpmsoh.mt04_detail",$datad);
+                }
+            }
+        }
     }
 
 
@@ -906,27 +988,32 @@ class mt04 extends MX_Controller {
     				->where($where);
     	$q=$this->db->get(); 
 
-		$rsel=array('iAction'=>'Del','vAntiserum'=>'Nama Standar/Antigen/Antiserum','vKadar'=>'Nama Sample','vAsal'=>'Produsen','vBatch'=>'Zat Aktif / Strain','dTgl_expired'=>'No. Registrasi','vJumlah'=>'No. Batch','vKeterangan'=>'Waktu Kadaluarsa');
+		$rsel=array('iAction','vAntiserum','vKadar','vAsal','vBatch','dTgl_expired','vJumlah','vKeterangan');
 		$data = new StdClass;
-		$data->records=$q->num_rows();
 		$i=0;
 		$dataar=array();
-		foreach ($q->result() as $k) {
-			$data->rows[$i]['id']=$i;
-			$z=0;
-			foreach ($rsel as $dsel => $vsel) {
-				if($dsel=="iAction"){
-					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><center><span class='ui-icon ui-icon-trash'></span></center></a>";
-				}elseif($dsel=="vAntiserum"){
-					$dataar[$z]="<input type='text' name='grid_details_nomor_request[".$k->iMt04_detail."][]' id='grid_details_nomor_request_".$i."' value='".$k->vAntiserum."' class='get_sample_req required' size='25'><input type='hidden' name='grid_details_iMt01[".$k->iMt04_detail."][]' id='grid_details_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
-				}else{
-					$dataar[$z]="<p id='grid_".$dsel."_".$i."'>".$k->{$dsel}."</p>";
-				}
-				$z++;
-			}
-			$data->rows[$i]['cell']=$dataar;
-			$i++;
-		}
+        if($q->num_rows()!=0){
+            $data->records=$q->num_rows();
+    		foreach ($q->result() as $k) {
+    			$data->rows[$i]['id']=$i;
+    			$z=0;
+    			foreach ($rsel as $dsel => $vsel) {
+    				if($vsel=="iAction"){
+    					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><input type='hidden' name='mt04_iMt04_detail[".$k->iMt04_detail."][]' value='".$k->iMt04_detail."' /><center><span class='ui-icon ui-icon-trash'></span></center></a>";
+    				}else{
+    					$dataar[$z]="<p>".$k->{$vsel}."</p>";
+    				}
+    				$z++;
+    			}
+    			$data->rows[$i]['cell']=$dataar;
+    			$i++;
+    		}
+        }else{
+            $data->records=1;
+            $data->rows[0]['id']=0;
+            $dataar=array("<input type='hidden' class='num_rows_".$nmTable."' value='0' /><input type='hidden' name='mt04_iMt04_detail[0][]' value='0' /><a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(0)'><center><span class='ui-icon ui-icon-trash'></span></center></a>","<input type='text' name='mt04_vAntiserum[0][]' id='mt04_vAntiserum_0' class='required' size='25'>","<input type='text' name='mt04_vKadar[0][]' id='mt04_vKadar_0' class='required' size='15'>","<input type='text' name='mt04_vAsal[0][]' id='mt04_vAsal_0' class='required' size='15'>","<input type='text' name='mt04_vBatch[0][]' id='mt04_vBatch_0' class='required' size='15'>","<input type='text' name='mt04_dTgl_expired[0][]' id='mt04_dTgl_expired_0' class='required' size='15'>","<input type='text' name='mt04_vJumlah[0][]' id='mt04_vJumlah_0' class='required' size='15'","<input type='text' name='mt04_vKeterangan[0][]' id='mt04_vKeterangan_0' class='required' size='25'>");
+            $data->rows[0]['cell']=$dataar;
+        }
 		return json_encode($data);
     }
 
