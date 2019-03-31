@@ -155,7 +155,15 @@ class mt8a extends MX_Controller {
 				break;
 			case 'getDetailsData':
 				$post=$this->input->post();
-				
+				$arr=array(
+					'mt01.iMt01'=>$post['iMt01']	
+				);
+				$this->db->select("mt01.*,m_jenis_sediaan.vJenis_sediaan")
+						->from("bbpmsoh.mt01")
+						->join('bbpmsoh.m_jenis_sediaan','m_jenis_sediaan.iM_jenis_sediaan=mt01.iM_jenis_sediaan')
+						->where($arr);
+				$row=$this->db->get()->row_array();
+				echo json_encode($row);
 				break;
 
 			/*Confirm*/
@@ -348,13 +356,18 @@ class mt8a extends MX_Controller {
 		$return.="<script>";
 		$return.="$('#".$id."').change(function(){
 			$.ajax({
-                url:base_url+'processor/pengujian/mt08a?action=getDetailsData',
+                url:base_url+'processor/pengujian/mt8a?action=getDetailsData',
                 type: 'post',
                 data: {iMt01:$(this).val()},
                 success: function(data) {
                     //alert(isUpload);
                     var o = $.parseJSON(data);
-                    alert(o.message);
+                    $('#mt8a_vBatch_lot').val(o.vBatch_lot);
+                    $('#mt8a_dTgl_kadaluarsa').val(o.dTgl_kadaluarsa);
+                    $('#mt8a_vNo_registrasi').val(o.vNo_registrasi);
+                    $('#mt8a_vJenis_sediaan').val(o.vJenis_sediaan);
+                    $('#mt8a_vKemasan').val(o.vKemasan);
+                    $('#mt8a_vJenis_sediaan').val(o.vJenis_sediaan);
                 }
 			});
 		});";
@@ -391,9 +404,14 @@ class mt8a extends MX_Controller {
 		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
-    function insertBox_mt8a_dTanggal_terima_sample($field, $id) {
-		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
-		return $return;
+     function insertBox_mt8a_dTanggal_terima_sample($field, $id) {
+    	$ff=str_replace("form_","", $field);
+        $return = '<input name="'.$ff.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
+        $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        
+                    </script>';
+        return $return;
     }
     function insertBox_mt8a_vAcuanProsedur($field, $id) {
 		$return="<input type='text' name='".$id."' id='".$id."' value='SK Mentan No. 69S/Kpts/TN.260/8/9/96.' size='35' />";

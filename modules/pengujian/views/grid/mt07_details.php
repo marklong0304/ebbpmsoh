@@ -107,9 +107,9 @@ $getUrl=$nmmodule.'/'.$getUrl;
             });
         },
         loadComplete:function(){
-            <?php /*if($get["action"]=="create"){
+            <?php if($get["action"]=="create"){
                 echo  "addrow_".$nmTable."();";
-                }*/
+                }
             ?>
         }
     });
@@ -150,10 +150,12 @@ $getUrl=$nmmodule.'/'.$getUrl;
             var sa=[
 		            	[
 			            	"<input type='hidden' class='num_rows_<?php echo $nmTable ?>' value='"+rlast+"' /><input type='text' name='grid_details_nomor_request[]' id='grid_details_nomor_request_"+rlast+"' class='get_sample_req_<?php echo $nmTable ?> required' size='25'><input type='hidden' name='<?php echo $url ?>_iMt01' id='grid_details_<?php echo $nmTable ?>_iMt01_"+rlast+"' class='required' size='25'>" 
+                            ,"<input type='text' name='mt07_vSuhu_penyimpanan' id='grid_details_<?php echo $nmTable ?>_vSuhu_penyimpanan_"+rlast+"' value='' class='required' size='25'>"
+                            ,"<input type='text' name='mt07_vKeterangan' id='grid_details_<?php echo $nmTable ?>_vKeterangan_"+rlast+"' value='' class='required' size='25'>"
 			            	<?php 
 					            $ss=0;
 								foreach ($arrSearch as $keyv => $valv) {
-									if($ss>0){
+									if($ss>2){
 							?>
 								,"<p id='grid_<?php echo $nmTable."_".$keyv ?>_"+rlast+"'>-</p>"
 							<?php
