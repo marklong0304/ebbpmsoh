@@ -149,8 +149,7 @@
 	<div id="loginBox">
 		<div class="login-logo" align="center">
 			<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh/LogoBBPMSOH.png' style='max-width: 100%;max-height:170px'/></a></a>
-			<h3>Portal Layanan Pengujian <br /> Sampel Obat Hewan Online
-			(e-Sampel)</h3>
+			<h3>Sistem Terpadu  <br /> Pengujian Mutu dan Sertifikasi Obat Hewan</h3>
 		</div><!-- /.login-logo -->
 		<p class="validateTips"></p>
 		<form id="formLogin">
