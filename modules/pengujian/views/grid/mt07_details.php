@@ -7,7 +7,8 @@ $pager="pager_tb_details_".$grid;
 $caption = "";
 $isubmit=isset($isubmit)?$isubmit:0;
 $pk=isset($pk)?$pk:0;
-$arrSearch=array('vNomor'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
+//$arrSearch=array('vNomor'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
+$arrSearch=array('vNomor'=>'Nomor Pengujian','vSuhu_penyimpanan'=>'Suhu Penyimpanan','vKeterangan'=>'Keterangan','vZat_aktif'=>'Zat Aktif / Strain','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','iJumlah_diserahkan'=>'Jumlah Sample');
 $wsearch=array('iAction'=>30,'vNomor'=>250,'vNama_sample'=>250,'vNama_produsen'=>200);
 $alsearch=array('iAction'=>'center');
 foreach ($get as $kget => $vget) {
@@ -146,16 +147,23 @@ $getUrl=$nmmodule.'/'.$getUrl;
                 var s=JSON.parse("["+n+"]");
                 var rlast = parseInt(Math.max.apply(Math, s)) +1;
             }
-            var sa=[["<input type='hidden' class='num_rows_<?php echo $nmTable ?>' value='"+rlast+"' /><input type='text' name='grid_details_nomor_request[]' id='grid_details_nomor_request_"+rlast+"' class='get_sample_req_<?php echo $nmTable ?> required' size='25'><input type='hidden' name='<?php echo $url ?>_iMt01' id='grid_details_<?php echo $nmTable ?>_iMt01_"+rlast+"' class='required' size='25'>" <?php 
-	            $ss=0;
-				foreach ($arrSearch as $keyv => $valv) {
-					if($ss>0){
-						?>,"<p id='grid_<?php echo $nmTable."_".$keyv ?>_"+rlast+"'>-</p>"
-						<?php
-					}
-					$ss++;
-				}
-            ?>]];
+            var sa=[
+		            	[
+			            	"<input type='hidden' class='num_rows_<?php echo $nmTable ?>' value='"+rlast+"' /><input type='text' name='grid_details_nomor_request[]' id='grid_details_nomor_request_"+rlast+"' class='get_sample_req_<?php echo $nmTable ?> required' size='25'><input type='hidden' name='<?php echo $url ?>_iMt01' id='grid_details_<?php echo $nmTable ?>_iMt01_"+rlast+"' class='required' size='25'>" 
+			            	<?php 
+					            $ss=0;
+								foreach ($arrSearch as $keyv => $valv) {
+									if($ss>0){
+							?>
+								,"<p id='grid_<?php echo $nmTable."_".$keyv ?>_"+rlast+"'>-</p>"
+							<?php
+									}
+									$ss++;
+								}
+			            	?>
+
+		            	]
+            		];
             var lastr=jQuery("#<?php echo $nmTable; ?>").jqGrid('getGridParam', 'records');
             var names = [<?php $sas = implode(',', $nmf); echo $sas;?>];
             var mydata = [];
