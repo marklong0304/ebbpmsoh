@@ -30,6 +30,8 @@
  
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class mt01 extends MX_Controller {
+	
+	var $masterUrl;
     function __construct() {
         parent::__construct();
         /*$this->dbset = $this->load->database('schedulercheck',false, true);*/
@@ -39,6 +41,13 @@ class mt01 extends MX_Controller {
         $this->group = $this->auth->checkgroup($this->user->gNIP);
        /* $checkMod = $this->auth->modul_set($this->input->get('modul_id'));
         $this->validation =$checkMod['iValidation'];*/
+
+        $this->url       = 'mt01'; 
+		$this->report    = $this->load->library('report');
+		$url             = $_SERVER['HTTP_REFERER'];
+		$company_id      = substr($url, strrpos($url, '/') + 1);
+		$this->masterUrl = base_url()."processor/pengujian/mt01?company_id={$this->input->get('company_id')}";
+
 
     }
 
@@ -299,6 +308,11 @@ class mt01 extends MX_Controller {
                 echo $this->reject_process();
                 break;
 
+            case 'getDataMemo':
+				echo $this->getDataMemo();
+				break;
+
+
                 case 'download':
                     $this->download($this->input->get('file'));
                     break;
@@ -307,6 +321,29 @@ class mt01 extends MX_Controller {
                     break;
         }
     }
+
+    function getDataMemo() {
+
+		//$id   = $this->input->post('id');
+		$id   = 2;
+		$data = array();
+
+    	$sql = "select * from bbpmsoh.mt01 a
+    			WHERE a.iMt01 = '{$id}'";
+    	$query = $this->db->query($sql);
+
+    	foreach ($query->result() as $row) {
+    		
+			$row_array['iCustomer']               = $row->iCustomer;
+			$row_array['vNomor']              = ucwords(strtolower($row->vNomor));
+			
+
+			array_push($data, $row_array);
+    	}
+
+    	echo json_encode($data);
+    }
+
 
 
     function checkgroup($nip){
@@ -1044,10 +1081,52 @@ class mt01 extends MX_Controller {
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt01?action=reject&last_id='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_mt01"  class="ui-button-text icon-save" >Reject</button>';
         
 
+        $grid          = $this->url;
+		$url           = $this->masterUrl;
+
+        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Generate UPK</button>";
+		$btnUpk .= "<script>
+						function btnUpk_{$this->url}(url, grid, dis) {
+
+							custom_confirm('Generate UPK ?', function() {
+								template = 'mt01.docx';
+								var loadFile = function(url, callback) {
+									JSZipUtils.getBinaryContent(url, callback);
+								}
+								loadFile('../files/pengujian/template/'+template, function(err, content) {
+									if (err) {throw e};
+
+									$.ajax({
+										url: url+'&action=getDataMemo',
+										type: 'POST',
+										dataType: 'json',
+										data: '&id={$peka}',
+										success: function(data) {
+
+											doc = new Docxgen(content);
+
+											doc.setData({
+												'name' : data[0].vNomor,
+		    									
+											})
+
+											doc.render()
+		    								out = doc.getZip().generate({type:'blob'})
+
+		    								nmdok = 'UPK Promosi';
+		    								saveAs(out, nmdok+' - ' + data[0].vName + '.docx')
+										}
+									})
+								})
+							})
+						}
+					</script>";
 
 
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk;    
+            
         }
         else{ 
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
