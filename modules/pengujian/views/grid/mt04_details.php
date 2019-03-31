@@ -7,8 +7,8 @@ $pager="pager_tb_details_".$grid;
 $caption = "";
 $isubmit=isset($isubmit)?$isubmit:0;
 $pk=isset($pk)?$pk:0;
-$arrSearch=array('iAction'=>'Del','vNomor'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
-$wsearch=array('iAction'=>30,'vNomor'=>250,'vNama_sample'=>250,'vNama_produsen'=>200);
+$arrSearch=array('iAction'=>'Del','vNamaStandar'=>'Nama Standar/Antigen/Antiserum','vKadar'=>'Kadar/Potensi','vAsal'=>'Asal/Origin','vBatch'=>'No. Batch/Lot','dKadaluarsa'=>'Tanggal Kadaluarsa','iJumlah'=>'Jumlah','vKet'=>'Keterangan');
+$wsearch=array('iAction'=>30,'vNamaStandar'=>250,'vKadar'=>150,'vBatch'=>150,'dKadaluarsa'=>150,'iJumlah'=>150,'vKet'=>250);
 $alsearch=array('iAction'=>'center');
 foreach ($get as $kget => $vget) {
     if($kget!="action"){
@@ -140,16 +140,7 @@ $getUrl=$nmmodule.'/'.$getUrl;
                 var s=JSON.parse("["+n+"]");
                 var rlast = parseInt(Math.max.apply(Math, s)) +1;
             }
-            var sa=[["<input type='hidden' class='num_rows_<?php echo $nmTable ?>' value='"+rlast+"' /><a href='javascript:;' onclick='javascript:hapus_row_<?php echo $nmTable ?>("+rlast+")'><center><span class='ui-icon ui-icon-trash'></span></center></a>","<input type='text' name='grid_details_nomor_request[]' id='grid_details_nomor_request_"+rlast+"' class='get_sample_req required' size='25'><input type='hidden' name='grid_details_iMt01[0][]' id='grid_details_iMt01_"+rlast+"' class='required' size='25'>" <?php 
-	            $ss=0;
-				foreach ($arrSearch as $keyv => $valv) {
-					if($ss>1){
-						?>,"<p id='grid_<?php echo $keyv ?>_"+rlast+"'>-</p>"
-						<?php
-					}
-					$ss++;
-				}
-            ?>]];
+            var sa=[["<input type='hidden' class='num_rows_<?php echo $nmTable ?>' value='"+rlast+"' /><input type='hidden' name='mt04_iMt04_detail[0][]' value='"+rlast+"' /><a href='javascript:;' onclick='javascript:hapus_row_<?php echo $nmTable ?>("+rlast+")'><center><span class='ui-icon ui-icon-trash'></span></center></a>","<input type='text' name='mt04_vAntiserum[0][]' id='mt04_vAntiserum_"+rlast+"' class='required' size='25'>","<input type='text' name='mt04_vKadar[0][]' id='mt04_vKadar_"+rlast+"' class='required' size='15'>","<input type='text' name='mt04_vAsal[0][]' id='mt04_vAsal_"+rlast+"' class='required' size='15'>","<input type='text' name='mt04_vBatch[0][]' id='mt04_vBatch_"+rlast+"' class='required' size='15'>","<input type='text' name='mt04_dTgl_expired[0][]' id='mt04_dTgl_expired_"+rlast+"' class='required' size='15'>","<input type='text' name='mt04_vJumlah[0][]' id='mt04_vJumlah_"+rlast+"' class='required' size='15'","<input type='text' name='mt04_vKeterangan[0][]' id='mt04_vKeterangan_"+rlast+"' class='required' size='25'>"]];
             var lastr=jQuery("#<?php echo $nmTable; ?>").jqGrid('getGridParam', 'records');
             var names = [<?php $sas = implode(',', $nmf); echo $sas;?>];
             var mydata = [];

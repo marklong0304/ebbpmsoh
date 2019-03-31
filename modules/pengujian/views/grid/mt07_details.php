@@ -107,9 +107,9 @@ $getUrl=$nmmodule.'/'.$getUrl;
             });
         },
         loadComplete:function(){
-            <?php if($get["action"]=="create"){
+            <?php /*if($get["action"]=="create"){
                 echo  "addrow_".$nmTable."();";
-                }
+                }*/
             ?>
         }
     });

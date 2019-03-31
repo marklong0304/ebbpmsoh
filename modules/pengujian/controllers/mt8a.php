@@ -153,6 +153,10 @@ class mt8a extends MX_Controller {
 			case 'get_data_prev':
 				echo $this->get_data_prev();
 				break;
+			case 'getDetailsData':
+				$post=$this->input->post();
+				
+				break;
 
 			/*Confirm*/
 			case 'confirm':
@@ -341,7 +345,20 @@ class mt8a extends MX_Controller {
 			}
 		}
 		$return.="</select>";
-		//$return.=$this->db->last_query();
+		$return.="<script>";
+		$return.="$('#".$id."').change(function(){
+			$.ajax({
+                url:base_url+'processor/pengujian/mt08a?action=getDetailsData',
+                type: 'post',
+                data: {iMt01:$(this).val()},
+                success: function(data) {
+                    //alert(isUpload);
+                    var o = $.parseJSON(data);
+                    alert(o.message);
+                }
+			});
+		});";
+		$return.="</script>";
         return $return;
     }
    /* ,'vBatch_lot'=>'No Batch/Lot'
@@ -355,23 +372,39 @@ class mt8a extends MX_Controller {
 				,'vNo_transaksi'=>'Nomor Pengujian'*/
 
 	function insertBox_mt8a_vBatch_lot($field, $id) {
-		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' />";
+		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
 	function insertBox_mt8a_dTgl_kadaluarsa($field, $id) {
-		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' />";
+		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
 	function insertBox_mt8a_vNo_registrasi($field, $id) {
-		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' />";
+		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
 	function insertBox_mt8a_vKemasan($field, $id) {
+		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
+		return $return;
+    }
+	function insertBox_mt8a_vJenis_sediaan($field, $id) {
+		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
+		return $return;
+    }
+    function insertBox_mt8a_dTanggal_terima_sample($field, $id) {
+		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
+		return $return;
+    }
+    function insertBox_mt8a_vAcuanProsedur($field, $id) {
+		$return="<input type='text' name='".$id."' id='".$id."' value='SK Mentan No. 69S/Kpts/TN.260/8/9/96.' size='35' />";
+		return $return;
+    }
+    function insertBox_mt8a_vPenyimpangan($field, $id) {
 		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' />";
 		return $return;
     }
-	function insertBox_mt8a_vKemasan($field, $id) {
-		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' />";
+    function insertBox_mt8a_vNo_transaksi($field, $id) {
+		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
 	
