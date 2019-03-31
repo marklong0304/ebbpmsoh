@@ -18,6 +18,18 @@ class auth {
 		return $ret;
 	}
 
+	function checkgroup($nip){
+		$sql = "select *,a.idprivi_group,a.vNamaGroup 
+				from erp_privi.privi_group_pt_app a 
+				join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+				join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+				where 
+				b.idprivi_apps=130
+				and 
+				c.cNIP='$nip'";
+		$ret = $this->_ci->db->query($sql)->row_array();
+		return $ret;
+	}
 	
     function user() {
 		return $this->sess_auth;

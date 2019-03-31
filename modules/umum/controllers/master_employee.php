@@ -495,6 +495,7 @@ class master_employee extends MX_Controller {
     function before_insert_processor($row, $postData) {
         $postData['dCreate'] = date('Y-m-d H:i:s');
         $postData['cCreated']=$this->user->gNIP;
+        $postData['iVerifikasi']=1;
 
 
        /* if($postData['isdraft']==true){
