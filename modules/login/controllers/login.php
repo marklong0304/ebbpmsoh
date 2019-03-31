@@ -98,7 +98,7 @@ class Login extends MX_Controller {
 					$this->jsonci->sendJSONfailure($username, $data);
 					break;
 				case 3 : //not registered
-					$data = array('stat'=>3, 'message'=>'Not registered.');
+					$data = array('stat'=>3, 'message'=>'User belum diverifikasi.');
 					$this->jsonci->sendJSONfailure($username, $data);
 					break;
 				  

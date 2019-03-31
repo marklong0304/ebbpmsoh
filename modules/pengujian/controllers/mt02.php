@@ -123,6 +123,12 @@ class mt02 extends MX_Controller {
 
         }
 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 7){
+            $grid->setQuery('mt01.iCustomer',$this->user->gNIP );     
+        }
+
+
         $grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
         $grid->changeFieldType('iApprove', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 
@@ -197,8 +203,26 @@ class mt02 extends MX_Controller {
         $this->index($this->input->get('action'));
     }
 
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
+
+    function getMT01($id){
+        $sql= 'select * from bbpmsoh.mt01 a where a.lDeleted=0 and a.iMt01= "'.$id.'"';
+        $dMt01 = $this->db->query($sql)->row_array();
+        return $dMt01;
+    }
     function manipulate_update_button($buttons, $rowData) {
-         $cNip= $this->user->gNIP;
+        $cNip= $this->user->gNIP;
         $js = $this->load->view('js/standard_js');
         $js .= $this->load->view('js/upload_js');
 
@@ -214,9 +238,23 @@ class mt02 extends MX_Controller {
         }
         else{ 
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
-                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+                
+                $groupnya = $this->checkgroup($this->user->gNIP);             
+                if( $groupnya['idprivi_group']== 7){
+                    $buttons['update'] = 'MT02 Belum disubmit oleh Admin Yanji <br>'.$iframe.$update_draft.$js; 
+                }else{
+                    $buttons['update'] = $iframe.$update_draft.$update.$js; 
+                }
+
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
-                $buttons['update'] = $iframe.$approve.$reject;
+                $mt01Nya = $this->getMT01($rowData['iMt01']);
+
+                if($this->user->gNIP == $mt01Nya['iCustomer']){
+                    $buttons['update'] = $iframe.$approve.$reject;    
+                }else{
+                    $buttons['update'] = 'Butuh Approval dari Customer';
+                }
+                
             }
         }
         

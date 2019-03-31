@@ -63,7 +63,7 @@ $(document).ready(function() {
 	$( ".datepicker" ).livequery(function(){
 		$(this).datepicker({
 			showOn: "button",
-			buttonImage: "http://10.1.49.8/erp/assets/images/calendar.gif",
+			buttonImage: base_url+"assets/images/calendar.gif",
 			buttonImageOnly: true,
 			dateFormat: 'dd-mm-yy',
 			changeMonth: true,

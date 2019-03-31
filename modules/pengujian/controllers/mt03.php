@@ -56,7 +56,7 @@ class mt03 extends MX_Controller {
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','iTgl_expired','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan','vUploadFile'); 
+        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','iTgl_expired','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan','vUploadFile');
 
         //Setting Grid Width Name 
         /*
@@ -64,6 +64,10 @@ class mt03 extends MX_Controller {
         $grid->setLabel('nama field','nama field yang akan diubah');
 
         */
+
+        $grid->setLabel('vBatch','No Batch');
+        $grid->setLabel('dTgl_expired','Tanggal Kadaluarsa');
+        $grid->setLabel('vEtiket_brosur','Etiket / Brosur / Komposisi');
 
         $grid->setWidth('mt01.vNo_transaksi', '100');
         $grid->setAlign('mt01.vNo_transaksi', 'left');
@@ -474,6 +478,27 @@ class mt03 extends MX_Controller {
             return $return;
         }
 
+        function insertBox_mt03_dTgl_expired($field, $id) {
+            $return = '<input name="'.$id.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
+            $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        </script>';
+            return $return;
+        }
+
+        function updateBox_mt03_dTgl_expired($field, $id, $value, $rowData) {
+            $return = '<input value="'.$value.'" name="'.$id.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
+            $return .=  '<script>
+                            $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
+                        </script>';
+            if($this->input->get('action')=='view'){
+                $return=$value;
+            }
+            return $return;
+        }
+
+
+
         function insertBox_mt03_vnomor_03($field, $id) {
             $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="35" />';
              return $return;
@@ -502,7 +527,7 @@ class mt03 extends MX_Controller {
              return $return;
         }
         function insertBox_mt03_iAda_batch($field, $id) {
-            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="text" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
             return $return;
         }
         function insertBox_mt03_vNama_produsen($field, $id) {
@@ -510,7 +535,7 @@ class mt03 extends MX_Controller {
              return $return;
         }
         function insertBox_mt03_iTgl_expired($field, $id) {
-            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="text" name="'.$field.'_dis"  id="'.$id.'_dis" disabled="TRUE" class="input_rows1" size="25" /> <input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
             return $return;
         }
         function insertBox_mt03_iM_jenis_brosur($field, $id) {

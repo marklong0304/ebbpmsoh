@@ -36,7 +36,7 @@ class mt01 extends MX_Controller {
         $this->load->library('auth');
         $this->db = $this->load->database('hrd',false, true);
         $this->user = $this->auth->user();
-
+        $this->group = $this->auth->checkgroup($this->user->gNIP);
        /* $checkMod = $this->auth->modul_set($this->input->get('modul_id'));
         $this->validation =$checkMod['iValidation'];*/
 
@@ -176,12 +176,32 @@ class mt01 extends MX_Controller {
         $grid->setWidth('iApprove', '100');
         $grid->setAlign('iApprove', 'left');
         $grid->setLabel('iApprove','Status Approval');
+
+        /*
+            idprivi_group;vNamaGroup
+            7;Customer
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 7){
+            $grid->setQuery('iCustomer',$this->user->gNIP );     
+        }
+        
+        
+
+
     
 //Example modifikasi GRID ERP
     //- Set Query
-        /*if ($this->validation) {
-            $grid->setQuery('lDeleted = 0 ', null); 
-        }*/
+        
 
         
 
@@ -289,6 +309,19 @@ class mt01 extends MX_Controller {
     }
 
 
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
+
 
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
      
@@ -386,11 +419,66 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_iCustomer($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            $groupnya = $this->checkgroup($this->user->gNIP);             
+                           
+                            if($groupnya['idprivi_group'] == 7){
+                                 $this->db->select("*")
+                                    ->from("hrd.employee")
+                                    ->where("iDivisionID",7)
+                                    ->where("cNip",$this->user->gNIP)
+                                    ->where("iVerifikasi",1);
+                            }else{
+                                $this->db->select("*")
+                                    ->from("hrd.employee")
+                                    ->where("iDivisionID",7)
+                                    ->where("iVerifikasi",1);
+                            }
+                            
+
+
+                            $fo=$this->db->get()->result_array();
+                            $return="<select id='".$id."' name='".$field."' class='required'>";
+                            $return.="<option value=''>---Pilih---</option>";
+                            foreach ($fo as $kf => $vvf) {
+                                $return.="<option value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
+                            }
+                            $return.="</select>";
                             return $return;
                         }
                         
                         function updateBox_mt01_iCustomer($field, $id, $value, $rowData) {
+                                $groupnya = $this->checkgroup($this->user->gNIP);             
+                                $groupnya = $this->checkgroup($this->user->gNIP);             
+                           
+                                if($groupnya['idprivi_group'] == 7){
+                                     $this->db->select("*")
+                                        ->from("hrd.employee")
+                                        ->where("iDivisionID",7)
+                                        ->where("cNip",$this->user->gNIP)
+                                        ->where("iVerifikasi",1);
+                                }else{
+                                    $this->db->select("*")
+                                        ->from("hrd.employee")
+                                        ->where("iDivisionID",7)
+                                        ->where("iVerifikasi",1);
+                                }
+                               
+                                    $fo=$this->db->get()->result_array();
+                                    $return="<select id='".$id."' name='".$field."' class='required'>";
+                                    $return.="<option value=''>---Pilih---</option>";
+                                    foreach ($fo as $kf => $vvf) {
+                                        $return.="<option value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
+                                    }
+                                    $return.="</select>";
+                            return $return;
+                        }
+
+                        function insertBox_mt01_iCustomer1($field, $id) {
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            return $return;
+                        }
+                        
+                        function updateBox_mt01_iCustomer1($field, $id, $value, $rowData) {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 

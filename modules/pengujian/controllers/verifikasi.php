@@ -430,7 +430,24 @@ class verifikasi extends MX_Controller {
 
             
             $this->db->where('ID',$ID);
-            $this->db->update('hrd.employee',$dataD);
+            $updet = $this->db->update('hrd.employee',$dataD);
+
+            if($updet){
+                /*get Employee */
+                $sql = 'select * from hrd.employee a where a.ID="'.$ID.'" ';
+                $dEmp = $this->db->query($sql)->row_array();
+
+                /*insert authprivi untuk modul Customer*/
+                  
+                $data['cNIP']   = $dEmp['cNip'];
+                $data['iCompanyId']     = 3;
+                $data['idprivi_apps']   = 130;
+                $data['idprivi_group']  = 286;
+                $inserts = $this -> db -> insert('erp_privi.privi_authlist', $data); 
+                
+
+            }
+
 
             $data['status']  = true;
             $data['last_id'] = $post['ID'];
