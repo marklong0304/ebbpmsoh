@@ -419,10 +419,23 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_iCustomer($field, $id) {
-                            $this->db->select("*")
+                            $groupnya = $this->checkgroup($this->user->gNIP);             
+                           
+                            if($groupnya['idprivi_group'] == 7){
+                                 $this->db->select("*")
+                                    ->from("hrd.employee")
+                                    ->where("iDivisionID",7)
+                                    ->where("cNip",$this->user->gNIP)
+                                    ->where("iVerifikasi",1);
+                            }else{
+                                $this->db->select("*")
                                     ->from("hrd.employee")
                                     ->where("iDivisionID",7)
                                     ->where("iVerifikasi",1);
+                            }
+                            
+
+
                             $fo=$this->db->get()->result_array();
                             $return="<select id='".$id."' name='".$field."' class='required'>";
                             $return.="<option value=''>---Pilih---</option>";
@@ -434,23 +447,29 @@ class mt01 extends MX_Controller {
                         }
                         
                         function updateBox_mt01_iCustomer($field, $id, $value, $rowData) {
-                                if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
-                                }else{ 
+                                $groupnya = $this->checkgroup($this->user->gNIP);             
+                                $groupnya = $this->checkgroup($this->user->gNIP);             
+                           
+                                if($groupnya['idprivi_group'] == 7){
+                                     $this->db->select("*")
+                                        ->from("hrd.employee")
+                                        ->where("iDivisionID",7)
+                                        ->where("cNip",$this->user->gNIP)
+                                        ->where("iVerifikasi",1);
+                                }else{
                                     $this->db->select("*")
-                                    ->from("hrd.employee")
-                                    ->where("iDivisionID",7)
-                                    ->where("iVerifikasi",1);
-                            $fo=$this->db->get()->result_array();
-                            $return="<select id='".$id."' name='".$field."' class='required'>";
-                            $return.="<option value=''>---Pilih---</option>";
-                            foreach ($fo as $kf => $vvf) {
-                                $return.="<option value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
-                            }
-                            $return.="</select>";
-
+                                        ->from("hrd.employee")
+                                        ->where("iDivisionID",7)
+                                        ->where("iVerifikasi",1);
                                 }
-                                
+                               
+                                    $fo=$this->db->get()->result_array();
+                                    $return="<select id='".$id."' name='".$field."' class='required'>";
+                                    $return.="<option value=''>---Pilih---</option>";
+                                    foreach ($fo as $kf => $vvf) {
+                                        $return.="<option value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
+                                    }
+                                    $return.="</select>";
                             return $return;
                         }
 
