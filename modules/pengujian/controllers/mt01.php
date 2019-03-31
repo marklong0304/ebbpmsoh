@@ -1084,11 +1084,11 @@ class mt01 extends MX_Controller {
         $grid          = $this->url;
 		$url           = $this->masterUrl;
 
-        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Generate UPK</button>";
+        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
 		$btnUpk .= "<script>
 						function btnUpk_{$this->url}(url, grid, dis) {
 
-							custom_confirm('Generate UPK ?', function() {
+							custom_confirm('Print Dokumen ?', function() {
 								template = 'mt01.docx';
 								var loadFile = function(url, callback) {
 									JSZipUtils.getBinaryContent(url, callback);
@@ -1113,7 +1113,7 @@ class mt01 extends MX_Controller {
 											doc.render()
 		    								out = doc.getZip().generate({type:'blob'})
 
-		    								nmdok = 'UPK Promosi';
+		    								nmdok = 'MT01';
 		    								saveAs(out, nmdok+' - ' + data[0].vName + '.docx')
 										}
 									})
