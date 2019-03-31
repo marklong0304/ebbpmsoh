@@ -427,7 +427,7 @@ class mt09 extends MX_Controller {
 		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
-    function insertBox_mt07_form_sample_label($field, $id) {
+    function insertBox_mt09_form_sample_label($field, $id) {
 		$return = '<script>
 			$("label[for=\''.$id.'\']").css({"border": "1px solid #A3619D", "background-color": "#A3619D", "border-collapse": "collapse","width":"99%","font-weight":"bold","color":"#ffffff","text-shadow": "0 1px 1px rgba(0, 0, 0, 0.3)","text-transform": "uppercase", "text-align":"center"});
 		</script>';
