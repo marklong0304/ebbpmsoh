@@ -123,6 +123,12 @@ class mt02 extends MX_Controller {
 
         }
 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 7){
+            $grid->setQuery('mt01.iCustomer',$this->user->gNIP );     
+        }
+
+
         $grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
         $grid->changeFieldType('iApprove', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 
