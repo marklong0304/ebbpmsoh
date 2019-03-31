@@ -56,7 +56,7 @@ class mt03 extends MX_Controller {
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','iTgl_expired','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan'); 
+        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','iTgl_expired','iM_jenis_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan','vUploadFile'); 
 
         //Setting Grid Width Name 
         /*
@@ -122,6 +122,7 @@ class mt03 extends MX_Controller {
         $grid->setLabel('iHasil_ppoh','Hasil Rapat PPOH');
         $grid->setLabel('iBahan_standard','Bahan Standart/Antigen Antiserum');
         $grid->setLabel('tCatatan','Catatan');
+        $grid->setLabel('vUploadFile','Upload File');
 
 //Example modifikasi GRID ERP
     //- Set Query
@@ -166,21 +167,254 @@ class mt03 extends MX_Controller {
                     $grid->render_form();
                     break;
              
-                case 'createproses':
+            case 'createproses':
+                $isUpload = $this->input->get('isUpload');
+                $lastId = $this->input->get('lastId');
+
+                if($isUpload) {
+                    $lastId = $_GET["lastId"];
+                    $path = realpath("files/pengujian/mt03");
+
+                    if(!file_exists($path.'/'.$lastId)){
+                        if (!mkdir($path.'/'.$lastId, 0777, true)) { 
+                            die('Failed upload, try again!');
+                        }
+                    }
+                                    
+
+                    $file_name_file= '';
+                    $mt03_fileketerangan = array();
+                    $fileId_file = array();
+
+            
+                    foreach($_POST as $key=>$value) {
+
+                        if ($key == 'mt03_fileketerangan') {
+                            foreach($value as $y=>$u) {
+                                $mt03_fileketerangan[$y] = $u;
+                            }
+                        }
+
+                    }
+                    $i=0;
+                    foreach ($_FILES['mt03_upload_file']['error'] as $key => $error) {
+                        if ($error == UPLOAD_ERR_OK) {
+                            $tmp_name = $_FILES['mt03_upload_file']['tmp_name'][$key];
+                            $name = $_FILES['mt03_upload_file']['name'][$key];
+                            
+                            $now_u = date('Y_m_d__H_i_s');
+                            $name_generate = $i.'__'.$now_u.'__'.$_FILES['mt03_upload_file']['name'][$key];
+
+                            $now = date('Y-m-d H:i:s');
+                            $logged_nip = $this->user->gNIP;
+                            $tabel_file = 'mt03_file';
+                            $tabel_file_pk = 'iMt03';
+
+                            if(move_uploaded_file($tmp_name, $path.'/'.$lastId.'/'.$name_generate)) {
+                                $sql[]= '
+                                    insert into bbpmsoh.mt03_file('.$tabel_file_pk.', vFilename, vFilename_generate, vKeterangan, dCreate, cCreate)
+                                    values('.$lastId.'
+                                    ,"'.$name.'" 
+                                    ,"'.$name_generate.'" 
+                                    , "'.$mt03_fileketerangan[$i].'" 
+                                    ,"'.$now.'" 
+                                    ,"'.$logged_nip.'" 
+                                    )
+
+                                
+                                ';
+                                $i++;   
+
+                            }else{
+
+                                echo 'Upload ke folder gagal';  
+                            }
+
+
+                        }
+
+                    }
+
+                    foreach($sql as $q) {
+                        try {
+                            $this->db->query($q);
+                        }catch(Exception $e) {
+                            die($e);
+                        }
+                    }
+                    
+                    $r['message']='Data Berhasil Disimpan';
+                    $r['status'] = TRUE;
+                    $r['last_id'] = $this->input->get('lastId');                    
+                    echo json_encode($r);
+
+                }else{
                     echo $grid->saved_form();
-                    break;
-                  
-           
+                }
+                
+            break;
             
             case 'update':
                     $grid->render_form($this->input->get('id'));
                     break;
 
         
-            case 'updateproses':
-                    echo $grid->updated_form();
-                    break;
-        
+           case 'updateproses':
+                    $isUpload = $this->input->get('isUpload');
+                    $post= $this->input->post();
+                    $lastId = $post['mt03_iMt03'];
+                    $path = realpath("files/pengujian/mt03");
+
+                    if(!file_exists($path.'/'.$lastId)){
+                        if (!mkdir($path.'/'.$lastId, 0777, true)) { 
+                            die('Failed upload, try again!');
+                        }
+                    }
+                    
+                    $file_name_file= '';
+                    $mt03_fileketerangan = array();
+                    $fileId_file = array();
+                    $fileid = '';
+
+                    foreach($_POST as $key=>$value) {
+
+                        if ($key == 'mt03_fileketerangan') {
+                            foreach($value as $y=>$u) {
+                                $mt03_fileketerangan[$y] = $u;
+                            }
+                        }
+
+                        
+
+                        if ($key == 'ifile_mt03') {
+                            $i=0;
+                            foreach($value as $k1=>$v1) {
+                                if($i==0){
+                                    $fileid .= "'".$v1."'";
+                                }else{
+                                    $fileid .= ",'".$v1."'";
+                                }
+                                $i++;
+                            }
+                        }
+
+                    }
+
+                    if($isUpload) {
+                        $lastId = $post['mt03_iMt03'];
+                        if($fileid!='' and $lastId != ''){
+                            $tgl= date('Y-m-d H:i:s');
+                             $sql1 = 'update bbpmsoh.mt03_file
+                                    set lDeleted=1
+                                    ,dUpdate= "'.$tgl.'" 
+                                    ,cUpdate= "'.$this->user->gNIP.'" 
+                                    where 
+                                    iMt03 = "'.$lastId.'" 
+                                    and 
+                                    ifile_mt03 not in ('.$fileid.')
+                                    
+
+                                    ';
+                            $this->db->query($sql1);
+                        }else{
+                            $tgl= date('Y-m-d H:i:s');
+                            $sql1 = 'update bbpmsoh.mt03_file
+                                    set lDeleted=1
+                                    ,dUpdate= "'.$tgl.'" 
+                                    ,cUpdate= "'.$this->user->gNIP.'" 
+                                    where 
+                                    iMt03 = "'.$lastId.'" 
+
+                                    ';
+                            $this->db->query($sql1);
+                        }
+
+
+                        $i=0;
+                        foreach ($_FILES['mt03_upload_file']['error'] as $key => $error) {
+                            if ($error == UPLOAD_ERR_OK) {
+                                $tmp_name = $_FILES['mt03_upload_file']['tmp_name'][$key];
+                                $name = $_FILES['mt03_upload_file']['name'][$key];
+                                $now_u = date('Y_m_d__H_i_s');
+                                $name_generate = $i.'__'.$now_u.'__'.$_FILES['mt03_upload_file']['name'][$key];
+
+                                $now = date('Y-m-d H:i:s');
+                                $logged_nip = $this->user->gNIP;
+                                $tabel_file = 'study_literatur_pd_file';
+                                $tabel_file_pk = 'iMt03';
+                                
+
+
+                                if(move_uploaded_file($tmp_name, $path.'/'.$lastId.'/'.$name_generate)) {
+                                    $sql[]= '
+                                        insert into bbpmsoh.mt03_file('.$tabel_file_pk.', vFilename, vFilename_generate, vKeterangan, dCreate, cCreate)
+                                        values('.$lastId.'
+                                        ,"'.$name.'" 
+                                        ,"'.$name_generate.'" 
+                                        , "'.$mt03_fileketerangan[$i].'" 
+                                        ,"'.$now.'" 
+                                        ,"'.$logged_nip.'" 
+                                        )
+
+                                    
+                                    ';
+                                    $i++;   
+
+                                }else{
+
+                                    echo 'Upload ke folder gagal';  
+                                }
+
+
+                            }
+
+                        }
+
+                        foreach($sql as $q) {
+                            try {
+                                $this->db->query($q);
+                            }catch(Exception $e) {
+                                die($e);
+                            }
+                        }
+                        
+                        $r['message']='Data Berhasil Disimpan';
+                        $r['status'] = TRUE;
+                        $r['last_id'] = $this->input->get('lastId');                    
+                        echo json_encode($r);
+
+                    }else{
+
+                        if($fileid!='' and $lastId != ''){
+                            $tgl= date('Y-m-d H:i:s');
+                             $sql1 = 'update bbpmsoh.mt03_file
+                                    set lDeleted=1
+                                    ,dUpdate= "'.$tgl.'" 
+                                    ,cUpdate= "'.$this->user->gNIP.'" 
+                                    where 
+                                    iMt03 = "'.$lastId.'" 
+                                    and 
+                                    ifile_mt03 not in ('.$fileid.')
+                                    
+
+                                    ';
+                            $this->db->query($sql1);
+                        }else{
+                            $tgl= date('Y-m-d H:i:s');
+                            $sql1 = 'update bbpmsoh.mt03_file
+                                    set lDeleted=1
+                                    ,dUpdate= "'.$tgl.'" 
+                                    ,cUpdate= "'.$this->user->gNIP.'" 
+                                    where 
+                                    iMt03 = "'.$lastId.'" 
+
+                                    ';
+                            $this->db->query($sql1);
+                        }
+
+                        echo $grid->updated_form();
+                    }
+                break;
         
             case 'delete':
                     echo $grid->delete_row();
@@ -197,6 +431,9 @@ class mt03 extends MX_Controller {
                 break;
             case 'reject_process':
                 echo $this->reject_process();
+                break;
+            case 'get_data_prev':
+                echo $this->get_data_prev();
                 break;
 
             case 'download':
@@ -302,6 +539,20 @@ class mt03 extends MX_Controller {
         }
         function insertBox_mt03_iBahan_standard($field, $id) {
             $return = '<input type="radio" name="'.$field.'"  id="'.$id.'" value="1" /> Ada &nbsp&nbsp&nbsp<input type="radio" name="'.$field.'"  id="'.$id.'" value="0" checked /> Tidak Ada ';
+            return $return;
+        }
+        function insertBox_mt03_vUploadFile($field, $id) {
+            $data['id']=0;
+            $data['iSubmit']=0;
+            $data['get']=$this->input->get();
+            $return=$this->load->view("grid/mt03_upload_file",$data,TRUE);
+            return $return;
+        }
+        function updateBox_mt03_vUploadFile($field, $id, $value, $rowData) {
+            $data['id']=$rowData['iMt03'];
+            $data['iSubmit']=$rowData['iSubmit'];
+            $data['get']=$this->input->get();
+            $return=$this->load->view("grid/mt03_upload_file",$data,TRUE);
             return $return;
         }
 
@@ -811,11 +1062,56 @@ class mt03 extends MX_Controller {
         $this->load->helper('download');        
         $name = $vFilename;
         $id = $_GET['id'];
-        $tempat = $_GET['path'];    
+        $tempat = 'mt03';    
         $path = file_get_contents('./files/pengujian/'.$tempat.'/'.$id.'/'.$name);    
         force_download($name, $path);
 
 
+    }
+    function get_data_prev(){
+        $post=$this->input->post();
+        $get=$this->input->get();
+        $nmTable="tb_details_mt03";
+        $grid=isset($post["grid"])?$post["grid"]:"0";
+        $grid=isset($post["grid"])?$post["grid"]:"0";
+        $namefield=isset($post["namefield"])?$post["namefield"]:"0";
+        
+        $where=array('lDeleted'=>0,'iMt03'=>$post["id"]);
+        $this->db->where($where);
+        $q=$this->db->get('bbpmsoh.mt03_file');
+        //echo $this->db->last_query();
+        $rsel=array('vFilename','vKeterangan','iact');
+        $data = new StdClass;
+        $data->records=$q->num_rows();
+        $i=0;
+        foreach ($q->result() as $k) {
+            $data->rows[$i]['id']=$i;
+            $z=0;
+
+            $value=$k->vFilename_generate;
+            $id=$k->iMt03;
+            $linknya = 'No File';
+            if($value != '') {
+                if (file_exists('./files/pengujian/mt03/'.$id.'/'.$value)) {
+                    $link = base_url().'processor/pengujian/mt03?action=download&id='.$id.'&file='.$value;
+                    $linknya = '<a class="ui-button-text" href="javascript:;" onclick="window.location=\''.$link.'\'">[Download]</a>&nbsp;&nbsp;&nbsp;';
+                }
+            }
+            $linknya=$linknya.'<a class="ui-button-text" href="javascript:;" onclick="javascript:hapus_row_'.$nmTable.'('.$i.')">[Hapus]</a><input type="hidden" class="num_rows_'.$nmTable.'" value="'.$i.'" /><input type="hidden" name="ifile_mt03[]" value="'.$k->ifile_mt03.'" />';
+
+
+            foreach ($rsel as $dsel => $vsel) {
+                if($vsel=="iact"){
+                    $dataar[$dsel]=$linknya;
+                }else{
+                    $dataar[$dsel]=$k->{$vsel};
+                }
+                $z++;
+            }
+            $data->rows[$i]['cell']=$dataar;
+            $i++;
+        }
+        return json_encode($data);
     }
 
     //Output

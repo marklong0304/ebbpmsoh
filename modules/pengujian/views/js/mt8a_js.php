@@ -78,7 +78,7 @@ function save_draft_btn_multiupload(grid, url, dis, isdraft) {
                                 $('#form_create_'+grid).attr('action',formAction);
                                 $('#form_create_'+grid).attr('target',grid+'_frame');
                                 
-                                uploadfile_new('form_create_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);                             
+                                uploadfile('form_create_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);                             
                             }else{
                                 _custom_alert('Data Berhasil Disimpan !',header,info, grid, 1, 20000);
                                 $('#grid_'+grid).trigger('reloadGrid');
@@ -135,16 +135,18 @@ function save_btn_multiupload(grid, url, dis) {
             conf++;
         }       
     })
-    if($("#ppic_memo_busdev_cPIC").val()==''){
-            $("#ppic_memo_busdev_cPIC_text").addClass('error_text');    
-            conf++;
-        }
-        if($("#ppic_memo_busdev_iupb_id").val()==''){
-            $("#ppic_memo_busdev_iupb_id_dis").addClass('error_text');  
-            conf++;
-        }
-
     
+    var iii=0;
+    $.each($('.getDistribusiUnit'),function(i,v){
+        if($(this).prop('checked')===true){
+                iii++;
+        }
+    })
+    
+    if(iii==0){
+        alert_message +='<br>Distribusi Unit Belum di Pilih';
+        conf++;
+    }
     if(conf > 0) {
         _custom_alert(alert_message,'Error!','info',grid, 1, 5000);
     }
@@ -180,7 +182,7 @@ function save_btn_multiupload(grid, url, dis) {
                                 $('#form_create_'+grid).attr('action',formAction);
                                 $('#form_create_'+grid).attr('target',grid+'_frame');
 
-                                uploadfile_new('form_create_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);
+                                uploadfile('form_create_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);
 
                             }else{
                                 _custom_alert(o.message,header,info, grid, 1, 20000);
@@ -276,7 +278,7 @@ function update_draft_btn(grid, url, dis, isdraft) {
                             $('#form_update_'+grid).attr('action',formAction);
                             $('#form_update_'+grid).attr('target',grid+'_frame');
 
-                            uploadfile_new('form_update_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);
+                            uploadfile('form_update_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);
                             
                                                     
                             }else{
@@ -381,6 +383,18 @@ function update_btn_back(grid, url, dis) {
         }       
     })
 
+    var iii=0;
+    $.each($('.getDistribusiUnit'),function(i,v){
+        if($(this).prop('checked')===true){
+                iii++;
+        }
+    })
+    
+    if(iii==0){
+        alert_message +='<br>Distribusi Unit Belum di Pilih';
+        conf++;
+    }
+
     if(conf > 0) {
         _custom_alert(alert_message,'Error!','info',grid, 1, 5000);
     }
@@ -419,7 +433,7 @@ function update_btn_back(grid, url, dis) {
                             $('#form_update_'+grid).attr('action',formAction);
                             $('#form_update_'+grid).attr('target',grid+'_frame');
                             
-                            uploadfile_new('form_update_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);
+                            uploadfile('form_update_'+grid, grid, formAction, url+'&action=update&foreign_key=0&company_id='+company_id+'&id='+last_id+'&group_id='+group_id+'&modul_id='+modul_id);
 
                          }else{
                             _custom_alert('Data Berhasil Disimpan !',header,info, grid, 1, 20000);
@@ -447,97 +461,5 @@ function update_btn_back(grid, url, dis) {
     })      
 }
 }   
-function uploadfile_new(formgrid, grid, formAction, url){
-    var obj = $('#'+formgrid);
-    var j=0;    
-    var x=1;                       
-    var formData = new FormData();
-    $.each($(obj).find("input[type='file']"), function(i, tag) {
-        $.each($(tag)[0].files, function(i, file) {
-            if(x<=20){
-                formData.append(tag.name, file);
-                j += file.size;
-            }
-            
-        });
-        x++;
-    }); 
-    if(j>=100000000){
-        _custom_alert("Maximal keselurah size upload 100MB, Mohon Upload secara bertahap!",'info','info', grid, 1, 20000);
-        return false;
-    }
-    if(x>=20){
-        alert("Jumlah upload file melebihi 20, file yang akan di simpan 20 file teratas!");
-    }
-    var params = $(obj).serializeArray();
-    $.each(params, function (i, val) {
-        formData.append(val.name, val.value);
-    });
-   
-    //return false;
-    waitDialog("Waiting... Upload File...");
-    $.ajax({
-        url: formAction,  
-        type: 'POST',
-        xhr: function() {  // Custom XMLHttpRequest
-            var myXhr = $.ajaxSettings.xhr();
-            if(myXhr.upload){ // Check if upload property exists
-                myXhr.upload.addEventListener('progress',progress, false); 
-            }
-            return myXhr;
-        },                      
-        success: function(data) {
-                var o = $.parseJSON(data);  
-                $(".Dialog").dialog('close');                                                           
-                _custom_alert(o.message,'info','info', grid, 1, 20000);
-                $.get(url, function(data) {
-                    $('div#form_'+grid).html(data);
-                    $('#grid_'+grid).trigger('reloadGrid');
-                });
-        },
-        // Form data
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false
-    });
-}
-
-function progress(e){
-    if(e.lengthComputable){
-        $('#progress').attr({value:e.loaded,max:e.total});
-    }
-}
-function waitDialog(h3=''){
-    console.log('RaidenArmy');
-    $(".Dialog").dialog({
-        title: "Uploading File...",
-        autoOpen: true, 
-        resizable: false,
-        height:350,
-        width:350,
-        hide: {
-            effect: "explode",
-            duration: 500
-        },
-        modal: true,
-        open:function(){
-            h2 = (h3 == "") ? "Proccess Uploading ..." : h3; 
-            $("#h3").html(h2);
-        },
-        close : function(){
-            $(this).dialog("destroy");
-        }
-    }); 
-}
 </script>
-<?php $imgurl = base_url().'assets/images/e-load.gif';?> 
-<div class="Dialog" style="display: none">
-    <div  style="margin: 0px 0px">
-        <img alt="" src="<?php echo $imgurl; ?>"  /><br/>
-        <span id="span"> </span>
-        <h3 id = "h3">J u s t  a m i n u t e ...</h3>
-        <progress id = "progress" ></progress>
-    </div>
-</div>
 
