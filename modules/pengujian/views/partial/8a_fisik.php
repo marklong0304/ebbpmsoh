@@ -36,7 +36,7 @@
 <table class="hover_table" id="sample_permintaan_sample" cellspacing="0" cellpadding="1" style="width: 95%; border: 1px solid #dddddd; text-align: center; margin-left: 5px; border-collapse: collapse">
 	<thead>
 	<tr style="width: 95%; border: 1px solid #dddddd; background: #A3619D; border-collapse: collapse">
-		<th colspan="6" style="border: 1px solid #dddddd;"><span style="font-weight: bold; color: #ffffff; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); text-transform: uppercase;">Pengujian Fisik</span></th>
+		<th colspan="6" style="border: 1px solid #dddddd;"><span style="font-weight: bold; color: #ffffff; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); text-transform: uppercase;">Detail Pengujian</span></th>
 	</tr>
 	<tr style="width: 95%; border: 1px solid #dddddd; background: #DBC0D2; border-collapse: collapse">
 		<th style="border: 1px solid #dddddd;">Jenis Uji</th>
