@@ -167,17 +167,17 @@
 						</td>
 						
 						<td style="border: 1px solid #dddddd; width: 10%; text-align: left;">
-							<table style="width: 95%; text-align: left;">
+							<table style="width: 100%; text-align: left;">
 								<tr>
-									<td>P. Apus</td>
+									<td style="width: 30%; text-align: left;">P. Apus</td>
 									<td>:
-										<input type="text" value="<?php echo $row['vMurni_apus'] ?>" name="vMurni_apus"  class="vMurni required" style="width: 70%; text-align: left;"/>
+										<input type="text" value="<?php echo $row['vMurni_apus'] ?>" name="vMurni_apus"  class="vMurni required" style="width: 85%; text-align: left;"/>
 									</td>
 								</tr>
 								<tr>
-									<td>37 &deg C</td>
+									<td style="width: 30%; text-align: left;">37 &deg C</td>
 									<td>:
-										<input type="text" value="<?php echo $row['vMurni_37'] ?>" name="vMurni_37"  class="vMurni required" style="width: 70%; text-align: left;"/>
+										<input type="text" value="<?php echo $row['vMurni_37'] ?>" name="vMurni_37"  class="vMurni required" style="width: 85%; text-align: left;"/>
 									</td>
 								</tr>
 							</table>
@@ -203,15 +203,15 @@
 						<td style="border: 1px solid #dddddd; width: 10%; text-align: left;">
 							<table style="width: 95%; text-align: left;">
 								<tr>
-									<td>37 &deg C</td>
+									<td style="width: 30%; text-align: left;">37 &deg C</td>
 									<td>:
-										<input type="text" name="vSteril_37" value="<?php echo $row['vSteril_37'] ?>" class="vSteril required" style="width: 70%; text-align: left;"/>
+										<input type="text" name="vSteril_37" value="<?php echo $row['vSteril_37'] ?>" class="vSteril required" style="width: 85%; text-align: left;"/>
 									</td>
 								</tr>
 								<tr>
 									<td>22 &deg C</td>
 									<td>:
-										<input type="text" name="vSteril_22" value="<?php echo $row['vSteril_22'] ?>" class="vSteril required" style="width: 70%; text-align: left;"/>
+										<input type="text" name="vSteril_22" value="<?php echo $row['vSteril_22'] ?>" class="vSteril required" style="width: 85%; text-align: left;"/>
 									</td>
 								</tr>
 							</table>
@@ -261,31 +261,31 @@
 								<tr>
 									<td>Mycoplasma</td>
 									<td>:
-										<input type="text" name="vKontaminasi_mico" value="<?php echo $row['vKontaminasi_mico'] ?>" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+										<input type="text" name="vKontaminasi_mico" value="<?php echo $row['vKontaminasi_mico'] ?>" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 									</td>
 								</tr>
 								<tr>
 									<td>Salmonella</td>
 									<td>:
-										<input type="text" name="vKontaminasi_salmon" value="<?php echo $row['vKontaminasi_salmon'] ?>" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+										<input type="text" name="vKontaminasi_salmon" value="<?php echo $row['vKontaminasi_salmon'] ?>" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 									</td>
 								</tr>
 								<tr>
 									<td>Jamur</td>
 									<td>:
-										<input type="text" name="vKontaminasi_jamur" value="<?php echo $row['vKontaminasi_jamur'] ?>" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+										<input type="text" name="vKontaminasi_jamur" value="<?php echo $row['vKontaminasi_jamur'] ?>" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 									</td>
 								</tr>
 								<tr>
 									<td>E. Coli</td>
 									<td>:
-										<input type="text" name="vKontaminasi_coli" value="<?php echo $row['vKontaminasi_coli'] ?>" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+										<input type="text" name="vKontaminasi_coli" value="<?php echo $row['vKontaminasi_coli'] ?>" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 									</td>
 								</tr>
 								<tr>
 									<td>Microorg. Hidup lain</td>
 									<td>:
-										<input type="text" name="vKontaminasi_lain" value="<?php echo $row['vKontaminasi_lain'] ?>" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+										<input type="text" name="vKontaminasi_lain" value="<?php echo $row['vKontaminasi_lain'] ?>" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 									</td>
 								</tr>
 							</table>
@@ -441,17 +441,17 @@
 					</td>
 					
 					<td style="border: 1px solid #dddddd; width: 10%; text-align: left;">
-						<table style="width: 95%; text-align: left;">
+						<table style="width: 100%; text-align: left;">
 							<tr>
-								<td>P. Apus</td>
+								<td style="width: 30%; text-align: left;">P. Apus</td>
 								<td>:
-									<input type="text" name="vMurni_apus" value="" class="vMurni required" style="width: 70%; text-align: left;"/>
+									<input type="text" name="vMurni_apus" value="" class="vMurni required" style="width: 85%; text-align: left;"/>
 								</td>
 							</tr>
 							<tr>
-								<td>37 &deg C</td>
+								<td style="width: 30%; text-align: left;">37 &deg C</td>
 								<td>:
-									<input type="text" name="vMurni_37" value="" class="vMurni required" style="width: 70%; text-align: left;"/>
+									<input type="text" name="vMurni_37" value="" class="vMurni required" style="width: 85%; text-align: left;"/>
 								</td>
 							</tr>
 						</table>
@@ -477,15 +477,15 @@
 					<td style="border: 1px solid #dddddd; width: 10%; text-align: left;">
 						<table style="width: 95%; text-align: left;">
 							<tr>
-								<td>37 &deg C</td>
+								<td style="width: 30%; text-align: left;">37 &deg C</td>
 								<td>:
-									<input type="text" name="vSteril_37" value="" class="vSteril required" style="width: 70%; text-align: left;"/>
+									<input type="text" name="vSteril_37" value="" class="vSteril required" style="width: 85%; text-align: left;"/>
 								</td>
 							</tr>
 							<tr>
 								<td>22 &deg C</td>
 								<td>:
-									<input type="text" name="vSteril_22" value="" class="vSteril required" style="width: 70%; text-align: left;"/>
+									<input type="text" name="vSteril_22" value="" class="vSteril required" style="width: 85%; text-align: left;"/>
 								</td>
 							</tr>
 						</table>
@@ -535,31 +535,31 @@
 							<tr>
 								<td>Mycoplasma</td>
 								<td>:
-									<input type="text" name="vKontaminasi_mico" value="" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+									<input type="text" name="vKontaminasi_mico" value="" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Salmonella</td>
 								<td>:
-									<input type="text" name="vKontaminasi_salmon" value="" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+									<input type="text" name="vKontaminasi_salmon" value="" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Jamur</td>
 								<td>:
-									<input type="text" name="vKontaminasi_jamur" value="" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+									<input type="text" name="vKontaminasi_jamur" value="" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>E. Coli</td>
 								<td>:
-									<input type="text" name="vKontaminasi_coli" value="" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+									<input type="text" name="vKontaminasi_coli" value="" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Microorg. Hidup lain</td>
 								<td>:
-									<input type="text" name="vKontaminasi_lain" value="" class="vKontaminasi required" style="width: 50%; text-align: left;"/>		
+									<input type="text" name="vKontaminasi_lain" value="" class="vKontaminasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 						</table>
