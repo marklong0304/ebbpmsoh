@@ -14,22 +14,18 @@ class mt8a extends MX_Controller {
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt8a';	
 		$datagrid['islist'] = array(
-			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
+			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
 
+		$datagrid['jointableinner']=array(
+            0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt08a.iMt01')
+            );
+
+
 		$datagrid['addFields']=array(
-				'iMt01'=>'No Transaksi'
-				,'vBatch_lot'=>'No Batch/Lot'
-				,'dTgl_kadaluarsa'=>'Waktu Kadaluarsa'
-				,'vNo_registrasi'=>'No Reg Deptan'
-				,'vKemasan'=>'Kemasan/dosis'
-				,'vJenis_sediaan'=>'Sifat/Jenis Obat'
-				,'dTanggal_terima_sample'=>'Tanggal Terima Sample'
-				,'vAcuanProsedur'=>'Acuan Prosedur Pengambilan Obat'
-				,'vPenyimpangan'=>'Penyimpangan, Perubahan atau Pengecualian'
-				,'vNo_transaksi'=>'Nomor Pengujian'
+				'iMt01'=>'Nomor '
 				);
 		$datagrid['shortBy']=array('mt08a.dUpdated'=>'DESC');
 	
@@ -335,15 +331,16 @@ class mt8a extends MX_Controller {
 	function insertBox_mt8a_iMt01($field, $id) {
 		$arr=array(
 			'mt01.lDeleted'=>0
-			,'mt07.lDeleted'=>0	
 			,'mt06.lDeleted'=>0	
+			,'mt06.iApprove_sphu'=>2	
 			,'mt06.iDist_virologi'=>1	
 		);
 		$this->db->select("mt01.*")
 				->from("bbpmsoh.mt01")
 				->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
-				->join("bbpmsoh.mt07","mt07.iMt01=bbpmsoh.mt01.iMt01")
+				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iApprove_unit_uji in (0,2) )')
 				->where($arr);
+
 		$return="<select name='".$id."' id='".$id."' class='required'>";
 		$return.="<option value=''>---Pilih---</option>";
 		$qq=$this->db->get();
@@ -353,6 +350,27 @@ class mt8a extends MX_Controller {
 			}
 		}
 		$return.="</select>";
+		$return.="<div id='info_mt01'>";
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+					 	<tr>
+					 		<td style='width: 30%;'>Nama Sample</td>
+					 		<td >: <span id='det_vNama_sample'></span> </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Batch / Lot</td>
+					 		<td >: <span id='det_vBatch_lot'></span></td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
+					 		<td >: <span id='det_dTgl_kadaluarsa'></span>  </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td >: <span id='det_vNo_registrasi'></span> </td>
+					 	</tr>
+					 </table>";
+		$return.="</div>";
+
 		$return.="<script>";
 		$return.="$('#".$id."').change(function(){
 			$.ajax({
@@ -362,18 +380,97 @@ class mt8a extends MX_Controller {
                 success: function(data) {
                     //alert(isUpload);
                     var o = $.parseJSON(data);
-                    $('#mt8a_vBatch_lot').val(o.vBatch_lot);
-                    $('#mt8a_dTgl_kadaluarsa').val(o.dTgl_kadaluarsa);
-                    $('#mt8a_vNo_registrasi').val(o.vNo_registrasi);
-                    $('#mt8a_vJenis_sediaan').val(o.vJenis_sediaan);
-                    $('#mt8a_vKemasan').val(o.vKemasan);
-                    $('#mt8a_vJenis_sediaan').val(o.vJenis_sediaan);
+                    $('#det_vNama_sample').text(o.vNama_sample);
+                    $('#det_vBatch_lot').text(o.vBatch_lot);
+                    $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
+                    $('#det_vNo_registrasi').text(o.vNo_registrasi);
+                    $('#mt8a_vJenis_sediaan').text(o.vJenis_sediaan);
+                    $('#mt8a_vKemasan').text(o.vKemasan);
+                    $('#mt8a_vJenis_sediaan').text(o.vJenis_sediaan);
                 }
 			});
 		});";
 		$return.="</script>";
+		$return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
         return $return;
     }
+
+    function updateBox_mt8a_iMt01($field,$id,$value,$rowData){
+        $arr=array(
+			'mt01.lDeleted'=>0
+			,'mt06.lDeleted'=>0	
+			,'mt06.iApprove_sphu'=>2	
+			,'mt06.iDist_virologi'=>1	
+		);
+
+        $this->db->select('*')
+            ->from('bbpmsoh.mt01')
+            ->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
+            ->where($arr)
+            ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iMt01 !='.$value.' )');
+        $row=$this->db->get()->result_array();
+
+        $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$value.'" ';
+        $dMt01 = $this->db->query($sqlinfo)->row_array();
+        $return='<select id="'.$id.'" name="'.$field.'" class="required">';
+        $return.='<option value="">---Pilih---</option>';
+        foreach ($row as $kk => $vv) {
+            $select=$value==$vv['iMt01']?'selected':'';
+            if($value==$vv['iMt01']){
+                $value=$vv['vNomor'];
+            }
+            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNomor'].'</option>';
+        }
+        $return.='</select>';
+        $return.="<div id='info_mt01'>";
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+					 	<tr>
+					 		<td style='width: 30%;'>Nama Sample</td>
+					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Batch / Lot</td>
+					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
+					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
+					 	</tr>
+					 </table>";
+		$return.="</div>";
+
+		$return.="<script>";
+		$return.="$('#".$id."').change(function(){
+			$.ajax({
+                url:base_url+'processor/pengujian/mt8a?action=getDetailsData',
+                type: 'post',
+                data: {iMt01:$(this).val()},
+                success: function(data) {
+                    //alert(isUpload);
+                    var o = $.parseJSON(data);
+                    $('#det_vNama_sample').text(o.vNama_sample);
+                    $('#det_vBatch_lot').text(o.vBatch_lot);
+                    $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
+                    $('#det_vNo_registrasi').text(o.vNo_registrasi);
+                    $('#mt8a_vJenis_sediaan').text(o.vJenis_sediaan);
+                    $('#mt8a_vKemasan').text(o.vKemasan);
+                    $('#mt8a_vJenis_sediaan').text(o.vJenis_sediaan);
+                }
+			});
+		});";
+		$return.="</script>";
+        $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
+        if($this->input->get('action')=='view'){
+            $return=$value;
+        }
+        // $return=$this->db->last_query();
+        return $return;
+    }
+
    /* ,'vBatch_lot'=>'No Batch/Lot'
 				,'dTgl_kadaluarsa'=>'Waktu Kadaluarsa'
 				,'vNo_registrasi'=>'No Reg Deptan'
