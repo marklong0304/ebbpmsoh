@@ -17,6 +17,8 @@ class mt8a extends MX_Controller {
 			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
+			,'iKesimpulan' => array('label'=>'Kesimpulan','width'=>200,'align'=>'center','search'=>true)
+			
 		);
 
 		$datagrid['jointableinner']=array(
@@ -26,6 +28,8 @@ class mt8a extends MX_Controller {
 
 		$datagrid['addFields']=array(
 				'iMt01'=>'Nomor '
+				,'uji_fisik' => 'Pengujian'
+				,'iKesimpulan'  => 'Kesimpulan'
 				);
 		$datagrid['shortBy']=array('mt08a.dUpdated'=>'DESC');
 	
@@ -114,6 +118,7 @@ class mt8a extends MX_Controller {
 		$grid->setJoinTable('bbpmsoh.mt01', 'mt08a.iMt01 = mt01.iMt01', 'inner');
 		$grid->setJoinTable('bbpmsoh.m_jenis_sediaan', 'm_jenis_sediaan.iM_jenis_sediaan = mt01.iM_jenis_sediaan', 'inner');
 
+		$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
 		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 
@@ -246,6 +251,22 @@ class mt8a extends MX_Controller {
 				break;
 		}
     }
+
+
+    function updateBox_mt8a_uji_fisik($name, $id, $value, $rowData) {
+		$this->db->where('iMt8a', $rowData['iMt8a']);
+		$this->db->where('lDeleted', 0);
+		$data['rows'] = $this->db->get('bbpmsoh.mt08a_fisik')->result_array();
+		$data['browse_url'] = base_url().'processor/plc/browse/bb';
+		return $this->load->view('partial/8a_fisik', $data, TRUE);
+	}
+	function insertBox_mt8a_uji_fisik($name, $id) {
+		$data['rows'] = array();
+		$data['browse_url'] = base_url().'processor/plc/browse/bb';
+		return $this->load->view('partial/8a_fisik', $data, TRUE);
+	}
+
+
 
     function listBox_Action($row, $actions) {
         if ($row->iApprove_unit_uji>0) { 
@@ -396,6 +417,7 @@ class mt8a extends MX_Controller {
     }
 
     function updateBox_mt8a_iMt01($field,$id,$value,$rowData){
+    	$viewval = $value;
         $arr=array(
 			'mt01.lDeleted'=>0
 			,'mt06.lDeleted'=>0	
@@ -466,6 +488,30 @@ class mt8a extends MX_Controller {
         $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
         if($this->input->get('action')=='view'){
             $return=$value;
+            $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$viewval.'" ';
+        	$dMt01 = $this->db->query($sqlinfo)->row_array();
+            $return.="<div id='info_mt01'>";
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+					 	<tr>
+					 		<td style='width: 30%;'>Nama Sample</td>
+					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Batch / Lot</td>
+					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
+					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
+					 	</tr>
+					 </table>";
+		$return.="</div>";
+
+
         }
         // $return=$this->db->last_query();
         return $return;
@@ -551,75 +597,133 @@ class mt8a extends MX_Controller {
 
     /*After Insert*/
     function after_insert_processor($fields, $id, $postData) {
-    	$post=$this->input->post();
-    	foreach ($post as $kp => $vp) {
-    		if($kp=="grid_details_iMt01"){
-    			foreach ($vp as $key => $value) {
-    				if($key==0){
-    					foreach ($value as $kdet => $nilai) {
-		    				$datainsert=array();
-			    			$datainsert['iMt8a']=$id;
-			    			$datainsert['iMt01']=$nilai;
-			    			$datainsert['dCreated']=date("Y-m-d H:i:s");
-		    				$datainsert['cCreated']=$this->user->gNIP;
-		    				$this->db->insert('bbpmsoh.mt8a_detail',$datainsert);
-    					}
-    				}
-    			}
-    		}
-    	}
+    	$post = $this->input->post();
+    	$idet['iMt8a'] = $id;
+
+		$idet['vWarna'] = $post['vWarna'];
+		$idet['vWarna_metoda'] = $post['vWarna_metoda'];
+		$idet['vWarna_mutu'] = $post['vWarna_mutu'];
+		$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
+
+
+		$idet['vAsing'] = $post['vAsing'];
+		$idet['vAsing_metoda'] = $post['vAsing_metoda'];
+		$idet['vAsing_mutu'] = $post['vAsing_mutu'];
+		$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
+
+
+		$idet['vHomogen'] = $post['vHomogen'];
+		$idet['vHomogen_metoda'] = $post['vHomogen_metoda'];
+		$idet['vHomogen_mutu'] = $post['vHomogen_mutu'];
+		$idet['dHomogen_tanggal'] = $post['dHomogen_tanggal'];
+
+
+		$idet['vVakum'] = $post['vVakum'];
+		$idet['vVakum_metoda'] = $post['vVakum_metoda'];
+		$idet['vVakum_mutu'] = $post['vVakum_mutu'];
+		$idet['dVakum_tanggal'] = $post['dVakum_tanggal'];
+		$idet['vLembab'] = $post['vLembab'];
+		$idet['vLembab_metoda'] = $post['vLembab_metoda'];
+		$idet['vLembab_mutu'] = $post['vLembab_mutu'];
+		$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
+		$idet['vMurni_apus'] = $post['vMurni_apus'];
+		$idet['vMurni_37'] = $post['vMurni_37'];
+		$idet['vMurni_metoda'] = $post['vMurni_metoda'];
+		$idet['vMurni_mutu'] = $post['vMurni_mutu'];
+		$idet['dMurni_tanggal'] = $post['dMurni_tanggal'];
+		$idet['vSteril_37'] = $post['vSteril_37'];
+		$idet['vSteril_22'] = $post['vSteril_22'];
+		$idet['vSteril_metoda'] = $post['vSteril_metoda'];
+		$idet['vSteril_mutu'] = $post['vSteril_mutu'];
+		$idet['dSteril_tanggal'] = $post['dSteril_tanggal'];
+		$idet['vDisolasi'] = $post['vDisolasi'];
+		$idet['vDisolasi_metoda'] = $post['vDisolasi_metoda'];
+		$idet['vDisolasi_mutu'] = $post['vDisolasi_mutu'];
+		$idet['dDisolasi_tanggal'] = $post['dDisolasi_tanggal'];
+		$idet['vKontaminasi_mico'] = $post['vKontaminasi_mico'];
+		$idet['vKontaminasi_salmon'] = $post['vKontaminasi_salmon'];
+		$idet['vKontaminasi_jamur'] = $post['vKontaminasi_jamur'];
+		$idet['vKontaminasi_coli'] = $post['vKontaminasi_coli'];
+		$idet['vKontaminasi_lain'] = $post['vKontaminasi_lain'];
+		$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
+		$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
+		$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
+		$idet['vLain'] = $post['vLain'];
+		$idet['vLain_metoda'] = $post['vLain_metoda'];
+		$idet['vLain_mutu'] = $post['vLain_mutu'];
+		$idet['dLain_tanggal'] = $post['dLain_tanggal'];
+
+
+		
+		$this->db->insert('bbpmsoh.mt08a_fisik', $idet);
+		
+
+
+
     }
 
     /*After Update*/
     function after_update_processor($fields, $id, $postData) {
     	$post=$this->input->post();
-	    $din=array();
-	    $dup=array();
-	    $pkid=array();
-    	foreach ($post as $kp => $vp) {
-    		if($kp=="grid_details_iMt01"){
-    			foreach ($vp as $key => $value) {
-    				if($key==0){
-    					foreach ($value as $kdet => $nilai) {
-    						$din[$kdet]=$nilai;
-    					}
-    				}else{
-    					$pkid[]=$key;
-    					$dup[$key]=$value[0];
-    				}
-    			}
-    		}
-    	}
+	    
+	    $idet['vWarna'] = $post['vWarna'];
+		$idet['vWarna_metoda'] = $post['vWarna_metoda'];
+		$idet['vWarna_mutu'] = $post['vWarna_mutu'];
+		$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
 
-    	/*Insert Baru*/
-    	$this->db->where("iMt8a",$id);
-    	if(count($pkid)>0){
-    		$this->db->where_not_in("iMt8a_detail",$pkid);
-    	}
-    	$dataupdate=array("lDeleted"=>1,"cUpdated"=>$this->user->gNIP,"dUpdated"=>date("Y-m-d H:i:s"));
-    	$this->db->update("bbpmsoh.mt8a_detail",$dataupdate);
 
-    	if(count($dup)>0){
-    		foreach ($dup as $kup => $vup) {
-    			$dataupdate2=array();
-    			$dataupdate2["cUpdated"]=$this->user->gNIP;
-    			$dataupdate2["dUpdated"]=date("Y-m-d H:i:s");
-    			$dataupdate2["iMt01"]=$vup;
-    			$this->db->where("iMt8a_detail",$kup);
-    			$this->db->update("bbpmsoh.mt8a_detail",$dataupdate2);
-    		}
-    	}
-    	if(count($din)>0){
-	    	foreach ($din as $kin => $val) {
-	    		$datainsert=array();
-				$datainsert['iMt8a']=$id;
-				$datainsert['iMt01']=$val;
-				$datainsert['dCreated']=date("Y-m-d H:i:s");
-				$datainsert['cCreated']=$this->user->gNIP;
-				$this->db->insert('bbpmsoh.mt8a_detail',$datainsert);
-	    	}
-	    }
-    }
+		$idet['vAsing'] = $post['vAsing'];
+		$idet['vAsing_metoda'] = $post['vAsing_metoda'];
+		$idet['vAsing_mutu'] = $post['vAsing_mutu'];
+		$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
+
+
+		$idet['vHomogen'] = $post['vHomogen'];
+		$idet['vHomogen_metoda'] = $post['vHomogen_metoda'];
+		$idet['vHomogen_mutu'] = $post['vHomogen_mutu'];
+		$idet['dHomogen_tanggal'] = $post['dHomogen_tanggal'];
+
+		$idet['vVakum'] = $post['vVakum'];
+		$idet['vVakum_metoda'] = $post['vVakum_metoda'];
+		$idet['vVakum_mutu'] = $post['vVakum_mutu'];
+		$idet['dVakum_tanggal'] = $post['dVakum_tanggal'];
+		$idet['vLembab'] = $post['vLembab'];
+		$idet['vLembab_metoda'] = $post['vLembab_metoda'];
+		$idet['vLembab_mutu'] = $post['vLembab_mutu'];
+		$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
+		$idet['vMurni_apus'] = $post['vMurni_apus'];
+		$idet['vMurni_37'] = $post['vMurni_37'];
+		$idet['vMurni_metoda'] = $post['vMurni_metoda'];
+		$idet['vMurni_mutu'] = $post['vMurni_mutu'];
+		$idet['dMurni_tanggal'] = $post['dMurni_tanggal'];
+		$idet['vSteril_37'] = $post['vSteril_37'];
+		$idet['vSteril_22'] = $post['vSteril_22'];
+		$idet['vSteril_metoda'] = $post['vSteril_metoda'];
+		$idet['vSteril_mutu'] = $post['vSteril_mutu'];
+		$idet['dSteril_tanggal'] = $post['dSteril_tanggal'];
+		$idet['vDisolasi'] = $post['vDisolasi'];
+		$idet['vDisolasi_metoda'] = $post['vDisolasi_metoda'];
+		$idet['vDisolasi_mutu'] = $post['vDisolasi_mutu'];
+		$idet['dDisolasi_tanggal'] = $post['dDisolasi_tanggal'];
+		$idet['vKontaminasi_mico'] = $post['vKontaminasi_mico'];
+		$idet['vKontaminasi_salmon'] = $post['vKontaminasi_salmon'];
+		$idet['vKontaminasi_jamur'] = $post['vKontaminasi_jamur'];
+		$idet['vKontaminasi_coli'] = $post['vKontaminasi_coli'];
+		$idet['vKontaminasi_lain'] = $post['vKontaminasi_lain'];
+		$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
+		$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
+		$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
+		$idet['vLain'] = $post['vLain'];
+		$idet['vLain_metoda'] = $post['vLain_metoda'];
+		$idet['vLain_mutu'] = $post['vLain_mutu'];
+		$idet['dLain_tanggal'] = $post['dLain_tanggal'];
+
+    	$this->db->where('iMt8a', $id);
+		$this->db->update('bbpmsoh.mt08a_fisik', $idet);
+
+	}
+
+    	
 
 
     /*Confirm View*/
@@ -744,7 +848,7 @@ class mt8a extends MX_Controller {
         $dataupdate['vRemark']= $post['vRemark'];
         $dataupdate['iApprove_unit_uji']= 2;
         $this->db->where('iMt8a',$post['last_id'])
-                    ->update('bbpmsoh.mt8a',$dataupdate);
+                    ->update('bbpmsoh.mt08a',$dataupdate);
 
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
@@ -809,7 +913,7 @@ class mt8a extends MX_Controller {
         $dataupdate['vRemark']= $post['vRemark'];
         $dataupdate['iApprove_unit_uji']= 1;
         $this->db->where('iMt8a',$post['last_id'])
-                    ->update('bbpmsoh.mt8a',$dataupdate);
+                    ->update('bbpmsoh.mt08a',$dataupdate);
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
         $data['status']  = true;

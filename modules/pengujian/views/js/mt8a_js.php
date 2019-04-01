@@ -143,10 +143,10 @@ function save_btn_multiupload(grid, url, dis) {
         }
     })
     
-    if(iii==0){
+    /*if(iii==0){
         alert_message +='<br>Distribusi Unit Belum di Pilih';
         conf++;
-    }
+    }*/
     if(conf > 0) {
         _custom_alert(alert_message,'Error!','info',grid, 1, 5000);
     }
@@ -391,8 +391,8 @@ function update_btn_back(grid, url, dis) {
     })
     
     if(iii==0){
-        alert_message +='<br>Distribusi Unit Belum di Pilih';
-        conf++;
+        //alert_message +='<br>Distribusi Unit Belum di Pilih';
+        //conf++;
     }
 
     if(conf > 0) {
