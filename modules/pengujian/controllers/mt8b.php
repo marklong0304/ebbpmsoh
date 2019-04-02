@@ -9,12 +9,13 @@ class mt8b extends MX_Controller {
 		$this->title = 'MT 8B';
 		$this->url = 'mt8b';
 		$this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
-
+		$this->group = $this->auth->checkgroup($this->user->gNIP);
 		$this->maintable = 'bbpmsoh.mt08b';	
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt8b';	
 		$datagrid['islist'] = array(
 			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			,'vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Khusus','width'=>200,'align'=>'center','search'=>true)
@@ -121,6 +122,30 @@ class mt8b extends MX_Controller {
 		$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
 		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+
+
+		/*
+            idprivi_group;vNamaGroup
+            11 ; QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 11){
+            $grid->setQuery('mt08b.iSubmit',1);     
+        }
+
+
 
 		$grid->setGridView('grid');
 
@@ -252,7 +277,18 @@ class mt8b extends MX_Controller {
 		}
     }
 
-
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
     function updateBox_mt8b_uji_fisik($name, $id, $value, $rowData) {
 		$this->db->where('iMt8b', $rowData['iMt8b']);
 		$this->db->where('lDeleted', 0);
@@ -374,10 +410,6 @@ class mt8b extends MX_Controller {
 		$return.="<div id='info_mt01'>";
 				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	<tr>
-					 		<td style='width: 30%;'>Nama Sample</td>
-					 		<td >: <span id='det_vNama_sample'></span> </td>
-					 	</tr>
-					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
 					 		<td >: <span id='det_vBatch_lot'></span></td>
 					 	</tr>
@@ -446,10 +478,6 @@ class mt8b extends MX_Controller {
         $return.='</select>';
         $return.="<div id='info_mt01'>";
 				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
-					 	<tr>
-					 		<td style='width: 30%;'>Nama Sample</td>
-					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
-					 	</tr>
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
 					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
@@ -576,11 +604,17 @@ class mt8b extends MX_Controller {
     	$postData['cCreated']=$this->user->gNIP;
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
-            $postData['iKesimpulan']=NULL;
+            
         } 
         else{
             $postData['iSubmit']=1;
         }
+
+        if($postData['mt8b_iKesimpulan']==""){
+        	$postData['iKesimpulan']=NULL;
+        }
+        
+
         return $postData;
 
     }
@@ -591,10 +625,12 @@ class mt8b extends MX_Controller {
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
             $postData['iKesimpulan']=NULL;
+            
         } 
         else{
             $postData['iSubmit']=1;
         }
+
         return $postData;
     }
 

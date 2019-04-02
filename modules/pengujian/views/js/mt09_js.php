@@ -137,16 +137,16 @@ function save_btn_multiupload(grid, url, dis) {
     })
     
     var iii=0;
-    $.each($('.getDistribusiUnit'),function(i,v){
+    /*$.each($('.getDistribusiUnit'),function(i,v){
         if($(this).prop('checked')===true){
                 iii++;
         }
-    })
+    })*/
     
-    if(iii==0){
+  /*  if(iii==0){
         alert_message +='<br>Distribusi Unit Belum di Pilih';
         conf++;
-    }
+    }*/
     if(conf > 0) {
         _custom_alert(alert_message,'Error!','info',grid, 1, 5000);
     }
@@ -384,16 +384,16 @@ function update_btn_back(grid, url, dis) {
     })
 
     var iii=0;
-    $.each($('.getDistribusiUnit'),function(i,v){
+  /*  $.each($('.getDistribusiUnit'),function(i,v){
         if($(this).prop('checked')===true){
                 iii++;
         }
-    })
+    })*/
     
-    if(iii==0){
+    /*if(iii==0){
         alert_message +='<br>Distribusi Unit Belum di Pilih';
         conf++;
-    }
+    }*/
 
     if(conf > 0) {
         _custom_alert(alert_message,'Error!','info',grid, 1, 5000);

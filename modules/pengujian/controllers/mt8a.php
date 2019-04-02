@@ -9,12 +9,13 @@ class mt8a extends MX_Controller {
 		$this->title = 'MT 8A';
 		$this->url = 'mt8a';
 		$this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
-
+		$this->group = $this->auth->checkgroup($this->user->gNIP);
 		$this->maintable = 'bbpmsoh.mt08a';	
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt8a';	
 		$datagrid['islist'] = array(
 			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			,'vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Umum','width'=>200,'align'=>'center','search'=>true)
@@ -114,6 +115,30 @@ class mt8a extends MX_Controller {
             }
 
 		}
+
+
+		 /*
+            idprivi_group;vNamaGroup
+            11 ; QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 11){
+            $grid->setQuery('mt08a.iSubmit',1);     
+        }
+
+        
 
 		$grid->setJoinTable('bbpmsoh.mt01', 'mt08a.iMt01 = mt01.iMt01', 'inner');
 		$grid->setJoinTable('bbpmsoh.m_jenis_sediaan', 'm_jenis_sediaan.iM_jenis_sediaan = mt01.iM_jenis_sediaan', 'inner');
@@ -252,7 +277,18 @@ class mt8a extends MX_Controller {
 		}
     }
 
-
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
     function updateBox_mt8a_uji_fisik($name, $id, $value, $rowData) {
 		$this->db->where('iMt8a', $rowData['iMt8a']);
 		$this->db->where('lDeleted', 0);
@@ -295,6 +331,40 @@ class mt8a extends MX_Controller {
         $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
         
+
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+       
+       	 /*
+            idprivi_group;vNamaGroup
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+
+
+        if($groupnya['idprivi_group'] == 7){
+             $this->db->select("*")
+                ->from("hrd.employee")
+                ->where("iDivisionID",7)
+                ->where("cNip",$this->user->gNIP)
+                ->where("iVerifikasi",1);
+        }else{
+            $this->db->select("*")
+                ->from("hrd.employee")
+                ->where("iDivisionID",7)
+                ->where("iVerifikasi",1);
+        }
+
+
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
         }
@@ -373,10 +443,7 @@ class mt8a extends MX_Controller {
 		$return.="</select>";
 		$return.="<div id='info_mt01'>";
 				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
-					 	<tr>
-					 		<td style='width: 30%;'>Nama Sample</td>
-					 		<td >: <span id='det_vNama_sample'></span> </td>
-					 	</tr>
+					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
 					 		<td >: <span id='det_vBatch_lot'></span></td>
@@ -446,10 +513,7 @@ class mt8a extends MX_Controller {
         $return.='</select>';
         $return.="<div id='info_mt01'>";
 				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
-					 	<tr>
-					 		<td style='width: 30%;'>Nama Sample</td>
-					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
-					 	</tr>
+					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
 					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
@@ -576,10 +640,14 @@ class mt8a extends MX_Controller {
     	$postData['cCreated']=$this->user->gNIP;
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
+            $postData['iKesimpulan']=NULL;
+            
         } 
         else{
             $postData['iSubmit']=1;
         }
+
+       
         return $postData;
 
     }
@@ -591,6 +659,10 @@ class mt8a extends MX_Controller {
         } 
         else{
             $postData['iSubmit']=1;
+        }
+
+        if($postData['mt8a_iKesimpulan']==""){
+        	$postData['iKesimpulan']=NULL;
         }
         return $postData;
     }

@@ -1,36 +1,39 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-class mt09 extends MX_Controller {
+class Mt09 extends MX_Controller {
     function __construct() {
         parent::__construct();
 		 $this->load->library('auth');
         $this->db = $this->load->database('hrd',false, true);
         $this->user = $this->auth->user();
 
-		$this->title = 'MT 09';
+		$this->title = 'MT 9';
 		$this->url = 'mt09';
 		$this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
-
+		$this->group = $this->auth->checkgroup($this->user->gNIP);
 		$this->maintable = 'bbpmsoh.mt09';	
 		$this->main_table = $this->maintable;	
-		$this->main_table_pk = 'imt09';	
+		$this->main_table_pk = 'iMt09';	
 		$datagrid['islist'] = array(
-			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
+			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			,'vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
+			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Umum','width'=>200,'align'=>'center','search'=>true)
+			,'iKesimpulan_khusus' => array('label'=>'Kesimpulan Uji Khusus','width'=>200,'align'=>'center','search'=>true)
+			
 		);
 
+		$datagrid['jointableinner']=array(
+            0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt09.iMt01')
+            );
+
+
 		$datagrid['addFields']=array(
-				'iMt01'=>'No Transaksi'
-				,'vBatch_lot'=>'No Batch/Lot'
-				,'dTgl_kadaluarsa'=>'Waktu Kadaluarsa'
-				,'vNo_registrasi'=>'No Reg Deptan'
-				,'vKemasan'=>'Kemasan/dosis'
-				,'vJenis_sediaan'=>'Sifat/Jenis Obat'
-				,'dTanggal_terima_sample'=>'Tanggal Terima Sample'
-				,'vAcuanProsedur'=>'Acuan Prosedur Pengambilan Obat'
-				,'vPenyimpangan'=>'Penyimpangan, Perubahan atau Pengecualian'
-				,'vNo_transaksi'=>'Nomor Pengujian'
-				,'form_sample_label'=>'Informasi Sample'
+				'iMt01'=>'Nomor '
+				,'vKomposisi' => 'Komposisi / Zat Aktif'
+				,'uji_fisik' => 'Pengujian'
+				,'iKesimpulan'  => 'Kesimpulan Uji Umum'
+				,'iKesimpulan_khusus'  => 'Kesimpulan Uji Khusus'
 				);
 		$datagrid['shortBy']=array('mt09.dUpdated'=>'DESC');
 	
@@ -119,8 +122,33 @@ class mt09 extends MX_Controller {
 		$grid->setJoinTable('bbpmsoh.mt01', 'mt09.iMt01 = mt01.iMt01', 'inner');
 		$grid->setJoinTable('bbpmsoh.m_jenis_sediaan', 'm_jenis_sediaan.iM_jenis_sediaan = mt01.iM_jenis_sediaan', 'inner');
 
+		$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
+		$grid->changeFieldType('iKesimpulan_khusus','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
 		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+
+
+		/*
+            idprivi_group;vNamaGroup
+            11 ; QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 11){
+            $grid->setQuery('mt09.iSubmit',1);     
+        }
+
 
 		$grid->setGridView('grid');
 
@@ -252,6 +280,34 @@ class mt09 extends MX_Controller {
 		}
     }
 
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
+
+    function updateBox_mt09_uji_fisik($name, $id, $value, $rowData) {
+		$this->db->where('iMt09', $rowData['iMt09']);
+		$this->db->where('lDeleted', 0);
+		$data['rows'] = $this->db->get('bbpmsoh.mt09_fisik')->result_array();
+		$data['browse_url'] = base_url().'processor/plc/browse/bb';
+		return $this->load->view('partial/9_fisik', $data, TRUE);
+	}
+	function insertBox_mt09_uji_fisik($name, $id) {
+		$data['rows'] = array();
+		$data['browse_url'] = base_url().'processor/plc/browse/bb';
+		return $this->load->view('partial/9_fisik', $data, TRUE);
+	}
+
+
+
     function listBox_Action($row, $actions) {
         if ($row->iApprove_unit_uji>0) { 
                 unset($actions['edit']);
@@ -336,15 +392,16 @@ class mt09 extends MX_Controller {
 	function insertBox_mt09_iMt01($field, $id) {
 		$arr=array(
 			'mt01.lDeleted'=>0
-			,'mt07.lDeleted'=>0	
 			,'mt06.lDeleted'=>0	
+			,'mt06.iApprove_sphu'=>2	
 			,'mt06.iDist_virologi'=>1	
 		);
 		$this->db->select("mt01.*")
 				->from("bbpmsoh.mt01")
 				->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
-				->join("bbpmsoh.mt07","mt07.iMt01=bbpmsoh.mt01.iMt01")
+				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt09 where lDeleted=0 AND iApprove_unit_uji in (0,2) )')
 				->where($arr);
+
 		$return="<select name='".$id."' id='".$id."' class='required'>";
 		$return.="<option value=''>---Pilih---</option>";
 		$qq=$this->db->get();
@@ -354,6 +411,24 @@ class mt09 extends MX_Controller {
 			}
 		}
 		$return.="</select>";
+		$return.="<div id='info_mt01'>";
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+					 	
+					 	<tr>
+					 		<td style='width: 30%;'>No Batch / Lot</td>
+					 		<td >: <span id='det_vBatch_lot'></span></td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
+					 		<td >: <span id='det_dTgl_kadaluarsa'></span>  </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td >: <span id='det_vNo_registrasi'></span> </td>
+					 	</tr>
+					 </table>";
+		$return.="</div>";
+
 		$return.="<script>";
 		$return.="$('#".$id."').change(function(){
 			$.ajax({
@@ -363,19 +438,119 @@ class mt09 extends MX_Controller {
                 success: function(data) {
                     //alert(isUpload);
                     var o = $.parseJSON(data);
-                    $('#mt09_vBatch_lot').val(o.vBatch_lot);
-                    $('#mt09_dTgl_kadaluarsa').val(o.dTgl_kadaluarsa);
-                    $('#mt09_vNo_registrasi').val(o.vNo_registrasi);
-                    $('#mt09_vJenis_sediaan').val(o.vJenis_sediaan);
-                    $('#mt09_vKemasan').val(o.vKemasan);
-                    $('#mt09_vJenis_sediaan').val(o.vJenis_sediaan);
-                    $('#mt09_vNo_transaksi').val(o.vNo_transaksi);
+                    $('#det_vNama_sample').text(o.vNama_sample);
+                    $('#det_vBatch_lot').text(o.vBatch_lot);
+                    $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
+                    $('#det_vNo_registrasi').text(o.vNo_registrasi);
+                    $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
+                    $('#mt09_vKemasan').text(o.vKemasan);
+                    $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
                 }
 			});
 		});";
 		$return.="</script>";
+		$return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
         return $return;
     }
+
+    function updateBox_mt09_iMt01($field,$id,$value,$rowData){
+    	$viewval = $value;
+        $arr=array(
+			'mt01.lDeleted'=>0
+			,'mt06.lDeleted'=>0	
+			,'mt06.iApprove_sphu'=>2	
+			,'mt06.iDist_virologi'=>1	
+		);
+
+        $this->db->select('*')
+            ->from('bbpmsoh.mt01')
+            ->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
+            ->where($arr)
+            ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt09 where lDeleted=0 AND iMt01 !='.$value.' )');
+        $row=$this->db->get()->result_array();
+
+        $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$value.'" ';
+        $dMt01 = $this->db->query($sqlinfo)->row_array();
+        $return='<select id="'.$id.'" name="'.$field.'" class="required">';
+        $return.='<option value="">---Pilih---</option>';
+        foreach ($row as $kk => $vv) {
+            $select=$value==$vv['iMt01']?'selected':'';
+            if($value==$vv['iMt01']){
+                $value=$vv['vNomor'];
+            }
+            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNomor'].'</option>';
+        }
+        $return.='</select>';
+        $return.="<div id='info_mt01'>";
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+					 	
+					 	<tr>
+					 		<td style='width: 30%;'>No Batch / Lot</td>
+					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
+					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
+					 	</tr>
+					 </table>";
+		$return.="</div>";
+
+		$return.="<script>";
+		$return.="$('#".$id."').change(function(){
+			$.ajax({
+                url:base_url+'processor/pengujian/mt09?action=getDetailsData',
+                type: 'post',
+                data: {iMt01:$(this).val()},
+                success: function(data) {
+                    //alert(isUpload);
+                    var o = $.parseJSON(data);
+                    $('#det_vNama_sample').text(o.vNama_sample);
+                    $('#det_vBatch_lot').text(o.vBatch_lot);
+                    $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
+                    $('#det_vNo_registrasi').text(o.vNo_registrasi);
+                    $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
+                    $('#mt09_vKemasan').text(o.vKemasan);
+                    $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
+                }
+			});
+		});";
+		$return.="</script>";
+        $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
+        if($this->input->get('action')=='view'){
+            $return=$value;
+            $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$viewval.'" ';
+        	$dMt01 = $this->db->query($sqlinfo)->row_array();
+            $return.="<div id='info_mt01'>";
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+					 	<tr>
+					 		<td style='width: 30%;'>Nama Sample</td>
+					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Batch / Lot</td>
+					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
+					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
+					 	</tr>
+					 	<tr>
+					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
+					 	</tr>
+					 </table>";
+		$return.="</div>";
+
+
+        }
+        // $return=$this->db->last_query();
+        return $return;
+    }
+
    /* ,'vBatch_lot'=>'No Batch/Lot'
 				,'dTgl_kadaluarsa'=>'Waktu Kadaluarsa'
 				,'vNo_registrasi'=>'No Reg Deptan'
@@ -415,10 +590,12 @@ class mt09 extends MX_Controller {
                     </script>';
         return $return;
     }
-    function insertBox_mt09_vAcuanProsedur($field, $id) {
-		$return="<input type='text' name='".$id."' id='".$id."' value='SK Mentan No. 69S/Kpts/TN.260/8/9/96.' size='35' />";
-		return $return;
-    }
+
+    
+
+   
+
+    
     function insertBox_mt09_vPenyimpangan($field, $id) {
 		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' />";
 		return $return;
@@ -427,12 +604,6 @@ class mt09 extends MX_Controller {
 		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
-    function insertBox_mt09_form_sample_label($field, $id) {
-		$return = '<script>
-			$("label[for=\''.$id.'\']").css({"border": "1px solid #A3619D", "background-color": "#A3619D", "border-collapse": "collapse","width":"99%","font-weight":"bold","color":"#ffffff","text-shadow": "0 1px 1px rgba(0, 0, 0, 0.3)","text-transform": "uppercase", "text-align":"center"});
-		</script>';
-		return $return;
-	}
 	
     /*Function Tambahan*/
 
@@ -441,96 +612,188 @@ class mt09 extends MX_Controller {
     	$postData['cCreated']=$this->user->gNIP;
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
+            $postData['iKesimpulan']=NULL;
+            $postData['iKesimpulan_khusus']=NULL;
+            
         } 
         else{
             $postData['iSubmit']=1;
         }
+
         return $postData;
 
     }
     function before_update_processor($row, $postData) {
     	$postData['dUpdated']=date("Y-m-d H:i:s");
     	$postData['cUpdated']=$this->user->gNIP;
+
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
+            $postData['iKesimpulan']=NULL;
+            $postData['iKesimpulan_khusus']=NULL;
         } 
         else{
             $postData['iSubmit']=1;
         }
+
+
         return $postData;
     }
 
     /*After Insert*/
     function after_insert_processor($fields, $id, $postData) {
-    	$post=$this->input->post();
-    	foreach ($post as $kp => $vp) {
-    		if($kp=="grid_details_iMt01"){
-    			foreach ($vp as $key => $value) {
-    				if($key==0){
-    					foreach ($value as $kdet => $nilai) {
-		    				$datainsert=array();
-			    			$datainsert['imt09']=$id;
-			    			$datainsert['iMt01']=$nilai;
-			    			$datainsert['dCreated']=date("Y-m-d H:i:s");
-		    				$datainsert['cCreated']=$this->user->gNIP;
-		    				$this->db->insert('bbpmsoh.mt09_detail',$datainsert);
-    					}
-    				}
-    			}
-    		}
-    	}
+    	$post = $this->input->post();
+    	$idet['iMt09'] = $id;
+
+		$idet['vWarna'] = $post['vWarna'];
+$idet['vWarna_metoda'] = $post['vWarna_metoda'];
+$idet['vWarna_mutu'] = $post['vWarna_mutu'];
+$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
+$idet['vAsing'] = $post['vAsing'];
+$idet['vAsing_metoda'] = $post['vAsing_metoda'];
+$idet['vAsing_mutu'] = $post['vAsing_mutu'];
+$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
+$idet['vKelarutan'] = $post['vKelarutan'];
+$idet['vKelarutan_metoda'] = $post['vKelarutan_metoda'];
+$idet['vKelarutan_mutu'] = $post['vKelarutan_mutu'];
+$idet['dKelarutan_tanggal'] = $post['dKelarutan_tanggal'];
+$idet['vSeragam'] = $post['vSeragam'];
+$idet['vSeragam_metoda'] = $post['vSeragam_metoda'];
+$idet['vSeragam_mutu'] = $post['vSeragam_mutu'];
+$idet['dSeragam_tanggal'] = $post['dSeragam_tanggal'];
+$idet['vLembab'] = $post['vLembab'];
+$idet['vLembab_metoda'] = $post['vLembab_metoda'];
+$idet['vLembab_mutu'] = $post['vLembab_mutu'];
+$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
+$idet['vIdentitas'] = $post['vIdentitas'];
+$idet['vIdentitas_metoda'] = $post['vIdentitas_metoda'];
+$idet['vIdentitas_mutu'] = $post['vIdentitas_mutu'];
+$idet['dIdentitas_tanggal'] = $post['dIdentitas_tanggal'];
+$idet['vSteril37'] = $post['vSteril37'];
+$idet['vSteril37_metoda'] = $post['vSteril37_metoda'];
+$idet['vSteril37_mutu'] = $post['vSteril37_mutu'];
+$idet['dSteril37_tanggal'] = $post['dSteril37_tanggal'];
+$idet['vSteril22'] = $post['vSteril22'];
+$idet['vSteril22_metoda'] = $post['vSteril22_metoda'];
+$idet['vSteril22_mutu'] = $post['vSteril22_mutu'];
+$idet['dSteril22_tanggal'] = $post['dSteril22_tanggal'];
+$idet['vKontaminasi'] = $post['vKontaminasi'];
+$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
+$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
+$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
+$idet['vColi'] = $post['vColi'];
+$idet['vColi_metoda'] = $post['vColi_metoda'];
+$idet['vColi_mutu'] = $post['vColi_mutu'];
+$idet['dColi_tanggal'] = $post['dColi_tanggal'];
+$idet['vSalmon'] = $post['vSalmon'];
+$idet['vSalmon_metoda'] = $post['vSalmon_metoda'];
+$idet['vSalmon_mutu'] = $post['vSalmon_mutu'];
+$idet['dSalmon_tanggal'] = $post['dSalmon_tanggal'];
+$idet['vPh'] = $post['vPh'];
+$idet['vPh_metoda'] = $post['vPh_metoda'];
+$idet['vPh_mutu'] = $post['vPh_mutu'];
+$idet['dPh_tanggal'] = $post['dPh_tanggal'];
+$idet['vToksis'] = $post['vToksis'];
+$idet['vToksis_metoda'] = $post['vToksis_metoda'];
+$idet['vToksis_mutu'] = $post['vToksis_mutu'];
+$idet['dToksis_tanggal'] = $post['dToksis_tanggal'];
+$idet['vPirogen'] = $post['vPirogen'];
+$idet['vPirogen_metoda'] = $post['vPirogen_metoda'];
+$idet['vPirogen_mutu'] = $post['vPirogen_mutu'];
+$idet['dPirogen_tanggal'] = $post['dPirogen_tanggal'];
+$idet['vPotensi_object'] = $post['vPotensi_object'];
+$idet['vPotensi'] = $post['vPotensi'];
+$idet['vPotensi_metoda'] = $post['vPotensi_metoda'];
+$idet['vPotensi_mutu'] = $post['vPotensi_mutu'];
+$idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
+
+
+
+
+
+
+		
+		$this->db->insert('bbpmsoh.mt09_fisik', $idet);
+		
+
+
+
     }
 
     /*After Update*/
     function after_update_processor($fields, $id, $postData) {
     	$post=$this->input->post();
-	    $din=array();
-	    $dup=array();
-	    $pkid=array();
-    	foreach ($post as $kp => $vp) {
-    		if($kp=="grid_details_iMt01"){
-    			foreach ($vp as $key => $value) {
-    				if($key==0){
-    					foreach ($value as $kdet => $nilai) {
-    						$din[$kdet]=$nilai;
-    					}
-    				}else{
-    					$pkid[]=$key;
-    					$dup[$key]=$value[0];
-    				}
-    			}
-    		}
-    	}
+	    
+	    $idet['vWarna'] = $post['vWarna'];
+		$idet['vWarna_metoda'] = $post['vWarna_metoda'];
+		$idet['vWarna_mutu'] = $post['vWarna_mutu'];
+		$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
+		$idet['vAsing'] = $post['vAsing'];
+		$idet['vAsing_metoda'] = $post['vAsing_metoda'];
+		$idet['vAsing_mutu'] = $post['vAsing_mutu'];
+		$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
+		$idet['vKelarutan'] = $post['vKelarutan'];
+		$idet['vKelarutan_metoda'] = $post['vKelarutan_metoda'];
+		$idet['vKelarutan_mutu'] = $post['vKelarutan_mutu'];
+		$idet['dKelarutan_tanggal'] = $post['dKelarutan_tanggal'];
+		$idet['vSeragam'] = $post['vSeragam'];
+		$idet['vSeragam_metoda'] = $post['vSeragam_metoda'];
+		$idet['vSeragam_mutu'] = $post['vSeragam_mutu'];
+		$idet['dSeragam_tanggal'] = $post['dSeragam_tanggal'];
+		$idet['vLembab'] = $post['vLembab'];
+		$idet['vLembab_metoda'] = $post['vLembab_metoda'];
+		$idet['vLembab_mutu'] = $post['vLembab_mutu'];
+		$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
+		$idet['vIdentitas'] = $post['vIdentitas'];
+		$idet['vIdentitas_metoda'] = $post['vIdentitas_metoda'];
+		$idet['vIdentitas_mutu'] = $post['vIdentitas_mutu'];
+		$idet['dIdentitas_tanggal'] = $post['dIdentitas_tanggal'];
+		$idet['vSteril37'] = $post['vSteril37'];
+		$idet['vSteril37_metoda'] = $post['vSteril37_metoda'];
+		$idet['vSteril37_mutu'] = $post['vSteril37_mutu'];
+		$idet['dSteril37_tanggal'] = $post['dSteril37_tanggal'];
+		$idet['vSteril22'] = $post['vSteril22'];
+		$idet['vSteril22_metoda'] = $post['vSteril22_metoda'];
+		$idet['vSteril22_mutu'] = $post['vSteril22_mutu'];
+		$idet['dSteril22_tanggal'] = $post['dSteril22_tanggal'];
+		$idet['vKontaminasi'] = $post['vKontaminasi'];
+		$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
+		$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
+		$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
+		$idet['vColi'] = $post['vColi'];
+		$idet['vColi_metoda'] = $post['vColi_metoda'];
+		$idet['vColi_mutu'] = $post['vColi_mutu'];
+		$idet['dColi_tanggal'] = $post['dColi_tanggal'];
+		$idet['vSalmon'] = $post['vSalmon'];
+		$idet['vSalmon_metoda'] = $post['vSalmon_metoda'];
+		$idet['vSalmon_mutu'] = $post['vSalmon_mutu'];
+		$idet['dSalmon_tanggal'] = $post['dSalmon_tanggal'];
+		$idet['vPh'] = $post['vPh'];
+		$idet['vPh_metoda'] = $post['vPh_metoda'];
+		$idet['vPh_mutu'] = $post['vPh_mutu'];
+		$idet['dPh_tanggal'] = $post['dPh_tanggal'];
+		$idet['vToksis'] = $post['vToksis'];
+		$idet['vToksis_metoda'] = $post['vToksis_metoda'];
+		$idet['vToksis_mutu'] = $post['vToksis_mutu'];
+		$idet['dToksis_tanggal'] = $post['dToksis_tanggal'];
+		$idet['vPirogen'] = $post['vPirogen'];
+		$idet['vPirogen_metoda'] = $post['vPirogen_metoda'];
+		$idet['vPirogen_mutu'] = $post['vPirogen_mutu'];
+		$idet['dPirogen_tanggal'] = $post['dPirogen_tanggal'];
+		$idet['vPotensi_object'] = $post['vPotensi_object'];
+		$idet['vPotensi'] = $post['vPotensi'];
+		$idet['vPotensi_metoda'] = $post['vPotensi_metoda'];
+		$idet['vPotensi_mutu'] = $post['vPotensi_mutu'];
+		$idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
 
-    	/*Insert Baru*/
-    	$this->db->where("imt09",$id);
-    	if(count($pkid)>0){
-    		$this->db->where_not_in("imt09_detail",$pkid);
-    	}
-    	$dataupdate=array("lDeleted"=>1,"cUpdated"=>$this->user->gNIP,"dUpdated"=>date("Y-m-d H:i:s"));
-    	$this->db->update("bbpmsoh.mt09_detail",$dataupdate);
 
-    	if(count($dup)>0){
-    		foreach ($dup as $kup => $vup) {
-    			$dataupdate2=array();
-    			$dataupdate2["cUpdated"]=$this->user->gNIP;
-    			$dataupdate2["dUpdated"]=date("Y-m-d H:i:s");
-    			$dataupdate2["iMt01"]=$vup;
-    			$this->db->where("imt09_detail",$kup);
-    			$this->db->update("bbpmsoh.mt09_detail",$dataupdate2);
-    		}
-    	}
-    	if(count($din)>0){
-	    	foreach ($din as $kin => $val) {
-	    		$datainsert=array();
-				$datainsert['imt09']=$id;
-				$datainsert['iMt01']=$val;
-				$datainsert['dCreated']=date("Y-m-d H:i:s");
-				$datainsert['cCreated']=$this->user->gNIP;
-				$this->db->insert('bbpmsoh.mt09_detail',$datainsert);
-	    	}
-	    }
-    }
+
+    	$this->db->where('iMt09', $id);
+		$this->db->update('bbpmsoh.mt09_fisik', $idet);
+
+	}
+
+    	
 
 
     /*Confirm View*/
@@ -654,7 +917,7 @@ class mt09 extends MX_Controller {
         $dataupdate['dApprove']= date('Y-m-d H:i:s');
         $dataupdate['vRemark']= $post['vRemark'];
         $dataupdate['iApprove_unit_uji']= 2;
-        $this->db->where('imt09',$post['last_id'])
+        $this->db->where('iMt09',$post['last_id'])
                     ->update('bbpmsoh.mt09',$dataupdate);
 
         $data['group_id']=$post['group_id'];
@@ -719,7 +982,7 @@ class mt09 extends MX_Controller {
         $dataupdate['dApprove']= date('Y-m-d H:i:s');
         $dataupdate['vRemark']= $post['vRemark'];
         $dataupdate['iApprove_unit_uji']= 1;
-        $this->db->where('imt09',$post['last_id'])
+        $this->db->where('iMt09',$post['last_id'])
                     ->update('bbpmsoh.mt09',$dataupdate);
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
@@ -765,7 +1028,7 @@ class mt09 extends MX_Controller {
     		$this->main_table_pk=>$id
     		,'mt09_detail.lDeleted'=>0
     		);
-    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt09_detail.imt09_detail")
+    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt09_detail.iMt09_detail")
     				->from("bbpmsoh.mt09_detail")
     				->join("bbpmsoh.mt01","mt01.iMt01=mt09_detail.iMt01")
     				->join("bbpmsoh.m_tujuan_pengujian","m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian")
@@ -784,7 +1047,7 @@ class mt09 extends MX_Controller {
 				if($dsel=="iAction"){
 					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><center><span class='ui-icon ui-icon-trash'></span></center></a>";
 				}elseif($dsel=="vNomor"){
-					$dataar[$z]="<input type='text' name='grid_details_nomor_request[".$k->imt09_detail."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req required' size='25'><input type='hidden' name='grid_details_iMt01[".$k->imt09_detail."][]' id='grid_details_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
+					$dataar[$z]="<input type='text' name='grid_details_nomor_request[".$k->iMt09_detail."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req required' size='25'><input type='hidden' name='grid_details_iMt01[".$k->iMt09_detail."][]' id='grid_details_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
 				}else{
 					$dataar[$z]="<p id='grid_".$dsel."_".$i."'>".$k->{$dsel}."</p>";
 				}
