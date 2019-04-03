@@ -1,0 +1,11 @@
+#Sertifikat
+	- pasang validasi jika mt8a,8b, dan 9 sudah finish 
+
+#Modul my8a,8b, dan 9 
+	- pasang approve QA => done 
+
+# mt8a,mt8b , cek dropdown distribusinya => done
+
+#mt06 , hilangkan yang patologi checkbox
+
+#Send Message ERP all modul

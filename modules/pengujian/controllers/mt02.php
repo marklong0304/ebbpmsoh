@@ -210,17 +210,29 @@ class mt02 extends MX_Controller {
         $id   = 2;
         $data = array();
 
+<<<<<<< HEAD
         $sql = "select b.vNo_transaksi, a.* from bbpmsoh.mt02 a
 				left join mt01 b on b.iMt01 = a.iMt01
+=======
+        $sql = "select * from bbpmsoh.mt02 a
+>>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
                 WHERE a.iMt01 = '{$id}'";
         $query = $this->db->query($sql);
         
         foreach ($query->result() as $row) {
+<<<<<<< HEAD
             $row_array['vNo_transaksi']                  	= ucwords(strtolower($row->vNo_transaksi));
             $row_array['p1_nama']                	= $row->p1_nama;
             $row_array['p1_jabatan']         		= ucwords(strtolower($row->p1_jabatan));
             $row_array['p1_perusahaan']          	= $row->p1_perusahaan;
             $row_array['p1_alamat']              	= ucwords(strtolower($row->p1_alamat));
+=======
+            //$row_array['vNomor']                  = ucwords(strtolower($row->vNomor));
+            $row_array['p1nama']                = $row->p1_nama;
+            $row_array['p1jabatan']         = ucwords(strtolower($row->p1_jabatan));
+            $row_array['p1perusahaan']          = $row->p1_perusahaan;
+            $row_array['p1alamat']              = $row->p1_alamat;
+>>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
             array_push($data, $row_array);
         }
 
@@ -289,10 +301,15 @@ class mt02 extends MX_Controller {
 
                                             doc.setData({
                                                 
+<<<<<<< HEAD
                                                 'p1_nama' : data[0].p1_nama,
                                                 'p1_jabatan' : data[0].p1_jabatan,
                                                 'p1_perusahaan' : data[0].p1_perusahaan,
                                                 'p1_alamat' : data[0].p1_alamat,
+=======
+                                                'p1nama' : data[0].p1nama,
+                                                'p1jabatan' : 'Jabatannya'
+>>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
                                                 
                                                 
                                             })
@@ -301,7 +318,11 @@ class mt02 extends MX_Controller {
                                             out = doc.getZip().generate({type:'blob'})
 
                                             nmdok = 'MT02';
+<<<<<<< HEAD
                                             saveAs(out, nmdok+' - ' + data[0].vNo_transaksi + '.docx')
+=======
+                                            saveAs(out, nmdok+' - ' + data[0].p1nama + '.docx')
+>>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
                                         }
                                     })
                                 })

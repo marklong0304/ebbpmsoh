@@ -17,7 +17,8 @@ class mt8a extends MX_Controller {
 			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
 			,'vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
+			,'iApprove_unit_uji' => array('label'=>'Approval Yanji','width'=>150,'align'=>'left','search'=>true)
+			,'iApprove_qa' => array('label'=>'Approval QA','width'=>150,'align'=>'left','search'=>true)
 			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Umum','width'=>200,'align'=>'center','search'=>true)
 			
 		);
@@ -146,6 +147,7 @@ class mt8a extends MX_Controller {
 		$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
 		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+		$grid->changeFieldType('iApprove_qa', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 
 		$grid->setGridView('grid');
 
@@ -209,7 +211,7 @@ class mt8a extends MX_Controller {
                 echo $this->reject_view();
                 break;
             case 'reject_process':
-                echo $this->reject_process;
+                echo $this->reject_process(0);
                 break;
 			case 'uploadFile':
 				$lastId=$this->input->get('lastId');
@@ -277,18 +279,6 @@ class mt8a extends MX_Controller {
 		}
     }
 
-    function checkgroup($nip){
-        $sql = "select *,a.idprivi_group,a.vNamaGroup 
-                from erp_privi.privi_group_pt_app a 
-                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
-                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
-                where 
-                b.idprivi_apps=130
-                and 
-                c.cNIP='".$nip."' ";
-        $ret = $this->db->query($sql)->row_array();
-        return $ret;
-    }
     function updateBox_mt8a_uji_fisik($name, $id, $value, $rowData) {
 		$this->db->where('iMt8a', $rowData['iMt8a']);
 		$this->db->where('lDeleted', 0);
@@ -305,7 +295,7 @@ class mt8a extends MX_Controller {
 
 
     function listBox_Action($row, $actions) {
-        if ($row->iApprove_unit_uji>0) { 
+        if ($row->iApprove_qa > 1) { 
                 unset($actions['edit']);
         }
         if ($row->iSubmit>0) { 
@@ -317,6 +307,20 @@ class mt8a extends MX_Controller {
 	function output(){
     	$this->index($this->input->get('action'));
     }
+
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
+
 
     function manipulate_update_button($buttons, $rowData) {
          $cNip= $this->user->gNIP;
@@ -336,6 +340,7 @@ class mt8a extends MX_Controller {
        
        	 /*
             idprivi_group;vNamaGroup
+            11 : QA
             10;Keuangan
             9;Tu
             8;Kepala balai
@@ -351,28 +356,29 @@ class mt8a extends MX_Controller {
         */ 
 
 
-        if($groupnya['idprivi_group'] == 7){
-             $this->db->select("*")
-                ->from("hrd.employee")
-                ->where("iDivisionID",7)
-                ->where("cNip",$this->user->gNIP)
-                ->where("iVerifikasi",1);
-        }else{
-            $this->db->select("*")
-                ->from("hrd.employee")
-                ->where("iDivisionID",7)
-                ->where("iVerifikasi",1);
-        }
+        
 
 
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
         }
         else{ 
-            if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
-                $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
-                $buttons['update'] = $iframe.$approve.$reject;
+            if($rowData['iSubmit']==0){
+            	if($groupnya['idprivi_group'] == 3){
+             		$buttons['update'] = $iframe.$update_draft.$update.$js;    
+		        }
+
+                
+            }elseif($rowData['iSubmit']==1){
+            	if($groupnya['idprivi_group'] == 11 and $rowData['iApprove_qa'] <> 2 ){
+             		$buttons['update'] = $iframe.$approve.$reject;
+             	}
+		        if($groupnya['idprivi_group'] == 2 and $rowData['iApprove_unit_uji'] <> 2 ){
+		            $buttons['update'] = $iframe.$approve.$reject;
+		        }
+
+
+                
             }
         }
         
@@ -424,12 +430,12 @@ class mt8a extends MX_Controller {
 			'mt01.lDeleted'=>0
 			,'mt06.lDeleted'=>0	
 			,'mt06.iApprove_sphu'=>2	
-			,'mt06.iDist_virologi'=>1	
 		);
 		$this->db->select("mt01.*")
 				->from("bbpmsoh.mt01")
 				->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
 				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iApprove_unit_uji in (0,2) )')
+				->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )')
 				->where($arr);
 
 		$return="<select name='".$id."' id='".$id."' class='required'>";
@@ -497,6 +503,7 @@ class mt8a extends MX_Controller {
             ->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
             ->where($arr)
             ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iMt01 !='.$value.' )');
+            ->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )')
         $row=$this->db->get()->result_array();
 
         $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$value.'" ';
@@ -915,10 +922,41 @@ class mt8a extends MX_Controller {
         $post = $this->input->post();
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-        $dataupdate['cApprove']= $this->user->gNIP;
-        $dataupdate['dApprove']= date('Y-m-d H:i:s');
-        $dataupdate['vRemark']= $post['vRemark'];
-        $dataupdate['iApprove_unit_uji']= 2;
+
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+       
+       	 /*
+            idprivi_group;vNamaGroup
+            11 : QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+        */ 
+        if($groupnya['idprivi_group'] == 11){
+     		/*QA*/
+     		$dataupdate['cApprove_qa']= $this->user->gNIP;
+	        $dataupdate['dApprove_qa']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_qa']= $post['vRemark'];
+	        $dataupdate['iApprove_qa']= 2;
+
+     	}else{
+     		$dataupdate['cApprove']= $this->user->gNIP;
+	        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark']= $post['vRemark'];
+	        $dataupdate['iApprove_unit_uji']= 2;
+
+     	}
+		 
+
+        
         $this->db->where('iMt8a',$post['last_id'])
                     ->update('bbpmsoh.mt08a',$dataupdate);
 
@@ -977,13 +1015,46 @@ class mt8a extends MX_Controller {
     }
 
     function reject_process () {
-         $post = $this->input->post();
+        $post = $this->input->post();
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-        $dataupdate['cApprove']= $this->user->gNIP;
-        $dataupdate['dApprove']= date('Y-m-d H:i:s');
-        $dataupdate['vRemark']= $post['vRemark'];
-        $dataupdate['iApprove_unit_uji']= 1;
+       
+       $groupnya = $this->checkgroup($this->user->gNIP);             
+       
+       	 /*
+            idprivi_group;vNamaGroup
+            11 : QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+        */ 
+
+         $dataupdate['iSubmit']= 0;
+        if($groupnya['idprivi_group'] == 11){
+     		/*QA*/
+     		$dataupdate['cApprove_qa']= $this->user->gNIP;
+	        $dataupdate['dApprove_qa']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_qa']= $post['vRemark'];
+	        $dataupdate['iApprove_qa']= 1;
+	        
+
+     	}else{
+     		$dataupdate['cApprove']= $this->user->gNIP;
+	        $dataupdate['dApprove']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark']= $post['vRemark'];
+	        $dataupdate['iApprove_unit_uji']= 1;
+	        $dataupdate['iApprove_qa']= 1;
+	        
+     	}
+
         $this->db->where('iMt8a',$post['last_id'])
                     ->update('bbpmsoh.mt08a',$dataupdate);
         $data['group_id']=$post['group_id'];
