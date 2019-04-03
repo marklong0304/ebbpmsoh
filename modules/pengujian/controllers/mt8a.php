@@ -305,7 +305,7 @@ class mt8a extends MX_Controller {
 
 
     function listBox_Action($row, $actions) {
-        if ($row->iApprove_unit_uji>0) { 
+        if ($row->iApprove_qa > 1) { 
                 unset($actions['edit']);
         }
         if ($row->iSubmit>0) { 
@@ -317,6 +317,20 @@ class mt8a extends MX_Controller {
 	function output(){
     	$this->index($this->input->get('action'));
     }
+
+    function checkgroup($nip){
+        $sql = "select *,a.idprivi_group,a.vNamaGroup 
+                from erp_privi.privi_group_pt_app a 
+                join erp_privi.privi_apps b on b.idprivi_apps=a.idprivi_apps
+                join erp_privi.privi_authlist c on c.idprivi_apps=b.idprivi_apps and c.idprivi_group=a.iID_GroupApp
+                where 
+                b.idprivi_apps=130
+                and 
+                c.cNIP='".$nip."' ";
+        $ret = $this->db->query($sql)->row_array();
+        return $ret;
+    }
+
 
     function manipulate_update_button($buttons, $rowData) {
          $cNip= $this->user->gNIP;
@@ -336,6 +350,7 @@ class mt8a extends MX_Controller {
        
        	 /*
             idprivi_group;vNamaGroup
+            11 : QA
             10;Keuangan
             9;Tu
             8;Kepala balai
@@ -351,28 +366,28 @@ class mt8a extends MX_Controller {
         */ 
 
 
-        if($groupnya['idprivi_group'] == 7){
-             $this->db->select("*")
-                ->from("hrd.employee")
-                ->where("iDivisionID",7)
-                ->where("cNip",$this->user->gNIP)
-                ->where("iVerifikasi",1);
-        }else{
-            $this->db->select("*")
-                ->from("hrd.employee")
-                ->where("iDivisionID",7)
-                ->where("iVerifikasi",1);
-        }
+        
 
 
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
         }
         else{ 
-            if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
-                $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
-                $buttons['update'] = $iframe.$approve.$reject;
+            if($rowData['iSubmit']==0){
+            	if($groupnya['idprivi_group'] == 3){
+             		$buttons['update'] = $iframe.$update_draft.$update.$js;    
+		        }
+
+                
+            }elseif($rowData['iSubmit']==1){
+            	if($groupnya['idprivi_group'] == 11){
+             		$buttons['update'] = $iframe.$approve.$reject;
+		        }else if ($groupnya['idprivi_group'] == 2){
+		            $buttons['update'] = $iframe.$approve.$reject;
+		        }
+
+
+                
             }
         }
         

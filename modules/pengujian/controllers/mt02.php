@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class mt02 extends MX_Controller {
+    var $masterUrl;
     function __construct() {
         parent::__construct();
          $this->load->library('auth');
@@ -9,6 +10,7 @@ class mt02 extends MX_Controller {
         $this->title = 'MT 02';
         $this->url = 'mt02';
         $this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
+        $this->masterUrl = base_url()."processor/pengujian/mt02?company_id={$this->input->get('company_id')}";
 
         $this->maintable = 'bbpmsoh.mt02';  
         $this->main_table = $this->maintable;   
@@ -193,10 +195,35 @@ class mt02 extends MX_Controller {
             case 'reject_process':
                 echo $this->reject_process();
                 break;
+            case 'getDataMemo':
+                echo $this->getDataMemo();
+                break;
             default:
                 $grid->render_grid();
                 break;
         }
+    }
+
+    function getDataMemo() {
+
+        //echo $id   = $this->input->post('id');
+        $id   = 2;
+        $data = array();
+
+        $sql = "select * from bbpmsoh.mt02 a
+                WHERE a.iMt01 = '{$id}'";
+        $query = $this->db->query($sql);
+        
+        foreach ($query->result() as $row) {
+            //$row_array['vNomor']                  = ucwords(strtolower($row->vNomor));
+            $row_array['p1nama']                = $row->p1_nama;
+            $row_array['p1jabatan']         = ucwords(strtolower($row->p1_jabatan));
+            $row_array['p1perusahaan']          = $row->p1_perusahaan;
+            $row_array['p1alamat']              = $row->p1_alamat;
+            array_push($data, $row_array);
+        }
+
+        echo json_encode($data);
     }
 
     function output(){
@@ -222,6 +249,8 @@ class mt02 extends MX_Controller {
         return $dMt01;
     }
     function manipulate_update_button($buttons, $rowData) {
+        $peka=$rowData['iMt01'];
+        
         $cNip= $this->user->gNIP;
         $js = $this->load->view('js/standard_js');
         $js .= $this->load->view('js/upload_js');
@@ -233,8 +262,53 @@ class mt02 extends MX_Controller {
         $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
         
+        $grid          = $this->url;
+        $url           = $this->masterUrl;
+
+        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
+        $btnUpk .= "<script>
+                        function btnUpk_{$this->url}(url, grid, dis) {
+
+                            custom_confirm('Print Dokumen ?', function() {
+                                template = 'mt02.docx';
+                                var loadFile = function(url, callback) {
+                                    JSZipUtils.getBinaryContent(url, callback);
+                                }
+                                loadFile('../files/pengujian/template/'+template, function(err, content) {
+                                    if (err) {throw e};
+
+                                    $.ajax({
+                                        url: url+'&action=getDataMemo',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: '&id={$peka}',
+                                        success: function(data) {
+
+                                            doc = new Docxgen(content);
+
+                                            doc.setData({
+                                                
+                                                'p1nama' : data[0].p1nama,
+                                                'p1jabatan' : 'Jabatannya'
+                                                
+                                                
+                                            })
+
+                                            doc.render()
+                                            out = doc.getZip().generate({type:'blob'})
+
+                                            nmdok = 'MT02';
+                                            saveAs(out, nmdok+' - ' + data[0].p1nama + '.docx')
+                                        }
+                                    })
+                                })
+                            })
+                        }
+                    </script>";
+                    
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk;  
         }
         else{ 
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){

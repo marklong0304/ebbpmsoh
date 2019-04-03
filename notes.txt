@@ -1,0 +1,9 @@
+#Sertifikat
+	- pasang validasi jika mt8a,8b, dan 9 sudah finish
+
+#Modul my8a,8b, dan 9 
+	- pasang approve QA
+
+# mt8a,mt8b , cek dropdown distribusinya
+
+#mt06 , hilangkan yang patologi checkbox

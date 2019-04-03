@@ -1106,7 +1106,8 @@ class mt01 extends MX_Controller {
 											doc = new Docxgen(content);
 
 											doc.setData({
-												'name' : data[0].vNomor,
+												'name'   : data[0].vNomor,
+                                                'nipnya' : 'N14615'
 		    									
 											})
 
@@ -1114,7 +1115,7 @@ class mt01 extends MX_Controller {
 		    								out = doc.getZip().generate({type:'blob'})
 
 		    								nmdok = 'MT01';
-		    								saveAs(out, nmdok+' - ' + data[0].vName + '.docx')
+		    								saveAs(out, nmdok+' - ' + data[0].vNomor + '.docx')
 										}
 									})
 								})
