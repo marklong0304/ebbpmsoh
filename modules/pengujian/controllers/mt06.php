@@ -323,7 +323,7 @@ class mt06 extends MX_Controller {
     }
 
     function insertBox_mt06_form_DistribusiUnit($field, $id) {
-    	$return = "<input type='checkbox' name='iDist_virologi' value='1' class='getDistribusiUnit' />Virologi <br /><input type='checkbox' class='getDistribusiUnit' name='iDist_bakteri' value='1' />Bakteriologi <br /><input type='checkbox' name='iDist_farmastetik' value='1' class='getDistribusiUnit' />Farmasetik dan Premiks<br /><input type='checkbox' name='iDist_patologi' class='getDistribusiUnit' value='1' />Patologi";
+    	$return = "<input type='checkbox' name='iDist_virologi' value='1' class='getDistribusiUnit' />Virologi <br /><input type='checkbox' class='getDistribusiUnit' name='iDist_bakteri' value='1' />Bakteriologi <br /><input type='checkbox' name='iDist_farmastetik' value='1' class='getDistribusiUnit' />Farmasetik dan Premiks<br />";
         return $return;
     }
 
@@ -365,7 +365,7 @@ class mt06 extends MX_Controller {
     	$iDist_bakteri=$rowData["iDist_bakteri"]==1?"checked=''":"";
     	$iDist_farmastetik=$rowData["iDist_farmastetik"]==1?"checked=''":"";
     	$iDist_patologi=$rowData["iDist_patologi"]==1?"checked=''":"";
-		$return = "<input class='getDistribusiUnit' type='checkbox' name='iDist_virologi' ".$iDist_virologi." value='1' />Virologi <br /><input type='checkbox' class='getDistribusiUnit' name='iDist_bakteri' ".$iDist_bakteri." value='1' />Bakteriologi <br /><input type='checkbox' name='iDist_farmastetik' ".$iDist_farmastetik." value='1' class='getDistribusiUnit' />Farmasetik dan Premiks<br /><input type='checkbox' name='iDist_patologi' ".$iDist_patologi." value='1' class='getDistribusiUnit' />Patologi";
+		$return = "<input class='getDistribusiUnit' type='checkbox' name='iDist_virologi' ".$iDist_virologi." value='1' />Virologi <br /><input type='checkbox' class='getDistribusiUnit' name='iDist_bakteri' ".$iDist_bakteri." value='1' />Bakteriologi <br /><input type='checkbox' name='iDist_farmastetik' ".$iDist_farmastetik." value='1' class='getDistribusiUnit' />Farmasetik dan Premiks<br />";
         return $return;
     }
 
