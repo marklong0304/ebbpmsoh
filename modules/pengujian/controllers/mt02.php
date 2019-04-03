@@ -206,38 +206,97 @@ class mt02 extends MX_Controller {
 
     function getDataMemo() {
 
-        //echo $id   = $this->input->post('id');
-        $id   = 2;
-        $data = array();
+        $id   = $this->input->post('id');
+       
+        $data = array(); 
 
-<<<<<<< HEAD
-        $sql = "select b.vNo_transaksi, a.* from bbpmsoh.mt02 a
-				left join mt01 b on b.iMt01 = a.iMt01
-=======
-        $sql = "select * from bbpmsoh.mt02 a
->>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
+        $sql = "select b.vNo_transaksi, DAYOFMONTH(a.dTgl_Kontrak) as tgl, year(a.dTgl_Kontrak) as tahun, a.* from bbpmsoh.mt02 a
+				left join bbpmsoh.mt01 b on b.iMt01 = a.iMt01
                 WHERE a.iMt01 = '{$id}'";
         $query = $this->db->query($sql);
         
         foreach ($query->result() as $row) {
-<<<<<<< HEAD
-            $row_array['vNo_transaksi']                  	= ucwords(strtolower($row->vNo_transaksi));
+            $row_array['vNo_transaksi']             = ucwords(strtolower($row->vNo_transaksi));
             $row_array['p1_nama']                	= $row->p1_nama;
             $row_array['p1_jabatan']         		= ucwords(strtolower($row->p1_jabatan));
             $row_array['p1_perusahaan']          	= $row->p1_perusahaan;
             $row_array['p1_alamat']              	= ucwords(strtolower($row->p1_alamat));
-=======
-            //$row_array['vNomor']                  = ucwords(strtolower($row->vNomor));
-            $row_array['p1nama']                = $row->p1_nama;
-            $row_array['p1jabatan']         = ucwords(strtolower($row->p1_jabatan));
-            $row_array['p1perusahaan']          = $row->p1_perusahaan;
-            $row_array['p1alamat']              = $row->p1_alamat;
->>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
+			$row_array['p1_an']          			= $row->p1_an;
+			$row_array['p2_nama']          			= $row->p2_nama;
+			$row_array['p2_jabatan']          		= $row->p2_jabatan;
+			$row_array['vNama_sample']          	= $row->vNama_sample;
+			$row_array['vAcuan_metode_uji']        	= $row->vAcuan_metode_uji;
+			$row_array['vKeterangan']          		= $row->vKeterangan;
+			
+			$tanggal = $row->dTgl_Kontrak;
+			function bulan_indo($tanggal)
+			{
+				$bulan = array (1 =>   'Januari',
+							'Februari',
+							'Maret',
+							'April',
+							'Mei',
+							'Juni',
+							'Juli',
+							'Agustus',
+							'September',
+							'Oktober',
+							'November',
+							'Desember'
+						);
+				$split = explode('-', $tanggal);
+				return $bulan[ (int)$split[1] ];
+			}
+
+			function tanggal_indo($tanggal, $cetak_hari = false)
+			{
+				$hari = array ( 1 =>    'Senin',
+							'Selasa',
+							'Rabu',
+							'Kamis',
+							'Jumat',
+							'Sabtu',
+							'Minggu'
+						);
+						
+				$bulan = array (1 =>   'Januari',
+							'Februari',
+							'Maret',
+							'April',
+							'Mei',
+							'Juni',
+							'Juli',
+							'Agustus',
+							'September',
+							'Oktober',
+							'November',
+							'Desember'
+						);
+				$split 	  = explode('-', $tanggal);
+				$tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+				
+				if ($cetak_hari) {
+					$num = date('N', strtotime($tanggal));
+					return $hari[$num];
+				}
+				return $tgl_indo;
+			}
+			//echo tanggal_indo ('2016-03-20'); // Hasil: 20 Maret 2016;
+			//echo tanggal_indo ('2016-03-20', true); // Hasil: Minggu, 20 Maret 2016
+			//echo tanggal_indo('2016-03-20');
+			
+			$row_array['dTgl_Kontrak']          	= $row->tgl;
+			$row_array['dTgl_tahun']          		= $row->tahun;
+			$row_array['dTgl_bulan']          		= bulan_indo($row->dTgl_Kontrak);
+			$row_array['dTgl_hari']          			= tanggal_indo($row->dTgl_Kontrak, true);
+			
             array_push($data, $row_array);
         }
-
+		
         echo json_encode($data);
     }
+
+		
 
     function output(){
         $this->index($this->input->get('action'));
@@ -301,28 +360,27 @@ class mt02 extends MX_Controller {
 
                                             doc.setData({
                                                 
-<<<<<<< HEAD
                                                 'p1_nama' : data[0].p1_nama,
                                                 'p1_jabatan' : data[0].p1_jabatan,
                                                 'p1_perusahaan' : data[0].p1_perusahaan,
                                                 'p1_alamat' : data[0].p1_alamat,
-=======
-                                                'p1nama' : data[0].p1nama,
-                                                'p1jabatan' : 'Jabatannya'
->>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
-                                                
-                                                
+                                                'p1_an' : data[0].p1_an,
+                                                'p2_nama' : data[0].p2_nama,
+                                                'p2_jabatan' : data[0].p2_jabatan,
+                                                'vNama_sample' : data[0].vNama_sample,
+                                                'vAcuan_metode_uji' : data[0].vAcuan_metode_uji,
+                                                'vKeterangan' : data[0].vKeterangan,
+                                                'dTgl_Kontrak' : data[0].dTgl_Kontrak,
+                                                'dTgl_bulan' : data[0].dTgl_bulan,
+                                                'dTgl_tahun' : data[0].dTgl_tahun,
+                                                'dTgl_hari' : data[0].dTgl_hari,
                                             })
 
                                             doc.render()
                                             out = doc.getZip().generate({type:'blob'})
 
                                             nmdok = 'MT02';
-<<<<<<< HEAD
                                             saveAs(out, nmdok+' - ' + data[0].vNo_transaksi + '.docx')
-=======
-                                            saveAs(out, nmdok+' - ' + data[0].p1nama + '.docx')
->>>>>>> 0e1401e6257dbc1dcd29d1b79531adab2d42c07d
                                         }
                                     })
                                 })
