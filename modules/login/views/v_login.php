@@ -164,8 +164,10 @@
 			<div class='row'>
                 <div class='col-xs-12' align="left">
                 	<p style="padding:10px 0px 10px 0px">
-                	<a href='<?php echo base_url()?>registrasi'><strong>Form Registrasi</strong></a>, <br /> Jika Anda lupa Password 
-                	<a href='<?php echo base_url()?>lupapassword'><strong>Klik disini!</strong></a></p>
+	                	<a href='<?php echo base_url()?>registrasi'><strong>Form Registrasi</strong></a>, 
+	                	<!-- <br /> Jika Anda lupa Password 
+	                	<a href='<?php echo base_url()?>lupapassword'><strong>Klik disini!</strong></a> -->
+                	</p>
                 </div>
             </div>
 		</form>

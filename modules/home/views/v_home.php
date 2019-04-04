@@ -39,12 +39,6 @@
                         echo $isi;
 			
 			$vContent = '';
-			$sql = "SELECT vContent FROM hrd.eb_sysparam WHERE cVariable='LINKTEXT'";
-			$query 	= $this->db->query($sql);
-			if ($query->num_rows() > 0){
-				$row 	= $query->row_array();
-				$vContent 		= $row['vContent'];
-			}
 		?>
 	
 	<br /><br />

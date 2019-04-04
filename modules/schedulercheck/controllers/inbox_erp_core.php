@@ -69,6 +69,11 @@ class inbox_erp_core extends MX_Controller {
 		$grid->setQuery('erp_inbox_details.cnip like "%'.$this->user->gNIP.'%"', NULL);
 		$grid->setQuery('erp_inbox_details.ldeleted', 0);
 		$grid->setQuery('erp_inbox.ldeleted', 0);
+
+        $grid->setQuery('privi_modules.idprivi_apps', 130);
+
+        
+
 		/*basic required finish*/
 		switch ($action) {
 			case 'json':
@@ -144,7 +149,7 @@ class inbox_erp_core extends MX_Controller {
     	return $re;
     }
     function searchBox_inbox_erp_core_privi_modules_idprivi_modules($fields, $id) {
-    	$arr = $this->db->get_where('erp_privi.privi_modules', array('isDeleted' => 0, 'iType' => 1))->result_array();
+    	$arr = $this->db->get_where('erp_privi.privi_modules', array('isDeleted' => 0, 'iType' => 1,'idprivi_apps'=>130))->result_array();
     	$re='<select id="search_grid_inbox_erp_core_privi_modules__idprivi_modules" name="search_grid_inbox_erp_core_privi_modules.idprivi_modules">';
     	$re.='<option value="">---Pilih---</option>';
     	foreach ($arr as $kr => $vr) {
@@ -301,7 +306,7 @@ class inbox_erp_core extends MX_Controller {
 
     function updateBox_inbox_erp_core_lblcontent($field, $id, $value, $rowData){
 		$return = '<script>
-			$("label[for=\'inbox_erp_core_lblcontent\']").css({"border": "1px solid #dddddd", "background": "#548cb6", "border-collapse": "collapse","width":"99%","font-weight":"bold","color":"#ffffff","text-align":"center","text-shadow": "0 1px 1px rgba(0, 0, 0, 0.3)","text-transform": "uppercase"});
+			$("label[for=\'inbox_erp_core_lblcontent\']").css({"border": "1px solid #dddddd",  "border-collapse": "collapse","width":"99%","font-weight":"bold","color":"black","text-align":"center","text-shadow": "0 1px 1px rgba(0, 0, 0, 0.3)","text-transform": "uppercase"});
 
 
 		</script>';

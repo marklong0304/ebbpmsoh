@@ -58,19 +58,13 @@ class sess_auth {
                     $ddi['ccreate']=$this->get_nip();
                     if($this->_ci->db->insert('gps_msg.erp_inbox_details',$ddi)){
                         // $iddet[] = $this->_ci->db->insert_id();
-                        //header("location:http://gpsmsg.dev1.novellpharm.com/erp/sendNotif?inbox_detail_id=".$iddet);
                         $retdata[$knip]=$this->get_readstatus($knip);        
                     }
                 }
             }else{
                 $retdata['0']=0;
             }
-            //exec("curl http://gpsmsg.dev1.novellpharm.com/erp/sendNotif/sendByInbox?inbox_id=".$insert_id);
-            // if(count($iddet)>=1){
-            //     foreach ($iddet as $kv => $vv) {
-            //        header("location:http://gpsmsg.dev1.novellpharm.com/erp/sendNotif?inbox_detail_id=".$vv);
-            //     }
-            // }
+           
             $dataret['status']=true;
             $dataret['message']='Sended';
             $dataret['datacount']=$retdata;
@@ -168,7 +162,7 @@ class sess_auth {
                 from erp_privi.privi_modules a
                 where a.isDeleted=0
                 and replace(a.vPathModule,'/','_') ='".$path."'"; 
-        $db=$this->_ci->load->database('core', false, true); 
+        $db=$this->_ci->load->database('hrd', false, true); 
         $qcc=$db->query($sql);
 
         if($qcc->num_rows()==0){
@@ -221,26 +215,6 @@ class sess_auth {
                     $retdata['0']=0;
                 }
 
-                if($_SERVER["HTTP_HOST"] == 'www.npl-net.com' ||$_SERVER["HTTP_HOST"] == 'npl-net.com'||$_SERVER["HTTP_HOST"] == '10.1.49.16' ){
-                    //production
-                    //$host = '10.1.49.6';
-                    exec("curl http://gpsmsg.prod1.novellpharm.com/erp/sendNotif/sendByInbox?inbox_id=".$insert_id);
-
-                }else if ($_SERVER["HTTP_HOST"] == 'dev.npl-net.com'){
-                    //development
-                    //$host = 'localhost';
-                    exec("curl http://gpsmsg.dev1.novellpharm.com/erp/sendNotif/sendByInbox?inbox_id=".$insert_id);
-
-                }else {
-                    
-                    //local
-                    //$host = 'localhost';
-                    exec("curl http://gpsmsg.dev1.novellpharm.com/erp/sendNotif/sendByInbox?inbox_id=".$insert_id);
-                    
-                }
-
-                //exec("curl http://gpsmsg.prod1.novellpharm.com/erp/sendNotif/sendByInbox?inbox_id=".$insert_id);
-                
             }
         }
     }

@@ -36,7 +36,7 @@ class mt01 extends MX_Controller {
         parent::__construct();
         /*$this->dbset = $this->load->database('schedulercheck',false, true);*/
         $this->load->library('auth');
-        $this->db = $this->load->database('hrd',false, true);
+        $this->db = $this->load->database('balai',false, true);
         $this->user = $this->auth->user();
         $this->group = $this->auth->checkgroup($this->user->gNIP);
        /* $checkMod = $this->auth->modul_set($this->input->get('modul_id'));
@@ -65,7 +65,7 @@ class mt01 extends MX_Controller {
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan'); 
+        $grid->addFields('iSubmit','iApprove','vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','vJenis_sediaan_ket','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan'); 
 
         //Setting Grid Width Name 
         /*
@@ -73,6 +73,12 @@ class mt01 extends MX_Controller {
         $grid->setLabel('nama field','nama field yang akan diubah');
 
         */
+
+        
+        $grid->setWidth('vJenis_sediaan_ket', '100');
+        $grid->setAlign('vJenis_sediaan_ket', 'left');
+        $grid->setLabel('vJenis_sediaan_ket','Keterangan Jenis Sediaan');
+
 
         $grid->setWidth('vNo_transaksi', '100');
         $grid->setAlign('vNo_transaksi', 'left');
@@ -485,7 +491,6 @@ class mt01 extends MX_Controller {
                         
                         function updateBox_mt01_iCustomer($field, $id, $value, $rowData) {
                                 $groupnya = $this->checkgroup($this->user->gNIP);             
-                                $groupnya = $this->checkgroup($this->user->gNIP);             
                            
                                 if($groupnya['idprivi_group'] == 7){
                                      $this->db->select("*")
@@ -503,8 +508,11 @@ class mt01 extends MX_Controller {
                                     $fo=$this->db->get()->result_array();
                                     $return="<select id='".$id."' name='".$field."' class='required'>";
                                     $return.="<option value=''>---Pilih---</option>";
+
                                     foreach ($fo as $kf => $vvf) {
-                                        $return.="<option value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
+                                        if ($vvf['cNip'] == $value) $selected = " selected";
+                                        else $selected = "";
+                                        $return.="<option {$selected} value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
                                     }
                                     $return.="</select>";
                             return $return;
@@ -614,6 +622,65 @@ class mt01 extends MX_Controller {
                                 
                             return $return;
                         }
+
+
+                        function insertBox_mt01_vJenis_sediaan_ket($field, $id) {
+                            $return = '<textarea type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 " size="30"  ></textarea>';
+
+                            $return .= '<script>';
+                                $return .= '
+                                                $("#mt01_vJenis_sediaan_ket").hide();
+
+                                                $("#mt01_iM_jenis_sediaan").die();
+                                                $("#mt01_iM_jenis_sediaan").live("change",function(){
+                                                        if($(this).val() == "6"){
+                                                            $("#mt01_vJenis_sediaan_ket").show();
+                                                        }else{
+                                                            $("#mt01_vJenis_sediaan_ket").hide();
+                                                        }
+                                                })
+                                            ';
+                            $return .= '</script>';
+
+
+                            return $return;
+                        }
+                        
+                        function updateBox_mt01_vJenis_sediaan_ket($field, $id, $value, $rowData) {
+                                if ($this->input->get('action') == 'view') {
+                                     $return= $value; 
+                                }else{ 
+                                    if($rowData['iM_jenis_sediaan']==6){
+                                        $stile = "display:block;";
+                                    }else{
+                                        $stile = "display:none;";
+                                    }
+                                    $return = '<textarea type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 " size="30" style="'.$stile.'" >'.nl2br($value).'</textarea>';
+
+                                    $return .= '<script>';
+                                        $return .= '
+                                                        $("#mt01_iM_jenis_sediaan").die();
+                                                        $("#mt01_iM_jenis_sediaan").live("change",function(){
+                                                                if($(this).val() == "6"){
+                                                                    $("#mt01_vJenis_sediaan_ket").show();
+                                                                }else{
+                                                                    $("#mt01_vJenis_sediaan_ket").hide();
+                                                                }
+                                                        })
+                                                    ';
+                                    $return .= '</script>';
+
+
+
+                                }
+                                
+                            return $return;
+                        }
+
+
+
+
+                        
                         
                         /*function insertBox_mt01_iM_jenis_sediaan($field, $id) {
                              $this->db->select("*")
@@ -1028,21 +1095,244 @@ class mt01 extends MX_Controller {
 
 
         return $postData; 
-    }    
+    }
+
+    function whoAmI($nip) { 
+        $sql = 'select 
+                        b.vDescription as vdepartemen,a.*,b.*
+                        from hrd.employee a 
+                        join hrd.msdepartement b on b.iDeptID=a.iDepartementID
+                        join hrd.position c on c.iPostId=a.iPostID
+                        where a.cNip ="'.$nip.'"
+                        ';
+
+        $data = $this->db->query($sql)->row_array();
+        return $data;
+      
+    }
+
 
     function after_insert_processor($fields, $id, $postData) {
         $nomor = "R".str_pad($id, 5, "0", STR_PAD_LEFT);
         $sql = "UPDATE bbpmsoh.mt01 SET vNo_transaksi = '".$nomor."' WHERE iMt01=$id LIMIT 1";
         $query = $this->db->query( $sql );
+
+        if($postData['iSubmit']==1){
+                $qsql="
+                        select * 
+                        from bbpmsoh.mt01 a 
+                        join hrd.employee b on b.cNip=a.iCustomer
+                        join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                        where a.lDeleted=0 
+                        and a.iMt01 = '".$id."'
+
+                ";
+                $rsql = $this->db->query($qsql)->row_array();
+
+                $iAm = $this->whoAmI($this->user->gNIP);
+
+                $to = $rsql['cNip_requestor'] ;                        
+                $cc = $iAm['cNip'] ;
+
+
+                $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT01_NEW"';
+                $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                $sq= $dEmpAr['vContent'];
+                $dataTO = $this->db->query($sq)->result_array();
+
+                $to = '0';
+                foreach ($dataTO as $toto) {
+                    $to .=','.$toto['cNip'];
+                }
+
+                $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+
+                
+
+                $to = $to;
+                $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                $subject = 'e-Pengujian -> New MT01 '.$rsql['vNo_transaksi'];
+                $content="
+                        <p>Diberitahukan bahwa ada Permintaan Permohonan Kontrak Pengujian Mutu Obat Hewan baru yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                        <br><br>  
+                        <table border='1' style='width: 750px;border-collapse: collapse;'>
+                            <tr>
+                                    <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                    <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
+                            </tr>
+                            <tr>
+                                    <td><b>No Permintaan</b></td>
+                                    <td> : ".$rsql['vNo_complaint']."</td>
+                            </tr> 
+                            <tr>
+                                    <td><b>Perihal</b></td>
+                                    <td> :".$rsql['dTgl_request']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Nama Perusahaan</b></td>
+                                    <td> :".$rsql['dTgl_request']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat</b></td>
+                                    <td> : <p>".nl2br($rsql['dTgl_request'])."</p></td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Produsen</b></td>
+                                    <td> :".$rsql['dTgl_request']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat Produsen</b></td>
+                                    <td> : <p>".nl2br($rsql['dTgl_request'])."</p></td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Tujuan Pengujian Mutu</b></td>
+                                    <td> :".$rsql['dTgl_request']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Sample</b></td>
+                                    <td> :".$rsql['dTgl_request']."</td>
+                            </tr>  
+
+
+                            <tr>
+                                    <td><b>Lokasi Modul</b></td>
+                                    <td> e-Pengujian -> Transaksi -> MT01</td>
+                            </tr>
+
+                            
+                            
+                        </table> 
+
+                    <br/> <br/>
+                    Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                    Post Master"; 
+
+                    $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+
+        }
+        
+
+
     }
 
     function after_update_processor($fields, $id, $postData) {
         //Example After Update
-        /*
-        $cNip = $this->sess_auth->gNIP; 
-        $sql = 'Place Query In Here';
-        $this->dbset->query($sql);
-        */
+        if($postData['iSubmit']==1){
+                $qsql="
+                        select * 
+                        from bbpmsoh.mt01 a 
+                        join hrd.employee b on b.cNip=a.iCustomer
+                        join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                        where a.lDeleted=0 
+                        and a.iMt01 = '".$id."'
+
+                ";
+                $rsql = $this->db->query($qsql)->row_array();
+
+                $iAm = $this->whoAmI($this->user->gNIP);
+
+
+
+                $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT01_NEW"';
+                $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                $sq = $dEmpAr['vContent'];
+
+                
+                $dataTO = $this->db->query($sq)->result_array();
+
+                $to = '0';
+                foreach ($dataTO as $toto) {
+                    $to .=','.$toto['cNIP'];
+                }
+
+                
+                $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                $dBcc =  $this->db->query($bccMail)->row_array();
+
+                $to = $to;
+                $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                $subject = 'e-Pengujian -> New MT01 '.$rsql['vNo_transaksi'];
+                $content="
+                        <p>Diberitahukan bahwa ada Permintaan Permohonan Kontrak Pengujian Mutu Obat Hewan baru yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                        <br><br>  
+                        <table border='1' style='width: 750px;border-collapse: collapse;'>
+                            <tr>
+                                    <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                    <td> : ".$rsql['vNo_transaksi']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Nama Pemohon</b></td>
+                                    <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
+                            </tr>
+
+
+                            <tr>
+                                    <td><b>No Permintaan</b></td>
+                                    <td> : ".$rsql['vNomor']."</td>
+                            </tr> 
+                            <tr>
+                                    <td><b>Perihal</b></td>
+                                    <td> :".$rsql['vPerihal']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Nama Perusahaan</b></td>
+                                    <td> :".$rsql['vName_company']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat</b></td>
+                                    <td> : ".nl2br($rsql['vAddress_company'])."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Produsen</b></td>
+                                    <td> :".$rsql['vNama_produsen']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat Produsen</b></td>
+                                    <td> : ".nl2br($rsql['vAlamat_produsen'])."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Tujuan Pengujian Mutu</b></td>
+                                    <td> :".$rsql['vNama_tujuan']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Sample</b></td>
+                                    <td> :".$rsql['vNama_sample']."</td>
+                            </tr>  
+
+
+                            <tr>
+                                    <td><b>Lokasi Modul</b></td>
+                                    <td> e-Pengujian -> Transaksi -> MT01</td>
+                            </tr>
+
+                            
+                            
+                        </table> 
+
+                    <br/> <br/>
+                    Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                    Post Master"; 
+
+                    $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+
+        }
+
     }
 
     function manipulate_insert_button($buttons) { 
@@ -1138,18 +1428,6 @@ class mt01 extends MX_Controller {
         }
         
         return $buttons;
-    }
-
-    function whoAmI($nip) { 
-        $sql = 'select b.vDescription as vdepartemen,a.*,b.*,c.iLvlemp 
-                        from hrd.employee a 
-                        join hrd.msdepartement b on b.iDeptID=a.iDepartementID
-                        join hrd.position c on c.iPostId=a.iPostID
-                        where a.cNip ="'.$nip.'"
-                        ';
-        
-        $data = $this->dbset->query($sql)->row_array();
-        return $data;
     }
 
     function download($vFilename) { 
