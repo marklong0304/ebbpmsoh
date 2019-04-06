@@ -656,7 +656,7 @@ class mt07 extends MX_Controller {
                     ";
                     $rsql = $this->db->query($qsql)->row_array();
 
-                    $iAm = $this->whoAmI($this->user->gNIP);
+                    $iAm = $this->whoAmI($dmete1['iCustomer']);
 
                     
                     $cc = $iAm['cNip'] ;
