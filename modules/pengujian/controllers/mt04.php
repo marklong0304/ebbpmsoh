@@ -321,7 +321,7 @@ class mt04 extends MX_Controller {
         $return='<select id="'.$id.'" name="'.$ff.'" class="required">';
         $return.='<option value="">---Pilih---</option>';
         foreach ($row as $kk => $vv) {
-            $return.='<option value="'.$vv['iMt01'].'">'.$vv['vAntiserum'].'</option>';
+            $return.='<option value="'.$vv['iMt01'].'">'.$vv['vNo_transaksi'].' - '.$vv['vNomor'].'</option>';
         }
         $return.='</select>';
         $return.='<script>';
@@ -363,7 +363,7 @@ class mt04 extends MX_Controller {
             if($value==$vv['iMt01']){
                 $value=$vv['vAntiserum'];
             }
-            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vAntiserum'].'</option>';
+            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNo_transaksi'].' - '.$vv['vNomor'].'</option>';
         }
         $return.='</select>';
         $return.='<script>';

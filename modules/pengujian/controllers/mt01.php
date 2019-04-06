@@ -1158,45 +1158,52 @@ class mt01 extends MX_Controller {
                         <table border='1' style='width: 750px;border-collapse: collapse;'>
                             <tr>
                                     <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                    <td> : ".$rsql['vNo_transaksi']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Nama Pemohon</b></td>
                                     <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
                             </tr>
+
+
                             <tr>
                                     <td><b>No Permintaan</b></td>
-                                    <td> : ".$rsql['vNo_complaint']."</td>
+                                    <td> : ".$rsql['vNomor']."</td>
                             </tr> 
                             <tr>
                                     <td><b>Perihal</b></td>
-                                    <td> :".$rsql['dTgl_request']."</td>
+                                    <td> :".$rsql['vPerihal']."</td>
                             </tr> 
 
                             <tr>
                                     <td><b>Nama Perusahaan</b></td>
-                                    <td> :".$rsql['dTgl_request']."</td>
+                                    <td> :".$rsql['vName_company']."</td>
                             </tr> 
 
                             <tr>
                                     <td><b>Alamat</b></td>
-                                    <td> : <p>".nl2br($rsql['dTgl_request'])."</p></td>
+                                    <td> : ".nl2br($rsql['vAddress_company'])."</td>
                             </tr>
 
                             <tr>
                                     <td><b>Nama Produsen</b></td>
-                                    <td> :".$rsql['dTgl_request']."</td>
+                                    <td> :".$rsql['vNama_produsen']."</td>
                             </tr> 
 
                             <tr>
                                     <td><b>Alamat Produsen</b></td>
-                                    <td> : <p>".nl2br($rsql['dTgl_request'])."</p></td>
+                                    <td> : ".nl2br($rsql['vAlamat_produsen'])."</td>
                             </tr>
 
                             <tr>
                                     <td><b>Tujuan Pengujian Mutu</b></td>
-                                    <td> :".$rsql['dTgl_request']."</td>
+                                    <td> :".$rsql['vNama_tujuan']."</td>
                             </tr>
 
                             <tr>
                                     <td><b>Nama Sample</b></td>
-                                    <td> :".$rsql['dTgl_request']."</td>
+                                    <td> :".$rsql['vNama_sample']."</td>
                             </tr>  
 
 
@@ -1280,7 +1287,7 @@ class mt01 extends MX_Controller {
                             </tr> 
                             <tr>
                                     <td><b>Perihal</b></td>
-                                    <td> :".$rsql['vPerihal']."</td>
+                                    <td> : ".$rsql['vPerihal']."</td>
                             </tr> 
 
                             <tr>
@@ -1295,7 +1302,7 @@ class mt01 extends MX_Controller {
 
                             <tr>
                                     <td><b>Nama Produsen</b></td>
-                                    <td> :".$rsql['vNama_produsen']."</td>
+                                    <td> : ".$rsql['vNama_produsen']."</td>
                             </tr> 
 
                             <tr>
@@ -1305,12 +1312,12 @@ class mt01 extends MX_Controller {
 
                             <tr>
                                     <td><b>Tujuan Pengujian Mutu</b></td>
-                                    <td> :".$rsql['vNama_tujuan']."</td>
+                                    <td> : ".$rsql['vNama_tujuan']."</td>
                             </tr>
 
                             <tr>
                                     <td><b>Nama Sample</b></td>
-                                    <td> :".$rsql['vNama_sample']."</td>
+                                    <td> : ".$rsql['vNama_sample']."</td>
                             </tr>  
 
 
