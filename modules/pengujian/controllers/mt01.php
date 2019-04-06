@@ -1140,7 +1140,7 @@ class mt01 extends MX_Controller {
 
                 $to = '0';
                 foreach ($dataTO as $toto) {
-                    $to .=','.$toto['cNip'];
+                    $to .=','.$toto['cNIP'];
                 }
 
                 $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';

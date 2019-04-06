@@ -915,7 +915,7 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
         $post = $this->input->post();
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-
+        
         $groupnya = $this->checkgroup($this->user->gNIP);             
        
        	 /*
@@ -933,12 +933,32 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
             1;Administrator
 
         */ 
+        $sqlgetMt1 = 'select * from bbpmsoh.mt08b a where a.iMt8b = "'.$post['last_id'].'"';
+        $dmete1 = $this->db->query($sqlgetMt1)->row_array();
+        $iMt01 = $dmete1['iMt01'];
+
+        $qsql="
+                select * 
+                from bbpmsoh.mt01 a 
+                join hrd.employee b on b.cNip=a.iCustomer
+                join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                where a.lDeleted=0 
+                and a.iMt01 = '".$iMt01."'
+
+        ";
+        $rsql = $this->db->query($qsql)->row_array();
+        $subject = '';
         if($groupnya['idprivi_group'] == 11){
      		/*QA*/
      		$dataupdate['cApprove_qa']= $this->user->gNIP;
 	        $dataupdate['dApprove_qa']= date('Y-m-d H:i:s');
 	        $dataupdate['vRemark_qa']= $post['vRemark'];
 	        $dataupdate['iApprove_qa']= 2;
+
+	        $subject = 'e-Pengujian -> Approve QA MT8B '.$rsql['vNo_transaksi'];
+            $precontent = 'Admin QA telah melakukan Approval Pengujian MT8B';
+
+
 
      	}else{
      		$dataupdate['cApprove']= $this->user->gNIP;
@@ -950,8 +970,118 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
 		 
 
         
-        $this->db->where('iMt8b',$post['last_id'])
-                    ->update('bbpmsoh.mt08b',$dataupdate);
+        $updet = $this->db->where('iMt8b',$post['last_id'])->update('bbpmsoh.mt08b',$dataupdate);
+
+        if($updet){
+        		
+
+                if($subject <> ""){
+                    $qsql="
+                            select * 
+                            from bbpmsoh.mt01 a 
+                            join hrd.employee b on b.cNip=a.iCustomer
+                            join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                            where a.lDeleted=0 
+                            and a.iMt01 = '".$iMt01."'
+
+                    ";
+                    $rsql = $this->db->query($qsql)->row_array();
+
+                    $iAm = $this->whoAmI($this->user->gNIP);
+
+                    $to = $rsql['cNip_requestor'] ;                        
+                    $cc = $iAm['cNip'] ;
+
+                    $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_SERTIFIKAT_APP"';
+                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                    $sq= $dEmpAr['vContent'];
+                    $dataTO = $this->db->query($sq)->result_array();
+
+                    $to = '0';
+                    foreach ($dataTO as $toto) {
+                        $to .=','.$toto['cNIP'];
+                    }
+
+                    $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                    $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+
+                    $to = $to;
+                    $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                    
+                    $content="
+                            <p>Diberitahukan bahwa ".$precontent." yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                            <br><br>  
+                            <table border='1' style='width: 750px;border-collapse: collapse;'>
+                                <tr>
+                                        <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                        <td> : ".$rsql['vNo_transaksi']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td style='width: 30%;'><b>Nama Pemohon</b></td>
+                                        <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
+                                </tr>
+
+
+                                <tr>
+                                        <td><b>No Permintaan</b></td>
+                                        <td> : ".$rsql['vNomor']."</td>
+                                </tr> 
+                                <tr>
+                                        <td><b>Perihal</b></td>
+                                        <td> :".$rsql['vPerihal']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Nama Perusahaan</b></td>
+                                        <td> :".$rsql['vName_company']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Alamat</b></td>
+                                        <td> : ".nl2br($rsql['vAddress_company'])."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Nama Produsen</b></td>
+                                        <td> :".$rsql['vNama_produsen']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Alamat Produsen</b></td>
+                                        <td> : ".nl2br($rsql['vAlamat_produsen'])."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Tujuan Pengujian Mutu</b></td>
+                                        <td> : ".$rsql['vNama_tujuan']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Nama Sample</b></td>
+                                        <td> : ".$rsql['vNama_sample']."</td>
+                                </tr>  
+                                <tr>
+                                        <td><b>Status</b></td>
+                                        <td> : Approve</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Lokasi Modul</b></td>
+                                        <td> e-Pengujian -> Transaksi -> Mt8B</td>
+                                </tr>
+                                
+                            </table> 
+
+                        <br/> <br/>
+                        Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                        Post Master"; 
+
+                        $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+                }
+
+        }
 
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
@@ -960,6 +1090,19 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
         
         return json_encode($data);
     }
+
+    function whoAmI($nip) { 
+        $sql = 'select b.vDescription as vdepartemen,a.*,b.*
+                        from hrd.employee a 
+                        join hrd.msdepartement b on b.iDeptID=a.iDepartementID
+                        join hrd.position c on c.iPostId=a.iPostID
+                        where a.cNip ="'.$nip.'"
+                        ';
+        
+        $data = $this->db->query($sql)->row_array();
+        return $data;
+    }
+
 
     function reject_view() {
         $echo = '<script type="text/javascript">
@@ -1011,8 +1154,8 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
         $post = $this->input->post();
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-       
-       $groupnya = $this->checkgroup($this->user->gNIP);             
+       	
+       	$groupnya = $this->checkgroup($this->user->gNIP);             
        
        	 /*
             idprivi_group;vNamaGroup
@@ -1029,7 +1172,22 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
             1;Administrator
 
         */ 
+        $sqlgetMt1 = 'select * from bbpmsoh.mt08b a where a.iMt8b = "'.$post['last_id'].'"';
+        $dmete1 = $this->db->query($sqlgetMt1)->row_array();
+        $iMt01 = $dmete1['iMt01'];
 
+        $qsql="
+                select * 
+                from bbpmsoh.mt01 a 
+                join hrd.employee b on b.cNip=a.iCustomer
+                join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                where a.lDeleted=0 
+                and a.iMt01 = '".$iMt01."'
+
+        ";
+        $rsql = $this->db->query($qsql)->row_array();
+
+        $subject = '';
          $dataupdate['iSubmit']= 0;
         if($groupnya['idprivi_group'] == 11){
      		/*QA*/
@@ -1037,6 +1195,9 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
 	        $dataupdate['dApprove_qa']= date('Y-m-d H:i:s');
 	        $dataupdate['vRemark_qa']= $post['vRemark'];
 	        $dataupdate['iApprove_qa']= 1;
+
+	        $subject = 'e-Pengujian -> Reject QA MT8B '.$rsql['vNo_transaksi'];
+            $precontent = 'Admin QA telah melakukan Approval Pengujian MT8B';
 	        
 
      	}else{
@@ -1048,8 +1209,119 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
 	        
      	}
 
-        $this->db->where('iMt8b',$post['last_id'])
-                    ->update('bbpmsoh.mt08b',$dataupdate);
+        $updet = $this->db->where('iMt8b',$post['last_id'])->update('bbpmsoh.mt08b',$dataupdate);
+
+        if($updet){
+        		
+
+                if($subject <> ""){
+                    $qsql="
+                            select * 
+                            from bbpmsoh.mt01 a 
+                            join hrd.employee b on b.cNip=a.iCustomer
+                            join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                            where a.lDeleted=0 
+                            and a.iMt01 = '".$iMt01."'
+
+                    ";
+                    $rsql = $this->db->query($qsql)->row_array();
+
+                    $iAm = $this->whoAmI($this->user->gNIP);
+
+                    $to = $rsql['cNip_requestor'] ;                        
+                    $cc = $iAm['cNip'] ;
+
+                    $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_SERTIFIKAT_APP"';
+                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                    $sq= $dEmpAr['vContent'];
+                    $dataTO = $this->db->query($sq)->result_array();
+
+                    $to = '0';
+                    foreach ($dataTO as $toto) {
+                        $to .=','.$toto['cNIP'];
+                    }
+
+                    $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                    $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+
+                    $to = $to;
+                    $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                    
+                    $content="
+                            <p>Diberitahukan bahwa ".$precontent." yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                            <br><br>  
+                            <table border='1' style='width: 750px;border-collapse: collapse;'>
+                                <tr>
+                                        <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                        <td> : ".$rsql['vNo_transaksi']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td style='width: 30%;'><b>Nama Pemohon</b></td>
+                                        <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
+                                </tr>
+
+
+                                <tr>
+                                        <td><b>No Permintaan</b></td>
+                                        <td> : ".$rsql['vNomor']."</td>
+                                </tr> 
+                                <tr>
+                                        <td><b>Perihal</b></td>
+                                        <td> :".$rsql['vPerihal']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Nama Perusahaan</b></td>
+                                        <td> :".$rsql['vName_company']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Alamat</b></td>
+                                        <td> : ".nl2br($rsql['vAddress_company'])."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Nama Produsen</b></td>
+                                        <td> :".$rsql['vNama_produsen']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Alamat Produsen</b></td>
+                                        <td> : ".nl2br($rsql['vAlamat_produsen'])."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Tujuan Pengujian Mutu</b></td>
+                                        <td> : ".$rsql['vNama_tujuan']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Nama Sample</b></td>
+                                        <td> : ".$rsql['vNama_sample']."</td>
+                                </tr>  
+                                <tr>
+                                        <td><b>Status</b></td>
+                                        <td> : Reject</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Lokasi Modul</b></td>
+                                        <td> e-Pengujian -> Transaksi -> MT8B</td>
+                                </tr>
+                                
+                            </table> 
+
+                        <br/> <br/>
+                        Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                        Post Master"; 
+
+                        $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+                }
+
+        }
+
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
         $data['status']  = true;

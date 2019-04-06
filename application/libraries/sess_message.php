@@ -159,7 +159,7 @@ class sess_message {
                 from erp_privi.privi_modules a
                 where a.isDeleted=0
                 and replace(a.vPathModule,'/','_') ='".$path."'"; 
-        $db=$this->_ci->load->database('core', false, true); 
+        $db=$this->_ci->load->database('hrd', false, true); 
         $qcc=$db->query($sql);
         if($qcc->num_rows()==0){
             echo "Error - Not Found Modules";exit();

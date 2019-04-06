@@ -17,10 +17,9 @@
 		<link href="<?php echo base_url()?>/assets/adminlte/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css"/>
 
 		<!-- support rtl-->
-		@if (in_array(App::getLocale(), ['ar', 'fa']))
+		
 		<link rel="stylesheet" href="//cdn.rawgit.com/morteza/bootstrap-rtl/v3.3.4/dist/css/bootstrap-rtl.min.css">
 		<link href="{{ asset("vendor/crudbooster/assets/rtl.css")}}" rel="stylesheet" type="text/css"/>
-		@endif
 
 		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

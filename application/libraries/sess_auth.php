@@ -162,6 +162,8 @@ class sess_auth {
                 from erp_privi.privi_modules a
                 where a.isDeleted=0
                 and replace(a.vPathModule,'/','_') ='".$path."'"; 
+                echo $sql;
+
         $db=$this->_ci->load->database('hrd', false, true); 
         $qcc=$db->query($sql);
 
@@ -218,6 +220,146 @@ class sess_auth {
             }
         }
     }
+
+    function send_message_erp2($segs,$to='', $cc='', $subject, $content,$from){
+        $path=$this->setPath($segs);
+        $ttt=strpos($to, '@');
+        $ccc=strpos($cc, '@');
+
+        $to=str_replace(';', ',', $to);
+        $cc=str_replace(';', ',', $cc);
+        //echo 'to awal'.$to;
+        //echo "<br>";
+        if (strpos($to, '@') !== false) {
+        
+            $to_s = '';
+            $to_arr = explode(',', trim($to));
+            $i=1;
+            foreach ($to_arr as $key => $value) {
+                if ($value <> "") {
+                     if($i==1)   {
+                        $to_s .= '"'.$value.'"';
+                     }else{
+                        $to_s .= ',"'.$value.'"';
+                     }
+                     $i++;
+                }
+            }
+
+            $sqlt='select * from hrd.employee em where em.vEmail in ('.$to_s.') limit 1';
+            //echo $sqlt;
+            $dt= $this->_ci->db->query($sqlt);
+
+            if($dt->num_rows() > 0){
+                $rr=$dt->result_array();
+                $ddto=array();
+                foreach ($rr as $kr => $vr) {
+                    $ddto[]=$vr['cNip'];
+                }
+                $to=implode(',', $ddto);
+            }else{
+                $to='';
+            }
+
+            //echo $to.'tototo';
+
+            $cc_s = '';
+            $cc_arr = explode(',', trim($cc));
+            $i=1;
+            foreach ($cc_arr as $key => $value) {
+                if ($value <> "") {
+                     if($i==1)   {
+                        $cc_s .= '"'.$value.'"';
+                     }else{
+                        $cc_s .= ',"'.$value.'"';
+                     }
+                     $i++;
+                }
+            }
+
+            $sqlt='select * from hrd.employee em where em.vEmail in ('.$cc_s.') limit 1';
+            $dt=$this->_ci->db->query($sqlt);
+
+            if($dt->num_rows() > 0){
+                $rr=$dt->result_array();
+                $ddto=array();
+                foreach ($rr as $kr => $vr) {
+                    $ddto[]=$vr['cNip'];
+                }
+                $cc=implode(',', $ddto);
+            }else{
+                $cc='';
+            }
+          
+        }else{
+            $to=$to;
+            $cc=$cc;
+        }
+
+        $path=str_replace('/', '_', $path);
+        $sql="select a.* 
+                from erp_privi.privi_modules a
+                where a.isDeleted=0
+                and a.idprivi_modules='".$segs."'"; 
+                //echo $sql;
+                
+        $db=$this->_ci->load->database('hrd', false, true); 
+        $qcc=$db->query($sql);
+
+        if($qcc->num_rows()==0){
+            echo "Error - Not Found Modules";exit();
+        }else{ 
+            $dm=$qcc->row_array();
+            $modul_id=$dm['idprivi_modules'];
+            $datain['cnip_sender']=$from;
+            $date=date('Y-m-d H:i:s');
+            $to=str_replace(';', ',', $to);
+            $cc=str_replace(';', ',', $cc);
+            $datain['vto']=$to;
+            $datain['vcc']=$cc;
+            $datain['vsubject']=$subject;
+            $datain['tmessage']=$content;
+            $datain['dcreate']=$date;
+            $datain['ccreate']=$from;
+            $datain['modul_id']=$modul_id;
+            $this->_ci->db->insert('gps_msg.erp_inbox',$datain);
+            $insert_id = $this->_ci->db->insert_id();
+            $ss=explode(',', $to);
+            $cc1=explode(',', $cc);
+            $dnip=array();
+            $retdata=array();
+            $dataret=array();
+            $iddet=array();
+            if ($to!='' || $cc!=''){
+                if(count($ss>=1)){
+                    foreach ($ss as $ks => $vs) {
+                        $dnip[$vs]=0;
+                    }
+                }
+                if(count($cc1>=1)){
+                    foreach ($cc1 as $ks => $vs) {
+                        $dnip[$vs]=0;
+                    }
+                }
+                if(count($dnip)>=1){
+                    foreach ($dnip as $knip => $vnip) {
+                        $ddi=array();
+                        $ddi['inbox_id']=$insert_id;
+                        $ddi['cnip']=$knip;
+                        $ddi['dcreate']=$date;
+                        $ddi['ccreate']=$this->get_nip();
+                        if($this->_ci->db->insert('gps_msg.erp_inbox_details',$ddi)){
+                            $retdata[$knip]=$this->get_readstatus($knip);        
+                        }
+                    }
+                }else{
+                    $retdata['0']=0;
+                }
+
+            }
+        }
+    }
+
 
     function setPath($segs){
         $i=0;
