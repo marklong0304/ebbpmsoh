@@ -1144,7 +1144,7 @@ class mt01 extends MX_Controller {
                 }
 
                 $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+                $dBcc =  $this->db->query($bccMail)->row_array();
 
                 
 

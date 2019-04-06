@@ -444,6 +444,96 @@ class verifikasi extends MX_Controller {
                 $data['idprivi_apps']   = 130;
                 $data['idprivi_group']  = 286;
                 $inserts = $this -> db -> insert('erp_privi.privi_authlist', $data); 
+
+
+                $subject = '';
+                $qsql="
+                        select * from hrd.employee a where a.ID = '".$ID."'
+
+                ";
+                $rsql = $this->db->query($qsql)->row_array();
+
+                $subject = 'e-Pengujian -> Approve Registrasi User '.$rsql['cNip'].' - '.$rsql['vName'];
+                $precontent = 'Telah ada Approval Registrasi User baru ';
+
+                if($subject <> ""){
+                    $iAm = $this->whoAmI($rsql['cNip']);
+
+                    $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_NEW_REG"';
+                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                    $sq= $dEmpAr['vContent'];
+                    $dataTO = $this->db->query($sq)->result_array();
+
+                    $to = '' ;                        
+                    $cc = $iAm['cNip'] ;
+
+
+
+                    $to = '0';
+                    foreach ($dataTO as $toto) {
+                        $to .=','.$toto['cNIP'];
+                    }
+
+                    $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                    $dBcc =  $this->db->query($bccMail)->row_array();
+
+                    $to = $to;
+                    $cc = $dBcc['vContent'];
+
+                    
+                    $content="
+                            <p>Diberitahukan bahwa ".$precontent." yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                            <br><br>  
+                            <table border='1' style='width: 750px;border-collapse: collapse;'>
+                                <tr>
+                                        <td style='width: 30%;'><b>Nama Pemohon</b></td>
+                                        <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td style='width: 30%;'><b>Email</b></td>
+                                        <td> :".$rsql['vEmail']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Alamat</b></td>
+                                        <td> : ".nl2br($rsql['vAddress'])."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>No. Telepon</b></td>
+                                        <td> :".$rsql['vTelepon']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Nama Perusahaan</b></td>
+                                        <td> :".$rsql['vName_company']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Alamat Perusahaan</b></td>
+                                        <td> : ".nl2br($rsql['vAddress_company'])."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>No. Telepon Perusahaan</b></td>
+                                        <td> :".$rsql['vTelepon']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Lokasi Modul</b></td>
+                                        <td> e-Pengujian -> Transaksi -> Approval Registrasi</td>
+                                </tr>
+                                
+                            </table> 
+
+                        <br/> <br/>
+                        Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                        Post Master"; 
+
+                        $this->sess_auth->send_message_erp2(4272,$to, $cc, $subject, $content,$insert_id);
+                }
+
                 
 
             }
@@ -665,7 +755,7 @@ class verifikasi extends MX_Controller {
 
 
     function whoAmI($nip) { 
-        $sql = 'select b.vDescription as vdepartemen,a.*,b.*,c.iLvlemp 
+        $sql = 'select b.vDescription as vdepartemen,a.*,b.*
                         from hrd.employee a 
                         join hrd.msdepartement b on b.iDeptID=a.iDepartementID
                         join hrd.position c on c.iPostId=a.iPostID

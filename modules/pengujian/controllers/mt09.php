@@ -1063,7 +1063,7 @@ $idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
                     }
 
                     $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                    $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+                    $dBcc =  $this->db->query($bccMail)->row_array();
 
                     $to = $to;
                     $cc = $this->user->gNIP.','.$dBcc['vContent'];
@@ -1339,7 +1339,7 @@ $idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
                     }
 
                     $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                    $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+                    $dBcc =  $this->db->query($bccMail)->row_array();
 
                     $to = $to;
                     $cc = $this->user->gNIP.','.$dBcc['vContent'];

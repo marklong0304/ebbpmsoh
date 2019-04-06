@@ -162,7 +162,7 @@ class sess_auth {
                 from erp_privi.privi_modules a
                 where a.isDeleted=0
                 and replace(a.vPathModule,'/','_') ='".$path."'"; 
-                echo $sql;
+                
 
         $db=$this->_ci->load->database('hrd', false, true); 
         $qcc=$db->query($sql);

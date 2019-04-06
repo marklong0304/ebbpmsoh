@@ -312,9 +312,9 @@ class mt07 extends MX_Controller {
         else{ 
             if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }/*elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
+            }elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
-            }*/
+            }
         }
         
         return $buttons;
@@ -615,9 +615,153 @@ class mt07 extends MX_Controller {
         $dataupdate['dApprove_unit_uji']= date('Y-m-d H:i:s');
         $dataupdate['vRemark_unit_uji']= $post['vRemark'];
         $dataupdate['iApprove_unit_uji']= 2;
-        $this->db->where('iMt07',$post['last_id'])
-                    ->update('bbpmsoh.mt07',$dataupdate);
+        $updet = $this->db->where('iMt07',$post['last_id'])->update('bbpmsoh.mt07',$dataupdate);
 
+        if($updet){
+        	$subject = '';
+	        $sqlgetMt1 = 'select * from bbpmsoh.mt07 a where a.iMt07 = "'.$post['last_id'].'"';
+	        $dmete1 = $this->db->query($sqlgetMt1)->row_array();
+	        $iMt01 = $dmete1['iMt01'];
+
+
+	        $sqlgetMt6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$iMt01.'"';
+	        $dmete6 = $this->db->query($sqlgetMt6)->row_array();
+	        
+
+
+
+	        $qsql="
+	                select * 
+	                from bbpmsoh.mt01 a 
+	                join hrd.employee b on b.cNip=a.iCustomer
+	                join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+	                where a.lDeleted=0 
+	                and a.iMt01 = '".$iMt01."'
+
+	        ";
+	        $rsql = $this->db->query($qsql)->row_array();
+
+	        $subject = 'e-Pengujian -> Submit MT7 '.$rsql['vNo_transaksi'];
+            $precontent = 'Ada Sample Pengujian masuk ';
+
+            if($subject <> ""){
+                    $qsql="
+                            select * 
+                            from bbpmsoh.mt01 a 
+                            join hrd.employee b on b.cNip=a.iCustomer
+                            join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                            where a.lDeleted=0 
+                            and a.iMt01 = '".$iMt01."'
+
+                    ";
+                    $rsql = $this->db->query($qsql)->row_array();
+
+                    $iAm = $this->whoAmI($this->user->gNIP);
+
+                    
+                    $cc = $iAm['cNip'] ;
+
+                    $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT"';
+                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                    $sq= $dEmpAr['vContent'];
+                    $dataTO = $this->db->query($sq)->result_array();
+
+                    $to = '0';
+                    foreach ($dataTO as $toto) {
+                        $to .=','.$toto['cNIP'];
+                    }
+
+                    if($dmete6['iDist_virologi']==1){
+
+                    	$sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT_VIRO"';
+	                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+	                    $sq= $dEmpAr['vContent'];
+	                    $dataTO = $this->db->query($sq)->result_array();
+
+	                    foreach ($dataTO as $toto) {
+	                        $to .=','.$toto['cNIP'];
+	                    }
+
+
+                    }
+
+
+                    if($dmete6['iDist_bakteri']==1){
+
+                    	$sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT_BAK"';
+	                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+	                    $sq= $dEmpAr['vContent'];
+	                    $dataTO = $this->db->query($sq)->result_array();
+
+	                    
+	                    foreach ($dataTO as $toto) {
+	                        $to .=','.$toto['cNIP'];
+	                    }
+                    
+
+                    }
+
+                    if($dmete6['iDist_farmastetik']==1){
+
+                    	$sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT_FAR"';
+	                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+	                    $sq= $dEmpAr['vContent'];
+	                    $dataTO = $this->db->query($sq)->result_array();
+
+	                    foreach ($dataTO as $toto) {
+	                        $to .=','.$toto['cNIP'];
+	                    }
+                    
+
+                    }
+
+                    $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                    $dBcc =  $this->db->query($bccMail)->row_array();
+
+                    $to = $to;
+                    $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                    
+                    $content="
+                            <p>Diberitahukan bahwa ".$precontent." yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                            <br><br>  
+                            <table border='1' style='width: 750px;border-collapse: collapse;'>
+                                <tr>
+                                        <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                        <td> : ".$rsql['vNo_transaksi']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>No Permintaan</b></td>
+                                        <td> : ".$rsql['vNomor']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Nama Sample</b></td>
+                                        <td> : ".$rsql['vNama_sample']."</td>
+                                </tr>  
+                                <tr>
+                                        <td><b>Status</b></td>
+                                        <td> : Approve</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Lokasi Modul</b></td>
+                                        <td> e-Pengujian -> Transaksi -> Mt7</td>
+                                </tr>
+                                
+                            </table> 
+
+                        <br/> <br/>
+                        Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                        Post Master"; 
+
+                        $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+                }
+
+
+
+        }
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
         $data['status']  = true;
@@ -671,6 +815,20 @@ class mt07 extends MX_Controller {
         $echo .= '</form>';
         return $echo;
     }
+
+    function whoAmI($nip) { 
+        $sql = 'select b.vDescription as vdepartemen,a.*,b.*
+                        from hrd.employee a 
+                        join hrd.msdepartement b on b.iDeptID=a.iDepartementID
+                        join hrd.position c on c.iPostId=a.iPostID
+                        where a.cNip ="'.$nip.'"
+                        ';
+        
+        $data = $this->db->query($sql)->row_array();
+        return $data;
+    }
+
+
 
     function reject_process () {
         $post = $this->input->post();

@@ -930,7 +930,7 @@ class sertifikat extends MX_Controller {
 
                 $subject = 'e-Pengujian -> Approve SPHU Sertifikat '.$rsql['vNo_transaksi'];
                 $precontent = 'Admin SPHU telah melakukan Approval Permintaan Permohonan Kontrak Pengujian Mutu Obat Hewan baru';
-
+                $to = '0';
 
 
             }else if($lvl==2){
@@ -939,8 +939,10 @@ class sertifikat extends MX_Controller {
 		        $dataupdate['vTu_app']= $post['vRemark'];
 		        $dataupdate['iTu_app']= 2;
 
-                //$subject = 'e-Pengujian -> Approve TU Sertifikat '.$rsql['vNo_transaksi'];
+                $to = $rsql['iCustomer'] ;                        
+                $subject = 'e-Pengujian -> Approve TU Sertifikat '.$rsql['vNo_transaksi'];
                 $precontent = 'Admin TU telah melakukan Approval Permintaan Permohonan Kontrak Pengujian Mutu Obat Hewan baru';
+                
 
             }else{
             	$dataupdate['cFa_app']= $this->user->gNIP;
@@ -948,6 +950,7 @@ class sertifikat extends MX_Controller {
 		        $dataupdate['vFa_app']= $post['vRemark'];
 		        $dataupdate['iFa_app']= 2;
 
+                $to = $rsql['iCustomer'] ;                        
                 $subject = 'e-Pengujian -> Confirm Admin Keuangan Sertifikat '.$rsql['vNo_transaksi'];
                 $precontent = 'Admin Keuangan telah melakukan Konfirmasi Permintaan Permohonan Kontrak Pengujian Mutu Obat Hewan baru';
             }
@@ -970,7 +973,7 @@ class sertifikat extends MX_Controller {
 
                     $iAm = $this->whoAmI($this->user->gNIP);
 
-                    $to = $rsql['cNip_requestor'] ;                        
+                    
                     $cc = $iAm['cNip'] ;
 
                     $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_SERTIFIKAT_APP"';
@@ -978,13 +981,13 @@ class sertifikat extends MX_Controller {
                     $sq= $dEmpAr['vContent'];
                     $dataTO = $this->db->query($sq)->result_array();
 
-                    $to = '0';
+                    
                     foreach ($dataTO as $toto) {
                         $to .=','.$toto['cNIP'];
                     }
 
                     $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                    $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+                    $dBcc =  $this->db->query($bccMail)->row_array();
 
                     $to = $to;
                     $cc = $this->user->gNIP.','.$dBcc['vContent'];
@@ -1191,7 +1194,7 @@ class sertifikat extends MX_Controller {
                 }
 
                 $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+                $dBcc =  $this->db->query($bccMail)->row_array();
 
                 $to = $to;
                 $cc = $this->user->gNIP.','.$dBcc['vContent'];
@@ -1369,7 +1372,7 @@ class sertifikat extends MX_Controller {
                 }
 
                 $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+                $dBcc =  $this->db->query($bccMail)->row_array();
 
                 $to = $to;
                 $cc = $this->user->gNIP.','.$dBcc['vContent'];
