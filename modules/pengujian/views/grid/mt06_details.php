@@ -146,7 +146,7 @@ $getUrl=$nmmodule.'/'.$getUrl;
                 var s=JSON.parse("["+n+"]");
                 var rlast = parseInt(Math.max.apply(Math, s)) +1;
             }
-            var sa=[["<input type='hidden' class='num_rows_<?php echo $nmTable ?>' value='"+rlast+"' /><input type='text' name='grid_details_nomor_request[]' id='grid_details_nomor_request_"+rlast+"' class='get_sample_req_<?php echo $nmTable ?> required' size='25'><input type='hidden' name='<?php echo $url ?>_iMt01' id='grid_details_<?php echo $nmTable ?>_iMt01_"+rlast+"' class='required' size='25'>" <?php 
+            var sa=[["<input type='hidden' class='num_rows_<?php echo $nmTable ?>' value='"+rlast+"' /><input type='text' name='grid_details_nomor_request[]' id='grid_details_nomor_request_06_"+rlast+"' class='get_sample_req_<?php echo $nmTable ?> required' size='25'><input type='hidden' name='<?php echo $url ?>_iMt01' id='grid_details_<?php echo $nmTable ?>_iMt01_"+rlast+"' class='required' size='25'>" <?php 
 	            $ss=0;
 				foreach ($arrSearch as $keyv => $valv) {
 					if($ss>0){
@@ -204,7 +204,7 @@ $getUrl=$nmmodule.'/'.$getUrl;
 				},
 				select: function(event, ui){
 					var id = $(this).attr("id");
-					var num = id.replace("grid_details_nomor_request_","");
+					var num = id.replace("grid_details_nomor_request_06_","");
 					$( this ).val(ui.item.vNomor);
 					$("p#grid_<?php echo $nmTable ?>_vNama_sample_"+num).html(ui.item.vNama_sample);
 					$("p#grid_<?php echo $nmTable ?>_vNama_produsen_"+num).html(ui.item.vNama_produsen);

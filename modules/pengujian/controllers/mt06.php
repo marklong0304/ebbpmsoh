@@ -15,21 +15,32 @@ class mt06 extends MX_Controller {
 		$this->main_table_pk = 'iMt06';	
 		$datagrid['islist'] = array(
 			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
+			,'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
+			,'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
+			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_sphu' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
 
 		$datagrid['addFields']=array(
-				'form_vKepada_yth'=>'Kepada'
+				/*'form_vKepada_yth'=>'Kepada'
 				,'form_vAlamat'=>'Alamat'
-				,'form_DistribusiUnit'=>'Distribusi Unit Uji'
+				*/
+				'form_DistribusiUnit'=>'Distribusi Unit Uji'
 				,'form_sample_label'=>'Informasi Sample'
 				,'form_sample'=>''
 				);
+
+		$datagrid['jointableinner']=array(
+            0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt06.iMt01')
+            );
+
+
 		$datagrid['shortBy']=array('dUpdated'=>'Desc');
 	
 		$datagrid['setQuery']=array(
-								0=>array('vall'=>'lDeleted','nilai'=>0)
+								0=>array('vall'=>'mt06.lDeleted','nilai'=>0)
 								);
 		$datagrid['isRequired']=array('all_form');
 		$this->datagrid=$datagrid;
@@ -417,11 +428,34 @@ class mt06 extends MX_Controller {
 
     /*After Insert*/
     function after_insert_processor($fields, $id, $postData) {
+
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt06 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join hrd.employee b on b.cNip=c.iCustomer
+						where a.iMt06 = "'.$id.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+
+        $sql = "UPDATE bbpmsoh.mt06 SET iMt01 = '".$dmete1['iMt01']."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt06=$id LIMIT 1";
+        $query = $this->db->query( $sql );
+
+
     	
     }
 
     /*After Update*/
     function after_update_processor($fields, $id, $postData) {
+
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt06 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join hrd.employee b on b.cNip=c.iCustomer
+						where a.iMt06 = "'.$id.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+
+        $sql = "UPDATE bbpmsoh.mt06 SET iMt01 = '".$dmete1['iMt01']."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt06=$id LIMIT 1";
+        $query = $this->db->query( $sql );
+
     
     }
 
@@ -629,6 +663,7 @@ class mt06 extends MX_Controller {
 				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt05 where iApprove=2 and lDeleted=0) 
 				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0)
 				AND mt01.vNomor like "%'.$term.'%" and mt01.lDeleted=0 order by vNomor ASC';
+		/*echo '<pre>'.$sql;*/
     	$dt=$this->db->query($sql);
     	$data = array();
     	if($dt->num_rows>0){
@@ -677,7 +712,7 @@ class mt06 extends MX_Controller {
 				if($dsel=="iAction"){
 					$dataar[$z]="<a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><center><span class='ui-icon ui-icon-trash'></span></center></a>";
 				}elseif($dsel=="vNomor"){
-					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt06."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
+					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt06."][]' id='grid_details_nomor_request_06_".$i."' value='".$k->vNomor."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
 				}else{
 					$dataar[$z]="<p id='grid_".$nmTable."_".$dsel."_".$i."'>".$k->{$dsel}."</p>";
 				}
