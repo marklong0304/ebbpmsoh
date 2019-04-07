@@ -36,7 +36,7 @@ class mt02 extends MX_Controller {
                 ,'p1_jabatan' =>'Jabatan Pihak I'
                 ,'p1_perusahaan'=>'Perusahaan Pihak I'
                 ,'p1_alamat'=>'Alamat Pihak I'
-                ,'p1_an'=>'Pihak I Atas Nama'
+                //,'p1_an'=>'Pihak I Atas Nama'
                 ,'p2_nama'=>'Nama Pihak II'
                 ,'p2_jabatan'=>'Jabatan Pihak II'
                 ,'vKeterangan'=>'Keterangan'
@@ -168,9 +168,10 @@ class mt02 extends MX_Controller {
                 break;
             case 'GetDataIM01':
                 $where=array('mt01.lDeleted'=>0,'mt01.iMt01'=>$this->input->post('id'));
-                $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan')
+                $this->db->select('mt01.*,m_tujuan_pengujian.vNama_tujuan,employee.*')
                     ->from('bbpmsoh.mt01')
                     ->join('bbpmsoh.m_tujuan_pengujian','m_tujuan_pengujian.iM_tujuan_pengujian=bbpmsoh.mt01.iM_tujuan_pengujian')
+                    ->join('hrd.employee','employee.cNip=bbpmsoh.mt01.iCustomer')
                     ->where($where);
                 $row=$this->db->get()->row_array();
                 echo json_encode($row);
@@ -461,7 +462,7 @@ class mt02 extends MX_Controller {
         $return='<select id="'.$id.'" name="'.$ff.'" class="required">';
         $return.='<option value="">---Pilih---</option>';
         foreach ($row as $kk => $vv) {
-        $return.='<option value="'.$vv['iMt01'].'">'.$vv['vNomor'].'</option>';
+        $return.='<option value="'.$vv['iMt01'].'">'.$vv['vNo_transaksi'].' - '.$vv['vNomor'].'</option>';
         }
         $return.='</select>';
         $return.='<script>';
@@ -474,8 +475,11 @@ class mt02 extends MX_Controller {
                 },
                 success: function( data ) {
                     var o = $.parseJSON(data);
-                    $("#mt02_vNama_sample").val(o.vNama_produsen);
-                    $("#mt02_vAcuan_metode_uji").val(o.vNama_tujuan);
+                    $("#mt02_vNama_sample").val(o.vNama_sample);
+                    //$("#mt02_vAcuan_metode_uji").val(o.vNama_tujuan);
+                    $("#mt02_p1_nama").val(o.vName);
+                    $("#mt02_p1_perusahaan").val(o.vNama_produsen);
+                    $("#mt02_p1_alamat").val(o.vAlamat_produsen);
                 }
             });
         })';
@@ -484,6 +488,60 @@ class mt02 extends MX_Controller {
         // $return=$this->db->last_query();
         return $return;
     }
+
+    function insertBox_mt02_p1_nama($field, $id) {
+        $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+        return $return;
+    }
+    
+    function updateBox_mt02_p1_nama($field, $id, $value, $rowData) {
+            if ($this->input->get('action') == 'view') {
+                 $return= $value; 
+            }else{ 
+                $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+
+            }
+            
+        return $return;
+    }
+
+
+
+    function insertBox_mt02_p1_perusahaan($field, $id) {
+        $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+        return $return;
+    }
+    
+    function updateBox_mt02_p1_perusahaan($field, $id, $value, $rowData) {
+            if ($this->input->get('action') == 'view') {
+                 $return= $value; 
+            }else{ 
+                $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+
+            }
+            
+        return $return;
+    }
+
+
+    function insertBox_mt02_p1_alamat($field, $id) {
+        $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+        return $return;
+    }
+    
+    function updateBox_mt02_p1_alamat($field, $id, $value, $rowData) {
+            if ($this->input->get('action') == 'view') {
+                 $return= '<label title="Note">'.nl2br($value).'</label>'; 
+            }else{ 
+                $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+
+            }
+            
+        return $return;
+    }
+
+
+
     function insertBox_mt02_vNama_sample($field, $id) {
         $ff=str_replace("form_","", $field);
         $return = '<input type="text" name="'.$ff.'" id="'.$id.'" value="" readonly="readonly">';
@@ -491,7 +549,7 @@ class mt02 extends MX_Controller {
     }
     function insertBox_mt02_vAcuan_metode_uji($field, $id) {
         $ff=str_replace("form_","", $field);
-        $return = '<input type="text" name="'.$ff.'" id="'.$id.'" value="" readonly="readonly">';
+        $return = '<input type="text" name="'.$ff.'" id="'.$id.'" value="" >';
         return $return;
     }
     function insertBox_mt02_dTgl_Kontrak($field, $id) {
@@ -519,7 +577,7 @@ class mt02 extends MX_Controller {
             if($value==$vv['iMt01']){
                 $value=$vv['vNomor'];
             }
-            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNomor'].'</option>';
+            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNo_transaksi'].' - '.$vv['vNomor'].'</option>';
         }
         $return.='</select>';
         $return.='<script>';
@@ -532,8 +590,14 @@ class mt02 extends MX_Controller {
                 },
                 success: function( data ) {
                     var o = $.parseJSON(data);
-                    $("#mt02_vNama_sample").val(o.vNama_produsen);
-                    $("#mt02_vAcuan_metode_uji").val(o.vNama_tujuan);
+                    $("#mt02_vNama_sample").val(o.vNama_sample);
+                    //$("#mt02_vAcuan_metode_uji").val(o.vNama_tujuan);
+                    $("#mt02_p1_nama").val(o.vName);
+                    $("#mt02_p1_perusahaan").val(o.vNama_produsen);
+                    $("#mt02_p1_alamat").val(o.vAlamat_produsen);
+                    
+
+                    
                 }
             });
         })';
@@ -555,7 +619,7 @@ class mt02 extends MX_Controller {
     }
     function updateBox_mt02_vAcuan_metode_uji($field,$id,$value,$rowData){
         $ff=str_replace("form_","", $field);
-        $return = '<input type="text" name="'.$ff.'" id="'.$id.'" value="'.$value.'" readonly="readonly">';
+        $return = '<input type="text" name="'.$ff.'" id="'.$id.'" value="'.$value.'" >';
          if($this->input->get('action')=='view'){
             $return=$value;
         }
@@ -580,6 +644,9 @@ class mt02 extends MX_Controller {
     function before_insert_processor($row, $postData) {
         $postData['dCreated']=date("Y-m-d H:i:s");
         $postData['cCreated']=$this->user->gNIP;
+        $postData['p1_an']= $postData['p1_nama'];
+
+        
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
         } 
@@ -592,6 +659,7 @@ class mt02 extends MX_Controller {
     function before_update_processor($row, $postData) {
         $postData['dUpdated']=date("Y-m-d H:i:s");
         $postData['cUpdated']=$this->user->gNIP;
+        $postData['p1_an']= $postData['p1_nama'];
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
         } 

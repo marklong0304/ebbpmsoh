@@ -30,8 +30,8 @@ class mt04 extends MX_Controller {
 				,'vAlamat_perusahaan'=>'Alamat Perusahaan'
 				,'vTelepon_perusahaan'=>'Telp'
 				,'vNama_sample'=>'Nama Sample'
-				,'dTgl_terima_sample'=>'Tanggal Terima Sample'
-				,'dTgl_terima_serum'=>'Tanggal Penerimaan Sample '
+				,'dTgl_terima_sample'=>'Tanggal Penerimaan Sample'
+				,'dTgl_terima_serum'=>'Tanda Terima Standar/Antigen/Antiserum'
 				,'form_sample_label'=>'Tanda Terima Standar/Antigen/Antiserum'
 				,'form_sample'=>''
 				);
@@ -411,6 +411,23 @@ class mt04 extends MX_Controller {
     }
 
     function insertBox_mt04_vAlamat_perusahaan($field, $id) {
+        $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+        return $return;
+    }
+    
+    function updateBox_mt04_vAlamat_perusahaan($field, $id, $value, $rowData) {
+            if ($this->input->get('action') == 'view') {
+                 $return= '<label title="Note">'.nl2br($value).'</label>'; 
+            }else{ 
+                $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+
+            }
+            
+        return $return;
+    }
+
+
+    /*function insertBox_mt04_vAlamat_perusahaan($field, $id) {
         $ff=str_replace("form_","", $field);
         $return = '<input type="text" name="'.$ff.'" id="'.$id.'" value="" readonly="readonly">';
         return $return;
@@ -423,7 +440,7 @@ class mt04 extends MX_Controller {
             $return=$value;
         }
         return $return;
-    }
+    }*/
 
     function insertBox_mt04_vTelepon_perusahaan($field, $id) {
         $ff=str_replace("form_","", $field);

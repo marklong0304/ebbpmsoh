@@ -141,10 +141,10 @@ function save_btn_multiupload(grid, url, dis) {
         iii++;
     })
     
-    if(iii==0){
+    /*if(iii==0){
         alert_message +='<br>Minimal 1 Bahan Baku';
         conf++;
-    }
+    }*/
     if(conf > 0) {
         _custom_alert(alert_message,'Error!','info',grid, 1, 5000);
     }

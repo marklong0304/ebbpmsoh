@@ -15,29 +15,20 @@ class mt05 extends MX_Controller {
 		$this->main_table_pk = 'iMt05';	
 		$datagrid['islist'] = array(
 			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
-			,'vAlamat' => array('label'=>'Alamat','width'=>300,'align'=>'left','search'=>false)
-			,'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
-			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
-			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
 
-		$datagrid['jointableinner']=array(
-            0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt05.iMt01')
-            );
-
-
 		$datagrid['addFields']=array(
 				/*'form_vKepada_yth'=>'Kepada'*/
-				//'iMt01'=>'Nomor'
-				'form_sample_label'=>'Tanda Terima Sample'
+				'form_vAlamat'=>'Alamat'
+				,'form_sample_label'=>'Tanda Terima Sample'
 				,'form_sample'=>''
 				);
 		$datagrid['shortBy']=array('dUpdated'=>'Desc');
 	
 		$datagrid['setQuery']=array(
-								0=>array('vall'=>'mt05.lDeleted','nilai'=>0)
+								0=>array('vall'=>'lDeleted','nilai'=>0)
 								);
 		$datagrid['isRequired']=array('all_form');
 		
@@ -145,18 +136,6 @@ class mt05 extends MX_Controller {
 			case 'delete':
 				echo $grid->delete_row();
 				break;
-			case 'getDetailsData':
-				$post=$this->input->post();
-				$arr=array(
-					'mt01.iMt01'=>$post['iMt01']	
-				);
-				$this->db->select("mt01.*,m_jenis_sediaan.vJenis_sediaan")
-						->from("bbpmsoh.mt01")
-						->join('bbpmsoh.m_jenis_sediaan','m_jenis_sediaan.iM_jenis_sediaan=mt01.iM_jenis_sediaan')
-						->where($arr);
-				$row=$this->db->get()->row_array();
-				echo json_encode($row);
-				break;
 
 			/*Option Case*/
 			case 'getDetailsReq':
@@ -260,164 +239,6 @@ class mt05 extends MX_Controller {
         }
         return $actions;
     }
-
-    function insertBox_mt05_iMt01($field, $id) {
-		$arr=array(
-			'mt01.lDeleted'=>0
-			,'mt02.iApprove'=>2	
-		);
-		$this->db->select("mt01.*")
-				->from("bbpmsoh.mt01")
-				->join("bbpmsoh.mt02","mt02.iMt01=bbpmsoh.mt01.iMt01")
-				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt05 where lDeleted=0 AND iApprove in (0,2) )')
-				->where($arr);
-
-		$return="<select name='".$id."' id='".$id."' class='required'>";
-		$return.="<option value=''>---Pilih---</option>";
-		$qq=$this->db->get();
-		if($qq->num_rows()>0){
-			foreach ($qq->result_array() as $key => $value) {
-				$return.="<option value='".$value['iMt01']."'>".$value['vNo_transaksi']." | ".$value['vNama_sample']."</option>";
-			}
-		}
-		$return.="</select>";
-		$return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
-					 	
-					 	<tr>
-					 		<td style='width: 30%;'>No Batch / Lot</td>
-					 		<td >: <span id='det_vBatch_lot'></span></td>
-					 	</tr>
-					 	<tr>
-					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
-					 		<td >: <span id='det_dTgl_kadaluarsa'></span>  </td>
-					 	</tr>
-					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
-					 		<td >: <span id='det_vNo_registrasi'></span> </td>
-					 	</tr>
-					 </table>";
-		$return.="</div>";
-
-		$return.="<script>";
-		$return.="$('#".$id."').change(function(){
-			$.ajax({
-                url:base_url+'processor/pengujian/mt05?action=getDetailsData',
-                type: 'post',
-                data: {iMt01:$(this).val()},
-                success: function(data) {
-                    //alert(isUpload);
-                    var o = $.parseJSON(data);
-                    $('#det_vNama_sample').text(o.vNama_sample);
-                    $('#det_vBatch_lot').text(o.vBatch_lot);
-                    $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
-                    $('#det_vNo_registrasi').text(o.vNo_registrasi);
-                    $('#mt05_vJenis_sediaan').text(o.vJenis_sediaan);
-                    $('#mt05_vKemasan').text(o.vKemasan);
-                    $('#mt05_vJenis_sediaan').text(o.vJenis_sediaan);
-                }
-			});
-		});";
-		$return.="</script>";
-		$return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
-        return $return;
-    }
-
-    function updateBox_mt05_iMt01($field,$id,$value,$rowData){
-    	$viewval = $value;
-        $arr=array(
-			'mt01.lDeleted'=>0
-			,'mt02.iApprove'=>2	
-		);
-		$this->db->select("mt01.*")
-				->from("bbpmsoh.mt01")
-				->join("bbpmsoh.mt02","mt02.iMt01=bbpmsoh.mt01.iMt01")
-				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt05 where lDeleted=0 AND iMt01 !='.$value.' AND iApprove in (0,2) )')
-				->where($arr);
-        $row=$this->db->get()->result_array();
-
-        $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$value.'" ';
-        $dMt01 = $this->db->query($sqlinfo)->row_array();
-        $return='<select id="'.$id.'" name="'.$field.'" class="required">';
-        $return.='<option value="">---Pilih---</option>';
-        foreach ($row as $kk => $vv) {
-            $select=$value==$vv['iMt01']?'selected':'';
-            if($value==$vv['iMt01']){
-                $value=$vv['vNomor'];
-            }
-            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNomor'].'</option>';
-        }
-        $return.='</select>';
-        $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
-					 	
-					 	<tr>
-					 		<td style='width: 30%;'>No Batch / Lot</td>
-					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
-					 	</tr>
-					 	<tr>
-					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
-					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
-					 	</tr>
-					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
-					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
-					 	</tr>
-					 </table>";
-		$return.="</div>";
-
-		$return.="<script>";
-		$return.="$('#".$id."').change(function(){
-			$.ajax({
-                url:base_url+'processor/pengujian/mt05?action=getDetailsData',
-                type: 'post',
-                data: {iMt01:$(this).val()},
-                success: function(data) {
-                    //alert(isUpload);
-                    var o = $.parseJSON(data);
-                    $('#det_vNama_sample').text(o.vNama_sample);
-                    $('#det_vBatch_lot').text(o.vBatch_lot);
-                    $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
-                    $('#det_vNo_registrasi').text(o.vNo_registrasi);
-                    $('#mt05_vJenis_sediaan').text(o.vJenis_sediaan);
-                    $('#mt05_vKemasan').text(o.vKemasan);
-                    $('#mt05_vJenis_sediaan').text(o.vJenis_sediaan);
-                }
-			});
-		});";
-		$return.="</script>";
-        $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
-        if($this->input->get('action')=='view'){
-            $return=$value;
-            $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$viewval.'" ';
-        	$dMt01 = $this->db->query($sqlinfo)->row_array();
-            $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
-					 	<tr>
-					 		<td style='width: 30%;'>Nama Sample</td>
-					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
-					 	</tr>
-					 	<tr>
-					 		<td style='width: 30%;'>No Batch / Lot</td>
-					 		<td >: <span id='det_vBatch_lot'>".$dMt01['vBatch_lot']."</span></td>
-					 	</tr>
-					 	<tr>
-					 		<td style='width: 30%;'>Waktu Kadaluarsa</td>
-					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
-					 	</tr>
-					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
-					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
-					 	</tr>
-					 </table>";
-		$return.="</div>";
-
-
-        }
-        // $return=$this->db->last_query();
-        return $return;
-    }
-
 
 	function output(){
     	$this->index($this->input->get('action'));
@@ -562,9 +383,6 @@ class mt05 extends MX_Controller {
     function before_insert_processor($row, $postData) {
     	$postData['dCreated']=date("Y-m-d H:i:s");
     	$postData['cCreated']=$this->user->gNIP;
-
-    	
-
         if($postData['isdraft']==true){
             $postData['iSubmit']=0;
         } 
@@ -600,16 +418,6 @@ class mt05 extends MX_Controller {
 			    			$datainsert['dCreated']=date("Y-m-d H:i:s");
 		    				$datainsert['cCreated']=$this->user->gNIP;
 		    				$this->db->insert('bbpmsoh.mt05_detail',$datainsert);
-
-		    				$sqlgetMt1 = 'select * 
-		    								from bbpmsoh.mt01 a 
-		    								join hrd.employee b on b.cNip=a.iCustomer
-		    								where a.iMt01 = "'.$nilai.'"';
-	        				$dmete1 = $this->db->query($sqlgetMt1)->row_array();
-
-					        $sql = "UPDATE bbpmsoh.mt05 SET iMt01 = '".$nilai."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt05=$id LIMIT 1";
-					        $query = $this->db->query( $sql );
-
     					}
     				}
     			}
@@ -654,17 +462,6 @@ class mt05 extends MX_Controller {
     			$dataupdate2["iMt01"]=$vup;
     			$this->db->where("iMt05_detail",$kup);
     			$this->db->update("bbpmsoh.mt05_detail",$dataupdate2);
-
-    			$sqlgetMt1 = 'select * 
-								from bbpmsoh.mt01 a 
-								join hrd.employee b on b.cNip=a.iCustomer
-								where a.iMt01 = "'.$vup.'"';
-				$dmete1 = $this->db->query($sqlgetMt1)->row_array();
-
-		        $sql = "UPDATE bbpmsoh.mt05 SET iMt01 = '".$vup."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt05=$id LIMIT 1";
-		        $query = $this->db->query( $sql );
-
-
     		}
     	}
     	if(count($din)>0){

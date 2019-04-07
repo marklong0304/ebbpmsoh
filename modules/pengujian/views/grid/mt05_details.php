@@ -137,6 +137,8 @@ $getUrl=$nmmodule.'/'.$getUrl;
             if(n==""){
                 var rlast=1;   
             }else{
+                alert('Hanya 1 Penerimaan');
+                return false;
                 var s=JSON.parse("["+n+"]");
                 var rlast = parseInt(Math.max.apply(Math, s)) +1;
             }

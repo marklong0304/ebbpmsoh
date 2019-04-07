@@ -14,7 +14,7 @@ class mt03_popup extends MX_Controller {
 		$grid->setTitle('List Sample');		
 		$grid->setTable('bbpmsoh.mt01');		
 		$grid->setUrl('mt03_popup');
-		$grid->addList('pilih','vNo_transaksi','vNama_produsen','vNama_sample','dTanggal','employee.vName_company','m_tujuan_pengujian.vNama_tujuan');
+		$grid->addList('pilih','vNo_transaksi','vNama_produsen','vNama_sample','dTanggal','employee.vName','m_tujuan_pengujian.vNama_tujuan');
 		$grid->setSortBy('vNo_transaksi');
 		$grid->setSortOrder('DESC');
 
@@ -30,6 +30,11 @@ class mt03_popup extends MX_Controller {
 		$grid->setLabel('vNama_sample', 'Sample');
 		$grid->setLabel('dTanggal', 'Tgl Request');
 		$grid->setLabel('employee.vName_company', 'Produsen');
+
+		$grid->setLabel('employee.vName', 'Pemohon');
+
+		
+
 		$grid->setLabel('m_tujuan_pengujian.vNama_tujuan', 'Tujuan Pengujian');
 
 		$grid->setSearch('vNo_transaksi','vNama_produsen','vNama_sample');
@@ -72,7 +77,7 @@ class mt03_popup extends MX_Controller {
     }
 
 	function listBox_mt03_popup_pilih($value, $pk, $name, $rowData) {
-		$vCompName=str_replace('. ','',$rowData->employee__vName_company);
+		$vCompName=str_replace('. ','',$rowData->employee__vName);
 		$o = '<input type="radio" name="pilih" onClick="javascript:pilih_upb_fst('.$pk.',\''.$rowData->vNo_transaksi.'\',\''.$vCompName.'\',\''.$rowData->vNama_sample.'\',\''.$rowData->vNama_produsen.'\',\''.$rowData->vBatch_lot.'\',\''.$rowData->dTgl_kadaluarsa.'\',\''.$rowData->m_tujuan_pengujian__vNama_tujuan.'\') ;" /><script type="text/javascript">
 				function pilih_upb_fst (id, vNo_transaksi, vCompName, vNama_sample, vNama_produsen, vBatch_lot, dTgl_kadaluarsa, vNama_tujuan){			
 					custom_confirm("Yakin ?", function(){
