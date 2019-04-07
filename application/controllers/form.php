@@ -147,7 +147,7 @@ class Form extends MX_Controller {
                     }
 
                     $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                    $dBcc =  $this->db->query($sqlEmpAr)->row_array();
+                    $dBcc =  $this->db->query($bccMail)->row_array();
 
                     $to = $to;
                     $cc = $dBcc['vContent'];
@@ -203,7 +203,7 @@ class Form extends MX_Controller {
                         Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
                         Post Master"; 
 
-                        $this->sess_auth->send_message_erp2(4272,$to, $cc, $subject, $content,$insert_id);
+                        $this->sess_auth->send_message_erp2(4272,$to, $cc, $subject, $content,$rsql['cNip']);
                 }
 
 
