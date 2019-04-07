@@ -37,6 +37,12 @@ class verifikasi extends MX_Controller {
         $this->db = $this->load->database('hrd',false, true);
         $this->user = $this->auth->user();
 
+        $this->url       = 'verifikasi'; 
+        $this->report    = $this->load->library('report');
+        $url             = $_SERVER['HTTP_REFERER'];
+        $company_id      = substr($url, strrpos($url, '/') + 1);
+        $this->masterUrl = base_url()."processor/verifikasi/mt01?company_id={$this->input->get('company_id')}";
+
        /* $checkMod = $this->auth->modul_set($this->input->get('modul_id'));
         $this->validation =$checkMod['iValidation'];*/
 
@@ -531,7 +537,8 @@ class verifikasi extends MX_Controller {
                         Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
                         Post Master"; 
 
-                        $this->sess_auth->send_message_erp2(4272,$to, $cc, $subject, $content,$insert_id);
+                        //$this->sess_auth->send_message_erp2(4272,$to, $cc, $subject, $content,$insert_id);
+                        $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
                 }
 
                 
@@ -762,7 +769,7 @@ class verifikasi extends MX_Controller {
                         where a.cNip ="'.$nip.'"
                         ';
         
-        $data = $this->dbset->query($sql)->row_array();
+        $data = $this->db->query($sql)->row_array();
         return $data;
     }
 
