@@ -316,6 +316,14 @@ class mt01 extends MX_Controller {
 				echo $this->getDataMemo();
 				break;
 
+            case 'getDataCustomer':
+                $where=array('employee.lDeleted'=>0,'employee.cNip'=>$this->input->post('id'));
+                $this->db->select('employee.*')
+                    ->from('hrd.employee')
+                    ->where($where);
+                $row=$this->db->get()->row_array();
+                echo json_encode($row);
+                break;
 
                 case 'download':
                     $this->download($this->input->get('file'));
@@ -484,6 +492,25 @@ class mt01 extends MX_Controller {
                                 $return.="<option value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
                             }
                             $return.="</select>";
+
+                            $return.='<script>';
+                            $return.='$("#'.$id.'").change(function(){
+                                $.ajax({
+                                    url: base_url+"processor/pengujian/mt01?action=getDataCustomer",
+                                    type: "post",
+                                    data: {
+                                        id: $(this).val(),
+                                    },
+                                    success: function( data ) {
+                                        var o = $.parseJSON(data);
+                                        $("#mt01_vNama_produsen").val(o.vName_company);
+                                        $("#mt01_vAlamat_produsen").val(o.vAddress_company);
+                                    }
+                                });
+                            })';
+                            $return.='</script>';
+
+
                             return $return;
                         }
                         
@@ -513,6 +540,25 @@ class mt01 extends MX_Controller {
                                         $return.="<option {$selected} value='".$vvf['cNip']."'>".$vvf["vName_company"].' - '.$vvf["vName"]."</option>";
                                     }
                                     $return.="</select>";
+
+                                    $return.='<script>';
+                                    $return.='$("#'.$id.'").change(function(){
+                                        $.ajax({
+                                            url: base_url+"processor/pengujian/mt01?action=getDataCustomer",
+                                            type: "post",
+                                            data: {
+                                                id: $(this).val(),
+                                            },
+                                            success: function( data ) {
+                                                var o = $.parseJSON(data);
+                                                $("#mt01_vNama_produsen").val(o.vName_company);
+                                                $("#mt01_vAlamat_produsen").val(o.vAddress_company);
+                                            }
+                                        });
+                                    })';
+                                    $return.='</script>';
+
+
                             return $return;
                         }
 
@@ -533,7 +579,7 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_vNama_produsen($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
                             return $return;
                         }
                         
@@ -541,7 +587,7 @@ class mt01 extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+                                    $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
 
                                 }
                                 
@@ -549,7 +595,7 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_vAlamat_produsen($field, $id) {
-                            $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+                            $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
                             return $return;
                         }
                         
@@ -557,7 +603,7 @@ class mt01 extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= '<label title="Note">'.nl2br($value).'</label>'; 
                                 }else{ 
-                                    $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+                                    $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
 
                                 }
                                 

@@ -30369,3 +30369,878 @@ DEBUG - 2019-04-07 23:12:20 --> Database Driver Class Initialized
 ERROR - 2019-04-07 23:12:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
 DEBUG - 2019-04-07 23:12:20 --> Final output sent to browser
 DEBUG - 2019-04-07 23:12:20 --> Total execution time: 6.1874
+DEBUG - 2019-04-07 23:13:03 --> Config Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Config Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:13:03 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:13:03 --> URI Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> URI Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Router Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Router Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Output Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Output Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Security Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Security Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Input Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Input Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:13:03 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:13:03 --> Language Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Language Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Language Class Initialized
+DEBUG - 2019-04-07 23:13:03 --> Language Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> Config Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> Config Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:13:04 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:13:04 --> Database Driver Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:13:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:04 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:13:04 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:13:04 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:13:04 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:04 --> Model Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:13:04 --> Model Class Initialized
+DEBUG - 2019-04-07 23:13:04 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:05 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:05 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:13:05 --> Infomodule MX_Controller Initialized
+DEBUG - 2019-04-07 23:13:05 --> File loaded: application/../modules/infomodule/models/m_infomodule.php
+DEBUG - 2019-04-07 23:13:05 --> Model Class Initialized
+ERROR - 2019-04-07 23:13:05 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:05 --> File loaded: application/../modules/infomodule/views/v_infomodule.php
+DEBUG - 2019-04-07 23:13:05 --> Final output sent to browser
+DEBUG - 2019-04-07 23:13:05 --> Total execution time: 2.3038
+DEBUG - 2019-04-07 23:13:05 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:13:05 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:05 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:05 --> Model Class Initialized
+DEBUG - 2019-04-07 23:13:05 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:13:05 --> Model Class Initialized
+DEBUG - 2019-04-07 23:13:05 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:06 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:06 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:13:06 --> Infomodule MX_Controller Initialized
+DEBUG - 2019-04-07 23:13:06 --> File loaded: application/../modules/infomodule/models/m_infomodule.php
+DEBUG - 2019-04-07 23:13:06 --> Model Class Initialized
+ERROR - 2019-04-07 23:13:06 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:06 --> Final output sent to browser
+DEBUG - 2019-04-07 23:13:06 --> Total execution time: 3.3976
+DEBUG - 2019-04-07 23:13:07 --> Config Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:13:07 --> URI Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> Router Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> Output Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> Security Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> Input Class Initialized
+DEBUG - 2019-04-07 23:13:07 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:13:07 --> Language Class Initialized
+DEBUG - 2019-04-07 23:13:08 --> Language Class Initialized
+DEBUG - 2019-04-07 23:13:08 --> Config Class Initialized
+DEBUG - 2019-04-07 23:13:08 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:13:08 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:13:08 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:13:08 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:13:08 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:13:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:08 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:13:08 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:13:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:08 --> Model Class Initialized
+DEBUG - 2019-04-07 23:13:08 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:13:08 --> Model Class Initialized
+DEBUG - 2019-04-07 23:13:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:09 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:13:09 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:13:09 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:13:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:13:09 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:13:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:13:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:13:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:13:10 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:10 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:10 --> File loaded: application/../modules/pengujian/views/js/standard_js.php
+DEBUG - 2019-04-07 23:13:10 --> File loaded: application/../modules/pengujian/views/js/upload_js.php
+DEBUG - 2019-04-07 23:13:10 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:13:10 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:13:10 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:13:10 --> File loaded: application/views/themes/default/content/create.php
+DEBUG - 2019-04-07 23:13:10 --> Final output sent to browser
+DEBUG - 2019-04-07 23:13:10 --> Total execution time: 3.1730
+DEBUG - 2019-04-07 23:19:09 --> Config Class Initialized
+DEBUG - 2019-04-07 23:19:10 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:19:10 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:19:10 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:19:11 --> URI Class Initialized
+DEBUG - 2019-04-07 23:19:11 --> Router Class Initialized
+DEBUG - 2019-04-07 23:19:11 --> Output Class Initialized
+DEBUG - 2019-04-07 23:19:11 --> Security Class Initialized
+DEBUG - 2019-04-07 23:19:11 --> Input Class Initialized
+DEBUG - 2019-04-07 23:19:11 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:19:11 --> Language Class Initialized
+DEBUG - 2019-04-07 23:19:12 --> Language Class Initialized
+DEBUG - 2019-04-07 23:19:12 --> Config Class Initialized
+DEBUG - 2019-04-07 23:19:12 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:19:12 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:19:12 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:19:12 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:19:12 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:19:13 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:13 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:13 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:19:13 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:19:13 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:13 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:13 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:13 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:19:13 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:14 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:14 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:14 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:19:14 --> Login MX_Controller Initialized
+DEBUG - 2019-04-07 23:19:14 --> File loaded: application/controllers/../../modules/menu/controllers/menu.php
+DEBUG - 2019-04-07 23:19:14 --> Menu MX_Controller Initialized
+DEBUG - 2019-04-07 23:19:14 --> File loaded: application/../modules/menu/models/m_menu.php
+DEBUG - 2019-04-07 23:19:14 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:14 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:14 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:14 --> File loaded: application/../modules/menu/views/v_menu.php
+DEBUG - 2019-04-07 23:19:14 --> File loaded: application/controllers/../../modules/menu/controllers/menu_header.php
+DEBUG - 2019-04-07 23:19:14 --> Menu_header MX_Controller Initialized
+DEBUG - 2019-04-07 23:19:15 --> File loaded: application/../modules/menu/models/m_menu_header.php
+DEBUG - 2019-04-07 23:19:15 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:15 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:15 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:15 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:15 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:19:15 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:15 --> File loaded: application/../modules/menu/views/v_menu_header.php
+DEBUG - 2019-04-07 23:19:15 --> File loaded: application/../modules/home/views/inc_home.php
+DEBUG - 2019-04-07 23:19:15 --> File loaded: application/../modules/menu/views/inc_menu.php
+DEBUG - 2019-04-07 23:19:15 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:15 --> Input Class Initialized
+DEBUG - 2019-04-07 23:19:16 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:19:16 --> File loaded: application/../modules/login/models/m_login.php
+DEBUG - 2019-04-07 23:19:16 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:16 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:16 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:16 --> File loaded: application/../modules/login/views/v_login.php
+DEBUG - 2019-04-07 23:19:16 --> File loaded: application/../modules/templates/views/login/header.php
+DEBUG - 2019-04-07 23:19:16 --> File loaded: application/../modules/templates/views/login/content.php
+DEBUG - 2019-04-07 23:19:16 --> File loaded: application/../modules/templates/views/login/footer.php
+DEBUG - 2019-04-07 23:19:16 --> File loaded: application/../modules/templates/views/login/index.php
+DEBUG - 2019-04-07 23:19:16 --> Final output sent to browser
+DEBUG - 2019-04-07 23:19:16 --> Total execution time: 7.2758
+DEBUG - 2019-04-07 23:19:20 --> Config Class Initialized
+DEBUG - 2019-04-07 23:19:20 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:19:20 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:19:20 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:19:21 --> URI Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Router Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Output Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Security Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Input Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:19:21 --> Language Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Language Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Config Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:19:21 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:19:21 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:19:21 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:19:21 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:19:21 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:21 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:22 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:19:22 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:19:22 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:22 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:22 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:22 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:19:22 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:22 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:22 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:22 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:19:22 --> Form MX_Controller Initialized
+DEBUG - 2019-04-07 23:19:22 --> Model Class Initialized
+DEBUG - 2019-04-07 23:19:22 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:19:22 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:19:23 --> Helper loaded: recaptcha_helper
+ERROR - 2019-04-07 23:19:23 --> Severity: Notice  --> Undefined variable: getCompany E:\htdocs\ebbpmsoh\modules\registrasi\views\v_login.php 333
+DEBUG - 2019-04-07 23:19:23 --> File loaded: application/../modules/registrasi/views/v_login.php
+DEBUG - 2019-04-07 23:19:23 --> Final output sent to browser
+DEBUG - 2019-04-07 23:19:23 --> Total execution time: 2.5076
+DEBUG - 2019-04-07 23:22:07 --> Config Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:22:07 --> URI Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Router Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Output Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Security Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Input Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:22:07 --> Language Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Language Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Config Class Initialized
+DEBUG - 2019-04-07 23:22:07 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:22:08 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:22:08 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:22:08 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:22:08 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:22:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:08 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:22:08 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:22:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:08 --> Model Class Initialized
+DEBUG - 2019-04-07 23:22:08 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:22:08 --> Model Class Initialized
+DEBUG - 2019-04-07 23:22:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:08 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:22:08 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:22:09 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:22:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:22:09 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:22:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:22:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:22:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:10 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:22:10 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:10 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:10 --> File loaded: application/../modules/pengujian/views/js/standard_js.php
+DEBUG - 2019-04-07 23:22:10 --> File loaded: application/../modules/pengujian/views/js/upload_js.php
+DEBUG - 2019-04-07 23:22:10 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:22:10 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:22:10 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:22:11 --> File loaded: application/views/themes/default/content/create.php
+DEBUG - 2019-04-07 23:22:11 --> Final output sent to browser
+DEBUG - 2019-04-07 23:22:11 --> Total execution time: 4.3423
+DEBUG - 2019-04-07 23:23:07 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:23:07 --> URI Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Router Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Output Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Security Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Input Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:23:07 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:07 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:08 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:08 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:23:08 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:23:08 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:23:08 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:23:08 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:23:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:08 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:23:08 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:23:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:08 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:08 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:23:08 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:08 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:08 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:23:09 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:09 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:23:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:09 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:23:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:23:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:09 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:09 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:10 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:10 --> File loaded: application/../modules/pengujian/views/js/standard_js.php
+DEBUG - 2019-04-07 23:23:10 --> File loaded: application/../modules/pengujian/views/js/upload_js.php
+DEBUG - 2019-04-07 23:23:10 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:10 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:10 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:23:10 --> File loaded: application/views/themes/default/content/create.php
+DEBUG - 2019-04-07 23:23:10 --> Final output sent to browser
+DEBUG - 2019-04-07 23:23:10 --> Total execution time: 3.2143
+DEBUG - 2019-04-07 23:23:25 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:23:25 --> URI Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Router Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Output Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Security Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Input Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:23:25 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:23:25 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:23:26 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:23:26 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:23:26 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:23:26 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:26 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:23:26 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:23:26 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:26 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:26 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:23:26 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:26 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:26 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:23:26 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:26 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt02.php
+DEBUG - 2019-04-07 23:23:26 --> mt02 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:27 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:23:27 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:27 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:23:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:27 --> mt02 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:27 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:27 --> mt02 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:27 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:27 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:28 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:28 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:29 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:29 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:29 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:23:29 --> File loaded: application/views/themes/default/content/grid.php
+DEBUG - 2019-04-07 23:23:29 --> Final output sent to browser
+DEBUG - 2019-04-07 23:23:29 --> Total execution time: 4.1430
+DEBUG - 2019-04-07 23:23:30 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:30 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:23:30 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:23:30 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:23:30 --> URI Class Initialized
+DEBUG - 2019-04-07 23:23:30 --> Router Class Initialized
+DEBUG - 2019-04-07 23:23:30 --> Output Class Initialized
+DEBUG - 2019-04-07 23:23:30 --> Security Class Initialized
+DEBUG - 2019-04-07 23:23:31 --> Input Class Initialized
+DEBUG - 2019-04-07 23:23:31 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:23:31 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:31 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:31 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:31 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:23:31 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:23:31 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:23:31 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:23:31 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:23:31 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:31 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:23:31 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:23:31 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:31 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:31 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:31 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:23:32 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:32 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:32 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:23:32 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:32 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt02.php
+DEBUG - 2019-04-07 23:23:32 --> mt02 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:32 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:23:32 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:32 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:23:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:32 --> mt02 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:32 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:32 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:32 --> mt02 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:33 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:33 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:34 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:34 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:34 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:34 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:34 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:34 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:34 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:34 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:34 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:23:34 --> File loaded: application/views/themes/default/content/grid.php
+DEBUG - 2019-04-07 23:23:34 --> Final output sent to browser
+DEBUG - 2019-04-07 23:23:34 --> Total execution time: 4.1139
+DEBUG - 2019-04-07 23:23:52 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:52 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:23:52 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:23:52 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:23:52 --> URI Class Initialized
+DEBUG - 2019-04-07 23:23:52 --> Router Class Initialized
+DEBUG - 2019-04-07 23:23:52 --> Output Class Initialized
+DEBUG - 2019-04-07 23:23:53 --> Security Class Initialized
+DEBUG - 2019-04-07 23:23:53 --> Input Class Initialized
+DEBUG - 2019-04-07 23:23:53 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:23:53 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:53 --> Language Class Initialized
+DEBUG - 2019-04-07 23:23:53 --> Config Class Initialized
+DEBUG - 2019-04-07 23:23:53 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:23:53 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:23:53 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:23:53 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:23:53 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:23:53 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:53 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:53 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:23:53 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:23:53 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:53 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:54 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:54 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:23:54 --> Model Class Initialized
+DEBUG - 2019-04-07 23:23:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:54 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:23:54 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:54 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:23:54 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:54 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:23:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:23:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:54 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:55 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:55 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:55 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:23:55 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:55 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:55 --> File loaded: application/../modules/pengujian/views/js/standard_js.php
+DEBUG - 2019-04-07 23:23:55 --> File loaded: application/../modules/pengujian/views/js/upload_js.php
+DEBUG - 2019-04-07 23:23:55 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:23:55 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:23:55 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:23:55 --> File loaded: application/views/themes/default/content/create.php
+DEBUG - 2019-04-07 23:23:55 --> Final output sent to browser
+DEBUG - 2019-04-07 23:23:55 --> Total execution time: 3.1958
+DEBUG - 2019-04-07 23:24:02 --> Config Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:24:02 --> URI Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Router Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Output Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Security Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Input Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:24:02 --> Language Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Language Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Config Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:24:02 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:24:02 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:24:03 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:24:03 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:24:03 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:03 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:03 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:24:03 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:24:03 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:03 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:03 --> Model Class Initialized
+DEBUG - 2019-04-07 23:24:03 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:24:03 --> Model Class Initialized
+DEBUG - 2019-04-07 23:24:03 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:03 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:03 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:24:03 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:03 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:24:04 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:04 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:24:04 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:04 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:04 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:24:04 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:04 --> Final output sent to browser
+DEBUG - 2019-04-07 23:24:04 --> Total execution time: 2.4860
+DEBUG - 2019-04-07 23:24:17 --> Config Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:24:18 --> URI Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Router Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Output Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Security Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Input Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:24:18 --> Language Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Language Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Config Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:24:18 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:24:18 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:24:18 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:24:18 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:24:19 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:19 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:19 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:24:19 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:24:19 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:19 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:19 --> Model Class Initialized
+DEBUG - 2019-04-07 23:24:19 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:24:19 --> Model Class Initialized
+DEBUG - 2019-04-07 23:24:19 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:19 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:19 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:24:19 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:19 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:24:19 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:19 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:24:20 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:20 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:20 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:24:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:20 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:20 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:20 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:20 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:20 --> File loaded: application/../modules/pengujian/views/js/standard_js.php
+DEBUG - 2019-04-07 23:24:20 --> File loaded: application/../modules/pengujian/views/js/upload_js.php
+DEBUG - 2019-04-07 23:24:20 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:20 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:21 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:24:21 --> File loaded: application/views/themes/default/content/create.php
+DEBUG - 2019-04-07 23:24:21 --> Final output sent to browser
+DEBUG - 2019-04-07 23:24:21 --> Total execution time: 3.1955
+DEBUG - 2019-04-07 23:24:24 --> Config Class Initialized
+DEBUG - 2019-04-07 23:24:24 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:24:25 --> URI Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Router Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Output Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Security Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Input Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:24:25 --> Language Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Language Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Config Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:24:25 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:24:25 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:24:25 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:24:25 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:24:25 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:25 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:26 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:24:26 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:24:26 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:26 --> Model Class Initialized
+DEBUG - 2019-04-07 23:24:26 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:24:26 --> Model Class Initialized
+DEBUG - 2019-04-07 23:24:26 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:26 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:24:26 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:26 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:24:26 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:24:26 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:24:26 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:26 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:26 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:27 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:24:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:24:27 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:24:27 --> Final output sent to browser
+DEBUG - 2019-04-07 23:24:27 --> Total execution time: 2.2996
+DEBUG - 2019-04-07 23:25:43 --> Config Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:25:44 --> URI Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Router Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Output Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Security Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Input Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:25:44 --> Language Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Language Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Config Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:25:44 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:25:44 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:25:44 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:25:45 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:25:45 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:45 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:45 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:25:45 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:25:45 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:45 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:45 --> Model Class Initialized
+DEBUG - 2019-04-07 23:25:45 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:25:45 --> Model Class Initialized
+DEBUG - 2019-04-07 23:25:45 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:45 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:45 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:25:45 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:25:46 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:25:46 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:25:46 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:25:46 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:46 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:46 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:46 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:46 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:46 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:25:46 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:46 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:25:46 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:46 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:46 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:25:46 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:46 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:47 --> File loaded: application/../modules/pengujian/views/js/standard_js.php
+DEBUG - 2019-04-07 23:25:47 --> File loaded: application/../modules/pengujian/views/js/upload_js.php
+DEBUG - 2019-04-07 23:25:47 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:47 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:47 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:25:47 --> File loaded: application/views/themes/default/content/create.php
+DEBUG - 2019-04-07 23:25:47 --> Final output sent to browser
+DEBUG - 2019-04-07 23:25:47 --> Total execution time: 3.5152
+DEBUG - 2019-04-07 23:25:52 --> Config Class Initialized
+DEBUG - 2019-04-07 23:25:52 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:25:52 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:25:52 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:25:53 --> URI Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Router Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Output Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Security Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Input Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:25:53 --> Language Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Language Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Config Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:25:53 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:25:53 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:25:53 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:25:53 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:25:53 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:53 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:53 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:25:53 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:25:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:54 --> Model Class Initialized
+DEBUG - 2019-04-07 23:25:54 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:25:54 --> Model Class Initialized
+DEBUG - 2019-04-07 23:25:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:54 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:25:54 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:25:54 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:25:54 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:25:54 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:25:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:54 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:25:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:25:54 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:25:55 --> Final output sent to browser
+DEBUG - 2019-04-07 23:25:55 --> Total execution time: 2.2639
+DEBUG - 2019-04-07 23:25:58 --> Config Class Initialized
+DEBUG - 2019-04-07 23:25:58 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:25:59 --> URI Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Router Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Output Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Security Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Input Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:25:59 --> Language Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Language Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Config Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:25:59 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:25:59 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:25:59 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:25:59 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:25:59 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:00 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:00 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:26:00 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:26:00 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:00 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:00 --> Model Class Initialized
+DEBUG - 2019-04-07 23:26:00 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:26:00 --> Model Class Initialized
+DEBUG - 2019-04-07 23:26:00 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:00 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:00 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:26:00 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:26:00 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:26:00 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:26:00 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:26:00 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:00 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:01 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:01 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:26:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:01 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:26:01 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:01 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:26:01 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:01 --> File loaded: application/../modules/pengujian/views/js/standard_js.php
+DEBUG - 2019-04-07 23:26:01 --> File loaded: application/../modules/pengujian/views/js/upload_js.php
+DEBUG - 2019-04-07 23:26:01 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:01 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:01 --> File loaded: application/views/themes/default/template/forbiden_menu.php
+DEBUG - 2019-04-07 23:26:01 --> File loaded: application/views/themes/default/content/update.php
+DEBUG - 2019-04-07 23:26:02 --> Final output sent to browser
+DEBUG - 2019-04-07 23:26:02 --> Total execution time: 3.1361
+DEBUG - 2019-04-07 23:26:10 --> Config Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> Hooks Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> Utf8 Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> UTF-8 Support Enabled
+DEBUG - 2019-04-07 23:26:10 --> URI Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> Router Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> Output Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> Security Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> Input Class Initialized
+DEBUG - 2019-04-07 23:26:10 --> Global POST and COOKIE data sanitized
+DEBUG - 2019-04-07 23:26:10 --> Language Class Initialized
+DEBUG - 2019-04-07 23:26:11 --> Language Class Initialized
+DEBUG - 2019-04-07 23:26:11 --> Config Class Initialized
+DEBUG - 2019-04-07 23:26:11 --> Loader Class Initialized
+DEBUG - 2019-04-07 23:26:11 --> Helper loaded: url_helper
+DEBUG - 2019-04-07 23:26:11 --> Helper loaded: mydb_helper
+DEBUG - 2019-04-07 23:26:11 --> Helper loaded: form_helper
+DEBUG - 2019-04-07 23:26:11 --> Helper loaded: jqgrid_helper
+DEBUG - 2019-04-07 23:26:11 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:11 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:11 --> Zend Class Zend/Session/Namespace Loaded
+DEBUG - 2019-04-07 23:26:11 --> Language file loaded: language/english/display_lang.php
+DEBUG - 2019-04-07 23:26:11 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:11 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:11 --> Model Class Initialized
+DEBUG - 2019-04-07 23:26:11 --> File loaded: application/../modules/home/models/m_home.php
+DEBUG - 2019-04-07 23:26:11 --> Model Class Initialized
+DEBUG - 2019-04-07 23:26:11 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:11 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:11 --> Controller Class Initialized
+DEBUG - 2019-04-07 23:26:12 --> Processor MX_Controller Initialized
+DEBUG - 2019-04-07 23:26:12 --> File loaded: application/controllers/../../modules/pengujian/controllers/mt01.php
+DEBUG - 2019-04-07 23:26:12 --> mt01 MX_Controller Initialized
+DEBUG - 2019-04-07 23:26:12 --> File loaded: application/../modules/pengujian/libraries/Auth.php
+DEBUG - 2019-04-07 23:26:12 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:12 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:12 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:12 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:12 --> Database Driver Class Initialized
+ERROR - 2019-04-07 23:26:12 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+ERROR - 2019-04-07 23:26:12 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\htdocs\ebbpmsoh\system\database\drivers\mysql\mysql_driver.php 91
+DEBUG - 2019-04-07 23:26:12 --> Final output sent to browser
+DEBUG - 2019-04-07 23:26:12 --> Total execution time: 2.2597
