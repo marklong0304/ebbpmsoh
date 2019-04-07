@@ -361,14 +361,14 @@ class sertifikat extends MX_Controller {
 
 
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
-    /* 
+     
     function listBox_Action($row, $actions) {
-        if ($row->vNo_Or<>'' || $row->vNo_Or<>NULL) { 
+        if ($row->iFa_app<>0) { 
                 unset($actions['edit']);
         }
         return $actions;
     } 
-    */
+    
 
                         function insertBox_sertifikat_vNo_transaksi($field, $id) {
                             $return = 'Auto Generated';

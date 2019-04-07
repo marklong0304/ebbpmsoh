@@ -15,19 +15,23 @@ class mt07 extends MX_Controller {
 		$this->main_table_pk = 'iMt07';	
 		$datagrid['islist'] = array(
 			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
+			,'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
+			,'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
+			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			//,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
+			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
 
 		$datagrid['jointableinner']=array(
-            0=>array('bbpmsoh.mt06'=>'mt06.iMt01=bbpmsoh.mt07.iMt01')
+            0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt07.iMt01')
+
             );
 
 		$datagrid['addFields']=array(
-				'form_vKepada_yth'=>'Kepada Yth,'
-				,'form_dTanggal'=>'Tanggal'
-				,'form_sample_label'=>'Informasi Sample'
+				'form_sample_label'=>'Informasi Sample'
 				,'form_sample'=>''
+				//,'vKeterangan_07'=>'Keterangan'
 				);
 		$datagrid['shortBy']=array('dUpdated'=>'Desc');
 	
@@ -294,6 +298,23 @@ class mt07 extends MX_Controller {
     	$this->index($this->input->get('action'));
     }
 
+    function insertBox_mt06_vKeterangan_07($field, $id) {
+        $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+        return $return;
+    }
+    
+    function updateBox_mt06_vKeterangan_07($field, $id, $value, $rowData) {
+            if ($this->input->get('action') == 'view') {
+                 $return= '<label title="Note">'.nl2br($value).'</label>'; 
+            }else{ 
+                $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+
+            }
+            
+        return $return;
+    }
+
+
     function manipulate_update_button($buttons, $rowData) {
          $cNip= $this->user->gNIP;
         $js = $this->load->view('js/standard_js');
@@ -485,11 +506,33 @@ class mt07 extends MX_Controller {
 
     /*After Insert*/
     function after_insert_processor($fields, $id, $postData) {
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt07 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join hrd.employee b on b.cNip=c.iCustomer
+						where a.iMt07 = "'.$id.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+
+        $sql = "UPDATE bbpmsoh.mt07 SET iMt01 = '".$dmete1['iMt01']."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt07=$id LIMIT 1";
+        $query = $this->db->query( $sql );
+
     	
     }
 
     /*After Update*/
     function after_update_processor($fields, $id, $postData) {
+
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt07 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join hrd.employee b on b.cNip=c.iCustomer
+						where a.iMt07 = "'.$id.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+
+        $sql = "UPDATE bbpmsoh.mt07 SET iMt01 = '".$dmete1['iMt01']."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt07=$id LIMIT 1";
+        $query = $this->db->query( $sql );
+
+
     
     }
 

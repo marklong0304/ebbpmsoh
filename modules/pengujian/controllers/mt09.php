@@ -19,8 +19,8 @@ class Mt09 extends MX_Controller {
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval Yanji','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_qa' => array('label'=>'Approval QA','width'=>150,'align'=>'left','search'=>true)
-			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Umum','width'=>200,'align'=>'center','search'=>true)
-			,'iKesimpulan_khusus' => array('label'=>'Kesimpulan Uji Khusus','width'=>200,'align'=>'center','search'=>true)
+			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Umum','width'=>200,'align'=>'center','search'=>false)
+			,'iKesimpulan_khusus' => array('label'=>'Kesimpulan Uji Khusus','width'=>200,'align'=>'center','search'=>false)
 			
 		);
 
@@ -376,6 +376,7 @@ class Mt09 extends MX_Controller {
             unset($buttons['update']);
         }
         else{ 
+        	unset($buttons['update']);
             if($rowData['iSubmit']==0){
             	if($groupnya['idprivi_group'] == 3){
              		$buttons['update'] = $iframe.$update_draft.$update.$js;    
@@ -383,6 +384,7 @@ class Mt09 extends MX_Controller {
 
                 
             }elseif($rowData['iSubmit']==1){
+         		unset($buttons['update']);   	
             	if($groupnya['idprivi_group'] == 11 and $rowData['iApprove_qa'] <> 2 ){
              		$buttons['update'] = $iframe.$approve.$reject;
              	}
@@ -503,7 +505,7 @@ class Mt09 extends MX_Controller {
                     $('#det_vBatch_lot').text(o.vBatch_lot);
                     $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
                     $('#det_vNo_registrasi').text(o.vNo_registrasi);
-                    $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
+                    $('#mt09_vKomposisi').text(o.vZat_aktif);
                     $('#mt09_vKemasan').text(o.vKemasan);
                     $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
                 }
@@ -573,7 +575,7 @@ class Mt09 extends MX_Controller {
                     $('#det_vBatch_lot').text(o.vBatch_lot);
                     $('#det_dTgl_kadaluarsa').text(o.dTgl_kadaluarsa);
                     $('#det_vNo_registrasi').text(o.vNo_registrasi);
-                    $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
+                    $('#mt09_vKomposisi').text(o.vZat_aktif);
                     $('#mt09_vKemasan').text(o.vKemasan);
                     $('#mt09_vJenis_sediaan').text(o.vJenis_sediaan);
                 }
@@ -611,6 +613,23 @@ class Mt09 extends MX_Controller {
         // $return=$this->db->last_query();
         return $return;
     }
+
+    function insertBox_mt09_vKomposisi($field, $id) {
+        $return = '<textarea readonly="readonly" name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+        return $return;
+    }
+    
+    function updateBox_mt09_vKomposisi($field, $id, $value, $rowData) {
+            if ($this->input->get('action') == 'view') {
+                 $return= '<label title="Note">'.nl2br($value).'</label>'; 
+            }else{ 
+                $return = '<textarea readonly="readonly" name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+
+            }
+            
+        return $return;
+    }
+
 
    /* ,'vBatch_lot'=>'No Batch/Lot'
 				,'dTgl_kadaluarsa'=>'Waktu Kadaluarsa'
@@ -1006,6 +1025,9 @@ $idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
                 and a.iMt01 = '".$iMt01."'
 
         ";
+
+        /*echo '<pre>'.$qsql;
+        exit;*/
         $rsql = $this->db->query($qsql)->row_array();
 
         if($groupnya['idprivi_group'] == 11){
@@ -1030,7 +1052,7 @@ $idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
 		 
 
         
-        $updet = $this->db->where('iMt8b',$post['last_id'])->update('bbpmsoh.mt08b',$dataupdate);
+        $updet = $this->db->where('iMt09',$post['last_id'])->update('bbpmsoh.mt09',$dataupdate);
 
         if($updet){
         		
@@ -1306,7 +1328,7 @@ $idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
 		 
 
         
-        $updet = $this->db->where('iMt8b',$post['last_id'])->update('bbpmsoh.mt08b',$dataupdate);
+        $updet = $this->db->where('iMt09',$post['last_id'])->update('bbpmsoh.mt09',$dataupdate);
 
         if($updet){
         		

@@ -30,6 +30,7 @@ class mt06 extends MX_Controller {
 				'form_DistribusiUnit'=>'Distribusi Unit Uji'
 				,'form_sample_label'=>'Informasi Sample'
 				,'form_sample'=>''
+				,'vKeterangan_06'=>'Keterangan'
 				);
 
 		$datagrid['jointableinner']=array(
@@ -356,6 +357,24 @@ class mt06 extends MX_Controller {
 		
 		return $return;
 	}
+
+	function insertBox_mt06_vKeterangan_06($field, $id) {
+        $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+        return $return;
+    }
+    
+    function updateBox_mt06_vKeterangan_06($field, $id, $value, $rowData) {
+            if ($this->input->get('action') == 'view') {
+                 $return= '<label title="Note">'.nl2br($value).'</label>'; 
+            }else{ 
+                $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+
+            }
+            
+        return $return;
+    }
+
+
 
 	function updateBox_mt06_form_vKepada_yth($field,$id,$value,$rowData){
 		$ff=str_replace("form_","", $field);

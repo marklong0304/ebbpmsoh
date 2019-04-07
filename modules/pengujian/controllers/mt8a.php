@@ -19,7 +19,7 @@ class mt8a extends MX_Controller {
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval Yanji','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_qa' => array('label'=>'Approval QA','width'=>150,'align'=>'left','search'=>true)
-			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Umum','width'=>200,'align'=>'center','search'=>true)
+			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Umum','width'=>200,'align'=>'center','search'=>false)
 			
 		);
 
@@ -295,7 +295,7 @@ class mt8a extends MX_Controller {
 
 
     function listBox_Action($row, $actions) {
-        if ($row->iApprove_qa > 1) { 
+        if ($row->iApprove_qa > 1 && $row->iApprove_unit_uji > 1 ) { 
                 unset($actions['edit']);
         }
         if ($row->iSubmit>0) { 
@@ -363,6 +363,7 @@ class mt8a extends MX_Controller {
             unset($buttons['update']);
         }
         else{ 
+        	unset($buttons['update']);
             if($rowData['iSubmit']==0){
             	if($groupnya['idprivi_group'] == 3){
              		$buttons['update'] = $iframe.$update_draft.$update.$js;    
@@ -370,6 +371,7 @@ class mt8a extends MX_Controller {
 
                 
             }elseif($rowData['iSubmit']==1){
+
             	if($groupnya['idprivi_group'] == 11 and $rowData['iApprove_qa'] <> 2 ){
              		$buttons['update'] = $iframe.$approve.$reject;
              	}
