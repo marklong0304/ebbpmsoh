@@ -15,7 +15,7 @@ class mt8b extends MX_Controller {
 		$this->main_table_pk = 'iMt8b';	
 		$datagrid['islist'] = array(
 			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
-			,'vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
+			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval Yanji','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_qa' => array('label'=>'Approval QA','width'=>150,'align'=>'left','search'=>true)
