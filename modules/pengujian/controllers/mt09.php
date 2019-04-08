@@ -322,7 +322,7 @@ class Mt09 extends MX_Controller {
     }
     
     function listBox_Action($row, $actions) {
-        if ($row->iApprove_qa > 1) { 
+        if ($row->iApprove_qa > 1 &&  $row->iApprove_unit_uji > 1) { 
                 unset($actions['edit']);
         }
         if ($row->iSubmit>0) { 
@@ -387,10 +387,13 @@ class Mt09 extends MX_Controller {
          		unset($buttons['update']);   	
             	if($groupnya['idprivi_group'] == 11 and $rowData['iApprove_qa'] <> 2 ){
              		$buttons['update'] = $iframe.$approve.$reject;
-             	}
-		        if($groupnya['idprivi_group'] == 2 and $rowData['iApprove_unit_uji'] <> 2 ){
-		            $buttons['update'] = $iframe.$approve.$reject;
-		        }
+             	}else{
+                    if($groupnya['idprivi_group'] == 2 and $rowData['iApprove_unit_uji'] <> 2 ){
+		                $buttons['update'] = $iframe.$approve.$reject;
+                    }
+                
+                 }
+		        
 
 
                 
