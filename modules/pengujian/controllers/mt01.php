@@ -1471,10 +1471,19 @@ class mt01 extends MX_Controller {
             
         }
         else{ 
+            unset($buttons['update']);
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
-                $buttons['update'] = $iframe.$approve.$reject;
+
+                $groupnya = $this->checkgroup($this->user->gNIP);             
+                if( $groupnya['idprivi_group']== 2){
+                    $buttons['update'] = $iframe.$approve.$reject;
+                }else{
+                    
+                }
+
+                
             }
         }
         
