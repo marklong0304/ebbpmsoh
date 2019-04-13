@@ -78,6 +78,12 @@ class mt03_popup extends MX_Controller {
 
 	function listBox_mt03_popup_pilih($value, $pk, $name, $rowData) {
 		$vCompName=str_replace('. ','',$rowData->employee__vName);
+
+		$vBatch_lot = $rowData->vBatch_lot;
+		$dTgl_kadaluarsa = $rowData->dTgl_kadaluarsa;
+		
+
+		
 		$o = '<input type="radio" name="pilih" onClick="javascript:pilih_upb_fst('.$pk.',\''.$rowData->vNo_transaksi.'\',\''.$vCompName.'\',\''.$rowData->vNama_sample.'\',\''.$rowData->vNama_produsen.'\',\''.$rowData->vBatch_lot.'\',\''.$rowData->dTgl_kadaluarsa.'\',\''.$rowData->m_tujuan_pengujian__vNama_tujuan.'\') ;" /><script type="text/javascript">
 				function pilih_upb_fst (id, vNo_transaksi, vCompName, vNama_sample, vNama_produsen, vBatch_lot, dTgl_kadaluarsa, vNama_tujuan){			
 					custom_confirm("Yakin ?", function(){
@@ -89,6 +95,11 @@ class mt03_popup extends MX_Controller {
 						$("#'.$this->input->get('field').'_iAda_batch_dis").val(vBatch_lot);
 						$("#'.$this->input->get('field').'_iTgl_expired_dis").val(dTgl_kadaluarsa);
 						$("#'.$this->input->get('field').'_vNama_tujuan").val(vNama_tujuan);
+
+						$("#'.$this->input->get('field').'_vBatch").val(vBatch_lot);
+						$("#'.$this->input->get('field').'_dTgl_expired").val(dTgl_kadaluarsa);
+						
+
 						$("#alert_dialog_form").dialog("close");
 					});
 				}
