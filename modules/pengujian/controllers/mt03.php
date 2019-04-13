@@ -39,6 +39,12 @@ class mt03 extends MX_Controller {
 
        /* $checkMod = $this->auth->modul_set($this->input->get('modul_id'));
         $this->validation =$checkMod['iValidation'];*/
+        
+        $this->url       = 'mt03'; 
+		$this->report    = $this->load->library('report');
+		$url             = $_SERVER['HTTP_REFERER'];
+		$company_id      = substr($url, strrpos($url, '/') + 1);
+		$this->masterUrl = base_url()."processor/pengujian/mt03?company_id={$this->input->get('company_id')}";
 
     }
 
@@ -445,6 +451,10 @@ class mt03 extends MX_Controller {
             case 'get_data_prev':
                 echo $this->get_data_prev();
                 break;
+				
+			case 'getDataMemo':
+				echo $this->getDataMemo();
+				break;
 
             case 'download':
                     $this->download($this->input->get('file'));
@@ -453,6 +463,71 @@ class mt03 extends MX_Controller {
                     $grid->render_grid();
                     break;
         }
+    }
+
+	function getDataMemo() {
+
+		$id   = $this->input->post('id');	
+		//echo $id; exit;	
+		$data = array();
+
+    	$sql = "select b.vNama_produsen, c.vName_company, a.* from bbpmsoh.mt03 a
+    	left join bbpmsoh.mt01 b on b.iMt01 = a.iMt01
+    	left join hrd.employee c on c.cNip = b.iCustomer
+                WHERE a.iMt03 = '{$id}'";
+    	$query = $this->db->query($sql);
+
+    	foreach ($query->result() as $row) {
+    		
+			$row_array['vnomor_03']  	= ucwords(strtolower($row->vnomor_03));			
+			$tanggal = $row->dtanggal_03;
+			function tanggal_indo($tanggal, $cetak_hari = false)
+			{
+				$hari = array ( 1 =>    'Senin',
+							'Selasa',
+							'Rabu',
+							'Kamis',
+							'Jumat',
+							'Sabtu',
+							'Minggu'
+						);
+						
+				$bulan = array (1 =>   'Januari',
+							'Februari',
+							'Maret',
+							'April',
+							'Mei',
+							'Juni',
+							'Juli',
+							'Agustus',
+							'September',
+							'Oktober',
+							'November',
+							'Desember'
+						);
+				$split 	  = explode('-', $tanggal);
+				$tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+				
+				if ($cetak_hari) {
+					$num = date('N', strtotime($tanggal));
+					return $hari[$num];
+				}
+				return $tgl_indo;
+			}
+			
+			$row_array['dtanggal_03']            = tanggal_indo($row->dtanggal_03, false);
+			$row_array['vNama_produsen']  	= ucwords(strtolower($row->vNama_produsen));
+			$row_array['vBatch']  	= ucwords(strtolower($row->vBatch));
+			$row_array['iTgl_expired']  	= tanggal_indo($row->iTgl_expired, false);
+			$row_array['vEtiket_brosur']  	= ucwords(strtolower($row->vEtiket_brosur));
+			$row_array['iBahan_standard']  	= ucwords(strtolower($row->iBahan_standard));
+			$row_array['tCatatan']  	= ucwords(strtolower($row->tCatatan));
+			$row_array['vName_company']  	= ucwords(strtolower($row->vName_company));
+
+			array_push($data, $row_array);
+    	}
+
+    	echo json_encode($data);
     }
 
 
@@ -1106,11 +1181,58 @@ class mt03 extends MX_Controller {
         $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_mt03"  class="ui-button-text icon-save" >Approve</button>';
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=reject&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_mt03"  class="ui-button-text icon-save" >Reject</button>';
         
+		$grid          = $this->url;
+		$url           = $this->masterUrl;
 
+        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
+		$btnUpk .= "<script>
+						function btnUpk_{$this->url}(url, grid, dis) {
+
+							custom_confirm('Print Dokumen ?', function() {
+								template = 'mt03.docx';
+								var loadFile = function(url, callback) {
+									JSZipUtils.getBinaryContent(url, callback);
+								}
+								loadFile('../files/pengujian/template/'+template, function(err, content) {
+									if (err) {throw e};
+
+									$.ajax({
+										url: url+'&action=getDataMemo',
+										type: 'POST',
+										dataType: 'json',
+										data: '&id={$peka}',
+										success: function(data) {
+
+											doc = new Docxgen(content);
+
+											doc.setData({
+												'vnomor_03'   : data[0].vnomor_03,
+												'dtanggal_03'   : data[0].dtanggal_03,
+												'vNama_produsen'   : data[0].vNama_produsen,
+												'vBatch'   : data[0].vBatch,
+												'iTgl_expired'   : data[0].iTgl_expired,
+												'vEtiket_brosur'   : data[0].vEtiket_brosur,
+												'iBahan_standard'   : data[0].iBahan_standard,
+												'tCatatan'   : data[0].tCatatan,
+		    									'vName_company'   : data[0].vName_company,
+											})
+
+											doc.render()
+		    								out = doc.getZip().generate({type:'blob'})
+
+		    								nmdok = 'MT01';
+		    								saveAs(out, nmdok+' - ' + data[0].vnomor_03 + '.docx')
+										}
+									})
+								})
+							})
+						}
+					</script>";
 
 
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk;  
         }
         else{ 
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
