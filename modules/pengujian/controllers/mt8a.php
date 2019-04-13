@@ -14,7 +14,7 @@ class mt8a extends MX_Controller {
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt8a';	
 		$datagrid['islist'] = array(
-			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			'mt03.vnomor_03' => array('label'=>'Nomor Pengujian','width'=>100,'align'=>'center','search'=>true)
 			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval Yanji','width'=>150,'align'=>'left','search'=>true)
@@ -25,6 +25,7 @@ class mt8a extends MX_Controller {
 
 		$datagrid['jointableinner']=array(
             0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt08a.iMt01')
+            ,1=>array('bbpmsoh.mt03'=>'mt01.iMt01=bbpmsoh.mt03.iMt01')
             );
 
 
@@ -433,9 +434,10 @@ class mt8a extends MX_Controller {
 			,'mt06.lDeleted'=>0	
 			,'mt06.iApprove_sphu'=>2	
 		);
-		$this->db->select("mt01.*")
+		$this->db->select("mt01.*,mt03.*")
 				->from("bbpmsoh.mt01")
 				->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
+				->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
 				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iApprove_unit_uji in (0,2) )')
 				->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )')
 				->where($arr);
@@ -445,12 +447,12 @@ class mt8a extends MX_Controller {
 		$qq=$this->db->get();
 		if($qq->num_rows()>0){
 			foreach ($qq->result_array() as $key => $value) {
-				$return.="<option value='".$value['iMt01']."'>".$value['vNo_transaksi']." | ".$value['vNama_sample']."</option>";
+				$return.="<option value='".$value['iMt01']."'>".$value['vnomor_03']." | ".$value['vNama_sample']."</option>";
 			}
 		}
 		$return.="</select>";
 		$return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
@@ -461,7 +463,7 @@ class mt8a extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'></span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'></span> </td>
 					 	</tr>
 					 </table>";
@@ -503,6 +505,7 @@ class mt8a extends MX_Controller {
         $this->db->select('*')
             ->from('bbpmsoh.mt01')
             ->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
+            ->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
             ->where($arr)
             ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iMt01 !='.$value.' )')
             ->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )');
@@ -517,11 +520,11 @@ class mt8a extends MX_Controller {
             if($value==$vv['iMt01']){
                 $value=$vv['vNomor'];
             }
-            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNomor'].'</option>';
+            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vnomor_03'].' - '.$vv['vNama_sample'].'</option>';
         }
         $return.='</select>';
         $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
@@ -532,7 +535,7 @@ class mt8a extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
 					 	</tr>
 					 </table>";
@@ -560,11 +563,15 @@ class mt8a extends MX_Controller {
 		$return.="</script>";
         $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
         if($this->input->get('action')=='view'){
-            $return=$value;
-            $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$viewval.'" ';
+            $sqlinfo = 'select * 
+            			from bbpmsoh.mt01 a 
+            			join bbpmsoh.mt03 b on b.iMt01=a.iMt01
+            			where a.iMt01= "'.$viewval.'" ';
+            			
         	$dMt01 = $this->db->query($sqlinfo)->row_array();
+        	$return = $dMt01['vnomor_03'];
             $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	<tr>
 					 		<td style='width: 30%;'>Nama Sample</td>
 					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
@@ -578,7 +585,7 @@ class mt8a extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
 					 	</tr>
 					 </table>";

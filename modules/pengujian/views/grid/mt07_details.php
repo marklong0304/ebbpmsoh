@@ -7,9 +7,9 @@ $pager="pager_tb_details_".$grid;
 $caption = "";
 $isubmit=isset($isubmit)?$isubmit:0;
 $pk=isset($pk)?$pk:0;
-//$arrSearch=array('vNomor'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
-$arrSearch=array('vNomor'=>'Nomor Pengujian','vSuhu_penyimpanan'=>'Suhu Penyimpanan','vKeterangan'=>'Keterangan','vZat_aktif'=>'Zat Aktif / Strain','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','iJumlah_diserahkan'=>'Jumlah Sample');
-$wsearch=array('iAction'=>30,'vNomor'=>250,'vNama_sample'=>250,'vNama_produsen'=>200);
+//$arrSearch=array('vnomor_03'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
+$arrSearch=array('vnomor_03'=>'Nomor Pengujian','vSuhu_penyimpanan'=>'Suhu Penyimpanan','vKeterangan'=>'Keterangan','vZat_aktif'=>'Zat Aktif / Strain','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','iJumlah_diserahkan'=>'Jumlah Sample');
+$wsearch=array('iAction'=>30,'vnomor_03'=>250,'vNama_sample'=>250,'vNama_produsen'=>200);
 $alsearch=array('iAction'=>'center');
 foreach ($get as $kget => $vget) {
     if($kget!="action"){
@@ -215,7 +215,7 @@ $getUrl=$nmmodule.'/'.$getUrl;
 				select: function(event, ui){
 					var id = $(this).attr("id");
 					var num = id.replace("grid_details_nomor_request_","");
-					$( this ).val(ui.item.vNomor);
+					$( this ).val(ui.item.vnomor_03);
 					$("p#grid_<?php echo $nmTable ?>_vNama_sample_"+num).html(ui.item.vNama_sample);
 					$("p#grid_<?php echo $nmTable ?>_vNama_produsen_"+num).html(ui.item.vNama_produsen);
 					$("p#grid_<?php echo $nmTable ?>_vZat_aktif_"+num).html(ui.item.vZat_aktif);

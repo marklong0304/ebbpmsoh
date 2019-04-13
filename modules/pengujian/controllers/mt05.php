@@ -301,7 +301,7 @@ class mt05 extends MX_Controller {
 		}
 		$return.="</select>";
 		$return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
@@ -312,7 +312,7 @@ class mt05 extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'></span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'></span> </td>
 					 	</tr>
 					 </table>";
@@ -368,7 +368,7 @@ class mt05 extends MX_Controller {
         }
         $return.='</select>';
         $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
@@ -379,7 +379,7 @@ class mt05 extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
 					 	</tr>
 					 </table>";
@@ -411,7 +411,7 @@ class mt05 extends MX_Controller {
             $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$viewval.'" ';
         	$dMt01 = $this->db->query($sqlinfo)->row_array();
             $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	<tr>
 					 		<td style='width: 30%;'>Nama Sample</td>
 					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
@@ -425,7 +425,7 @@ class mt05 extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
 					 	</tr>
 					 </table>";

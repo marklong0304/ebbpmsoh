@@ -16,7 +16,7 @@ class mt07 extends MX_Controller {
 		$datagrid['islist'] = array(
 			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
 			,'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
-			,'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			,'mt03.vnomor_03' => array('label'=>'Nomor Pengujian','width'=>100,'align'=>'center','search'=>true)
 			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
 			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
@@ -25,6 +25,7 @@ class mt07 extends MX_Controller {
 
 		$datagrid['jointableinner']=array(
             0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt07.iMt01')
+            ,1=>array('bbpmsoh.mt03'=>'mt01.iMt01=bbpmsoh.mt03.iMt01')
 
             );
 
@@ -893,17 +894,20 @@ class mt07 extends MX_Controller {
 
     function getDetailsReq() {
     	$term = $this->input->get('term');
-    	$sql='select mt01.*,m_tujuan_pengujian.cKode from bbpmsoh.mt01
+    	$sql='select mt01.*,m_tujuan_pengujian.cKode,mt03.* 
+    			from bbpmsoh.mt01
+    			join bbpmsoh.mt03 on mt03.iMt01 = mt01.iMt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
 				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where iApprove_sphu=2 and lDeleted=0) 
 				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt07 where lDeleted=0)
-				AND mt01.vNomor like "%'.$term.'%" and mt01.lDeleted=0 order by vNomor ASC';
+				AND mt03.vnomor_03 like "%'.$term.'%" 
+				and mt01.lDeleted=0 order by vNomor ASC';
     	$dt=$this->db->query($sql);
     	$data = array();
     	if($dt->num_rows>0){
     		foreach($dt->result_array() as $line) {
 	
-				$row_array['value'] = trim($line['vNomor']);
+				$row_array['value'] = trim($line['vnomor_03']);
 				$row_array['id']    = $line['iMt01'];
 				foreach ($line as $kline => $vline) {
 					$row_array[$kline]=$vline;
