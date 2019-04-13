@@ -336,8 +336,7 @@ class mt01 extends MX_Controller {
 
     function getDataMemo() {
 
-		//$id   = $this->input->post('id');
-		$id   = 2;
+		$id   = $this->input->post('id');		
 		$data = array();
 
     	$sql = "select * from bbpmsoh.mt01 a
@@ -346,9 +345,21 @@ class mt01 extends MX_Controller {
 
     	foreach ($query->result() as $row) {
     		
-			$row_array['iCustomer']               = $row->iCustomer;
-			$row_array['vNomor']              = ucwords(strtolower($row->vNomor));
-			
+			$row_array['vNo_transaksi']  	= ucwords(strtolower($row->vNo_transaksi));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
+			$row_array['vNomor']            = ucwords(strtolower($row->vNomor));
 
 			array_push($data, $row_array);
     	}
