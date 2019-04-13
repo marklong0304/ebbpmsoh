@@ -15,8 +15,9 @@ class mt05 extends MX_Controller {
 		$this->main_table_pk = 'iMt05';	
 		$datagrid['islist'] = array(
 			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
+			,'dTgl_penerimaan' => array('label'=>'Tanggal Penerimaan','width'=>150,'align'=>'center','search'=>false)
 			,'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
-			,'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			,'mt03.vnomor_03' => array('label'=>'Nomor Pengujian','width'=>100,'align'=>'center','search'=>true)
 			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
 			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
@@ -25,13 +26,15 @@ class mt05 extends MX_Controller {
 
 		$datagrid['jointableinner']=array(
             0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt05.iMt01')
+            ,1=>array('bbpmsoh.mt03'=>'mt01.iMt01=bbpmsoh.mt03.iMt01')
             );
 
 
 		$datagrid['addFields']=array(
 				/*'form_vKepada_yth'=>'Kepada'*/
 				//'iMt01'=>'Nomor'
-				'form_sample_label'=>'Tanda Terima Sample'
+				'dTgl_penerimaan' => 'Tanggal Penerimaan'
+				,'form_sample_label'=>'Tanda Terima Sample'
 				,'form_sample'=>''
 				);
 		$datagrid['shortBy']=array('dUpdated'=>'Desc');
@@ -260,6 +263,22 @@ class mt05 extends MX_Controller {
         }
         return $actions;
     }
+
+    function insertBox_mt05_dTgl_penerimaan($field, $id) {
+       	$return = '<input name="'.$field.'" id="'.$id.'" type="text" size="20" class="input_tgl tanggal datepicker required" style="width:130px"/>';
+       
+        return $return;
+    } 
+
+    function updateBox_mt05_dTgl_penerimaan($field,$id,$value,$rowData){
+        $return = '<input name="'.$field.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker tanggal required" value="'.$value.'" style="width:130px"/>';
+       
+        if($this->input->get('action')=='view'){
+            $return=$value;
+        }
+        return $return;
+    }
+
 
     function insertBox_mt05_iMt01($field, $id) {
 		$arr=array(
@@ -878,17 +897,24 @@ class mt05 extends MX_Controller {
 
     function getDetailsReq() {
     	$term = $this->input->get('term');
-    	$sql='select mt01.*,m_tujuan_pengujian.cKode from bbpmsoh.mt01
+    	$sql='select mt01.*,m_tujuan_pengujian.cKode ,mt03.*
+    			from bbpmsoh.mt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
+    			join bbpmsoh.mt03 on mt03.iMt01 = mt01.iMt01
 				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt03 where iApprove=2 and lDeleted=0) 
 				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt05_detail where lDeleted=0)
-				AND mt01.vNomor like "%'.$term.'%" and mt01.lDeleted=0 order by vNomor ASC';
+				AND mt03.vnomor_03 like "%'.$term.'%" 
+				and mt01.lDeleted=0 
+				and mt03.lDeleted=0 
+				order by vNomor ASC';
+		/*echo '<pre>'.$sql;
+		exit;*/
     	$dt=$this->db->query($sql);
     	$data = array();
     	if($dt->num_rows>0){
     		foreach($dt->result_array() as $line) {
 	
-				$row_array['value'] = trim($line['vNomor']);
+				$row_array['value'] = trim($line['vnomor_03']);
 				$row_array['id']    = $line['iMt01'];
 				foreach ($line as $kline => $vline) {
 					$row_array[$kline]=$vline;
