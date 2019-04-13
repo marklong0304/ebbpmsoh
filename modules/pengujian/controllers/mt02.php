@@ -454,7 +454,7 @@ class mt02 extends MX_Controller {
     /*Manipulate Insert/Update Form*/
     function insertBox_mt02_iMt01($field, $id) {
         $ff=str_replace("form_","", $field);
-        $where=array('lDeleted'=>0,'iApprove'=>2);
+        $where=array('lDeleted'=>0,'iSubmit'=>1);
         $this->db->select('*')
             ->from('bbpmsoh.mt01')
             ->where($where)
@@ -565,7 +565,7 @@ class mt02 extends MX_Controller {
 
     function updateBox_mt02_iMt01($field,$id,$value,$rowData){
         $ff=str_replace("form_","", $field);
-        $where=array('lDeleted'=>0,'iApprove'=>2);
+        $where=array('lDeleted'=>0,'iSubmit'=>1);
         $this->db->select('*')
             ->from('bbpmsoh.mt01')
             ->where($where)

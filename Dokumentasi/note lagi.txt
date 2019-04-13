@@ -1,0 +1,5 @@
+# UMUM
+1. fix modul daftar employee
+2. fix modul daftar customer , show password decrypt
+3. hilangkan edit profile
+4. fix reset password
