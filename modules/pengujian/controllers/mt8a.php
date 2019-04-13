@@ -30,7 +30,7 @@ class mt8a extends MX_Controller {
 
 
 		$datagrid['addFields']=array(
-				'iMt01'=>'Nomor '
+				'iMt01'=>'Nomor Pengujian '
 				,'uji_fisik' => 'Pengujian'
 				,'iKesimpulan'  => 'Kesimpulan Uji Umum'
 				);

@@ -31,7 +31,7 @@ class Mt09 extends MX_Controller {
 
 
 		$datagrid['addFields']=array(
-				'iMt01'=>'Nomor '
+				'iMt01'=>'Nomor Pengujian '
 				,'vKomposisi' => 'Komposisi / Zat Aktif'
 				,'uji_fisik' => 'Pengujian'
 				,'iKesimpulan'  => 'Kesimpulan Uji Umum'
@@ -389,7 +389,7 @@ class Mt09 extends MX_Controller {
             	if($groupnya['idprivi_group'] == 11 and $rowData['iApprove_qa'] <> 2 ){
              		$buttons['update'] = $iframe.$approve.$reject;
              	}else{
-                    if($groupnya['idprivi_group'] == 2 and $rowData['iApprove_unit_uji'] <> 2 $rowData['iApprove_qa']==2 ){
+                    if($groupnya['idprivi_group'] == 2 and $rowData['iApprove_unit_uji'] <> 2 and $rowData['iApprove_qa']==2 ){
 		                $buttons['update'] = $iframe.$approve.$reject;
                     }
                 
@@ -547,7 +547,7 @@ class Mt09 extends MX_Controller {
             if($value==$vv['iMt01']){
                 $value=$vv['vNomor'];
             }
-            $return.="<option value='".$value['iMt01']."' ".$select.">".$value['vnomor_03']." | ".$value['vNama_sample']."</option>";
+            $return.="<option value='".$value['iMt01']."' ".$select.">".$vv['vnomor_03']." | ".$vv['vNama_sample']."</option>";
         }
         $return.='</select>';
         $return.="<div id='info_mt01'>";
