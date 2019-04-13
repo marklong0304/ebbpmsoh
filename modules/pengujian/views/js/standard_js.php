@@ -24,8 +24,17 @@ function save_draft_btn_multiupload(grid, url, dis, isdraft) {
         uploadLimit = 5242880;//$('#'+grid+'_fileupload').attr('limit');
     }
 
+
+
     if(isdraft != undefined) {
-        $('#form_create_'+grid+' #isdraft').val(isdraft);
+        if(isdraft){
+            $('#form_create_'+grid+' #isdraft').val(0);
+        }else{
+            $('#form_create_'+grid+' #isdraft').val(0);
+        }
+
+        $('#form_create_'+grid+' #isdraft').val(isdraft);    
+        
     }
     
     /*untuk draft tidak ada pengecekan required field*/

@@ -63,7 +63,7 @@ class mt01 extends MX_Controller {
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','vJenis_sediaan_ket','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan'); 
+        $grid->addFields('iSubmit','iApprove','vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','vJenis_sediaan_ket','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','vUploadFile'); 
 
         //Setting Grid Width Name 
         /*
@@ -72,7 +72,8 @@ class mt01 extends MX_Controller {
 
         */
 
-        
+        $grid->setLabel('vUploadFile','Upload File');
+
         $grid->setWidth('vJenis_sediaan_ket', '100');
         $grid->setAlign('vJenis_sediaan_ket', 'left');
         $grid->setLabel('vJenis_sediaan_ket','Keterangan Jenis Sediaan');
@@ -84,7 +85,7 @@ class mt01 extends MX_Controller {
     
         $grid->setWidth('vNomor', '100');
         $grid->setAlign('vNomor', 'left');
-        $grid->setLabel('vNomor','Nomor');
+        $grid->setLabel('vNomor','Nomor Surat');
     
         $grid->setWidth('vLampiran', '100');
         $grid->setAlign('vLampiran', 'left');
@@ -152,7 +153,7 @@ class mt01 extends MX_Controller {
     
         $grid->setWidth('vNo_registrasi', '100');
         $grid->setAlign('vNo_registrasi', 'left');
-        $grid->setLabel('vNo_registrasi','No Registrasi');
+        $grid->setLabel('vNo_registrasi','No Reg Kementan');
     
         $grid->setWidth('vKemasan', '100');
         $grid->setAlign('vKemasan', 'left');
@@ -239,7 +240,7 @@ class mt01 extends MX_Controller {
         $grid->setSearch('vNo_transaksi','vNomor','vPerihal','iCustomer','vNama_produsen','iM_tujuan_pengujian','iSubmit','iApprove');
         
     //set required
-        $grid->setRequired('vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vTujuan_pengujian_ket','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','lDeleted','iSubmit','iApprove','dApprove','cApprove','vRemark','cCreated','dCreated','cUpdated','dUpdated'); 
+        $grid->setRequired('vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','lDeleted','iSubmit','iApprove','dApprove','cApprove','vRemark','cCreated','dCreated','cUpdated','dUpdated'); 
 
         $grid->setQuery('mt01.lDeleted', 0); 
 
@@ -261,11 +262,98 @@ class mt01 extends MX_Controller {
                     $grid->render_form();
                     break;
              
-                case 'createproses':
+                case 'createprosesx':
                     echo $grid->saved_form();
                     break;
-                  
-           
+            case 'createproses':
+                $isUpload = $this->input->get('isUpload');
+                $lastId = $this->input->get('lastId');
+
+                if($isUpload) {
+                    $lastId = $_GET["lastId"];
+                    $path = realpath("files/pengujian/mt01");
+
+                    if(!file_exists($path.'/'.$lastId)){
+                        if (!mkdir($path.'/'.$lastId, 0777, true)) { 
+                            die('Failed upload, try again!');
+                        }
+                    }
+                                    
+
+                    $file_name_file= '';
+                    $mt01_fileketerangan = array();
+                    $fileId_file = array();
+
+            
+                    foreach($_POST as $key=>$value) {
+
+                        if ($key == 'mt01_fileketerangan') {
+                            foreach($value as $y=>$u) {
+                                $mt01_fileketerangan[$y] = $u;
+                            }
+                        }
+
+                    }
+                    $i=0;
+                    foreach ($_FILES['mt01_upload_file']['error'] as $key => $error) {
+                        if ($error == UPLOAD_ERR_OK) {
+                            $tmp_name = $_FILES['mt01_upload_file']['tmp_name'][$key];
+                            $name = $_FILES['mt01_upload_file']['name'][$key];
+                            
+                            $now_u = date('Y_m_d__H_i_s');
+                            $name_generate = $i.'__'.$now_u.'__'.$_FILES['mt01_upload_file']['name'][$key];
+
+                            $now = date('Y-m-d H:i:s');
+                            $logged_nip = $this->user->gNIP;
+                            $tabel_file = 'mt01_file';
+                            $tabel_file_pk = 'imt01';
+
+                            if(move_uploaded_file($tmp_name, $path.'/'.$lastId.'/'.$name_generate)) {
+                                $sql[]= '
+                                    insert into bbpmsoh.mt01_file('.$tabel_file_pk.', vFilename, vFilename_generate, vKeterangan, dCreate, cCreate)
+                                    values('.$lastId.'
+                                    ,"'.$name.'" 
+                                    ,"'.$name_generate.'" 
+                                    , "'.$mt01_fileketerangan[$i].'" 
+                                    ,"'.$now.'" 
+                                    ,"'.$logged_nip.'" 
+                                    )
+
+                                
+                                ';
+                                $i++;   
+
+                            }else{
+
+                                echo 'Upload ke folder gagal';  
+                            }
+
+
+                        }
+
+                    }
+
+                    foreach($sql as $q) {
+                        try {
+                            $this->db->query($q);
+                        }catch(Exception $e) {
+                            die($e);
+                        }
+                    }
+                    
+                    $r['message']='Data Berhasil Disimpan';
+                    $r['status'] = TRUE;
+                    $r['last_id'] = $this->input->get('lastId');                    
+                    echo json_encode($r);
+
+                }else{
+                    echo $grid->saved_form();
+                }
+                
+            break;    
+            case 'get_data_prev':
+                echo $this->get_data_prev();
+                break;
             
             case 'update':
                     $grid->render_form($this->input->get('id'));
@@ -386,10 +474,11 @@ class mt01 extends MX_Controller {
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
      
     function listBox_Action($row, $actions) {
-        if ($row->iApprove>0) { 
+        /*if ($row->iApprove>0) { 
+                
+        }*/
+        if ($row->iSubmit > 0) { 
                 unset($actions['edit']);
-        }
-        if ($row->iSubmit>0) { 
                 unset($actions['delete']);
         }
         return $actions;
@@ -398,7 +487,7 @@ class mt01 extends MX_Controller {
 
                         function insertBox_mt01_vNo_transaksi($field, $id) {
                             $return = 'Auto Generated';
-                            $return .= '<input type="hidden" name="isdraft"    class="input_rows1 " size="30"  />';
+                            $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
                             return $return;
                         }
                         
@@ -407,7 +496,7 @@ class mt01 extends MX_Controller {
                                      $return= $value; 
                                 }else{ 
                                     $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" readonly="readonly" size="30" value="'.$value.'"/>';
-                                    $return .= '<input type="hidden" name="isdraft" readonly="readonly" class="input_rows1 " size="30"  />';
+                                    $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
 
                                 }
                                 
@@ -646,7 +735,62 @@ class mt01 extends MX_Controller {
                             return $return;
                         }*/
                         
+
                         function insertBox_mt01_vTujuan_pengujian_ket($field, $id) {
+                            $return = '<textarea type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 " size="30"  ></textarea>';
+
+                            $return .= '<script>';
+                                $return .= '
+                                                $("#mt01_vTujuan_pengujian_ket").hide();
+
+                                                $("#mt01_iM_tujuan_pengujian").die();
+                                                $("#mt01_iM_tujuan_pengujian").live("change",function(){
+                                                        if($(this).val() == "6"){
+                                                            $("#mt01_vTujuan_pengujian_ket").show();
+                                                        }else{
+                                                            $("#mt01_vTujuan_pengujian_ket").hide();
+                                                        }
+                                                })
+                                            ';
+                            $return .= '</script>';
+
+
+                            return $return;
+                        }
+                        
+                        function updateBox_mt01_vTujuan_pengujian_ket($field, $id, $value, $rowData) {
+                                if ($this->input->get('action') == 'view') {
+                                     $return= $value; 
+                                }else{ 
+                                    if($rowData['iM_tujuan_pengujian']==6){
+                                        $stile = "display:block;";
+                                    }else{
+                                        $stile = "display:none;";
+                                    }
+                                    $return = '<textarea type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 " size="30" style="'.$stile.'" >'.nl2br($value).'</textarea>';
+
+                                    $return .= '<script>';
+                                        $return .= '
+                                                        $("#mt01_iM_tujuan_pengujian").die();
+                                                        $("#mt01_iM_tujuan_pengujian").live("change",function(){
+                                                                if($(this).val() == "6"){
+                                                                    $("#mt01_vTujuan_pengujian_ket").show();
+                                                                }else{
+                                                                    $("#mt01_vTujuan_pengujian_ket").hide();
+                                                                }
+                                                        })
+                                                    ';
+                                    $return .= '</script>';
+
+
+
+                                }
+                                
+                            return $return;
+                        }
+
+
+                        /*function insertBox_mt01_vTujuan_pengujian_ket($field, $id) {
                             $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
                             return $return;
                         }
@@ -660,7 +804,7 @@ class mt01 extends MX_Controller {
                                 }
                                 
                             return $return;
-                        }
+                        }*/
                         
                         function insertBox_mt01_vNama_sample($field, $id) {
                             $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
@@ -1152,6 +1296,23 @@ class mt01 extends MX_Controller {
         return $postData; 
     }
 
+    function insertBox_mt01_vUploadFile($field, $id) {
+        $data['id']=0;
+        $data['iSubmit']=0;
+        $data['get']=$this->input->get();
+        $return=$this->load->view("grid/mt01_upload_file",$data,TRUE);
+        return $return;
+    }
+    function updateBox_mt01_vUploadFile($field, $id, $value, $rowData) {
+        $data['id']=$rowData['iMt01'];
+        $data['iSubmit']=$rowData['iSubmit'];
+        $data['get']=$this->input->get();
+        $return=$this->load->view("grid/mt01_upload_file",$data,TRUE);
+        return $return;
+    }
+
+
+
     function whoAmI($nip) { 
         $sql = 'select 
                         b.vDescription as vdepartemen,a.*,b.*
@@ -1483,25 +1644,79 @@ class mt01 extends MX_Controller {
         }
         else{ 
             unset($buttons['update']);
-            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+
+            if($rowData['iSubmit']==0){
+                $groupnya = $this->checkgroup($this->user->gNIP);             
+                if( $groupnya['idprivi_group']== 2 || $rowData['iCustomer']==$this->user->gNIP ) {
+                    $buttons['update'] = $iframe.$update_draft.$update.$js;    
+
+                }
+
+            }    
+            /*if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
 
-                $groupnya = $this->checkgroup($this->user->gNIP);             
-                if( $groupnya['idprivi_group']== 2){
-                    $buttons['update'] = $iframe.$approve.$reject;
-                }else{
-                    
-                }
+                
 
                 
-            }
+            }*/
         }
         
         return $buttons;
     }
 
-    function download($vFilename) { 
+    function get_data_prev(){
+        $post=$this->input->post();
+        $get=$this->input->get();
+        $nmTable="tb_details_mt01";
+        $grid=isset($post["grid"])?$post["grid"]:"0";
+        $grid=isset($post["grid"])?$post["grid"]:"0";
+        $namefield=isset($post["namefield"])?$post["namefield"]:"0";
+        
+        $where=array('lDeleted'=>0,'iMt01'=>$post["id"]);
+        $this->db->where($where);
+        $q=$this->db->get('bbpmsoh.mt01_file');
+        //echo $this->db->last_query();
+        $rsel=array('vFilename','vKeterangan','iact');
+        $data = new StdClass;
+        $data->records=$q->num_rows();
+        $i=0;
+        foreach ($q->result() as $k) {
+            $data->rows[$i]['id']=$i;
+            $z=0;
+
+            $value=$k->vFilename_generate;
+            $id=$k->iMt01;
+            $linknya = 'No File';
+            if($value != '') {
+                if (file_exists('./files/pengujian/mt01/'.$id.'/'.$value)) {
+                    $link = base_url().'processor/pengujian/mt01?action=download&id='.$id.'&file='.$value;
+                    $linknya = '<a class="ui-button-text" href="javascript:;" onclick="window.location=\''.$link.'\'">[Download]</a>&nbsp;&nbsp;&nbsp;';
+                }else{
+                    $linknya = 'Tidak ada file di server '.'./files/pengujian/mt01/'.$id.'/'.$value;
+                }
+            }
+            $linknya=$linknya.'<a class="ui-button-text" href="javascript:;" onclick="javascript:hapus_row_'.$nmTable.'('.$i.')">[Hapus]</a><input type="hidden" class="num_rows_'.$nmTable.'" value="'.$i.'" /><input type="hidden" name="ifile_mt01[]" value="'.$k->ifile_mt01.'" />';
+
+
+            foreach ($rsel as $dsel => $vsel) {
+                if($vsel=="iact"){
+                    $dataar[$dsel]=$linknya;
+                }else{
+                    $dataar[$dsel]=$k->{$vsel};
+                }
+                $z++;
+            }
+            $data->rows[$i]['cell']=$dataar;
+            $i++;
+        }
+        return json_encode($data);
+    }
+
+
+
+    function downloadx($vFilename) { 
         $this->load->helper('download');        
         $name = $vFilename;
         $id = $_GET['id'];
@@ -1511,6 +1726,18 @@ class mt01 extends MX_Controller {
 
 
     }
+
+    function download($vFilename) { 
+        $this->load->helper('download');        
+        $name = $vFilename;
+        $id = $_GET['id'];
+        $tempat = 'mt01';    
+        $path = file_get_contents('./files/pengujian/'.$tempat.'/'.$id.'/'.$name);    
+        force_download($name, $path);
+
+
+    }
+
 
     function approve_view() {
         $echo = '<script type="text/javascript">

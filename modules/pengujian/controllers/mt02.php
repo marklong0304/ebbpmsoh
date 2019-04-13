@@ -29,16 +29,17 @@ class mt02 extends MX_Controller {
 
         $datagrid['addFields']=array(
                 'iMt01'=>'Nomor Transaksi'
-                ,'vNama_sample'=>'Nama Sample'
-                ,'vAcuan_metode_uji'=>'Acuan Metode'
                 ,'dTgl_Kontrak'=>'Tanggal Kontrak'
                 ,'p1_nama'=>'Nama Pihak I'
                 ,'p1_jabatan' =>'Jabatan Pihak I'
                 ,'p1_perusahaan'=>'Perusahaan Pihak I'
                 ,'p1_alamat'=>'Alamat Pihak I'
-                //,'p1_an'=>'Pihak I Atas Nama'
                 ,'p2_nama'=>'Nama Pihak II'
                 ,'p2_jabatan'=>'Jabatan Pihak II'
+                
+                ,'vNama_sample'=>'Nama Sample'
+                ,'vAcuan_metode_uji'=>'Acuan Metode'
+                //,'p1_an'=>'Pihak I Atas Nama'
                 ,'vKeterangan'=>'Keterangan'
                 );
         $datagrid['isRequired']=array('all_form');
