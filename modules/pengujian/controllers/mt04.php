@@ -638,7 +638,7 @@ class mt04 extends MX_Controller {
                                                 'vBatch'   : data[0].vBatch,
                                                 'dTgl_expired'   : data[0].dTgl_expired,
                                                 'vJumlah'   : data[0].vJumlah,
-                                                'vName_company'   : data[0].vKeterangan,
+                                                'vKeterangan'   : data[0].vKeterangan,
 
                                             })
 

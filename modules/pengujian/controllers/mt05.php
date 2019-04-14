@@ -10,6 +10,13 @@ class mt05 extends MX_Controller {
 		$this->url = 'mt05';
 		$this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
 
+		$this->url       = 'mt05'; 
+        $this->report    = $this->load->library('report');
+        $url             = $_SERVER['HTTP_REFERER'];
+        $company_id      = substr($url, strrpos($url, '/') + 1);
+        $this->masterUrl = base_url()."processor/pengujian/mt05?company_id={$this->input->get('company_id')}";
+
+
 		$this->maintable = 'bbpmsoh.mt05';	
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt05';	
@@ -148,6 +155,9 @@ class mt05 extends MX_Controller {
 			case 'delete':
 				echo $grid->delete_row();
 				break;
+			case 'getDataMemo':
+            	echo $this->getDataMemo();
+      		break;
 			case 'getDetailsData':
 				$post=$this->input->post();
 				$arr=array(
@@ -253,6 +263,119 @@ class mt05 extends MX_Controller {
 				break;
 		}
     }
+
+    function getDataMemo() {
+
+            $id   = $this->input->post('id');   
+            //echo $id; exit; 
+            $data = array();
+
+             $sql = "select a.*,b.*,b1.vnomor_03,c.*,b2.*,d.*,e.*
+			        from bbpmsoh.mt01 a
+			        left join bbpmsoh.mt03 b1 on b1.iMt01 = a.iMt01
+			        join bbpmsoh.mt04 b on b.iMt01 = a.iMt01
+			        join bbpmsoh.mt04_detail b2 on b2.iMt04 = b.iMt04
+
+			        join bbpmsoh.mt05 e on e.iMt01 = a.iMt01
+
+
+			        left join hrd.employee c on c.cNip = a.iCustomer
+			        join bbpmsoh.m_tujuan_pengujian d on d.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+			        WHERE e.iMt05 = '{$id}'";
+            $query = $this->db->query($sql);
+
+            foreach ($query->result() as $row) {
+                  
+                                
+                        $tanggal = $row->dtanggal_03;
+                        function tanggal_indo($tanggal, $cetak_hari = false)
+                        {
+                              $hari = array ( 1 =>    'Senin',
+                                                'Selasa',
+                                                'Rabu',
+                                                'Kamis',
+                                                'Jumat',
+                                                'Sabtu',
+                                                'Minggu'
+                                          );
+                                          
+                              $bulan = array (1 =>   'Januari',
+                                                'Februari',
+                                                'Maret',
+                                                'April',
+                                                'Mei',
+                                                'Juni',
+                                                'Juli',
+                                                'Agustus',
+                                                'September',
+                                                'Oktober',
+                                                'November',
+                                                'Desember'
+                                          );
+                              $split        = explode('-', $tanggal);
+                              $tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+                              
+                              if ($cetak_hari) {
+                                    $num = date('N', strtotime($tanggal));
+                                    return $hari[$num];
+                              }
+                              return $tgl_indo;
+                        }
+                        
+                       /*hrd*/
+			            $row_array['vName_company']    = ucwords(strtolower($row->vName_company));
+			            $row_array['vAddress_company']    = ucwords(strtolower($row->vAddress_company));
+			            $row_array['vTelepon_company']    = ucwords(strtolower($row->vTelepon_company));
+
+			            /*mt01*/
+			            $row_array['vNama_sample']     = ucwords(strtolower($row->vNama_sample));
+			            $row_array['vNama_produsen']     = ucwords(strtolower($row->vNama_produsen));
+			            $row_array['vZat_aktif']     = ucwords(strtolower($row->vZat_aktif));
+			            $row_array['vNo_registrasi']     = ucwords(strtolower($row->vNo_registrasi));
+			            $row_array['vBatch_lot']     = ucwords(strtolower($row->vBatch_lot));
+			            
+			            $row_array['dTgl_kadaluarsa']      = tanggal_indo($row->dTgl_kadaluarsa, false);
+			            $row_array['vKemasan']     = ucwords(strtolower($row->vKemasan));
+			            $row_array['iJumlah_diserahkan']     = ucwords(strtolower($row->iJumlah_diserahkan));
+
+
+			            /*master tujuan*/
+			             $row_array['cKode']     = $row->cKode;
+			             $row_array['vNama_tujuan']     = ucwords(strtolower($row->vNama_tujuan));
+			             
+
+			            /*mt03*/
+			            $row_array['vnomor_03']     = ucwords(strtolower($row->vnomor_03));
+			            $row_array['dtanggal_03']            = tanggal_indo($row->dtanggal_03, false);
+
+			            /*mt04*/
+			            $row_array['dTgl_terima_sample']      = tanggal_indo($row->dTgl_terima_sample, false);
+			            $row_array['dTgl_terima_serum']      = tanggal_indo($row->dTgl_terima_serum, false);
+
+			            /*mt4 detail*/
+			            $row_array['vAntiserum']     = ucwords(strtolower($row->vAntiserum));
+			            $row_array['vKadar']     = ucwords(strtolower($row->vKadar));
+			            $row_array['vAsal']     = ucwords(strtolower($row->vAsal));
+			            $row_array['vBatch']     = ucwords(strtolower($row->vBatch));
+			            $row_array['dTgl_expired']      = tanggal_indo($row->dTgl_expired, false);
+			            $row_array['vJumlah']     = ucwords(strtolower($row->vJumlah));
+			            $row_array['vKeterangan']     = ucwords(strtolower($row->vKeterangan));
+
+			            /*mt05*/
+			            $row_array['vKepada_yth']     = ucwords(strtolower($row->vKepada_yth));
+			            $row_array['vAlamat']     = ucwords(strtolower($row->vAlamat));
+			            $row_array['dTgl_penerimaan']      = tanggal_indo($row->dTgl_penerimaan, false);
+
+
+
+
+
+                        array_push($data, $row_array);
+            }
+
+            echo json_encode($data);
+      }
+
 
     function listBox_Action($row, $actions) {
         if ($row->iApprove>0) { 
@@ -443,12 +566,100 @@ class mt05 extends MX_Controller {
     }
 
     function manipulate_update_button($buttons, $rowData) {
+    	$peka=$rowData['iMt05'];
          $cNip= $this->user->gNIP;
         $js = $this->load->view('js/mt05_js');
         $js .= $this->load->view('js/upload_js');
 
         $iframe = '<iframe name="'.$this->url.'_frame" id="'.$this->url.'_frame" height="0" width="0"></iframe>';
         
+        $grid          = $this->url;
+	      $url           = $this->masterUrl;
+
+	      $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
+	      $btnUpk .= "<script>
+	                              function btnUpk_{$this->url}(url, grid, dis) {
+
+	                                    custom_confirm('Print Dokumen ?', function() {
+	                                          template = 'mt05.docx';
+	                                          var loadFile = function(url, callback) {
+	                                                JSZipUtils.getBinaryContent(url, callback);
+	                                          }
+	                                          loadFile('../files/pengujian/template/'+template, function(err, content) {
+	                                                if (err) {throw e};
+
+	                                                $.ajax({
+	                                                      url: url+'&action=getDataMemo',
+	                                                      type: 'POST',
+	                                                      dataType: 'json',
+	                                                      data: '&id={$peka}',
+	                                                      success: function(data) {
+
+	                                                            doc = new Docxgen(content);
+
+	                                                            doc.setData({
+								                                                /*employee*/
+
+								                                                'vName_company'   : data[0].vName_company,
+								                                                'vAddress_company'   : data[0].vAddress_company,
+								                                                'vTelepon_company'   : data[0].vTelepon_company,
+
+								                                                /*master tujuan*/
+
+								                                                'cKode'   : data[0].cKode,
+
+								                                                /*mt01*/
+								                                                
+								                                                'vNama_sample'   : data[0].vNama_sample,
+								                                                'vNama_produsen'   : data[0].vNama_produsen,
+								                                                'vZat_aktif'   : data[0].vZat_aktif,
+								                                                'vNo_registrasi'   : data[0].vNo_registrasi,
+								                                                'vBatch_lot'   : data[0].vBatch_lot,
+								                                                'dTgl_kadaluarsa'   : data[0].dTgl_kadaluarsa,
+								                                                'vKemasan'   : data[0].vKemasan,
+								                                                'iJumlah_diserahkan'   : data[0].iJumlah_diserahkan,
+								                                                
+								                                                /*mt03*/
+
+								                                                'vnomor_03'   : data[0].vnomor_03,
+								                                                
+
+
+								                                                /*mt04*/
+
+								                                                'dTgl_terima_sample'   : data[0].dTgl_terima_sample,
+								                                                'dTgl_terima_serum'   : data[0].dTgl_terima_serum,
+
+								                                                /*mt04 detail*/
+								                                                
+								                                                'vAntiserum'   : data[0].vAntiserum,
+								                                                'vKadar'   : data[0].vKadar,
+								                                                'vAsal'   : data[0].vAsal,
+								                                                'vBatch'   : data[0].vBatch,
+								                                                'dTgl_expired'   : data[0].dTgl_expired,
+								                                                'vJumlah'   : data[0].vJumlah,
+								                                                'vKeterangan'   : data[0].vKeterangan,
+
+								                                                /*mt05*/
+
+								                                                'vKepada_yth'   : data[0].vKepada_yth,
+								                                                'vAlamat'   : data[0].vAlamat,
+								                                                'dTgl_penerimaan'   : data[0].dTgl_penerimaan,
+
+
+								                                            })
+
+	                                                            doc.render()
+	                                                      out = doc.getZip().generate({type:'blob'})
+
+	                                                      nmdok = 'MT05';
+	                                                      saveAs(out, nmdok+' - ' + data[0].vnomor_03 + '.docx')
+	                                                      }
+	                                                })
+	                                          })
+	                                    })
+	                              }
+	                        </script>";
        
         $update_draft = '<button onclick="javascript:update_draft_btn(\''.$this->url.'\', \' '.base_url().'processor/'.$this->urlpath.'?draft=true&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').'\',this,true )"  id="button_update_draft_'.$this->url.'"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\''.$this->url.'\', \' '.base_url().'processor/'.$this->urlpath.'?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_'.$this->url.'"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
@@ -457,6 +668,7 @@ class mt05 extends MX_Controller {
         
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk; 
         }
         else{ 
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
@@ -1209,14 +1421,15 @@ class mt05 extends MX_Controller {
     		$this->main_table_pk=>$id
     		,'mt05_detail.lDeleted'=>0
     		);
-    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt05_detail.iMt05_detail")
+    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt05_detail.iMt05_detail,mt03.*")
     				->from("bbpmsoh.mt05_detail")
     				->join("bbpmsoh.mt01","mt01.iMt01=mt05_detail.iMt01")
+    				->join("bbpmsoh.mt03","mt03.iMt01=mt01.iMt01")
     				->join("bbpmsoh.m_tujuan_pengujian","m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian")
     				->where($where);
     	$q=$this->db->get(); 
 
-		$rsel=array('iAction'=>'Del','vNomor'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
+		$rsel=array('iAction'=>'Del','vnomor_03'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
 		$data = new StdClass;
 		$data->records=$q->num_rows();
 		$i=0;
@@ -1227,8 +1440,8 @@ class mt05 extends MX_Controller {
 			foreach ($rsel as $dsel => $vsel) {
 				if($dsel=="iAction"){
 					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><center><span class='ui-icon ui-icon-trash'></span></center></a>";
-				}elseif($dsel=="vNomor"){
-					$dataar[$z]="<input type='text' name='grid_details_nomor_request[".$k->iMt05_detail."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req required' size='25'><input type='hidden' name='grid_details_iMt01[".$k->iMt05_detail."][]' id='grid_details_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
+				}elseif($dsel=="vnomor_03"){
+					$dataar[$z]="<input type='text' name='grid_details_nomor_request[".$k->iMt05_detail."][]' id='grid_details_nomor_request_".$i."' value='".$k->vnomor_03."' class='get_sample_req required' size='25'><input type='hidden' name='grid_details_iMt01[".$k->iMt05_detail."][]' id='grid_details_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
 				}else{
 					$dataar[$z]="<p id='grid_".$dsel."_".$i."'>".$k->{$dsel}."</p>";
 				}
