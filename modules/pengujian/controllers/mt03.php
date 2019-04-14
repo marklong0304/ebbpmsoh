@@ -471,10 +471,12 @@ class mt03 extends MX_Controller {
 		//echo $id; exit;	
 		$data = array();
 
-    	$sql = "select b.vNama_produsen, c.vName_company, a.* from bbpmsoh.mt03 a
+    	$sql = "select b.vNama_produsen, c.vName_company, a.* ,d.vNama_tujuan as tujuandanketerangan,b.*
+        from bbpmsoh.mt03 a
     	left join bbpmsoh.mt01 b on b.iMt01 = a.iMt01
     	left join hrd.employee c on c.cNip = b.iCustomer
-                WHERE a.iMt03 = '{$id}'";
+        join bbpmsoh.m_tujuan_pengujian d on d.iM_tujuan_pengujian=b.iM_tujuan_pengujian
+        WHERE a.iMt03 = '{$id}'";
     	$query = $this->db->query($sql);
 
     	foreach ($query->result() as $row) {
@@ -523,6 +525,8 @@ class mt03 extends MX_Controller {
 			$row_array['iBahan_standard']  	= ucwords(strtolower($row->iBahan_standard));
 			$row_array['tCatatan']  	= ucwords(strtolower($row->tCatatan));
 			$row_array['vName_company']  	= ucwords(strtolower($row->vName_company));
+            $row_array['tujuandanketerangan']     = ucwords(strtolower($row->tujuandanketerangan));
+            $row_array['vNama_sample']     = ucwords(strtolower($row->vNama_sample));
 
 			array_push($data, $row_array);
     	}
@@ -1187,7 +1191,7 @@ class mt03 extends MX_Controller {
         $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
 		$btnUpk .= "<script>
 						function btnUpk_{$this->url}(url, grid, dis) {
-
+    
 							custom_confirm('Print Dokumen ?', function() {
 								template = 'mt03.docx';
 								var loadFile = function(url, callback) {
@@ -1215,6 +1219,8 @@ class mt03 extends MX_Controller {
 												'iBahan_standard'   : data[0].iBahan_standard,
 												'tCatatan'   : data[0].tCatatan,
 		    									'vName_company'   : data[0].vName_company,
+                                                'tujuandanketerangan' : data[0].tujuandanketerangan,
+                                                'vNama_sample'  :  data[0].vNama_sample,
 											})
 
 											doc.render()
