@@ -277,7 +277,7 @@ class mt06 extends MX_Controller {
 
 			        left join hrd.employee c on c.cNip = a.iCustomer
 			        join bbpmsoh.m_tujuan_pengujian d on d.iM_tujuan_pengujian=a.iM_tujuan_pengujian
-			        WHERE g.iMt07 = '{$id}'";
+			        WHERE f.iMt06 = '{$id}'";
 
 			       /* echo '<pre>'.$sql;
 			        exit;*/
