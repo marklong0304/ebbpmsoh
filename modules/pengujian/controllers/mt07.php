@@ -894,7 +894,7 @@ class mt07 extends MX_Controller {
 
     function getDetailsReq() {
     	$term = $this->input->get('term');
-    	$sql='select mt01.*,m_tujuan_pengujian.cKode,mt03.* 
+    	$sql='select mt01.*,m_tujuan_pengujian.cKode,mt03.* , if(m_tujuan_pengujian.iM_tujuan_pengujian!=6,m_tujuan_pengujian.vKeterangan , concat(m_tujuan_pengujian.vNama_tujuan,mt01.vTujuan_pengujian_ket )  ) as  vKeterangan 
     			from bbpmsoh.mt01
     			join bbpmsoh.mt03 on mt03.iMt01 = mt01.iMt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
@@ -931,15 +931,16 @@ class mt07 extends MX_Controller {
     		$this->main_table_pk=>$id
     		,'mt07.lDeleted'=>0
     		);
-    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt07.iMt07,mt07.vSuhu_penyimpanan,mt07.vKeterangan")
+    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,m_tujuan_pengujian.vKeterangan as ket,mt07.iMt07,mt03.*, if(m_tujuan_pengujian.iM_tujuan_pengujian!=6,m_tujuan_pengujian.vKeterangan , concat(m_tujuan_pengujian.vNama_tujuan,mt01.vTujuan_pengujian_ket )  ) as  vKeterangan ")
     				->from("bbpmsoh.mt07")
     				->join("bbpmsoh.mt01","mt01.iMt01=mt07.iMt01")
+    				->join("bbpmsoh.mt03","mt03.iMt01=mt01.iMt01")
     				->join("bbpmsoh.m_tujuan_pengujian","m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian")
     				->where($where);
     	$q=$this->db->get(); 
 
 		//$rsel=array('vNomor'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
-		$rsel=array('vNomor'=>'Nomor Pengujian','vSuhu_penyimpanan'=>'Suhu Penyimpanan','vKeterangan'=>'Keterangan','vZat_aktif'=>'Zat Aktif / Strain','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','iJumlah_diserahkan'=>'Jumlah Sample');
+		$rsel=array('vnomor_03'=>'Nomor Pengujian','vSuhu_penyimpanan'=>'Suhu Penyimpanan','vKeterangan'=>'Keterangan','vZat_aktif'=>'Zat Aktif / Strain','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','iJumlah_diserahkan'=>'Jumlah Sample');
 		$data = new StdClass;
 		$data->records=$q->num_rows();
 		$i=0;
@@ -950,13 +951,13 @@ class mt07 extends MX_Controller {
 			foreach ($rsel as $dsel => $vsel) {
 				if($dsel=="iAction"){
 					$dataar[$z]="<a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><center><span class='ui-icon ui-icon-trash'></span></center></a>";
-				}elseif($dsel=="vNomor"){
-					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt07."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
-				}elseif($dsel=="vSuhu_penyimpanan"){
+				}elseif($dsel=="vnomor_03"){
+					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt07."][]' id='grid_details_nomor_request_".$i."' value='".$k->vnomor_03."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
+				}/*elseif($dsel=="vSuhu_penyimpanan"){
 					$dataar[$z]="<input type='text' name='".$this->url."_vSuhu_penyimpanan' id='grid_details_".$nmTable."_vSuhu_penyimpanan_".$i."' value='".$k->vSuhu_penyimpanan."' class='required' size='25'>";
 				}elseif($dsel=="vKeterangan"){
 					$dataar[$z]="<input type='text' name='".$this->url."_vKeterangan' id='grid_details_".$nmTable."_vKeterangan_".$i."' value='".$k->vKeterangan."' class='required' size='25'>";
-				}else{
+				}*/else{
 					$dataar[$z]="<p id='grid_".$nmTable."_".$dsel."_".$i."'>".$k->{$dsel}."</p>";
 				}
 				$z++;

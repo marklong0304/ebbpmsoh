@@ -155,7 +155,7 @@ $getUrl=$nmmodule.'/'.$getUrl;
 			            	<?php 
 					            $ss=0;
 								foreach ($arrSearch as $keyv => $valv) {
-									if($ss>2){
+									if($ss>0){
 							?>
 								,"<p id='grid_<?php echo $nmTable."_".$keyv ?>_"+rlast+"'>-</p>"
 							<?php
@@ -216,6 +216,8 @@ $getUrl=$nmmodule.'/'.$getUrl;
 					var id = $(this).attr("id");
 					var num = id.replace("grid_details_nomor_request_","");
 					$( this ).val(ui.item.vnomor_03);
+                    $("p#grid_<?php echo $nmTable ?>_vSuhu_penyimpanan_"+num).html(ui.item.vSuhu_penyimpanan);
+                    $("p#grid_<?php echo $nmTable ?>_vKeterangan_"+num).html(ui.item.vKeterangan);
 					$("p#grid_<?php echo $nmTable ?>_vNama_sample_"+num).html(ui.item.vNama_sample);
 					$("p#grid_<?php echo $nmTable ?>_vNama_produsen_"+num).html(ui.item.vNama_produsen);
 					$("p#grid_<?php echo $nmTable ?>_vZat_aktif_"+num).html(ui.item.vZat_aktif);
