@@ -263,7 +263,7 @@ class mt06 extends MX_Controller {
             //echo $id; exit; 
             $data = array();
 
-             $sql = "select a.*,b.*,b1.vnomor_03,c.*,b2.*,d.*,e.*,f.*,date(f.dCreated) as tgl_buat
+             $sql = "select a.*,b.*,b1.vnomor_03,c.*,b2.*,d.*,e.*,f.*,date(f.dCreated) as tgl_buat, if(d.iM_tujuan_pengujian!=6,d.vKeterangan , concat(d.vNama_tujuan,a.vTujuan_pengujian_ket )  ) as tujuandanketerangan
 			        from bbpmsoh.mt01 a
 			        left join bbpmsoh.mt03 b1 on b1.iMt01 = a.iMt01
 			        join bbpmsoh.mt04 b on b.iMt01 = a.iMt01
@@ -271,12 +271,13 @@ class mt06 extends MX_Controller {
 
 			        join bbpmsoh.mt05 e on e.iMt01 = a.iMt01
 			        join bbpmsoh.mt06 f on f.iMt01 = a.iMt01
+			       
 
 
 
 			        left join hrd.employee c on c.cNip = a.iCustomer
 			        join bbpmsoh.m_tujuan_pengujian d on d.iM_tujuan_pengujian=a.iM_tujuan_pengujian
-			        WHERE f.iMt06 = '{$id}'";
+			        WHERE g.iMt07 = '{$id}'";
 
 			       /* echo '<pre>'.$sql;
 			        exit;*/
@@ -324,6 +325,8 @@ class mt06 extends MX_Controller {
 
                         
                         $row_array['tgl_buat']    = tanggal_indo($row->tgl_buat, false);
+
+                        $row_array['tujuandanketerangan']    = $row->tujuandanketerangan;
 
 
                        /*hrd*/
@@ -422,6 +425,7 @@ class mt06 extends MX_Controller {
                                                             doc.setData({
 								                                                
 								                                                'tgl_buat'   : data[0].tgl_buat,
+								                                                'tujuandanketerangan'   : data[0].tujuandanketerangan,
 
 
 								                                                /*employee*/
