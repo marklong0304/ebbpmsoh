@@ -10,6 +10,13 @@ class mt04 extends MX_Controller {
 		$this->url = 'mt04';
 		$this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
 
+        $this->report    = $this->load->library('report');
+        $url             = $_SERVER['HTTP_REFERER'];
+        $company_id      = substr($url, strrpos($url, '/') + 1);
+        $this->masterUrl = base_url()."processor/pengujian/mt04?company_id={$this->input->get('company_id')}";
+
+
+
 		$this->maintable = 'bbpmsoh.mt04';	
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt04';	
@@ -22,6 +29,8 @@ class mt04 extends MX_Controller {
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
+
+
 
 		$datagrid['addFields']=array(
 				'iMt01'=>'No Request'
@@ -133,6 +142,10 @@ class mt04 extends MX_Controller {
 			case 'create':
 				$grid->render_form();
 				break;
+
+            case 'getDataMemo':
+                echo $this->getDataMemo();
+                break;
 			case 'createproses':
    				echo $grid->saved_form();
                 /*$post=$this->input->post();print_r($post);exit();
@@ -296,6 +309,99 @@ class mt04 extends MX_Controller {
 		}
     }
 
+    function getDataMemo() {
+
+        $id   = $this->input->post('id');   
+        //echo $id; exit;   
+        $data = array();
+
+        $sql = "select a.*,b.*,b1.vnomor_03,c.*,b2.*
+        from bbpmsoh.mt01 a
+        left join bbpmsoh.mt03 b1 on b1.iMt01 = a.iMt01
+        join bbpmsoh.mt04 b on b.iMt01 = a.iMt01
+        join bbpmsoh.mt04_detail b2 on b2.iMt04 = b.iMt04
+        left join hrd.employee c on c.cNip = a.iCustomer
+        join bbpmsoh.m_tujuan_pengujian d on d.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+        WHERE b.iMt04 = '{$id}'";
+
+       /* echo '<pre>'.$sql;
+        exit;*/
+        $query = $this->db->query($sql);
+
+        foreach ($query->result() as $row) {
+            
+            
+
+            $tanggal = $row->dtanggal_03;
+            function tanggal_indo($tanggal, $cetak_hari = false)
+            {
+                $hari = array ( 1 =>    'Senin',
+                            'Selasa',
+                            'Rabu',
+                            'Kamis',
+                            'Jumat',
+                            'Sabtu',
+                            'Minggu'
+                        );
+                        
+                $bulan = array (1 =>   'Januari',
+                            'Februari',
+                            'Maret',
+                            'April',
+                            'Mei',
+                            'Juni',
+                            'Juli',
+                            'Agustus',
+                            'September',
+                            'Oktober',
+                            'November',
+                            'Desember'
+                        );
+                $split    = explode('-', $tanggal);
+                $tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+                
+                if ($cetak_hari) {
+                    $num = date('N', strtotime($tanggal));
+                    return $hari[$num];
+                }
+                return $tgl_indo;
+            }
+            
+            
+
+            /*hrd*/
+            $row_array['vName_company']    = ucwords(strtolower($row->vName_company));
+            $row_array['vAddress_company']    = ucwords(strtolower($row->vAddress_company));
+            $row_array['vTelepon_company']    = ucwords(strtolower($row->vTelepon_company));
+
+            /*mt01*/
+            $row_array['vNama_sample']     = ucwords(strtolower($row->vNama_sample));
+
+            /*mt03*/
+            $row_array['vnomor_03']     = ucwords(strtolower($row->vnomor_03));
+            $row_array['dtanggal_03']            = tanggal_indo($row->dtanggal_03, false);
+
+            /*mt04*/
+            $row_array['dTgl_terima_sample']      = tanggal_indo($row->dTgl_terima_sample, false);
+            $row_array['dTgl_terima_serum']      = tanggal_indo($row->dTgl_terima_serum, false);
+
+            /*mt4 detail*/
+            $row_array['vAntiserum']     = ucwords(strtolower($row->vAntiserum));
+            $row_array['vKadar']     = ucwords(strtolower($row->vKadar));
+            $row_array['vAsal']     = ucwords(strtolower($row->vAsal));
+            $row_array['vBatch']     = ucwords(strtolower($row->vBatch));
+            $row_array['dTgl_expired']      = tanggal_indo($row->dTgl_expired, false);
+            $row_array['vJumlah']     = ucwords(strtolower($row->vJumlah));
+            $row_array['vKeterangan']     = ucwords(strtolower($row->vKeterangan));
+
+
+
+            array_push($data, $row_array);
+        }
+
+        echo json_encode($data);
+    }
+
     function listBox_Action($row, $actions) {
         if ($row->iApprove>0) { 
                 unset($actions['edit']);
@@ -386,10 +492,17 @@ class mt04 extends MX_Controller {
         $return.='</script>';
         $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
         if($this->input->get('action')=='view'){
-            $return=$value;
+            $emte1=$this->getMT01($rowData['iMt01']);;
+            $return = $emte1['vNo_transaksi'];
         }
         // $return=$this->db->last_query();
         return $return;
+    }
+
+    function getMT01($id){
+        $sql= 'select * from bbpmsoh.mt01 a where a.lDeleted=0 and a.iMt01= "'.$id.'"';
+        $dMt01 = $this->db->query($sql)->row_array();
+        return $dMt01;
     }
 
 
@@ -476,6 +589,7 @@ class mt04 extends MX_Controller {
 
 
     function manipulate_update_button($buttons, $rowData) {
+        $peka=$rowData['iMt04'];
          $cNip= $this->user->gNIP;
         $js = $this->load->view('js/mt04_js');
         $js .= $this->load->view('js/upload_js');
@@ -487,9 +601,63 @@ class mt04 extends MX_Controller {
         $update = '<button onclick="javascript:update_btn_back(\''.$this->url.'\', \' '.base_url().'processor/'.$this->urlpath.'?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_'.$this->url.'"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
         $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
+
+        $grid          = $this->url;
+        $url           = $this->masterUrl;
+        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
+        $btnUpk .= "<script>
+                        function btnUpk_{$this->url}(url, grid, dis) {
+    
+                            custom_confirm('Print Dokumen ?', function() {
+                                template = 'mt04.docx';
+                                var loadFile = function(url, callback) {
+                                    JSZipUtils.getBinaryContent(url, callback);
+                                }
+                                loadFile('../files/pengujian/template/'+template, function(err, content) {
+                                    if (err) {throw e};
+
+                                    $.ajax({
+                                        url: url+'&action=getDataMemo',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: '&id={$peka}',
+                                        success: function(data) {
+
+                                            doc = new Docxgen(content);
+
+                                            doc.setData({
+                                                'vName_company'   : data[0].vName_company,
+                                                'vAddress_company'   : data[0].vAddress_company,
+                                                'vTelepon_company'   : data[0].vTelepon_company,
+                                                'vNama_sample'   : data[0].vNama_sample,
+                                                'dTgl_terima_sample'   : data[0].dTgl_terima_sample,
+                                                'dTgl_terima_serum'   : data[0].dTgl_terima_serum,
+                                                'vAntiserum'   : data[0].vAntiserum,
+                                                'vKadar'   : data[0].vKadar,
+                                                'vAsal'   : data[0].vAsal,
+                                                'vBatch'   : data[0].vBatch,
+                                                'dTgl_expired'   : data[0].dTgl_expired,
+                                                'vJumlah'   : data[0].vJumlah,
+                                                'vName_company'   : data[0].vKeterangan,
+
+                                            })
+
+                                            doc.render()
+                                            out = doc.getZip().generate({type:'blob'})
+
+                                            nmdok = 'MT04';
+                                            saveAs(out, nmdok+' - ' + data[0].vnomor_03 + '.docx')
+                                        }
+                                    })
+                                })
+                            })
+                        }
+                    </script>";
+
         
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk;  
         }
         else{ 
             if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
