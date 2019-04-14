@@ -51,7 +51,7 @@ class master_customer extends MX_Controller {
         $grid->setUrl('master_customer');
 
         //List Table
-        $grid->addList('cNip','vName','vEmail','vTelepon','vEmail_company','vName_company','vTelepon_company','vFax_company'); 
+        $grid->addList('cNip','vName','vEmail','vTelepon','vEmail_company','vName_company','vPassword'); 
         $grid->setSortBy('ID');
         $grid->setSortOrder('DESC');  
 
@@ -65,11 +65,26 @@ class master_customer extends MX_Controller {
 
         */
 
-        $grid->setWidth('vName', '100');
+        
+
+
+        $grid->setWidth('cNip', '80');
+        $grid->setAlign('cNip', 'center');
+        $grid->setLabel('cNip','NIP');
+        
+
+        $grid->setWidth('vPassword', '300');
+        $grid->setAlign('vPassword', 'left');
+        $grid->setLabel('vPassword','Password');
+
+
+
+
+        $grid->setWidth('vName', '300');
         $grid->setAlign('vName', 'left');
         $grid->setLabel('vName','Nama');
     
-        $grid->setWidth('vEmail', '100');
+        $grid->setWidth('vEmail', '150');
         $grid->setAlign('vEmail', 'left');
         $grid->setLabel('vEmail','Email Pribadi');
     
@@ -77,15 +92,15 @@ class master_customer extends MX_Controller {
         $grid->setAlign('vAddress', 'left');
         $grid->setLabel('vAddress','Alamat Pribadi');
     
-        $grid->setWidth('vTelepon', '100');
+        $grid->setWidth('vTelepon', '150');
         $grid->setAlign('vTelepon', 'left');
         $grid->setLabel('vTelepon','Telepon Pribadi');
     
-        $grid->setWidth('vEmail_company', '100');
+        $grid->setWidth('vEmail_company', '150');
         $grid->setAlign('vEmail_company', 'left');
         $grid->setLabel('vEmail_company','Email Perusahaan');
     
-        $grid->setWidth('vName_company', '100');
+        $grid->setWidth('vName_company', '150');
         $grid->setAlign('vName_company', 'left');
         $grid->setLabel('vName_company','Nama Perusahaan');
     
@@ -101,9 +116,7 @@ class master_customer extends MX_Controller {
         $grid->setAlign('vFax_company', 'left');
         $grid->setLabel('vFax_company','No Fax Perusahaan');
     
-        $grid->setWidth('vPassword', '100');
-        $grid->setAlign('vPassword', 'left');
-        $grid->setLabel('vPassword','vPassword ');
+       
     
 //Example modifikasi GRID ERP
     //- Set Query
@@ -129,7 +142,7 @@ class master_customer extends MX_Controller {
 */
 
     //set search
-        $grid->setSearch('vName','vEmail','vTelepon','vEmail_company','vName_company','vTelepon_company','vFax_company');
+        $grid->setSearch('vName','vEmail','vTelepon','vEmail_company','vName_company');
         
     //set required
         $grid->setRequired('cNip','vName','vEmail','vAddress','vTelepon','vEmail_company','vName_company','vAddress_company','vTelepon_company','vFax_company','iCompanyID','iDivisionID','iDepartementID','iPostID','vPassword','lDeleted','cCreated','dCreated','cUpdated','dUpdated'); 
@@ -205,6 +218,16 @@ class master_customer extends MX_Controller {
         return $actions;
     } 
     */
+
+    /*function listBox_mt03_popup_pilih($value, $pk, $name, $rowData) {
+
+    function listBox_master_customer_vPassword($value, $pk, $name, $rowData) {
+        if ($row->vNo_Or<>'' || $row->vNo_Or<>NULL) { 
+                unset($actions['edit']);
+        }
+        return $actions;
+    } */
+    
 
                         function insertBox_master_customer_vName($field, $id) {
                             $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';

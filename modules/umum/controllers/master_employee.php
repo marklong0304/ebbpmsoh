@@ -48,7 +48,7 @@ class master_employee extends MX_Controller {
         $grid->setUrl('master_employee');
 
         //List Table
-        $grid->addList('cNip','vName','vEmail'); 
+        $grid->addList('cNip','vName','vEmail','iDivisionID','iDepartementID','iPostID'); 
         $grid->setSortBy('ID');
         $grid->setSortOrder('DESC');  
 
@@ -207,15 +207,17 @@ class master_employee extends MX_Controller {
     */
 
                         function insertBox_master_employee_cNip($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            //$return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            $return = 'Auto Generate';
                             return $return;
                         }
                         
                         function updateBox_master_employee_cNip($field, $id, $value, $rowData) {
                                 if ($this->input->get('action') == 'view') {
-                                     $return= $value; 
+                                    $return= $value; 
                                 }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+                                    $return= $value; 
+                                    $return .= '<input type="hidden" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
 
                                 }
                                 
@@ -255,11 +257,28 @@ class master_employee extends MX_Controller {
                         }
                         
                         function insertBox_master_employee_vAddress($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            $return = '<textarea name="'.$field.'"  id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
                             return $return;
                         }
                         
                         function updateBox_master_employee_vAddress($field, $id, $value, $rowData) {
+                                if ($this->input->get('action') == 'view') {
+                                     $return= '<label title="Note">'.nl2br($value).'</label>'; 
+                                }else{ 
+                                    $return = '<textarea name="'.$field.'"  id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+
+                                }
+                                
+                            return $return;
+                        }
+
+
+                        function insertBox_master_employee_vAddressx($field, $id) {
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            return $return;
+                        }
+                        
+                        function updateBox_master_employee_vAddressx($field, $id, $value, $rowData) {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
@@ -359,7 +378,7 @@ class master_employee extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
-                                    $return = '<input type="password" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+                                    $return = '<input type="password" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" />';
 
                                 }
                                 
@@ -564,7 +583,7 @@ class master_employee extends MX_Controller {
 
         
 
-        $buttons['save'] = $iframe.$save_draft.$save.$js;
+        $buttons['save'] = $iframe.$save.$js;
         
         return $buttons;
     }
@@ -593,14 +612,14 @@ class master_employee extends MX_Controller {
             unset($buttons['update']);
         }
         else{ 
-            $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            $buttons['update'] = $iframe.$update.$js;    
         }
         
         return $buttons;
     }
 
     function whoAmI($nip) { 
-        $sql = 'select b.vDescription as vdepartemen,a.*,b.*,c.iLvlemp 
+        $sql = 'select b.vDescription as vdepartemen,a.*,b.*
                         from hrd.employee a 
                         join hrd.msdepartement b on b.iDeptID=a.iDepartementID
                         join hrd.position c on c.iPostId=a.iPostID
