@@ -1868,8 +1868,7 @@ class mt01 extends MX_Controller {
         $dataupdate['dApprove']= date('Y-m-d H:i:s');
         $dataupdate['vRemark']= $post['vRemark'];
         $dataupdate['iApprove']= 2;
-        $this->db->where('iMt01',$post['last_id'])
-                    ->update('bbpmsoh.mt01',$dataupdate);
+        $updet = $this->db->where('iMt01',$post['last_id'])->update('bbpmsoh.mt01',$dataupdate);
 
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
