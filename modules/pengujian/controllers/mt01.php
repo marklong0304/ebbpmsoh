@@ -523,13 +523,15 @@ class mt01 extends MX_Controller {
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
      
     function listBox_Action($row, $actions) {
-        /*if ($row->iApprove>0) { 
-                
-        }*/
-        if ($row->iSubmit > 0) { 
+        if ($row->iApprove>0) { 
                 unset($actions['edit']);
                 unset($actions['delete']);
+
         }
+        /* if ($row->iSubmit > 0) { 
+                unset($actions['edit']);
+                unset($actions['delete']);
+        } */
         return $actions;
     } 
     
@@ -1727,15 +1729,20 @@ class mt01 extends MX_Controller {
 
                 }
 
-            }    
-            /*if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
-                $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
+            }else{
+                
+                if($rowData['iApprove']==0 && $groupnya['idprivi_group']== 2){
+                    $buttons['update'] = $iframe.$reject.$approve.$js;    
+                }
+
+            
+            }        
+            
 
                 
 
                 
-            }*/
+            
         }
         
         return $buttons;
