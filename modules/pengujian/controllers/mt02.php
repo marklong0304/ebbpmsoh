@@ -118,7 +118,12 @@ class mt02 extends MX_Controller {
                 foreach ($vv as $list => $vlist) {
                     if($vlist=="all_form"){
                         foreach ($this->datagrid['addFields'] as $kfield => $vfield) {
-                            $grid->setRequired($kfield);
+                            if($kfield == "vKeterangan"){
+
+                            }else{
+                                $grid->setRequired($kfield);    
+                            }
+                            
                         }
                     }
                 }

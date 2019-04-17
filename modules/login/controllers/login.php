@@ -49,7 +49,7 @@ class Login extends MX_Controller {
             
             /*print_r($_POST);
             exit;*/
-                $username = $this->input->post('username', TRUE);
+        $username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', FALSE);
 		$company  = $this->input->post('company', TRUE);
 		

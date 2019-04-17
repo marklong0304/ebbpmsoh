@@ -44,9 +44,9 @@
 				}
 			});
 			
-			$('#username').keyup(function(){
+			/*$('#username').keyup(function(){
 				$(this).val(String($(this).val()).toUpperCase());
-			});
+			});*/
 			
 			focusCursor();
 			$("#password").keypress(function(e){ 
@@ -63,13 +63,13 @@
 		});
 		
 		function checkLength( o, n, min, max ) {
-			if ( o.val().length > max || o.val().length < min ) {
+			/*if ( o.val().length > max || o.val().length < min ) {
 				o.addClass( "ui-state-error" );
 				updateTips("<?php echo $this->lang->line('warning_empty_field');?>");
 				return false;
 			} else {
 				return true;
-			}
+			}*/
 		}
 		
 		function updateTips( t ) {
