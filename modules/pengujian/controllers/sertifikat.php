@@ -445,8 +445,8 @@ class sertifikat extends MX_Controller {
             $row_array['NOMOR6']      = ucwords(strtolower($row->vNoSk_menteri));
             $row_array['TANGGAL4']   = $this->tanggal_english($row->dSk_menteri, false);
 
-            $row_array['TTD3']      = ucwords(strtolower($row->vNama_kabalai));
-            $row_array['TTD4']      = ucwords(strtolower($row->vNip_kabalai));
+            $row_array['TTD1']      = ucwords(strtolower($row->vNama_kabalai));
+            $row_array['TTD2']      = ucwords(strtolower($row->vNip_kabalai));
 
 			
 
@@ -1711,8 +1711,8 @@ class sertifikat extends MX_Controller {
                                                 'NOMOR6' : data[0].NOMOR6,
                                                 'TANGGAL4' : data[0].TANGGAL4,
 
-                                                'TTD3' : data[0].TTD3,
-                                                'TTD4' : data[0].TTD4,
+                                                'TTD1' : data[0].TTD1,
+                                                'TTD2' : data[0].TTD2,
 
                                                 'ACUAN' : data[0].ACUAN
                                                 
