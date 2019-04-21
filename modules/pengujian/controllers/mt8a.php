@@ -983,6 +983,11 @@ class mt8a extends MX_Controller {
 	        $dataupdate['vRemark']= $post['vRemark'];
 	        $dataupdate['iApprove_unit_uji']= 2;
 
+	        $subject = 'e-Pengujian -> Approve Yanji MT8A '.$rsql['vNo_transaksi'];
+            $precontent = 'Admin Yanji telah melakukan Approval Pengujian MT8A';
+
+
+
      	}
 		 
 

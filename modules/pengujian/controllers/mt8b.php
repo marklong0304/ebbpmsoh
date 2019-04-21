@@ -977,6 +977,10 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
 	        $dataupdate['vRemark']= $post['vRemark'];
 	        $dataupdate['iApprove_unit_uji']= 2;
 
+	        $subject = 'e-Pengujian -> Approve Yanji MT8B '.$rsql['vNo_transaksi'];
+            $precontent = 'Admin Yanji telah melakukan Approval Pengujian MT8B';
+
+
      	}
 		 
 

@@ -73,6 +73,14 @@ class sertifikat extends MX_Controller {
         		,'vPerihal' => 'Perihal'
         		,'dTanggal' => 'Tanggal'
         		,'iCustomer' => 'Customer'
+                ,'vNomor1' => 'Nomor Sertifikat 1'
+                ,'vNomor2' => 'Nomor Sertifikat 2'
+                ,'vNoKep_menteri' => 'No Kep. Menteri'
+                ,'dKep_menteri' => 'Tanggal Kep. Menteri'
+                ,'vNoSk_menteri' => 'No SK Menteri'
+                ,'dSk_menteri' => 'Tanggal SK Menteri'
+                ,'vNama_kabalai' => 'Nama Kepala Balai'
+                ,'vNip_kabalai' => 'NIP Kepala Balai'
                 );
         $datagrid['isRequired']=array('all_form');
         $datagrid['shortBy']=array('mt01.dUpdated'=>'Desc');
@@ -311,30 +319,135 @@ class sertifikat extends MX_Controller {
     }
 
 
+    function tanggal_indo($tanggal, $cetak_hari = false)
+    {
+        $hari = array ( 1 =>    'Senin',
+                    'Selasa',
+                    'Rabu',
+                    'Kamis',
+                    'Jumat',
+                    'Sabtu',
+                    'Minggu'
+                );
+                
+        $bulan = array (1 =>   'Januari',
+                    'Februari',
+                    'Maret',
+                    'April',
+                    'Mei',
+                    'Juni',
+                    'Juli',
+                    'Agustus',
+                    'September',
+                    'Oktober',
+                    'November',
+                    'Desember'
+                );
+        $split    = explode('-', $tanggal);
+        $tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+        
+        if ($cetak_hari) {
+            $num = date('N', strtotime($tanggal));
+            return $hari[$num];
+        }
+        return $tgl_indo;
+    }
+
+    function tanggal_english($tanggal, $cetak_hari = false)
+    {
+        $hari = array ( 1 =>    'Senin',
+                    'Selasa',
+                    'Rabu',
+                    'Kamis',
+                    'Jumat',
+                    'Sabtu',
+                    'Minggu'
+                );
+                
+        $bulan = array (1 =>   'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June',
+                    'July',
+                    'August',
+                    'September',
+                    'October',
+                    'November',
+                    'December'
+                );
+        $split    = explode('-', $tanggal);
+        $tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+        
+        if ($cetak_hari) {
+            $num = date('N', strtotime($tanggal));
+            return $hari[$num];
+        }
+        return $tgl_indo;
+    }
+
+
+
+
     function getDataMemo() {
 		$id   = $this->input->post('id');
 		$data = array();
 
-    	$sql = "select * 
+    	$sql = "select *,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH
     			from bbpmsoh.mt01 a
     			join hrd.employee b on cNip=a.iCustomer
     			join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
+                left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
+                left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
     			WHERE a.iMt01 = '{$id}'";
 
     			
     	$query = $this->db->query($sql);
 
     	foreach ($query->result() as $row) {
+
+            
+
+
     		
 			$row_array['NAMA_PEMOHON']      = ucwords(strtolower($row->vName));
 			$row_array['ALAMAT_PEMOHON']      = ucwords(strtolower($row->vAddress));
 			$row_array['NAMA_PRODUSEN']      = ucwords(strtolower($row->vNama_produsen));
 			$row_array['ALAMAT_PRODUSEN']      = ucwords(strtolower($row->vAlamat_produsen));
-			$row_array['KADALUARSA']      = ucwords(strtolower($row->dTgl_kadaluarsa));
+			$row_array['KADALUARSA']      = $this->tanggal_indo($row->dTgl_kadaluarsa, false);
 			$row_array['NOREG']      = ucwords(strtolower($row->vNo_registrasi));
 			$row_array['KEMASAN']      = ucwords(strtolower($row->vKemasan));
 			$row_array['JENIS']      = ucwords(strtolower($row->vJenis_sediaan));
 			$row_array['NOMOR_UJI']      = ucwords(strtolower($row->vNomor));
+
+            $row_array['NAMA_DAGANG']      = ucwords(strtolower($row->vNama_sample));
+            $row_array['NOMOR_TRADING']      = ucwords(strtolower($row->vBatch_lot));
+            $row_array['TANGGAL_TERIMA_CONTOH']  = $this->tanggal_indo($row->TANGGAL_TERIMA_CONTOH, false);
+
+
+            $row_array['ACUAN']      = ucwords(strtolower($row->vAcuan_metode_uji));
+
+
+            $row_array['NOMOR1']      = ucwords(strtolower($row->vNomor1));
+            $row_array['NOMOR2']      = ucwords(strtolower($row->vNomor2));
+
+            $row_array['NOMOR3'] = ucwords(strtolower($row->vNoKep_menteri));
+            $row_array['TANGGAL1']   = $this->tanggal_indo($row->dKep_menteri, false);
+
+            $row_array['NOMOR5'] = ucwords(strtolower($row->vNoKep_menteri));
+            $row_array['TANGGAL3']   = $this->tanggal_english($row->dKep_menteri, false);
+
+
+            $row_array['NOMOR4']      = ucwords(strtolower($row->vNoSk_menteri));
+            $row_array['TANGGAL2']   = $this->tanggal_indo($row->dSk_menteri, false);
+
+            $row_array['NOMOR6']      = ucwords(strtolower($row->vNoSk_menteri));
+            $row_array['TANGGAL4']   = $this->tanggal_english($row->dSk_menteri, false);
+
+            $row_array['TTD3']      = ucwords(strtolower($row->vNama_kabalai));
+            $row_array['TTD4']      = ucwords(strtolower($row->vNip_kabalai));
+
 			
 
 			array_push($data, $row_array);
@@ -457,6 +570,45 @@ class sertifikat extends MX_Controller {
                                 
                             return $return;
                         }
+
+
+                        function insertBox_sertifikat_dKep_menteri($field, $id) {
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal required" size="8" />';
+                            return $return;
+                        }
+                        
+                        function updateBox_sertifikat_dKep_menteri($field, $id, $value, $rowData) {
+                                if ($this->input->get('action') == 'view') {
+                                     $return= $value; 
+                                }else{ 
+                                    $return = '<input type="hidden" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
+                                    $return .= $value; 
+
+                                }
+                                
+                            return $return;
+                        }
+
+
+
+                        function insertBox_sertifikat_dSk_menteri($field, $id) {
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal required" size="8" />';
+                            return $return;
+                        }
+                        
+                        function updateBox_sertifikat_dSk_menteri($field, $id, $value, $rowData) {
+                                if ($this->input->get('action') == 'view') {
+                                     $return= $value; 
+                                }else{ 
+                                    $return = '<input type="hidden" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
+                                    $return .= $value; 
+
+                                }
+                                
+                            return $return;
+                        }
+
+
                         
                         function insertBox_sertifikat_iCustomer($field, $id) {
                             $groupnya = $this->checkgroup($this->user->gNIP);             
@@ -1489,6 +1641,7 @@ class sertifikat extends MX_Controller {
         $update_draft = '<button onclick="javascript:update_draft_btn(\'sertifikat\', \' '.base_url().'processor/pengujian/sertifikat?draft=true \',this,true )"  id="button_update_draft_sertifikat"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\'sertifikat\', \' '.base_url().'processor/pengujian/sertifikat?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_sertifikat"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
 
+
         $cekMT6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$peka.'"';
         $dMt06 = $this->db->query($cekMT6)->row_array();
 
@@ -1528,6 +1681,8 @@ class sertifikat extends MX_Controller {
 											doc = new Docxgen(content);
 
 											doc.setData({
+                                                'NAMA_LAB' : 'BBPMSOH',
+                                                'ALAMAT_LAB' : 'Jl Raya Pembangunan Gunung Sindur, Gn. Sindur, Bogor, Jawa Barat 16340',
 												'NAMA_PEMOHON' : data[0].NAMA_PEMOHON,
 												'ALAMAT_PEMOHON' : data[0].ALAMAT_PEMOHON,
 												'NAMA_PRODUSEN' : data[0].NAMA_PRODUSEN,
@@ -1536,7 +1691,31 @@ class sertifikat extends MX_Controller {
 												'NOREG' : data[0].NOREG,
 												'KEMASAN' : data[0].KEMASAN,
 												'JENIS' : data[0].JENIS,
-												'NOMOR_UJI' : data[0].NOMOR_UJI
+												'NOMOR_UJI' : data[0].NOMOR_UJI,
+                                                'NAMA_DAGANG' : data[0].NAMA_DAGANG,
+                                                'NOMOR_TRADING' : data[0].NOMOR_TRADING,
+                                                'TANGGAL_TERIMA_CONTOH' : data[0].TANGGAL_TERIMA_CONTOH,
+
+                                                'NOMOR1' : data[0].NOMOR1,
+                                                'NOMOR2' : data[0].NOMOR2,
+
+                                                'NOMOR3' : data[0].NOMOR3,
+                                                'TANGGAL1' : data[0].TANGGAL1,
+
+                                                'NOMOR5' : data[0].NOMOR5,
+                                                'TANGGAL3' : data[0].TANGGAL3,
+
+                                                'NOMOR4' : data[0].NOMOR4,
+                                                'TANGGAL2' : data[0].TANGGAL2,
+
+                                                'NOMOR6' : data[0].NOMOR6,
+                                                'TANGGAL4' : data[0].TANGGAL4,
+
+                                                'TTD3' : data[0].TTD3,
+                                                'TTD4' : data[0].TTD4,
+
+                                                'ACUAN' : data[0].ACUAN
+                                                
 		    									
 											})
 
