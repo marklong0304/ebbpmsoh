@@ -400,6 +400,11 @@ class sertifikat extends MX_Controller {
     			join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
                 left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
                 left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
+
+                left join bbpmsoh.mt08a f on f.iMt01 = a.iMt01
+                left join bbpmsoh.mt08b g on g.iMt01 = a.iMt01
+                left join bbpmsoh.mt09 h on h.iMt01 = a.iMt01
+
     			WHERE a.iMt01 = '{$id}'";
 
     			
