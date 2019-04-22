@@ -797,11 +797,6 @@ class Mt09 extends MX_Controller {
         $idet['vPotensi_mutu'] = $postData['vPotensi_mutu'];
         $idet['dPotensi_tanggal'] = $postData['dPotensi_tanggal'];
 
-
-
-
-
-
 		
 		$this->db->insert('bbpmsoh.mt09_fisik', $idet);
 		

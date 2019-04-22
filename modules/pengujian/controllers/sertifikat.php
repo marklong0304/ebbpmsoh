@@ -198,7 +198,7 @@ class sertifikat extends MX_Controller {
                                             where a.lDeleted=0 
                                             and  a.iMt01= `mt01`.iMt01 ) = 1 ,
                                                  `mt01`.iMt01 in  (select a.iMt01 
-                                                                                        from bbpmsoh.mt08a a
+                                                                                        from bbpmsoh.mt08b a
                                                                                         where a.lDeleted=0 
                                                                                         and  a.iApprove_qa=2  ) 
                                                                                         
@@ -210,7 +210,7 @@ class sertifikat extends MX_Controller {
                                             where a.lDeleted=0 
                                             and  a.iMt01= `mt01`.iMt01 ) = 1 ,
                                                  `mt01`.iMt01 in  (select a.iMt01 
-                                                                                        from bbpmsoh.mt08b a
+                                                                                        from bbpmsoh.mt08a a
                                                                                         where a.lDeleted=0 
                                                                                         and  a.iApprove_qa=2  ) 
                                                                                         
