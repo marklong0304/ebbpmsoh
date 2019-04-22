@@ -841,8 +841,8 @@ class sertifikat extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
-                                    $return = '<input type="hidden" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
-                                    $return .= $value; 
+                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
+                                    
 
                                 }
                                 
@@ -860,8 +860,8 @@ class sertifikat extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
-                                    $return = '<input type="hidden" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
-                                    $return .= $value; 
+                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
+                                    
 
                                 }
                                 
