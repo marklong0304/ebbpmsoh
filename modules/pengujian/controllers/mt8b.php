@@ -502,7 +502,7 @@ class mt8b extends MX_Controller {
             ->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
             ->where($arr)
             ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08b where lDeleted=0 AND iMt01 !='.$value.' )')
-            ->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 ) )')
+           	->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 ) )');
         $row=$this->db->get()->result_array();
 
         $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$value.'" ';
