@@ -68,7 +68,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = $host;
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'pmansur';
+$db['default']['password'] = '';
 $db['default']['database'] = 'erp_privi';
 
 $db['default']['dbdriver'] = 'mysql';
@@ -86,7 +86,7 @@ $db['default']['stricton'] = FALSE;
 
 $db['hrd']['hostname'] = $host;
 $db['hrd']['username'] = 'root';
-$db['hrd']['password'] = 'pmansur';
+$db['hrd']['password'] = '';
 $db['hrd']['database'] = 'hrd';
 
 $db['hrd']['dbdriver'] = 'mysql';
@@ -106,7 +106,7 @@ $db['hrd']['stricton'] = FALSE;
 /*gpsm*/
 $db['gps_msg']['hostname'] = $host;
 $db['gps_msg']['username'] = 'root';
-$db['gps_msg']['password'] = 'pmansur';
+$db['gps_msg']['password'] = '';
 $db['gps_msg']['database'] = 'gps_msg';
 $db['gps_msg']['dbdriver'] = 'mysql';
 $db['gps_msg']['dbprefix'] = '';
@@ -124,7 +124,7 @@ $db['gps_msg']['stricton'] = FALSE;
 /*balai*/
 $db['balai']['hostname'] = $host;
 $db['balai']['username'] = 'root';
-$db['balai']['password'] = 'pmansur';
+$db['balai']['password'] = '';
 $db['balai']['database'] = 'bbpmsoh';
 $db['balai']['dbdriver'] = 'mysql';
 $db['balai']['dbprefix'] = '';

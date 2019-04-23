@@ -145,7 +145,7 @@ class mt8a extends MX_Controller {
 		$grid->setJoinTable('bbpmsoh.mt01', 'mt08a.iMt01 = mt01.iMt01', 'inner');
 		$grid->setJoinTable('bbpmsoh.m_jenis_sediaan', 'm_jenis_sediaan.iM_jenis_sediaan = mt01.iM_jenis_sediaan', 'inner');
 
-		$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
+		//$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
 		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 		$grid->changeFieldType('iApprove_qa', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
@@ -649,6 +649,75 @@ class mt8a extends MX_Controller {
 		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
+
+    function insertBox_mt8a_iKesimpulan($field, $id) {
+
+    	/*
+            idprivi_group;vNamaGroup
+            11 ; QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 2){
+            
+            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+        }else{
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+        }
+
+
+		$return='<select id="'.$id.'" name="'.$field.'" class="required">';
+        	$return.='<option value="">---Pilih---</option>';
+        
+        foreach ($pilihan as $kk => $vv) {
+        	$return.='<option value="'.$kk.'">'.$vv.'</option>';
+        }
+        $return.='</select>';
+
+		return $return;
+    }
+
+    function updateBox_mt8a_iKesimpulan($field, $id, $value, $rowData) {
+    	
+        if ($this->input->get('action') == 'view') {
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+            $return = $pilihan[$value];
+        } else {
+        	$groupnya = $this->checkgroup($this->user->gNIP);             
+	        if( $groupnya['idprivi_group']== 2){
+	            
+	            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+	        }else{
+	        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+	        }
+
+            $return='<select id="'.$id.'" name="'.$field.'" class="required">';
+            foreach($pilihan as $k=>$v) {
+                if ($k == $value) $selected = ' selected';
+                else $selected = '';
+                $return.='<option '.$selected.' value="'.$k.'">'.$v.'</option>';
+            }            
+            $return .= '</select>';
+        }
+
+        return $return;
+
+    }
+
+    
+    
+
 	
     /*Function Tambahan*/
 
@@ -692,42 +761,46 @@ class mt8a extends MX_Controller {
 		$idet['vWarna'] = $postData['vWarna'];
 		$idet['vWarna_metoda'] = $postData['vWarna_metoda'];
 		$idet['vWarna_mutu'] = $postData['vWarna_mutu'];
-		$idet['dWarna_tanggal'] = $postData['dWarna_tanggal'];
+		$idet['dWarna_tanggal'] = ($postData['dWarna_tanggal']=='')?$postData['dWarna_tanggal']:NULL;
 
 
 		$idet['vAsing'] = $postData['vAsing'];
 		$idet['vAsing_metoda'] = $postData['vAsing_metoda'];
 		$idet['vAsing_mutu'] = $postData['vAsing_mutu'];
-		$idet['dAsing_tanggal'] = $postData['dAsing_tanggal'];
+		$idet['dAsing_tanggal'] = ($postData['dAsing_tanggal']=='')?$postData['dAsing_tanggal']:NULL;
 
 
 		$idet['vHomogen'] = $postData['vHomogen'];
 		$idet['vHomogen_metoda'] = $postData['vHomogen_metoda'];
 		$idet['vHomogen_mutu'] = $postData['vHomogen_mutu'];
-		$idet['dHomogen_tanggal'] = $postData['dHomogen_tanggal'];
+		$idet['dHomogen_tanggal'] = ($postData['dHomogen_tanggal']=='')?$postData['dHomogen_tanggal']:NULL;
 
 		$idet['vVakum'] = $postData['vVakum'];
 		$idet['vVakum_metoda'] = $postData['vVakum_metoda'];
 		$idet['vVakum_mutu'] = $postData['vVakum_mutu'];
-		$idet['dVakum_tanggal'] = $postData['dVakum_tanggal'];
+		$idet['dVakum_tanggal'] = ($postData['dVakum_tanggal']=='')?$postData['dVakum_tanggal']:NULL; 
+
 		$idet['vLembab'] = $postData['vLembab'];
 		$idet['vLembab_metoda'] = $postData['vLembab_metoda'];
 		$idet['vLembab_mutu'] = $postData['vLembab_mutu'];
-		$idet['dLembab_tanggal'] = $postData['dLembab_tanggal'];
+		$idet['dLembab_tanggal'] = ($postData['dLembab_tanggal']=='')?$postData['dLembab_tanggal']:NULL; 
+
 		$idet['vMurni_apus'] = $postData['vMurni_apus'];
 		$idet['vMurni_37'] = $postData['vMurni_37'];
 		$idet['vMurni_metoda'] = $postData['vMurni_metoda'];
 		$idet['vMurni_mutu'] = $postData['vMurni_mutu'];
-		$idet['dMurni_tanggal'] = $postData['dMurni_tanggal'];
+		$idet['dMurni_tanggal'] = ($postData['dMurni_tanggal']=='')?$postData['dMurni_tanggal']:NULL; 
+
 		$idet['vSteril_37'] = $postData['vSteril_37'];
 		$idet['vSteril_22'] = $postData['vSteril_22'];
 		$idet['vSteril_metoda'] = $postData['vSteril_metoda'];
 		$idet['vSteril_mutu'] = $postData['vSteril_mutu'];
-		$idet['dSteril_tanggal'] = $postData['dSteril_tanggal'];
+		$idet['dSteril_tanggal'] = ($postData['dSteril_tanggal']=='')?$postData['dSteril_tanggal']:NULL;
+
 		$idet['vDisolasi'] = $postData['vDisolasi'];
 		$idet['vDisolasi_metoda'] = $postData['vDisolasi_metoda'];
 		$idet['vDisolasi_mutu'] = $postData['vDisolasi_mutu'];
-		$idet['dDisolasi_tanggal'] = $postData['dDisolasi_tanggal'];
+		$idet['dDisolasi_tanggal'] = ($postData['dDisolasi_tanggal']=='')?$postData['dDisolasi_tanggal']:NULL; 
 		$idet['vKontaminasi_mico'] = $postData['vKontaminasi_mico'];
 		$idet['vKontaminasi_salmon'] = $postData['vKontaminasi_salmon'];
 		$idet['vKontaminasi_jamur'] = $postData['vKontaminasi_jamur'];
@@ -735,11 +808,11 @@ class mt8a extends MX_Controller {
 		$idet['vKontaminasi_lain'] = $postData['vKontaminasi_lain'];
 		$idet['vKontaminasi_metoda'] = $postData['vKontaminasi_metoda'];
 		$idet['vKontaminasi_mutu'] = $postData['vKontaminasi_mutu'];
-		$idet['dKontaminasi_tanggal'] = $postData['dKontaminasi_tanggal'];
+		$idet['dKontaminasi_tanggal'] = ($postData['dKontaminasi_tanggal']=='')?$postData['dKontaminasi_tanggal']:NULL; 
 		$idet['vLain'] = $postData['vLain'];
 		$idet['vLain_metoda'] = $postData['vLain_metoda'];
 		$idet['vLain_mutu'] = $postData['vLain_mutu'];
-		$idet['dLain_tanggal'] = $postData['dLain_tanggal'];
+		$idet['dLain_tanggal'] = ($postData['dLain_tanggal']=='')?$postData['dLain_tanggal']:NULL;  
 
 
 		
@@ -757,42 +830,46 @@ class mt8a extends MX_Controller {
 	    $idet['vWarna'] = $postData['vWarna'];
 		$idet['vWarna_metoda'] = $postData['vWarna_metoda'];
 		$idet['vWarna_mutu'] = $postData['vWarna_mutu'];
-		$idet['dWarna_tanggal'] = $postData['dWarna_tanggal'];
+		$idet['dWarna_tanggal'] = ($postData['dWarna_tanggal']=='')?$postData['dWarna_tanggal']:NULL;
 
 
 		$idet['vAsing'] = $postData['vAsing'];
 		$idet['vAsing_metoda'] = $postData['vAsing_metoda'];
 		$idet['vAsing_mutu'] = $postData['vAsing_mutu'];
-		$idet['dAsing_tanggal'] = $postData['dAsing_tanggal'];
+		$idet['dAsing_tanggal'] = ($postData['dAsing_tanggal']=='')?$postData['dAsing_tanggal']:NULL;
 
 
 		$idet['vHomogen'] = $postData['vHomogen'];
 		$idet['vHomogen_metoda'] = $postData['vHomogen_metoda'];
 		$idet['vHomogen_mutu'] = $postData['vHomogen_mutu'];
-		$idet['dHomogen_tanggal'] = $postData['dHomogen_tanggal'];
+		$idet['dHomogen_tanggal'] = ($postData['dHomogen_tanggal']=='')?$postData['dHomogen_tanggal']:NULL;
 
 		$idet['vVakum'] = $postData['vVakum'];
 		$idet['vVakum_metoda'] = $postData['vVakum_metoda'];
 		$idet['vVakum_mutu'] = $postData['vVakum_mutu'];
-		$idet['dVakum_tanggal'] = $postData['dVakum_tanggal'];
+		$idet['dVakum_tanggal'] = ($postData['dVakum_tanggal']=='')?$postData['dVakum_tanggal']:NULL; 
+
 		$idet['vLembab'] = $postData['vLembab'];
 		$idet['vLembab_metoda'] = $postData['vLembab_metoda'];
 		$idet['vLembab_mutu'] = $postData['vLembab_mutu'];
-		$idet['dLembab_tanggal'] = $postData['dLembab_tanggal'];
+		$idet['dLembab_tanggal'] = ($postData['dLembab_tanggal']=='')?$postData['dLembab_tanggal']:NULL; 
+
 		$idet['vMurni_apus'] = $postData['vMurni_apus'];
 		$idet['vMurni_37'] = $postData['vMurni_37'];
 		$idet['vMurni_metoda'] = $postData['vMurni_metoda'];
 		$idet['vMurni_mutu'] = $postData['vMurni_mutu'];
-		$idet['dMurni_tanggal'] = $postData['dMurni_tanggal'];
+		$idet['dMurni_tanggal'] = ($postData['dMurni_tanggal']=='')?$postData['dMurni_tanggal']:NULL; 
+
 		$idet['vSteril_37'] = $postData['vSteril_37'];
 		$idet['vSteril_22'] = $postData['vSteril_22'];
 		$idet['vSteril_metoda'] = $postData['vSteril_metoda'];
 		$idet['vSteril_mutu'] = $postData['vSteril_mutu'];
-		$idet['dSteril_tanggal'] = $postData['dSteril_tanggal'];
+		$idet['dSteril_tanggal'] = ($postData['dSteril_tanggal']=='')?$postData['dSteril_tanggal']:NULL;
+
 		$idet['vDisolasi'] = $postData['vDisolasi'];
 		$idet['vDisolasi_metoda'] = $postData['vDisolasi_metoda'];
 		$idet['vDisolasi_mutu'] = $postData['vDisolasi_mutu'];
-		$idet['dDisolasi_tanggal'] = $postData['dDisolasi_tanggal'];
+		$idet['dDisolasi_tanggal'] = ($postData['dDisolasi_tanggal']=='')?$postData['dDisolasi_tanggal']:NULL; 
 		$idet['vKontaminasi_mico'] = $postData['vKontaminasi_mico'];
 		$idet['vKontaminasi_salmon'] = $postData['vKontaminasi_salmon'];
 		$idet['vKontaminasi_jamur'] = $postData['vKontaminasi_jamur'];
@@ -800,11 +877,12 @@ class mt8a extends MX_Controller {
 		$idet['vKontaminasi_lain'] = $postData['vKontaminasi_lain'];
 		$idet['vKontaminasi_metoda'] = $postData['vKontaminasi_metoda'];
 		$idet['vKontaminasi_mutu'] = $postData['vKontaminasi_mutu'];
-		$idet['dKontaminasi_tanggal'] = $postData['dKontaminasi_tanggal'];
+		$idet['dKontaminasi_tanggal'] = ($postData['dKontaminasi_tanggal']=='')?$postData['dKontaminasi_tanggal']:NULL; 
 		$idet['vLain'] = $postData['vLain'];
 		$idet['vLain_metoda'] = $postData['vLain_metoda'];
 		$idet['vLain_mutu'] = $postData['vLain_mutu'];
-		$idet['dLain_tanggal'] = $postData['dLain_tanggal'];
+		$idet['dLain_tanggal'] = ($postData['dLain_tanggal']=='')?$postData['dLain_tanggal']:NULL;  
+
 
     	$this->db->where('iMt8a', $id);
 		$this->db->update('bbpmsoh.mt08a_fisik', $idet);

@@ -53,6 +53,9 @@ class sertifikat extends MX_Controller {
         $datagrid['islist'] = array(
             'vNo_transaksi' => array('label'=>'No Transaksi','width'=>100,'align'=>'center','search'=>true)
             ,'vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+            ,'mt06.iDist_bakteri' => array('label'=>'Lab Bakterologi','width'=>100,'align'=>'center','search'=>true)
+            ,'mt06.iDist_virologi' => array('label'=>'Lab Virologi','width'=>100,'align'=>'center','search'=>true)
+            ,'mt06.iDist_farmastetik' => array('label'=>'Lab Farmastetik','width'=>100,'align'=>'center','search'=>true)
             ,'vNama_produsen' => array('label'=>'Nama Produsen','width'=>300,'align'=>'left','search'=>true)
             ,'iSubmit_sertifikat' => array('label'=>'Submit','width'=>100,'align'=>'center','search'=>true)
             ,'iStatus_sertifikat' => array('label'=>'Status Sertifikat','width'=>200,'align'=>'center','search'=>true)
@@ -715,6 +718,34 @@ class sertifikat extends MX_Controller {
 
     	echo json_encode($data);
     }
+
+    function listBox_sertifikat_mt06_iDist_bakteri($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
+    function listBox_sertifikat_mt06_iDist_virologi($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
+    function listBox_sertifikat_mt06_iDist_farmastetik($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
 
 
     function checkgroup($nip){

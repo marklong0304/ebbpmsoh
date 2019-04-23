@@ -642,6 +642,72 @@ class mt8b extends MX_Controller {
 		$return="<input type='text' name='".$id."' id='".$id."' value='' size='35' readonly='readonly' />";
 		return $return;
     }
+
+    function insertBox_mt8b_iKesimpulan($field, $id) {
+
+    	/*
+            idprivi_group;vNamaGroup
+            11 ; QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 2){
+            
+            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+        }else{
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+        }
+
+
+		$return='<select id="'.$id.'" name="'.$field.'" class="required">';
+        	$return.='<option value="">---Pilih---</option>';
+        
+        foreach ($pilihan as $kk => $vv) {
+        	$return.='<option value="'.$kk.'">'.$vv.'</option>';
+        }
+        $return.='</select>';
+
+		return $return;
+    }
+
+    function updateBox_mt8b_iKesimpulan($field, $id, $value, $rowData) {
+    	
+        if ($this->input->get('action') == 'view') {
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+            $return = $pilihan[$value];
+        } else {
+        	$groupnya = $this->checkgroup($this->user->gNIP);             
+	        if( $groupnya['idprivi_group']== 2){
+	            
+	            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+	        }else{
+	        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+	        }
+
+            $return='<select id="'.$id.'" name="'.$field.'" class="required">';
+            foreach($pilihan as $k=>$v) {
+                if ($k == $value) $selected = ' selected';
+                else $selected = '';
+                $return.='<option '.$selected.' value="'.$k.'">'.$v.'</option>';
+            }            
+            $return .= '</select>';
+        }
+
+        return $return;
+
+    }
+
 	
     /*Function Tambahan*/
 
@@ -688,15 +754,15 @@ class mt8b extends MX_Controller {
 		$idet['vKandungan'] = $postData['vKandungan'];
 		$idet['vKandungan_metoda'] = $postData['vKandungan_metoda'];
 		$idet['vKandungan_mutu'] = $postData['vKandungan_mutu'];
-		$idet['dKandungan_tanggal'] = $postData['dKandungan_tanggal'];
+		$idet['dKandungan_tanggal'] = ($postData['dKandungan_tanggal']=='')?$postData['dKandungan_tanggal']:NULL;
 		$idet['vIdentitas'] = $postData['vIdentitas'];
 		$idet['vIdentitas_metoda'] = $postData['vIdentitas_metoda'];
 		$idet['vIdentitas_mutu'] = $postData['vIdentitas_mutu'];
-		$idet['dIdentitas_tanggal'] = $postData['dIdentitas_tanggal'];
+		$idet['dIdentitas_tanggal'] = ($postData['dIdentitas_tanggal']=='')?$postData['dIdentitas_tanggal']:NULL;
 		$idet['vVirus'] = $postData['vVirus'];
 		$idet['vVirus_metoda'] = $postData['vVirus_metoda'];
 		$idet['vVirus_mutu'] = $postData['vVirus_mutu'];
-		$idet['dVirus_tanggal'] = $postData['dVirus_tanggal'];
+		$idet['dVirus_tanggal'] = ($postData['dVirus_tanggal']=='')?$postData['dVirus_tanggal']:NULL;
 		$idet['vInaktivasi_jenis'] = $postData['vInaktivasi_jenis'];
 		$idet['vInaktivasi_perlakuan'] = $postData['vInaktivasi_perlakuan'];
 		$idet['vInaktivasi_persen'] = $postData['vInaktivasi_persen'];
@@ -704,7 +770,7 @@ class mt8b extends MX_Controller {
 		//$idet['vInaktivasi_lain'] = $postData['vInaktivasi_lain'];
 		$idet['vInaktivasi_metoda'] = $postData['vInaktivasi_metoda'];
 		$idet['vInaktivasi_mutu'] = $postData['vInaktivasi_mutu'];
-		$idet['dInaktivasi_tanggal'] = $postData['dInaktivasi_tanggal'];
+		$idet['dInaktivasi_tanggal'] = ($postData['dInaktivasi_tanggal']=='')?$postData['dInaktivasi_tanggal']:NULL;
 		$idet['vPotensi'] = $postData['vPotensi'];
 		$idet['vPotensi_jenis'] = $postData['vPotensi_jenis'];
 		$idet['vPotensi_umur'] = $postData['vPotensi_umur'];
@@ -716,7 +782,7 @@ class mt8b extends MX_Controller {
 		$idet['vPotensi_cdl'] = $postData['vPotensi_cdl'];
 		$idet['vPotensi_metoda'] = $postData['vPotensi_metoda'];
 		$idet['vPotensi_mutu'] = $postData['vPotensi_mutu'];
-		$idet['dPotensi_tanggal'] = $postData['dPotensi_tanggal'];
+		$idet['dPotensi_tanggal'] = ($postData['dPotensi_tanggal']=='')?$postData['dPotensi_tanggal']:NULL;
 		$idet['vPatologi'] = $postData['vPatologi'];
 		$idet['vPatologi_jenis'] = $postData['vPatologi_jenis'];
 		$idet['vPatologi_umur'] = $postData['vPatologi_umur'];
@@ -728,11 +794,11 @@ class mt8b extends MX_Controller {
 		$idet['vPatologi_cdl'] = $postData['vPatologi_cdl'];
 		$idet['vPatologi_metoda'] = $postData['vPatologi_metoda'];
 		$idet['vPatologi_mutu'] = $postData['vPatologi_mutu'];
-		$idet['dPatologi_tanggal'] = $postData['dPatologi_tanggal'];
+		$idet['dPatologi_tanggal'] = ($postData['dPatologi_tanggal']=='')?$postData['dPatologi_tanggal']:NULL;
 		$idet['vLain'] = $postData['vLain'];
 		$idet['vLain_metoda'] = $postData['vLain_metoda'];
 		$idet['vLain_mutu'] = $postData['vLain_mutu'];
-		$idet['dLain_tanggal'] = $postData['dLain_tanggal'];
+		$idet['dLain_tanggal'] = ($postData['dLain_tanggal']=='')?$postData['dLain_tanggal']:NULL;
 
 
 

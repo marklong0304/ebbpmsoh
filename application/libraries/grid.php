@@ -2443,8 +2443,8 @@ class Grid{
 
 		
 		//show query asli
-		echo $this->ci->db->last_query();
-		exit;
+		/*echo $this->ci->db->last_query();
+		exit;*/
 
 		
 		

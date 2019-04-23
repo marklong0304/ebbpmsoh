@@ -83,6 +83,7 @@
 			} else {
 				return true;
 			}*/
+			return true;
 		}
 		
 		function updateTips( t ) {
