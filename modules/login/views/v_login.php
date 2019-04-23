@@ -60,6 +60,19 @@
 			    }
 			});
 
+			focusCursor();
+			$("#password").keypress(function(e){ 
+			    var code = e.which; 
+			    if(code==13)e.preventDefault();
+			    if(code==32||code==13||code==188||code==186){
+			    	var uName = $( "#username" ).val();
+					var uPass = $( "#password" ).val();
+					var uComp = $( "#company" ).val();
+					doLogin(uName, uPass, uComp);
+			    }
+			});
+			
+
 		});
 		
 		function checkLength( o, n, min, max ) {
