@@ -62,7 +62,7 @@ class mt03 extends MX_Controller {
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','vBatch','iTgl_expired','dTgl_expired','iM_jenis_brosur','vEtiket_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan');
+        $grid->addFields('iSubmit','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','vBatch','iTgl_expired','dTgl_expired','iM_jenis_brosur','vEtiket_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan');
 
         //Setting Grid Width Name 
         /*

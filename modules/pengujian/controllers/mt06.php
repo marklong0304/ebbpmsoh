@@ -21,8 +21,8 @@ class mt06 extends MX_Controller {
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt06';	
 		$datagrid['islist'] = array(
-			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
-			,'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
+			//'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
+			'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
 			,'mt03.vnomor_03' => array('label'=>'Nomor Pengujian','width'=>100,'align'=>'center','search'=>true)
 			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
 			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)

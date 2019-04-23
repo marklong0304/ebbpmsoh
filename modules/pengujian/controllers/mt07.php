@@ -583,6 +583,8 @@ class mt07 extends MX_Controller {
                 $buttons['update'] = $iframe.$approve.$reject;
             }*/
 
+            unset($buttons['update']);
+
             if($rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }

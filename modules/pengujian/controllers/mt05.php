@@ -671,7 +671,7 @@ class mt05 extends MX_Controller {
             $buttons['update'] = $btnUpk; 
         }
         else{ 
-
+        	unset($buttons['update']);
         	if($rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }
