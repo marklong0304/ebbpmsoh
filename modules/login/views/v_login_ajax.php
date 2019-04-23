@@ -21,7 +21,7 @@
 					"Sign In": function() {
 						var bValid = true;
 						allFields.removeClass( "ui-state-error" );
-						bValid = bValid && checkLength( username, "username", 1, 7 );
+						//bValid = bValid && checkLength( username, "username", 1, 7 );
 						bValid = bValid; //&& checkLength( password, "password", 3, 16 );
 						bValid = bValid;// && checkRegexp( username, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
 						bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z~!@#$%^&*_+=`-])+$/, "Password field not allowed" );//Password field only allow : a-z 0-9
@@ -50,14 +50,14 @@
 		});
 		
 		function checkLength( o, n, min, max ) {
-			if ( o.val().length > max || o.val().length < min ) {
+			/*if ( o.val().length > max || o.val().length < min ) {
 				o.addClass( "ui-state-error" );
 				updateTips( "Length of " + n + " must be between " +
 					min + " and " + max + "." );
 				return false;
 			} else {
 				return true;
-			}
+			}*/
 		}
 		
 		function updateTips( t ) {

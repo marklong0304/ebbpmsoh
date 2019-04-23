@@ -121,7 +121,13 @@ class mt06 extends MX_Controller {
                 foreach ($vv as $list => $vlist) {
                     if($vlist=="all_form"){
                         foreach ($this->datagrid['addFields'] as $kfield => $vfield) {
-                            $grid->setRequired($kfield);
+
+                        	if($kfield['vKeterangan_06']){
+
+                        	}else{
+                        		$grid->setRequired($kfield);	
+                        	}
+                            
                         }
                     }
                 }
@@ -603,7 +609,7 @@ class mt06 extends MX_Controller {
 	}
 
 	function insertBox_mt06_vKeterangan_06($field, $id) {
-        $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+        $return = '<textarea name="'.$field.'" id="'.$id.'" class="" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
         return $return;
     }
     
@@ -611,7 +617,7 @@ class mt06 extends MX_Controller {
             if ($this->input->get('action') == 'view') {
                  $return= '<label title="Note">'.nl2br($value).'</label>'; 
             }else{ 
-                $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+                $return = '<textarea name="'.$field.'" id="'.$id.'" class="" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
 
             }
             
@@ -925,7 +931,7 @@ class mt06 extends MX_Controller {
     			from bbpmsoh.mt01
     			join bbpmsoh.mt03 on mt03.iMt01 = mt01.iMt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
-				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt05 where iApprove=2 and lDeleted=0) 
+				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt05 where iSubmit=1 and lDeleted=0) 
 				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0)
 				AND mt03.vnomor_03 like "%'.$term.'%" 
 				and mt01.lDeleted=0 order by vNomor ASC';

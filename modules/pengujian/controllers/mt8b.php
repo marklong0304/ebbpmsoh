@@ -434,8 +434,7 @@ class mt8b extends MX_Controller {
 				->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
 				->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
 				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08b where lDeleted=0 AND iApprove_unit_uji in (0,2) )')
-
-				->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )')
+				->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 ) )')
 
 				->where($arr);
 
@@ -503,7 +502,7 @@ class mt8b extends MX_Controller {
             ->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
             ->where($arr)
             ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08b where lDeleted=0 AND iMt01 !='.$value.' )')
-           	->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )');
+           	->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 ) )');
         $row=$this->db->get()->result_array();
 
         $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$value.'" ';
@@ -686,55 +685,54 @@ class mt8b extends MX_Controller {
     	$post = $this->input->post();
     	$idet['iMt8b'] = $id;
 
-		$idet['vKandungan'] = $post['vKandungan'];
-$idet['vKandungan_metoda'] = $post['vKandungan_metoda'];
-$idet['vKandungan_mutu'] = $post['vKandungan_mutu'];
-$idet['dKandungan_tanggal'] = $post['dKandungan_tanggal'];
-$idet['vIdentitas'] = $post['vIdentitas'];
-$idet['vIdentitas_metoda'] = $post['vIdentitas_metoda'];
-$idet['vIdentitas_mutu'] = $post['vIdentitas_mutu'];
-$idet['dIdentitas_tanggal'] = $post['dIdentitas_tanggal'];
-$idet['vVirus'] = $post['vVirus'];
-$idet['vVirus_metoda'] = $post['vVirus_metoda'];
-$idet['vVirus_mutu'] = $post['vVirus_mutu'];
-$idet['dVirus_tanggal'] = $post['dVirus_tanggal'];
-$idet['vInaktivasi_jenis'] = $post['vInaktivasi_jenis'];
-$idet['vInaktivasi_perlakuan'] = $post['vInaktivasi_perlakuan'];
-$idet['vInaktivasi_persen'] = $post['vInaktivasi_persen'];
-$idet['vInaktivasi_kontrol'] = $post['vInaktivasi_kontrol'];
-//$idet['vInaktivasi_lain'] = $post['vInaktivasi_lain'];
-$idet['vInaktivasi_metoda'] = $post['vInaktivasi_metoda'];
-$idet['vInaktivasi_mutu'] = $post['vInaktivasi_mutu'];
-$idet['dInaktivasi_tanggal'] = $post['dInaktivasi_tanggal'];
-$idet['vPotensi'] = $post['vPotensi'];
-$idet['vPotensi_jenis'] = $post['vPotensi_jenis'];
-$idet['vPotensi_umur'] = $post['vPotensi_umur'];
-$idet['vPotensi_bb'] = $post['vPotensi_bb'];
-$idet['vPotensi_perlakuan'] = $post['vPotensi_perlakuan'];
-$idet['vPotensi_kontrol'] = $post['vPotensi_kontrol'];
-$idet['vPotensi_persen'] = $post['vPotensi_persen'];
-$idet['vPotensi_mdl'] = $post['vPotensi_mdl'];
-$idet['vPotensi_cdl'] = $post['vPotensi_cdl'];
-$idet['vPotensi_metoda'] = $post['vPotensi_metoda'];
-$idet['vPotensi_mutu'] = $post['vPotensi_mutu'];
-$idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
-$idet['vPatologi'] = $post['vPatologi'];
-$idet['vPatologi_jenis'] = $post['vPatologi_jenis'];
-$idet['vPatologi_umur'] = $post['vPatologi_umur'];
-$idet['vPatologi_bb'] = $post['vPatologi_bb'];
-$idet['vPatologi_perlakuan'] = $post['vPatologi_perlakuan'];
-$idet['vPatologi_kontrol'] = $post['vPatologi_kontrol'];
-$idet['vPatologi_persen'] = $post['vPatologi_persen'];
-$idet['vPatologi_mdl'] = $post['vPatologi_mdl'];
-$idet['vPatologi_cdl'] = $post['vPatologi_cdl'];
-$idet['vPatologi_metoda'] = $post['vPatologi_metoda'];
-$idet['vPatologi_mutu'] = $post['vPatologi_mutu'];
-$idet['dPatologi_tanggal'] = $post['dPatologi_tanggal'];
-$idet['vLain'] = $post['vLain'];
-$idet['vLain_metoda'] = $post['vLain_metoda'];
-$idet['vLain_mutu'] = $post['vLain_mutu'];
-$idet['dLain_tanggal'] = $post['dLain_tanggal'];
-
+		$idet['vKandungan'] = $postData['vKandungan'];
+		$idet['vKandungan_metoda'] = $postData['vKandungan_metoda'];
+		$idet['vKandungan_mutu'] = $postData['vKandungan_mutu'];
+		$idet['dKandungan_tanggal'] = $postData['dKandungan_tanggal'];
+		$idet['vIdentitas'] = $postData['vIdentitas'];
+		$idet['vIdentitas_metoda'] = $postData['vIdentitas_metoda'];
+		$idet['vIdentitas_mutu'] = $postData['vIdentitas_mutu'];
+		$idet['dIdentitas_tanggal'] = $postData['dIdentitas_tanggal'];
+		$idet['vVirus'] = $postData['vVirus'];
+		$idet['vVirus_metoda'] = $postData['vVirus_metoda'];
+		$idet['vVirus_mutu'] = $postData['vVirus_mutu'];
+		$idet['dVirus_tanggal'] = $postData['dVirus_tanggal'];
+		$idet['vInaktivasi_jenis'] = $postData['vInaktivasi_jenis'];
+		$idet['vInaktivasi_perlakuan'] = $postData['vInaktivasi_perlakuan'];
+		$idet['vInaktivasi_persen'] = $postData['vInaktivasi_persen'];
+		$idet['vInaktivasi_kontrol'] = $postData['vInaktivasi_kontrol'];
+		//$idet['vInaktivasi_lain'] = $postData['vInaktivasi_lain'];
+		$idet['vInaktivasi_metoda'] = $postData['vInaktivasi_metoda'];
+		$idet['vInaktivasi_mutu'] = $postData['vInaktivasi_mutu'];
+		$idet['dInaktivasi_tanggal'] = $postData['dInaktivasi_tanggal'];
+		$idet['vPotensi'] = $postData['vPotensi'];
+		$idet['vPotensi_jenis'] = $postData['vPotensi_jenis'];
+		$idet['vPotensi_umur'] = $postData['vPotensi_umur'];
+		$idet['vPotensi_bb'] = $postData['vPotensi_bb'];
+		$idet['vPotensi_perlakuan'] = $postData['vPotensi_perlakuan'];
+		$idet['vPotensi_kontrol'] = $postData['vPotensi_kontrol'];
+		$idet['vPotensi_persen'] = $postData['vPotensi_persen'];
+		$idet['vPotensi_mdl'] = $postData['vPotensi_mdl'];
+		$idet['vPotensi_cdl'] = $postData['vPotensi_cdl'];
+		$idet['vPotensi_metoda'] = $postData['vPotensi_metoda'];
+		$idet['vPotensi_mutu'] = $postData['vPotensi_mutu'];
+		$idet['dPotensi_tanggal'] = $postData['dPotensi_tanggal'];
+		$idet['vPatologi'] = $postData['vPatologi'];
+		$idet['vPatologi_jenis'] = $postData['vPatologi_jenis'];
+		$idet['vPatologi_umur'] = $postData['vPatologi_umur'];
+		$idet['vPatologi_bb'] = $postData['vPatologi_bb'];
+		$idet['vPatologi_perlakuan'] = $postData['vPatologi_perlakuan'];
+		$idet['vPatologi_kontrol'] = $postData['vPatologi_kontrol'];
+		$idet['vPatologi_persen'] = $postData['vPatologi_persen'];
+		$idet['vPatologi_mdl'] = $postData['vPatologi_mdl'];
+		$idet['vPatologi_cdl'] = $postData['vPatologi_cdl'];
+		$idet['vPatologi_metoda'] = $postData['vPatologi_metoda'];
+		$idet['vPatologi_mutu'] = $postData['vPatologi_mutu'];
+		$idet['dPatologi_tanggal'] = $postData['dPatologi_tanggal'];
+		$idet['vLain'] = $postData['vLain'];
+		$idet['vLain_metoda'] = $postData['vLain_metoda'];
+		$idet['vLain_mutu'] = $postData['vLain_mutu'];
+		$idet['dLain_tanggal'] = $postData['dLain_tanggal'];
 
 
 
@@ -751,54 +749,54 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
     function after_update_processor($fields, $id, $postData) {
     	$post=$this->input->post();
 	    
-	    $idet['vKandungan'] = $post['vKandungan'];
-		$idet['vKandungan_metoda'] = $post['vKandungan_metoda'];
-		$idet['vKandungan_mutu'] = $post['vKandungan_mutu'];
-		$idet['dKandungan_tanggal'] = $post['dKandungan_tanggal'];
-		$idet['vIdentitas'] = $post['vIdentitas'];
-		$idet['vIdentitas_metoda'] = $post['vIdentitas_metoda'];
-		$idet['vIdentitas_mutu'] = $post['vIdentitas_mutu'];
-		$idet['dIdentitas_tanggal'] = $post['dIdentitas_tanggal'];
-		$idet['vVirus'] = $post['vVirus'];
-		$idet['vVirus_metoda'] = $post['vVirus_metoda'];
-		$idet['vVirus_mutu'] = $post['vVirus_mutu'];
-		$idet['dVirus_tanggal'] = $post['dVirus_tanggal'];
-		$idet['vInaktivasi_jenis'] = $post['vInaktivasi_jenis'];
-		$idet['vInaktivasi_perlakuan'] = $post['vInaktivasi_perlakuan'];
-		$idet['vInaktivasi_persen'] = $post['vInaktivasi_persen'];
-		$idet['vInaktivasi_kontrol'] = $post['vInaktivasi_kontrol'];
-		//$idet['vInaktivasi_lain'] = $post['vInaktivasi_lain'];
-		$idet['vInaktivasi_metoda'] = $post['vInaktivasi_metoda'];
-		$idet['vInaktivasi_mutu'] = $post['vInaktivasi_mutu'];
-		$idet['dInaktivasi_tanggal'] = $post['dInaktivasi_tanggal'];
-		$idet['vPotensi'] = $post['vPotensi'];
-		$idet['vPotensi_jenis'] = $post['vPotensi_jenis'];
-		$idet['vPotensi_umur'] = $post['vPotensi_umur'];
-		$idet['vPotensi_bb'] = $post['vPotensi_bb'];
-		$idet['vPotensi_perlakuan'] = $post['vPotensi_perlakuan'];
-		$idet['vPotensi_kontrol'] = $post['vPotensi_kontrol'];
-		$idet['vPotensi_persen'] = $post['vPotensi_persen'];
-		$idet['vPotensi_mdl'] = $post['vPotensi_mdl'];
-		$idet['vPotensi_cdl'] = $post['vPotensi_cdl'];
-		$idet['vPotensi_metoda'] = $post['vPotensi_metoda'];
-		$idet['vPotensi_mutu'] = $post['vPotensi_mutu'];
-		$idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
-		$idet['vPatologi'] = $post['vPatologi'];
-		$idet['vPatologi_jenis'] = $post['vPatologi_jenis'];
-		$idet['vPatologi_umur'] = $post['vPatologi_umur'];
-		$idet['vPatologi_bb'] = $post['vPatologi_bb'];
-		$idet['vPatologi_perlakuan'] = $post['vPatologi_perlakuan'];
-		$idet['vPatologi_kontrol'] = $post['vPatologi_kontrol'];
-		$idet['vPatologi_persen'] = $post['vPatologi_persen'];
-		$idet['vPatologi_mdl'] = $post['vPatologi_mdl'];
-		$idet['vPatologi_cdl'] = $post['vPatologi_cdl'];
-		$idet['vPatologi_metoda'] = $post['vPatologi_metoda'];
-		$idet['vPatologi_mutu'] = $post['vPatologi_mutu'];
-		$idet['dPatologi_tanggal'] = $post['dPatologi_tanggal'];
-		$idet['vLain'] = $post['vLain'];
-		$idet['vLain_metoda'] = $post['vLain_metoda'];
-		$idet['vLain_mutu'] = $post['vLain_mutu'];
-		$idet['dLain_tanggal'] = $post['dLain_tanggal'];
+	    $idet['vKandungan'] = $postData['vKandungan'];
+		$idet['vKandungan_metoda'] = $postData['vKandungan_metoda'];
+		$idet['vKandungan_mutu'] = $postData['vKandungan_mutu'];
+		$idet['dKandungan_tanggal'] = $postData['dKandungan_tanggal'];
+		$idet['vIdentitas'] = $postData['vIdentitas'];
+		$idet['vIdentitas_metoda'] = $postData['vIdentitas_metoda'];
+		$idet['vIdentitas_mutu'] = $postData['vIdentitas_mutu'];
+		$idet['dIdentitas_tanggal'] = $postData['dIdentitas_tanggal'];
+		$idet['vVirus'] = $postData['vVirus'];
+		$idet['vVirus_metoda'] = $postData['vVirus_metoda'];
+		$idet['vVirus_mutu'] = $postData['vVirus_mutu'];
+		$idet['dVirus_tanggal'] = $postData['dVirus_tanggal'];
+		$idet['vInaktivasi_jenis'] = $postData['vInaktivasi_jenis'];
+		$idet['vInaktivasi_perlakuan'] = $postData['vInaktivasi_perlakuan'];
+		$idet['vInaktivasi_persen'] = $postData['vInaktivasi_persen'];
+		$idet['vInaktivasi_kontrol'] = $postData['vInaktivasi_kontrol'];
+		//$idet['vInaktivasi_lain'] = $postData['vInaktivasi_lain'];
+		$idet['vInaktivasi_metoda'] = $postData['vInaktivasi_metoda'];
+		$idet['vInaktivasi_mutu'] = $postData['vInaktivasi_mutu'];
+		$idet['dInaktivasi_tanggal'] = $postData['dInaktivasi_tanggal'];
+		$idet['vPotensi'] = $postData['vPotensi'];
+		$idet['vPotensi_jenis'] = $postData['vPotensi_jenis'];
+		$idet['vPotensi_umur'] = $postData['vPotensi_umur'];
+		$idet['vPotensi_bb'] = $postData['vPotensi_bb'];
+		$idet['vPotensi_perlakuan'] = $postData['vPotensi_perlakuan'];
+		$idet['vPotensi_kontrol'] = $postData['vPotensi_kontrol'];
+		$idet['vPotensi_persen'] = $postData['vPotensi_persen'];
+		$idet['vPotensi_mdl'] = $postData['vPotensi_mdl'];
+		$idet['vPotensi_cdl'] = $postData['vPotensi_cdl'];
+		$idet['vPotensi_metoda'] = $postData['vPotensi_metoda'];
+		$idet['vPotensi_mutu'] = $postData['vPotensi_mutu'];
+		$idet['dPotensi_tanggal'] = $postData['dPotensi_tanggal'];
+		$idet['vPatologi'] = $postData['vPatologi'];
+		$idet['vPatologi_jenis'] = $postData['vPatologi_jenis'];
+		$idet['vPatologi_umur'] = $postData['vPatologi_umur'];
+		$idet['vPatologi_bb'] = $postData['vPatologi_bb'];
+		$idet['vPatologi_perlakuan'] = $postData['vPatologi_perlakuan'];
+		$idet['vPatologi_kontrol'] = $postData['vPatologi_kontrol'];
+		$idet['vPatologi_persen'] = $postData['vPatologi_persen'];
+		$idet['vPatologi_mdl'] = $postData['vPatologi_mdl'];
+		$idet['vPatologi_cdl'] = $postData['vPatologi_cdl'];
+		$idet['vPatologi_metoda'] = $postData['vPatologi_metoda'];
+		$idet['vPatologi_mutu'] = $postData['vPatologi_mutu'];
+		$idet['dPatologi_tanggal'] = $postData['dPatologi_tanggal'];
+		$idet['vLain'] = $postData['vLain'];
+		$idet['vLain_metoda'] = $postData['vLain_metoda'];
+		$idet['vLain_mutu'] = $postData['vLain_mutu'];
+		$idet['dLain_tanggal'] = $postData['dLain_tanggal'];
 
 
     	$this->db->where('iMt8b', $id);
@@ -976,6 +974,10 @@ $idet['dLain_tanggal'] = $post['dLain_tanggal'];
 	        $dataupdate['dApprove']= date('Y-m-d H:i:s');
 	        $dataupdate['vRemark']= $post['vRemark'];
 	        $dataupdate['iApprove_unit_uji']= 2;
+
+	        $subject = 'e-Pengujian -> Approve Yanji MT8B '.$rsql['vNo_transaksi'];
+            $precontent = 'Admin Yanji telah melakukan Approval Pengujian MT8B';
+
 
      	}
 		 

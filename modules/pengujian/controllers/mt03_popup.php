@@ -92,13 +92,15 @@ class mt03_popup extends MX_Controller {
 						$("#'.$this->input->get('field').'_vCompName").val(vCompName);
 						$("#'.$this->input->get('field').'_vNama_sample").val(vNama_sample);
 						$("#'.$this->input->get('field').'_vNama_produsen").val(vNama_produsen);
-						$("#'.$this->input->get('field').'_iAda_batch_dis").val(vBatch_lot);
-						$("#'.$this->input->get('field').'_iTgl_expired_dis").val(dTgl_kadaluarsa);
+						
 						$("#'.$this->input->get('field').'_vNama_tujuan").val(vNama_tujuan);
 
 						$("#'.$this->input->get('field').'_vBatch").val(vBatch_lot);
 						$("#'.$this->input->get('field').'_dTgl_expired").val(dTgl_kadaluarsa);
 						
+						//$("#'.$this->input->get('field').'_iAda_batch_dis").val(vBatch_lot);
+						//$("#'.$this->input->get('field').'_iTgl_expired_dis").val(dTgl_kadaluarsa);
+
 
 						$("#alert_dialog_form").dialog("close");
 					});

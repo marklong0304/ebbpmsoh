@@ -57,7 +57,7 @@ class mt03 extends MX_Controller {
         $grid->setUrl('mt03');
 
         //List Table
-        $grid->addList('mt01.vNo_transaksi','mt01.vBatch_lot','vnomor_03','dtanggal_03','mt01.vNama_produsen','iSubmit','iApprove'); 
+        $grid->addList('mt01.vNo_transaksi','mt01.vBatch_lot','vnomor_03','dtanggal_03','mt01.vNama_produsen','iSubmit'); 
         $grid->setSortBy('iMt03');
         $grid->setSortOrder('DESC');  
 
@@ -538,10 +538,11 @@ class mt03 extends MX_Controller {
 
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
      function listBox_Action($row, $actions) {
-        if ($row->iApprove>0) { 
-                unset($actions['edit']);
-        }
+        /*if ($row->iApprove>0) { 
+                
+        }*/
         if ($row->iSubmit>0) { 
+                unset($actions['edit']);
                 unset($actions['delete']);
         }
         return $actions;
@@ -1026,8 +1027,7 @@ class mt03 extends MX_Controller {
         $dataupdate['dApprove']= date('Y-m-d H:i:s');
         $dataupdate['vRemark']= $post['vRemark'];
         $dataupdate['iApprove']= 2;
-        $this->db->where('iMt03',$post['last_id'])
-                    ->update('bbpmsoh.mt03',$dataupdate);
+        $this->db->where('iMt03',$post['last_id'])->update('bbpmsoh.mt03',$dataupdate);
 
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
@@ -1241,11 +1241,18 @@ class mt03 extends MX_Controller {
             $buttons['update'] = $btnUpk;  
         }
         else{ 
-            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+            unset($buttons['update']);
+
+            /*if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
+            }*/
+
+            if($rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }
+
         }
         
         return $buttons;

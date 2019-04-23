@@ -27,7 +27,6 @@ class mt04 extends MX_Controller {
 			/*,'dTgl_terima_sample' => array('label'=>'Tgl Terima Sample','width'=>150,'align'=>'center','search'=>false)
 			,'dTgl_terima_serum' => array('label'=>'Tgl Terima Antiserum','width'=>150,'align'=>'center','search'=>false)*/
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			,'iApprove' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
 
 
@@ -403,11 +402,12 @@ class mt04 extends MX_Controller {
     }
 
     function listBox_Action($row, $actions) {
-        if ($row->iApprove>0) { 
-                unset($actions['edit']);
-        }
+        /*if ($row->iApprove>0) { 
+                
+        }*/
         if ($row->iSubmit>0) { 
-                unset($actions['delete']);
+            unset($actions['edit']);
+            unset($actions['delete']);
         }
         return $actions;
     }
@@ -660,11 +660,17 @@ class mt04 extends MX_Controller {
             $buttons['update'] = $btnUpk;  
         }
         else{ 
-            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+
+            if($rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            }
+
+
+            /*if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
-            }
+            }*/
         }
         
         return $buttons;

@@ -28,7 +28,6 @@ class mt05 extends MX_Controller {
 			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
 			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			,'iApprove' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
 		);
 
 		$datagrid['jointableinner']=array(
@@ -378,10 +377,11 @@ class mt05 extends MX_Controller {
 
 
     function listBox_Action($row, $actions) {
-        if ($row->iApprove>0) { 
-                unset($actions['edit']);
-        }
+        /*if ($row->iApprove>0) { 
+                
+        }*/
         if ($row->iSubmit>0) { 
+        		unset($actions['edit']);
                 unset($actions['delete']);
         }
         return $actions;
@@ -671,11 +671,17 @@ class mt05 extends MX_Controller {
             $buttons['update'] = $btnUpk; 
         }
         else{ 
-            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+
+        	if($rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            }
+
+
+            /*if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
-            }
+            }*/
         }
         
         return $buttons;
@@ -846,6 +852,135 @@ class mt05 extends MX_Controller {
     			}
     		}
     	}
+
+    	if($postData['iSubmit']==1){
+
+    		
+        	$qsql="
+                        select * 
+                        from bbpmsoh.mt01 a 
+                        join bbpmsoh.mt03 d on d.iMt01=a.iMt01
+                        join bbpmsoh.mt05 e on e.iMt01=a.iMt01
+                        join hrd.employee b on b.cNip=a.iCustomer
+                        join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                        where a.lDeleted=0 
+                        and d.lDeleted=0
+                        and e.lDeleted=0
+                        and e.iMt05 = '".$id."'
+
+                ";
+                $rsql = $this->db->query($qsql)->row_array();
+
+                $iAm = $this->whoAmI($this->user->gNIP);
+
+                $to = $rsql['cNip_requestor'] ;                        
+                $cc = $iAm['cNip'] ;
+
+
+                $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT05_APP"';
+                $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                $sq= $dEmpAr['vContent'];
+                $dataTO = $this->db->query($sq)->result_array();
+
+                $to = '0';
+                foreach ($dataTO as $toto) {
+                    $to .=','.$toto['cNIP'];
+                }
+
+                $to .=','.$rsql['iCustomer'];
+
+
+                $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                $dBcc =  $this->db->query($bccMail)->row_array();
+
+                
+
+                $to = $to;
+                $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                $subject = 'e-Pengujian -> New MT05 '.$rsql['vnomor_03'];
+                $content="
+                        <p>Diberitahukan bahwa ada Approval Form MT05 yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                        <br><br>  
+                        <table border='1' style='width: 750px;border-collapse: collapse;'>
+                            <tr>
+                                    <td style='width: 30%;'><b>Nomor Pengujian</b></td>
+                                    <td> : ".$rsql['vnomor_03']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Status</b></td>
+                                    <td> : Approve</td>
+                            </tr>
+
+
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                    <td> : ".$rsql['vNo_transaksi']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Nama Pemohon</b></td>
+                                    <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
+                            </tr>
+
+
+                            <tr>
+                                    <td><b>No Permintaan</b></td>
+                                    <td> : ".$rsql['vNomor']."</td>
+                            </tr> 
+                            <tr>
+                                    <td><b>Perihal</b></td>
+                                    <td> :".$rsql['vPerihal']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Nama Perusahaan</b></td>
+                                    <td> :".$rsql['vName_company']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat</b></td>
+                                    <td> : ".nl2br($rsql['vAddress_company'])."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Produsen</b></td>
+                                    <td> :".$rsql['vNama_produsen']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat Produsen</b></td>
+                                    <td> : ".nl2br($rsql['vAlamat_produsen'])."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Tujuan Pengujian Mutu</b></td>
+                                    <td> :".$rsql['vNama_tujuan']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Sample</b></td>
+                                    <td> :".$rsql['vNama_sample']."</td>
+                            </tr>  
+
+
+                            <tr>
+                                    <td><b>Lokasi Modul</b></td>
+                                    <td> e-Pengujian -> Transaksi -> MT05</td>
+                            </tr>
+
+                            
+                            
+                        </table> 
+
+                    <br/> <br/>
+                    Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                    Post Master"; 
+
+                    $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+    	}
     }
 
     /*After Update*/
@@ -908,6 +1043,138 @@ class mt05 extends MX_Controller {
 				$this->db->insert('bbpmsoh.mt05_detail',$datainsert);
 	    	}
 	    }
+
+
+	    if($postData['iSubmit']==1){
+
+    		
+        	$qsql="
+                        select * 
+                        from bbpmsoh.mt01 a 
+                        join bbpmsoh.mt03 d on d.iMt01=a.iMt01
+                        join bbpmsoh.mt05 e on e.iMt01=a.iMt01
+                        join hrd.employee b on b.cNip=a.iCustomer
+                        join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                        where a.lDeleted=0 
+                        and d.lDeleted=0
+                        and e.lDeleted=0
+                        and e.iMt05 = '".$id."'
+
+                ";
+                $rsql = $this->db->query($qsql)->row_array();
+
+                $iAm = $this->whoAmI($this->user->gNIP);
+
+                $to = $rsql['cNip_requestor'] ;                        
+                $cc = $iAm['cNip'] ;
+
+
+                $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT05_APP"';
+                $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                $sq= $dEmpAr['vContent'];
+                $dataTO = $this->db->query($sq)->result_array();
+
+                $to = '0';
+                foreach ($dataTO as $toto) {
+                    $to .=','.$toto['cNIP'];
+                }
+
+                $to .=','.$rsql['iCustomer'];
+
+
+                $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                $dBcc =  $this->db->query($bccMail)->row_array();
+
+                
+
+                $to = $to;
+                $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                $subject = 'e-Pengujian -> New MT05 '.$rsql['vnomor_03'];
+                $content="
+                        <p>Diberitahukan bahwa ada Approval Form MT05 yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                        <br><br>  
+                        <table border='1' style='width: 750px;border-collapse: collapse;'>
+                            <tr>
+                                    <td style='width: 30%;'><b>Nomor Pengujian</b></td>
+                                    <td> : ".$rsql['vnomor_03']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Status</b></td>
+                                    <td> : Approve</td>
+                            </tr>
+
+
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                    <td> : ".$rsql['vNo_transaksi']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td style='width: 30%;'><b>Nama Pemohon</b></td>
+                                    <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
+                            </tr>
+
+
+                            <tr>
+                                    <td><b>No Permintaan</b></td>
+                                    <td> : ".$rsql['vNomor']."</td>
+                            </tr> 
+                            <tr>
+                                    <td><b>Perihal</b></td>
+                                    <td> :".$rsql['vPerihal']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Nama Perusahaan</b></td>
+                                    <td> :".$rsql['vName_company']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat</b></td>
+                                    <td> : ".nl2br($rsql['vAddress_company'])."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Produsen</b></td>
+                                    <td> :".$rsql['vNama_produsen']."</td>
+                            </tr> 
+
+                            <tr>
+                                    <td><b>Alamat Produsen</b></td>
+                                    <td> : ".nl2br($rsql['vAlamat_produsen'])."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Tujuan Pengujian Mutu</b></td>
+                                    <td> :".$rsql['vNama_tujuan']."</td>
+                            </tr>
+
+                            <tr>
+                                    <td><b>Nama Sample</b></td>
+                                    <td> :".$rsql['vNama_sample']."</td>
+                            </tr>  
+
+
+                            <tr>
+                                    <td><b>Lokasi Modul</b></td>
+                                    <td> e-Pengujian -> Transaksi -> MT05</td>
+                            </tr>
+
+                            
+                            
+                        </table> 
+
+                    <br/> <br/>
+                    Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                    Post Master"; 
+
+                    $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+    	}
+
+
     }
 
 
@@ -1035,131 +1302,7 @@ class mt05 extends MX_Controller {
         $updet = $this->db->where('iMt05',$post['last_id'])->update('bbpmsoh.mt05',$dataupdate);
 
         if($updet){
-        	$id =$post['last_id'];
-        	$qsql="
-                        select * 
-                        from bbpmsoh.mt01 a 
-                        join bbpmsoh.mt03 d on d.iMt01=a.iMt01
-                        join bbpmsoh.mt05 e on e.iMt01=a.iMt01
-                        join hrd.employee b on b.cNip=a.iCustomer
-                        join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
-                        where a.lDeleted=0 
-                        and d.lDeleted=0
-                        and e.lDeleted=0
-                        and e.iMt05 = '".$id."'
-
-                ";
-                $rsql = $this->db->query($qsql)->row_array();
-
-                $iAm = $this->whoAmI($this->user->gNIP);
-
-                $to = $rsql['cNip_requestor'] ;                        
-                $cc = $iAm['cNip'] ;
-
-
-                $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT05_APP"';
-                $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
-                $sq= $dEmpAr['vContent'];
-                $dataTO = $this->db->query($sq)->result_array();
-
-                $to = '0';
-                foreach ($dataTO as $toto) {
-                    $to .=','.$toto['cNIP'];
-                }
-
-                $to .=','.$rsql['iCustomer'];
-
-
-                $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
-                $dBcc =  $this->db->query($bccMail)->row_array();
-
-                
-
-                $to = $to;
-                $cc = $this->user->gNIP.','.$dBcc['vContent'];
-
-                $subject = 'e-Pengujian -> Approval MT05 '.$rsql['vnomor_03'];
-                $content="
-                        <p>Diberitahukan bahwa ada Approval Form MT05 yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
-                        <br><br>  
-                        <table border='1' style='width: 750px;border-collapse: collapse;'>
-                            <tr>
-                                    <td style='width: 30%;'><b>Nomor Pengujian</b></td>
-                                    <td> : ".$rsql['vnomor_03']."</td>
-                            </tr>
-
-                            <tr>
-                                    <td style='width: 30%;'><b>Status</b></td>
-                                    <td> : Approve</td>
-                            </tr>
-
-
-
-                            <tr>
-                                    <td style='width: 30%;'><b>Nomor Transaksi</b></td>
-                                    <td> : ".$rsql['vNo_transaksi']."</td>
-                            </tr>
-
-                            <tr>
-                                    <td style='width: 30%;'><b>Nama Pemohon</b></td>
-                                    <td> : ".$rsql['cNip'].' || '.$rsql['vName']."</td>
-                            </tr>
-
-
-                            <tr>
-                                    <td><b>No Permintaan</b></td>
-                                    <td> : ".$rsql['vNomor']."</td>
-                            </tr> 
-                            <tr>
-                                    <td><b>Perihal</b></td>
-                                    <td> :".$rsql['vPerihal']."</td>
-                            </tr> 
-
-                            <tr>
-                                    <td><b>Nama Perusahaan</b></td>
-                                    <td> :".$rsql['vName_company']."</td>
-                            </tr> 
-
-                            <tr>
-                                    <td><b>Alamat</b></td>
-                                    <td> : ".nl2br($rsql['vAddress_company'])."</td>
-                            </tr>
-
-                            <tr>
-                                    <td><b>Nama Produsen</b></td>
-                                    <td> :".$rsql['vNama_produsen']."</td>
-                            </tr> 
-
-                            <tr>
-                                    <td><b>Alamat Produsen</b></td>
-                                    <td> : ".nl2br($rsql['vAlamat_produsen'])."</td>
-                            </tr>
-
-                            <tr>
-                                    <td><b>Tujuan Pengujian Mutu</b></td>
-                                    <td> :".$rsql['vNama_tujuan']."</td>
-                            </tr>
-
-                            <tr>
-                                    <td><b>Nama Sample</b></td>
-                                    <td> :".$rsql['vNama_sample']."</td>
-                            </tr>  
-
-
-                            <tr>
-                                    <td><b>Lokasi Modul</b></td>
-                                    <td> e-Pengujian -> Transaksi -> MT05</td>
-                            </tr>
-
-                            
-                            
-                        </table> 
-
-                    <br/> <br/>
-                    Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
-                    Post Master"; 
-
-                    $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+        	
 
         }
 
@@ -1271,7 +1414,7 @@ class mt05 extends MX_Controller {
                 $to = $to;
                 $cc = $this->user->gNIP.','.$dBcc['vContent'];
 
-                $subject = 'e-Pengujian -> Approval MT05 '.$rsql['vnomor_03'];
+                $subject = 'e-Pengujian -> New MT05 '.$rsql['vnomor_03'];
                 $content="
                         <p>Diberitahukan bahwa ada Approval Form MT05 yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
                         <br><br>  
@@ -1369,7 +1512,7 @@ class mt05 extends MX_Controller {
     			from bbpmsoh.mt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
     			join bbpmsoh.mt03 on mt03.iMt01 = mt01.iMt01
-				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt03 where iApprove=2 and lDeleted=0) 
+				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt03 where iSubmit=1 and lDeleted=0) 
 				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt05_detail where lDeleted=0)
 				AND mt03.vnomor_03 like "%'.$term.'%" 
 				and mt01.lDeleted=0 

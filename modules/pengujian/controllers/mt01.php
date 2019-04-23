@@ -137,7 +137,7 @@ class mt01 extends MX_Controller {
     
         $grid->setWidth('vZat_aktif', '100');
         $grid->setAlign('vZat_aktif', 'left');
-        $grid->setLabel('vZat_aktif','Zak Aktif / Strain');
+        $grid->setLabel('vZat_aktif','Zat Aktif / Strain');
     
         $grid->setWidth('vBatch_lot', '100');
         $grid->setAlign('vBatch_lot', 'left');
@@ -240,7 +240,7 @@ class mt01 extends MX_Controller {
         $grid->setSearch('vNo_transaksi','vNomor','vPerihal','iCustomer','vNama_produsen','iM_tujuan_pengujian','iSubmit','iApprove');
         
     //set required
-        $grid->setRequired('vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vNo_registrasi','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','lDeleted','iSubmit','iApprove','dApprove','cApprove','vRemark','cCreated','dCreated','cUpdated','dUpdated'); 
+        $grid->setRequired('vNo_transaksi','vNomor','vLampiran','vPerihal','dTanggal','iCustomer','iType_pemohon','vNama_produsen','vAlamat_produsen','iM_tujuan_pengujian','vNama_sample','iM_jenis_sediaan','iSudah_beredar','vZat_aktif','vBatch_lot','dTgl_produksi','dTgl_kadaluarsa','vKemasan','iJumlah_diserahkan','vSuhu_penyimpanan','vPermohonan_lampiran','dTgl_ambil_sample','dTgl_serah_sample','vPimpinan_perusahaan','lDeleted','iSubmit','iApprove','dApprove','cApprove','vRemark','cCreated','dCreated','cUpdated','dUpdated'); 
 
         $grid->setQuery('mt01.lDeleted', 0); 
 
@@ -1038,7 +1038,7 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_vNo_registrasi($field, $id) {
-                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 " size="30"  />';
                             return $return;
                         }
                         
@@ -1046,7 +1046,7 @@ class mt01 extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
-                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 " size="30" value="'.$value.'"/>';
 
                                 }
                                 
@@ -1351,14 +1351,54 @@ class mt01 extends MX_Controller {
         $data['id']=0;
         $data['iSubmit']=0;
         $data['get']=$this->input->get();
-        $return=$this->load->view("grid/mt01_upload_file",$data,TRUE);
+        
+        $return = ''.' <b>UPLOAD DOKUMEN BERIKUT </b> :
+                            <br>
+                            Surat pengantar sampel dari keswan*
+                            <br>
+                            Hasil Rapat PPOH*
+                            <br>
+                            Lampiran A (komposisi)
+                            <br>
+                            Lampiran C lengkap (termasuk CoA)*
+                            <br>
+                            Lampiran J*
+                            <br>
+                            Foto Sampel (komposisi terbaca)*
+                            <br>
+                            Dokumen Lengkap Pendaftaran Obat Hewan (format pdf)
+                            <br>
+                            Keterangan : Tanda (*) Wajib isi
+                            <br>
+                            ';
+        $return .=$this->load->view("grid/mt01_upload_file",$data,TRUE);
         return $return;
     }
     function updateBox_mt01_vUploadFile($field, $id, $value, $rowData) {
         $data['id']=$rowData['iMt01'];
         $data['iSubmit']=$rowData['iSubmit'];
         $data['get']=$this->input->get();
-        $return=$this->load->view("grid/mt01_upload_file",$data,TRUE);
+        
+        $return = ''.' <b>UPLOAD DOKUMEN BERIKUT </b> :
+                            <br>
+                            Surat pengantar sampel dari keswan*
+                            <br>
+                            Hasil Rapat PPOH*
+                            <br>
+                            Lampiran A (komposisi)
+                            <br>
+                            Lampiran C lengkap (termasuk CoA)*
+                            <br>
+                            Lampiran J*
+                            <br>
+                            Foto Sampel (komposisi terbaca)*
+                            <br>
+                            Dokumen Lengkap Pendaftaran Obat Hewan (format pdf)
+                            <br>
+                            Keterangan : Tanda (*) Wajib isi
+                            <br>
+                            ';
+        $return .=$this->load->view("grid/mt01_upload_file",$data,TRUE);
         return $return;
     }
 
@@ -1721,17 +1761,17 @@ class mt01 extends MX_Controller {
         }
         else{ 
             unset($buttons['update']);
-
-            if($rowData['iSubmit']==0){
-                $groupnya = $this->checkgroup($this->user->gNIP);             
-                if( $groupnya['idprivi_group']== 2 || $rowData['iCustomer']==$this->user->gNIP ) {
+            $groupnya = $this->checkgroup($this->user->gNIP);  
+            if($rowData['iSubmit'] == 0){
+                           
+                if( $groupnya['idprivi_group'] == 2 || $rowData['iCustomer']==$this->user->gNIP ) {
                     $buttons['update'] = $iframe.$update_draft.$update.$js;    
 
                 }
 
             }else{
-                
-                if($rowData['iApprove']==0 && $groupnya['idprivi_group']== 2){
+                $buttons['update'] = 'Status '.$rowData['iApprove'].' Group '.$groupnya['idprivi_group'];    
+                if($rowData['iApprove'] == 0 && $groupnya['idprivi_group'] == 2){
                     $buttons['update'] = $iframe.$reject.$approve.$js;    
                 }
 

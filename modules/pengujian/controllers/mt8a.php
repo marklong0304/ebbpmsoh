@@ -439,7 +439,8 @@ class mt8a extends MX_Controller {
 				->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
 				->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
 				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iApprove_unit_uji in (0,2) )')
-				->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )')
+                //->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )')
+                ->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND (iDist_bakteri = 1) )')
 				->where($arr);
 
 		$return="<select name='".$id."' id='".$id."' class='required'>";
@@ -508,9 +509,9 @@ class mt8a extends MX_Controller {
             ->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
             ->where($arr)
             ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt08a where lDeleted=0 AND iMt01 !='.$value.' )')
-            ->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_virologi =1 or iDist_bakteri = 1) )');
+            ->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_bakteri = 1) )');
         $row=$this->db->get()->result_array();
-
+        
         $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$value.'" ';
         $dMt01 = $this->db->query($sqlinfo)->row_array();
         $return='<select id="'.$id.'" name="'.$field.'" class="required">';
@@ -688,58 +689,57 @@ class mt8a extends MX_Controller {
     	$post = $this->input->post();
     	$idet['iMt8a'] = $id;
 
-		$idet['vWarna'] = $post['vWarna'];
-		$idet['vWarna_metoda'] = $post['vWarna_metoda'];
-		$idet['vWarna_mutu'] = $post['vWarna_mutu'];
-		$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
+		$idet['vWarna'] = $postData['vWarna'];
+		$idet['vWarna_metoda'] = $postData['vWarna_metoda'];
+		$idet['vWarna_mutu'] = $postData['vWarna_mutu'];
+		$idet['dWarna_tanggal'] = $postData['dWarna_tanggal'];
 
 
-		$idet['vAsing'] = $post['vAsing'];
-		$idet['vAsing_metoda'] = $post['vAsing_metoda'];
-		$idet['vAsing_mutu'] = $post['vAsing_mutu'];
-		$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
+		$idet['vAsing'] = $postData['vAsing'];
+		$idet['vAsing_metoda'] = $postData['vAsing_metoda'];
+		$idet['vAsing_mutu'] = $postData['vAsing_mutu'];
+		$idet['dAsing_tanggal'] = $postData['dAsing_tanggal'];
 
 
-		$idet['vHomogen'] = $post['vHomogen'];
-		$idet['vHomogen_metoda'] = $post['vHomogen_metoda'];
-		$idet['vHomogen_mutu'] = $post['vHomogen_mutu'];
-		$idet['dHomogen_tanggal'] = $post['dHomogen_tanggal'];
+		$idet['vHomogen'] = $postData['vHomogen'];
+		$idet['vHomogen_metoda'] = $postData['vHomogen_metoda'];
+		$idet['vHomogen_mutu'] = $postData['vHomogen_mutu'];
+		$idet['dHomogen_tanggal'] = $postData['dHomogen_tanggal'];
 
-
-		$idet['vVakum'] = $post['vVakum'];
-		$idet['vVakum_metoda'] = $post['vVakum_metoda'];
-		$idet['vVakum_mutu'] = $post['vVakum_mutu'];
-		$idet['dVakum_tanggal'] = $post['dVakum_tanggal'];
-		$idet['vLembab'] = $post['vLembab'];
-		$idet['vLembab_metoda'] = $post['vLembab_metoda'];
-		$idet['vLembab_mutu'] = $post['vLembab_mutu'];
-		$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
-		$idet['vMurni_apus'] = $post['vMurni_apus'];
-		$idet['vMurni_37'] = $post['vMurni_37'];
-		$idet['vMurni_metoda'] = $post['vMurni_metoda'];
-		$idet['vMurni_mutu'] = $post['vMurni_mutu'];
-		$idet['dMurni_tanggal'] = $post['dMurni_tanggal'];
-		$idet['vSteril_37'] = $post['vSteril_37'];
-		$idet['vSteril_22'] = $post['vSteril_22'];
-		$idet['vSteril_metoda'] = $post['vSteril_metoda'];
-		$idet['vSteril_mutu'] = $post['vSteril_mutu'];
-		$idet['dSteril_tanggal'] = $post['dSteril_tanggal'];
-		$idet['vDisolasi'] = $post['vDisolasi'];
-		$idet['vDisolasi_metoda'] = $post['vDisolasi_metoda'];
-		$idet['vDisolasi_mutu'] = $post['vDisolasi_mutu'];
-		$idet['dDisolasi_tanggal'] = $post['dDisolasi_tanggal'];
-		$idet['vKontaminasi_mico'] = $post['vKontaminasi_mico'];
-		$idet['vKontaminasi_salmon'] = $post['vKontaminasi_salmon'];
-		$idet['vKontaminasi_jamur'] = $post['vKontaminasi_jamur'];
-		$idet['vKontaminasi_coli'] = $post['vKontaminasi_coli'];
-		$idet['vKontaminasi_lain'] = $post['vKontaminasi_lain'];
-		$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
-		$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
-		$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
-		$idet['vLain'] = $post['vLain'];
-		$idet['vLain_metoda'] = $post['vLain_metoda'];
-		$idet['vLain_mutu'] = $post['vLain_mutu'];
-		$idet['dLain_tanggal'] = $post['dLain_tanggal'];
+		$idet['vVakum'] = $postData['vVakum'];
+		$idet['vVakum_metoda'] = $postData['vVakum_metoda'];
+		$idet['vVakum_mutu'] = $postData['vVakum_mutu'];
+		$idet['dVakum_tanggal'] = $postData['dVakum_tanggal'];
+		$idet['vLembab'] = $postData['vLembab'];
+		$idet['vLembab_metoda'] = $postData['vLembab_metoda'];
+		$idet['vLembab_mutu'] = $postData['vLembab_mutu'];
+		$idet['dLembab_tanggal'] = $postData['dLembab_tanggal'];
+		$idet['vMurni_apus'] = $postData['vMurni_apus'];
+		$idet['vMurni_37'] = $postData['vMurni_37'];
+		$idet['vMurni_metoda'] = $postData['vMurni_metoda'];
+		$idet['vMurni_mutu'] = $postData['vMurni_mutu'];
+		$idet['dMurni_tanggal'] = $postData['dMurni_tanggal'];
+		$idet['vSteril_37'] = $postData['vSteril_37'];
+		$idet['vSteril_22'] = $postData['vSteril_22'];
+		$idet['vSteril_metoda'] = $postData['vSteril_metoda'];
+		$idet['vSteril_mutu'] = $postData['vSteril_mutu'];
+		$idet['dSteril_tanggal'] = $postData['dSteril_tanggal'];
+		$idet['vDisolasi'] = $postData['vDisolasi'];
+		$idet['vDisolasi_metoda'] = $postData['vDisolasi_metoda'];
+		$idet['vDisolasi_mutu'] = $postData['vDisolasi_mutu'];
+		$idet['dDisolasi_tanggal'] = $postData['dDisolasi_tanggal'];
+		$idet['vKontaminasi_mico'] = $postData['vKontaminasi_mico'];
+		$idet['vKontaminasi_salmon'] = $postData['vKontaminasi_salmon'];
+		$idet['vKontaminasi_jamur'] = $postData['vKontaminasi_jamur'];
+		$idet['vKontaminasi_coli'] = $postData['vKontaminasi_coli'];
+		$idet['vKontaminasi_lain'] = $postData['vKontaminasi_lain'];
+		$idet['vKontaminasi_metoda'] = $postData['vKontaminasi_metoda'];
+		$idet['vKontaminasi_mutu'] = $postData['vKontaminasi_mutu'];
+		$idet['dKontaminasi_tanggal'] = $postData['dKontaminasi_tanggal'];
+		$idet['vLain'] = $postData['vLain'];
+		$idet['vLain_metoda'] = $postData['vLain_metoda'];
+		$idet['vLain_mutu'] = $postData['vLain_mutu'];
+		$idet['dLain_tanggal'] = $postData['dLain_tanggal'];
 
 
 		
@@ -754,57 +754,57 @@ class mt8a extends MX_Controller {
     function after_update_processor($fields, $id, $postData) {
     	$post=$this->input->post();
 	    
-	    $idet['vWarna'] = $post['vWarna'];
-		$idet['vWarna_metoda'] = $post['vWarna_metoda'];
-		$idet['vWarna_mutu'] = $post['vWarna_mutu'];
-		$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
+	    $idet['vWarna'] = $postData['vWarna'];
+		$idet['vWarna_metoda'] = $postData['vWarna_metoda'];
+		$idet['vWarna_mutu'] = $postData['vWarna_mutu'];
+		$idet['dWarna_tanggal'] = $postData['dWarna_tanggal'];
 
 
-		$idet['vAsing'] = $post['vAsing'];
-		$idet['vAsing_metoda'] = $post['vAsing_metoda'];
-		$idet['vAsing_mutu'] = $post['vAsing_mutu'];
-		$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
+		$idet['vAsing'] = $postData['vAsing'];
+		$idet['vAsing_metoda'] = $postData['vAsing_metoda'];
+		$idet['vAsing_mutu'] = $postData['vAsing_mutu'];
+		$idet['dAsing_tanggal'] = $postData['dAsing_tanggal'];
 
 
-		$idet['vHomogen'] = $post['vHomogen'];
-		$idet['vHomogen_metoda'] = $post['vHomogen_metoda'];
-		$idet['vHomogen_mutu'] = $post['vHomogen_mutu'];
-		$idet['dHomogen_tanggal'] = $post['dHomogen_tanggal'];
+		$idet['vHomogen'] = $postData['vHomogen'];
+		$idet['vHomogen_metoda'] = $postData['vHomogen_metoda'];
+		$idet['vHomogen_mutu'] = $postData['vHomogen_mutu'];
+		$idet['dHomogen_tanggal'] = $postData['dHomogen_tanggal'];
 
-		$idet['vVakum'] = $post['vVakum'];
-		$idet['vVakum_metoda'] = $post['vVakum_metoda'];
-		$idet['vVakum_mutu'] = $post['vVakum_mutu'];
-		$idet['dVakum_tanggal'] = $post['dVakum_tanggal'];
-		$idet['vLembab'] = $post['vLembab'];
-		$idet['vLembab_metoda'] = $post['vLembab_metoda'];
-		$idet['vLembab_mutu'] = $post['vLembab_mutu'];
-		$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
-		$idet['vMurni_apus'] = $post['vMurni_apus'];
-		$idet['vMurni_37'] = $post['vMurni_37'];
-		$idet['vMurni_metoda'] = $post['vMurni_metoda'];
-		$idet['vMurni_mutu'] = $post['vMurni_mutu'];
-		$idet['dMurni_tanggal'] = $post['dMurni_tanggal'];
-		$idet['vSteril_37'] = $post['vSteril_37'];
-		$idet['vSteril_22'] = $post['vSteril_22'];
-		$idet['vSteril_metoda'] = $post['vSteril_metoda'];
-		$idet['vSteril_mutu'] = $post['vSteril_mutu'];
-		$idet['dSteril_tanggal'] = $post['dSteril_tanggal'];
-		$idet['vDisolasi'] = $post['vDisolasi'];
-		$idet['vDisolasi_metoda'] = $post['vDisolasi_metoda'];
-		$idet['vDisolasi_mutu'] = $post['vDisolasi_mutu'];
-		$idet['dDisolasi_tanggal'] = $post['dDisolasi_tanggal'];
-		$idet['vKontaminasi_mico'] = $post['vKontaminasi_mico'];
-		$idet['vKontaminasi_salmon'] = $post['vKontaminasi_salmon'];
-		$idet['vKontaminasi_jamur'] = $post['vKontaminasi_jamur'];
-		$idet['vKontaminasi_coli'] = $post['vKontaminasi_coli'];
-		$idet['vKontaminasi_lain'] = $post['vKontaminasi_lain'];
-		$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
-		$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
-		$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
-		$idet['vLain'] = $post['vLain'];
-		$idet['vLain_metoda'] = $post['vLain_metoda'];
-		$idet['vLain_mutu'] = $post['vLain_mutu'];
-		$idet['dLain_tanggal'] = $post['dLain_tanggal'];
+		$idet['vVakum'] = $postData['vVakum'];
+		$idet['vVakum_metoda'] = $postData['vVakum_metoda'];
+		$idet['vVakum_mutu'] = $postData['vVakum_mutu'];
+		$idet['dVakum_tanggal'] = $postData['dVakum_tanggal'];
+		$idet['vLembab'] = $postData['vLembab'];
+		$idet['vLembab_metoda'] = $postData['vLembab_metoda'];
+		$idet['vLembab_mutu'] = $postData['vLembab_mutu'];
+		$idet['dLembab_tanggal'] = $postData['dLembab_tanggal'];
+		$idet['vMurni_apus'] = $postData['vMurni_apus'];
+		$idet['vMurni_37'] = $postData['vMurni_37'];
+		$idet['vMurni_metoda'] = $postData['vMurni_metoda'];
+		$idet['vMurni_mutu'] = $postData['vMurni_mutu'];
+		$idet['dMurni_tanggal'] = $postData['dMurni_tanggal'];
+		$idet['vSteril_37'] = $postData['vSteril_37'];
+		$idet['vSteril_22'] = $postData['vSteril_22'];
+		$idet['vSteril_metoda'] = $postData['vSteril_metoda'];
+		$idet['vSteril_mutu'] = $postData['vSteril_mutu'];
+		$idet['dSteril_tanggal'] = $postData['dSteril_tanggal'];
+		$idet['vDisolasi'] = $postData['vDisolasi'];
+		$idet['vDisolasi_metoda'] = $postData['vDisolasi_metoda'];
+		$idet['vDisolasi_mutu'] = $postData['vDisolasi_mutu'];
+		$idet['dDisolasi_tanggal'] = $postData['dDisolasi_tanggal'];
+		$idet['vKontaminasi_mico'] = $postData['vKontaminasi_mico'];
+		$idet['vKontaminasi_salmon'] = $postData['vKontaminasi_salmon'];
+		$idet['vKontaminasi_jamur'] = $postData['vKontaminasi_jamur'];
+		$idet['vKontaminasi_coli'] = $postData['vKontaminasi_coli'];
+		$idet['vKontaminasi_lain'] = $postData['vKontaminasi_lain'];
+		$idet['vKontaminasi_metoda'] = $postData['vKontaminasi_metoda'];
+		$idet['vKontaminasi_mutu'] = $postData['vKontaminasi_mutu'];
+		$idet['dKontaminasi_tanggal'] = $postData['dKontaminasi_tanggal'];
+		$idet['vLain'] = $postData['vLain'];
+		$idet['vLain_metoda'] = $postData['vLain_metoda'];
+		$idet['vLain_mutu'] = $postData['vLain_mutu'];
+		$idet['dLain_tanggal'] = $postData['dLain_tanggal'];
 
     	$this->db->where('iMt8a', $id);
 		$this->db->update('bbpmsoh.mt08a_fisik', $idet);
@@ -982,6 +982,11 @@ class mt8a extends MX_Controller {
 	        $dataupdate['dApprove']= date('Y-m-d H:i:s');
 	        $dataupdate['vRemark']= $post['vRemark'];
 	        $dataupdate['iApprove_unit_uji']= 2;
+
+	        $subject = 'e-Pengujian -> Approve Yanji MT8A '.$rsql['vNo_transaksi'];
+            $precontent = 'Admin Yanji telah melakukan Approval Pengujian MT8A';
+
+
 
      	}
 		 
