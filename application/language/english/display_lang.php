@@ -2,7 +2,7 @@
 
 //--login box
 $lang['login_box_header']	= "Welcome";
-$lang['login_box_name']	 	= "User ID";
+$lang['login_box_name']	 	= "Email";
 $lang['login_box_pass']	 	= "Password";
 $lang['login_box_comp']	 	= "Company";
 $lang['login_box_in']	 	= "Sign In";

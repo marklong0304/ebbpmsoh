@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html class="home" lang="en"><!--<![endif]-->
 	<head>
-		<title>ERP - Enterprise Resource Planning</title>
+		<title>EBBPMSOH</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta name="description" content="{mtDesc}">
 		<meta name="author" content="{mtAuth}">
@@ -211,9 +211,8 @@
 	
 	<div class="register-box2 panel panel-default" style="text-align: left;">
 		<div class="login-logo" align="center">
-			<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//logo-bbpmsoh.png' style='max-width: 100%;max-height:170px'/></a></a>
-			<h3>Portal Layanan Pengujian <br /> Sampel Obat Hewan Online
-			(e-Sampel)</h3>
+			<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//LogoBBPMSOH.png' style='max-width: 100%;max-height:170px'/></a></a>
+			<h3>Sistem Terpadu <br /> Pengujian Mutu dan Sertifikasi Obat Hewan</h3>
 		</div><!-- /.login-logo -->
 		<div class="panel-heading" align="center">
 				<h3>Registrasi Pelanggan Baru</h3>
@@ -275,7 +274,7 @@
 					            </div>
 					            <div class="form-group col-sm-12">
 				                	<label for="">Nama Perusahaan</label>
-				                  	<input type="text" class="form-control" id="vName_company" name="vName_company" placeholder="Alamat anda" required="">
+				                  	<input type="text" class="form-control" id="vName_company" name="vName_company" placeholder="Nama Perusahaan" required="">
 				                </div>
 				                <div class="form-group col-sm-12">
 				                  	<label for="">Alamat Perusahaan</label>

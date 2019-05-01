@@ -64,11 +64,8 @@
 	<body class="login-page"  style="background: url(<?php echo base_url()?>/assets/bbpmsoh/purple-background.jpg)">
 		<div class="register-box">
 			<div class="login-logo" align="center">
-				<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//logo-blank.png' style='max-width: 100%;max-height:170px'/></a></a>
-				<h3>Portal Layanan Pengujian
-				<br />
-				Sampel Obat Hewan Online
-				(e-Sampel)</h3>
+				<a href="#"><a href="#"> <img title='Logo BBPMSOH' src='<?php echo base_url()?>/assets/bbpmsoh//LogoBBPMSOH.png' style='max-width: 100%;max-height:170px'/></a></a>
+				<h3>Sistem Terpadu <br /> Pengujian Mutu dan Sertifikasi Obat Hewan</h3>
 			</div>
 		</div>
 		<div class="register-box panel panel-default" style="text-align: left;">
@@ -90,13 +87,13 @@
 											<h1>Terima Kasih !</h1>
 											<br/>
 											<p style="font-size:15px;">
-												Terima kasih, telah mendafar di website Portal Layanan Pengujian Sampel Obat Hewan Online,
+												Terima kasih, telah mendafar di Sistem Terpadu Pengujian Mutu dan Sertifikasi Obat Hewan,
 												<br/>
 												Silahkan menunggu kabar email dari kami untuk anda bisa melakukan proses selanjutnya.
 												<br/>
 											</p>
 											<div align="center" class="divBack">
-												<a class="linkTesti" href="https://bbpmsoh.ditjenpkh.pertanian.go.id"> &laquo; Kembali ke Halaman Utama </a>
+												<!-- <a class="linkTesti" href="https://bbpmsoh.ditjenpkh.pertanian.go.id"> &laquo; Kembali ke Halaman Utama </a> -->
 											</div>
 										</div>
 									</div>

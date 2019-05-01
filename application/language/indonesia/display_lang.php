@@ -2,7 +2,7 @@
 
 //--login box
 $lang['login_box_header']= "Selamat Datang";
-$lang['login_box_name']	 = "User ID";
+$lang['login_box_name']	 = "Email";
 $lang['login_box_pass']	 = "Kata Kunci";
 $lang['login_box_comp']	 = "Perusahaan";
 $lang['login_box_in']	 = "Masuk";
