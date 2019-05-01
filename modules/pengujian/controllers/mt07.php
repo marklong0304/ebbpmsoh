@@ -10,21 +10,30 @@ class mt07 extends MX_Controller {
 		$this->url = 'mt07';
 		$this->urlpath = 'pengujian/'.str_replace("_","/", $this->url);
 
+		$this->url       = 'mt07'; 
+        $this->report    = $this->load->library('report');
+        $url             = $_SERVER['HTTP_REFERER'];
+        $company_id      = substr($url, strrpos($url, '/') + 1);
+        $this->masterUrl = base_url()."processor/pengujian/mt07?company_id={$this->input->get('company_id')}";
+
+
 		$this->maintable = 'bbpmsoh.mt07';	
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt07';	
 		$datagrid['islist'] = array(
-			'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)
-			,'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
-			,'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+			/*'vKepada_yth' => array('label'=>'Kepada','width'=>300,'align'=>'left','search'=>true)*/
+			'mt01.vNo_transaksi' => array('label'=>'No Request','width'=>100,'align'=>'center','search'=>true)
+			,'mt03.vnomor_03' => array('label'=>'Nomor Pengujian','width'=>100,'align'=>'center','search'=>true)
 			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
 			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)
+			/*,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)*/
 		);
 
 		$datagrid['jointableinner']=array(
             0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt07.iMt01')
+            ,1=>array('bbpmsoh.mt03'=>'mt01.iMt01=bbpmsoh.mt03.iMt01')
+            ,2=>array('bbpmsoh.mt06'=>'mt01.iMt01=bbpmsoh.mt06.iMt01')
 
             );
 
@@ -175,6 +184,9 @@ class mt07 extends MX_Controller {
 			case 'update':
 				$grid->render_form($this->input->get('id'));
 				break;
+			case 'getDataMemo':
+		            echo $this->getDataMemo();
+		      break;
 			case 'view':
 				$grid->render_form($this->input->get('id'),TRUE);
 				break;
@@ -278,6 +290,140 @@ class mt07 extends MX_Controller {
 		}
     }
 
+    function getDataMemo() {
+
+            $id   = $this->input->post('id');   
+            //echo $id; exit; 
+            $data = array();
+
+             $sql = "select a.*,b.*,b1.vnomor_03,c.*,b2.*,d.*,e.*,f.*,date(f.dCreated) as tgl_buat, if(d.iM_tujuan_pengujian!=6,d.vKeterangan , concat(d.vNama_tujuan,a.vTujuan_pengujian_ket )  ) as tujuandanketerangan
+			        from bbpmsoh.mt01 a
+			        left join bbpmsoh.mt03 b1 on b1.iMt01 = a.iMt01
+			        join bbpmsoh.mt04 b on b.iMt01 = a.iMt01
+			        join bbpmsoh.mt04_detail b2 on b2.iMt04 = b.iMt04
+
+			        join bbpmsoh.mt05 e on e.iMt01 = a.iMt01
+			        join bbpmsoh.mt06 f on f.iMt01 = a.iMt01
+			         join bbpmsoh.mt07 g on g.iMt01 = a.iMt01
+
+
+
+			        left join hrd.employee c on c.cNip = a.iCustomer
+			        join bbpmsoh.m_tujuan_pengujian d on d.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+			        WHERE g.iMt07 = '{$id}'";
+
+			       /* echo '<pre>'.$sql;
+			        exit;*/
+
+            $query = $this->db->query($sql);
+
+            foreach ($query->result() as $row) {
+                  
+                                
+                        $tanggal = $row->dtanggal_03;
+                        function tanggal_indo($tanggal, $cetak_hari = false)
+                        {
+                              $hari = array ( 1 =>    'Senin',
+                                                'Selasa',
+                                                'Rabu',
+                                                'Kamis',
+                                                'Jumat',
+                                                'Sabtu',
+                                                'Minggu'
+                                          );
+                                          
+                              $bulan = array (1 =>   'Januari',
+                                                'Februari',
+                                                'Maret',
+                                                'April',
+                                                'Mei',
+                                                'Juni',
+                                                'Juli',
+                                                'Agustus',
+                                                'September',
+                                                'Oktober',
+                                                'November',
+                                                'Desember'
+                                          );
+                              $split        = explode('-', $tanggal);
+                              $tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+                              
+                              if ($cetak_hari) {
+                                    $num = date('N', strtotime($tanggal));
+                                    return $hari[$num];
+                              }
+                              return $tgl_indo;
+                        }
+                        
+
+                        
+                        $row_array['tgl_buat']    = tanggal_indo($row->tgl_buat, false);
+                        $row_array['tujuandanketerangan']    = $row->tujuandanketerangan;
+
+
+                       /*hrd*/
+			            $row_array['vName_company']    = ucwords(strtolower($row->vName_company));
+			            $row_array['vAddress_company']    = ucwords(strtolower($row->vAddress_company));
+			            $row_array['vTelepon_company']    = ucwords(strtolower($row->vTelepon_company));
+
+			            $row_array['vName']    = ucwords(strtolower($row->vName));
+			            $row_array['vAddress']    = ucwords(strtolower($row->vAddress));
+
+			            
+
+			            
+
+			            /*mt01*/
+			            $row_array['vNama_sample']     = ucwords(strtolower($row->vNama_sample));
+			            $row_array['vNama_produsen']     = ucwords(strtolower($row->vNama_produsen));
+			            $row_array['vZat_aktif']     = ucwords(strtolower($row->vZat_aktif));
+			            $row_array['vNo_registrasi']     = ucwords(strtolower($row->vNo_registrasi));
+			            $row_array['vBatch_lot']     = ucwords(strtolower($row->vBatch_lot));
+			            
+			            $row_array['dTgl_kadaluarsa']      = tanggal_indo($row->dTgl_kadaluarsa, false);
+			            $row_array['vKemasan']     = ucwords(strtolower($row->vKemasan));
+			            $row_array['iJumlah_diserahkan']     = ucwords(strtolower($row->iJumlah_diserahkan));
+			            $row_array['vSuhu_penyimpanan']     = ucwords(strtolower($row->vSuhu_penyimpanan));
+
+			            
+
+
+			            /*master tujuan*/
+			             $row_array['cKode']     = $row->cKode;
+			             $row_array['vNama_tujuan']     = ucwords(strtolower($row->vNama_tujuan));
+			             
+
+			            /*mt03*/
+			            $row_array['vnomor_03']     = ucwords(strtolower($row->vnomor_03));
+			            $row_array['dtanggal_03']            = tanggal_indo($row->dtanggal_03, false);
+
+			            /*mt04*/
+			            $row_array['dTgl_terima_sample']      = tanggal_indo($row->dTgl_terima_sample, false);
+			            $row_array['dTgl_terima_serum']      = tanggal_indo($row->dTgl_terima_serum, false);
+
+			            /*mt4 detail*/
+			            $row_array['vAntiserum']     = ucwords(strtolower($row->vAntiserum));
+			            $row_array['vKadar']     = ucwords(strtolower($row->vKadar));
+			            $row_array['vAsal']     = ucwords(strtolower($row->vAsal));
+			            $row_array['vBatch']     = ucwords(strtolower($row->vBatch));
+			            $row_array['dTgl_expired']      = tanggal_indo($row->dTgl_expired, false);
+			            $row_array['vJumlah']     = ucwords(strtolower($row->vJumlah));
+			            $row_array['vKeterangan']     = ucwords(strtolower($row->vKeterangan));
+
+			            /*mt05*/
+			            $row_array['vKepada_yth']     = ucwords(strtolower($row->vKepada_yth));
+			            $row_array['vAlamat']     = ucwords(strtolower($row->vAlamat));
+			            $row_array['dTgl_penerimaan']      = tanggal_indo($row->dTgl_penerimaan, false);
+
+
+
+
+
+                        array_push($data, $row_array);
+            }
+
+            echo json_encode($data);
+      }
 
     function checkgroup($nip){
         $sql = "select *,a.idprivi_group,a.vNamaGroup 
@@ -327,15 +473,123 @@ class mt07 extends MX_Controller {
         $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
         
+         $peka=$rowData['iMt07'];
+      $grid          = $this->url;
+      $url           = $this->masterUrl;
+
+      $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
+      $btnUpk .= "<script>
+                              function btnUpk_{$this->url}(url, grid, dis) {
+
+                                    custom_confirm('Print Dokumen ?', function() {
+                                          template = 'mt07.docx';
+                                          var loadFile = function(url, callback) {
+                                                JSZipUtils.getBinaryContent(url, callback);
+                                          }
+                                          loadFile('../files/pengujian/template/'+template, function(err, content) {
+                                                if (err) {throw e};
+
+                                                $.ajax({
+                                                      url: url+'&action=getDataMemo',
+                                                      type: 'POST',
+                                                      dataType: 'json',
+                                                      data: '&id={$peka}',
+                                                      success: function(data) {
+
+                                                            doc = new Docxgen(content);
+
+                                                            doc.setData({
+								                                                
+								                                                'tgl_buat'   : data[0].tgl_buat,
+								                                                'tujuandanketerangan'   : data[0].tujuandanketerangan,
+
+
+								                                                /*employee*/
+
+								                                                'vName_company'   : data[0].vName_company,
+								                                                'vAddress_company'   : data[0].vAddress_company,
+								                                                'vTelepon_company'   : data[0].vTelepon_company,
+								                                                'vName'   : data[0].vName,
+								                                                'vAddress'   : data[0].vAddress,
+
+								                                                /*master tujuan*/
+
+								                                                'cKode'   : data[0].cKode,
+
+								                                                /*mt01*/
+								                                                
+								                                                'vNama_sample'   : data[0].vNama_sample,
+								                                                'vNama_produsen'   : data[0].vNama_produsen,
+								                                                'vZat_aktif'   : data[0].vZat_aktif,
+								                                                'vNo_registrasi'   : data[0].vNo_registrasi,
+								                                                'vBatch_lot'   : data[0].vBatch_lot,
+								                                                'dTgl_kadaluarsa'   : data[0].dTgl_kadaluarsa,
+								                                                'vKemasan'   : data[0].vKemasan,
+								                                                'iJumlah_diserahkan'   : data[0].iJumlah_diserahkan,
+								                                                'vSuhu_penyimpanan'   : data[0].vSuhu_penyimpanan,
+
+								                                                
+								                                                
+								                                                /*mt03*/
+
+								                                                'vnomor_03'   : data[0].vnomor_03,
+								                                                
+
+
+								                                                /*mt04*/
+
+								                                                'dTgl_terima_sample'   : data[0].dTgl_terima_sample,
+								                                                'dTgl_terima_serum'   : data[0].dTgl_terima_serum,
+
+								                                                /*mt04 detail*/
+								                                                
+								                                                'vAntiserum'   : data[0].vAntiserum,
+								                                                'vKadar'   : data[0].vKadar,
+								                                                'vAsal'   : data[0].vAsal,
+								                                                'vBatch'   : data[0].vBatch,
+								                                                'dTgl_expired'   : data[0].dTgl_expired,
+								                                                'vJumlah'   : data[0].vJumlah,
+								                                                'vKeterangan'   : data[0].vKeterangan,
+
+								                                                /*mt05*/
+
+								                                                'vKepada_yth'   : data[0].vKepada_yth,
+								                                                'vAlamat'   : data[0].vAlamat,
+								                                                'dTgl_penerimaan'   : data[0].dTgl_penerimaan,
+
+								                                                
+								                                            })
+
+                                                            doc.render()
+                                                      out = doc.getZip().generate({type:'blob'})
+
+                                                      nmdok = 'MT07';
+                                                      saveAs(out, nmdok+' - ' + data[0].vnomor_03 + '.docx')
+                                                      }
+                                                })
+                                          })
+                                    })
+                              }
+                        </script>";
+
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk; 
         }
         else{ 
-            if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
+            /*if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
+            }*/
+
+            unset($buttons['update']);
+
+            if($rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }
+
+
         }
         
         return $buttons;
@@ -358,11 +612,12 @@ class mt07 extends MX_Controller {
 
 	/*List Box*/
 	 function listBox_Action($row, $actions) {
-        if ($row->iApprove_unit_uji>0) { 
-                unset($actions['edit']);
-        }
+        /*if ($row->iApprove_unit_uji>0) { 
+                
+        }*/
         if ($row->iSubmit>0) { 
                 unset($actions['delete']);
+                unset($actions['edit']);
         }
         return $actions;
     }
@@ -516,153 +771,11 @@ class mt07 extends MX_Controller {
         $sql = "UPDATE bbpmsoh.mt07 SET iMt01 = '".$dmete1['iMt01']."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt07=$id LIMIT 1";
         $query = $this->db->query( $sql );
 
-    	
-    }
 
-    /*After Update*/
-    function after_update_processor($fields, $id, $postData) {
+        if($postData['iSubmit']==1){
 
-    	$sqlgetMt1 = 'select * 
-						from bbpmsoh.mt07 a 
-						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
-						join hrd.employee b on b.cNip=c.iCustomer
-						where a.iMt07 = "'.$id.'"';
-		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
-
-        $sql = "UPDATE bbpmsoh.mt07 SET iMt01 = '".$dmete1['iMt01']."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt07=$id LIMIT 1";
-        $query = $this->db->query( $sql );
-
-
-    
-    }
-
-
-    /*Confirm View*/
-
-    function confirm_view() { 
-        $echo = '<script type="text/javascript">
-                     function submit_ajax(form_id) {
-                        return $.ajax({
-                            url: $("#"+form_id).attr("action"),
-                            type: $("#"+form_id).attr("method"),
-                            data: $("#"+form_id).serialize(),
-                            success: function(data) {
-                                var o = $.parseJSON(data);
-                                var last_id = o.last_id;
-                                var group_id = o.group_id;
-                                var modul_id = o.modul_id;
-                                var url = "'.base_url().'processor/'.$this->urlpath.'";                             
-                                if(o.status == true) { 
-                                    $("#alert_dialog_form").dialog("close");
-                                         $.get(url+"?action=update&id="+last_id+"&foreign_key=0&company_id=3&group_id="+group_id+"&modul_id="+modul_id, function(data) {
-                                         $("div#form_'.$this->url.'").html(data);
-                                         
-                                    });
-                                    
-                                }
-                                    reload_grid("grid_'.$this->url.'");
-                            }
-                            
-                         })
-                     }
-                 </script>';
-        $echo .= '<h1>Confirm</h1><br />';
-        $echo .= '<form id="form_'.$this->url.'_confirm" action="'.base_url().'processor/'.$this->urlpath.'?action=confirm_process" method="post">';
-        $echo .= '<div style="vertical-align: top;">';
-        $echo .= 'Remark : 
-                <input type="hidden" name="'.$this->main_table_pk.'" value="'.$this->input->get($this->main_table_pk).'" />
-                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
-                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
-                <input type="hidden" name="iM_modul_activity" value="'.$this->input->get('iM_modul_activity').'" />
-                
-                <textarea name="vRemark"></textarea>
-        <button type="button" onclick="submit_ajax(\'form_'.$this->url.'_confirm\')">Confirm</button>';
-            
-        $echo .= '</div>';
-        $echo .= '</form>';
-        return $echo;
-    } 
-
-     function confirm_process() {
-        $post = $this->input->post();
-        $cNip= $this->user->gNIP;
-        $vName= $this->user->gName;
-        $pk = $post[$this->main_table_pk];
-        $vRemark = $post['vRemark'];
-        $modul_id = $post['modul_id'];
-        $iM_modul_activity = $post['iM_modul_activity'];
-
-        $activity = $this->db->get_where('plc3.m_modul_activity', array('iM_modul_activity'=>$iM_modul_activity, 'lDeleted'=>0))->row_array();
-
-        $field = $activity['vFieldName'];
-        $update = array($field => 2);
-        $this->db->where($this->main_table_pk, $pk);
-        $this->db->update($this->main_table, $update);
-
-        $peka=$this->main_table_pk;
-        $iupb_id[]=$this->lib_plc->getUpbId($peka,$pk);
-
-        $this->lib_plc->InsertActivityModule($iupb_id,$modul_id,$pk,$activity['iM_activity'],$activity['iSort'],$vRemark,2);
-        
-        $data['status']  = true;
-        $data['last_id'] = $post[$this->main_table_pk];
-        $data['group_id'] = $post['group_id'];
-        $data['modul_id'] = $post['modul_id'];
-        return json_encode($data);
-    }
-
-    function approve_view() {
-        $echo = '<script type="text/javascript">
-                     function submit_ajax(form_id) {
-
-                        return $.ajax({
-                            url: $("#"+form_id).attr("action"),
-                            type: $("#"+form_id).attr("method"),
-                            data: $("#"+form_id).serialize(),
-                            success: function(data) {
-                                var o = $.parseJSON(data);
-                                var last_id = o.last_id;                            
-                                if(o.status == true) {
-                                    $("#alert_dialog_form").dialog("close");
-                                        $.get(base_url+"processor/pengujian/mt07?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
-                                             $("div#form_mt07").html(data);
-                                        });
-                                    
-                                }
-                                    reload_grid("grid_mt07");
-                            }
-                            
-                         })
-                     }
-                 </script>';
-        $echo .= '<h1>Approval</h1><br />';
-        $echo .= '<form id="form_mt07_approve" action="'.base_url().'processor/pengujian/mt07?action=approve_process" method="post">';
-        $echo .= '<div style="vertical-align: top;">';
-        $echo .= 'Remark : 
-                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
-                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
-                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
-                <textarea name="vRemark"></textarea>
-        <button type="button" onclick="submit_ajax(\'form_mt07_approve\')">Approve</button>';
-            
-        $echo .= '</div>';
-        $echo .= '</form>';
-        return $echo;
-    }
-
-    function approve_process(){
-        $post = $this->input->post();
-        $dataupdate['cUpdated']= $this->user->gNIP;
-        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-        $dataupdate['cApprove_unit_uji']= $this->user->gNIP;
-        $dataupdate['dApprove_unit_uji']= date('Y-m-d H:i:s');
-        $dataupdate['vRemark_unit_uji']= $post['vRemark'];
-        $dataupdate['iApprove_unit_uji']= 2;
-        $updet = $this->db->where('iMt07',$post['last_id'])->update('bbpmsoh.mt07',$dataupdate);
-
-        if($updet){
         	$subject = '';
-	        $sqlgetMt1 = 'select * from bbpmsoh.mt07 a where a.iMt07 = "'.$post['last_id'].'"';
+	        $sqlgetMt1 = 'select * from bbpmsoh.mt07 a where a.iMt07 = "'.$id.'"';
 	        $dmete1 = $this->db->query($sqlgetMt1)->row_array();
 	        $iMt01 = $dmete1['iMt01'];
 
@@ -805,6 +918,304 @@ class mt07 extends MX_Controller {
 
 
         }
+
+    	
+    }
+
+    /*After Update*/
+    function after_update_processor($fields, $id, $postData) {
+
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt07 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join hrd.employee b on b.cNip=c.iCustomer
+						where a.iMt07 = "'.$id.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+
+        $sql = "UPDATE bbpmsoh.mt07 SET iMt01 = '".$dmete1['iMt01']."' ,vKepada_yth = '".$dmete1['vName']."',vAlamat = '".$dmete1['vAddress']."'  WHERE iMt07=$id LIMIT 1";
+        $query = $this->db->query( $sql );
+
+        if($postData['iSubmit']==1){
+
+        	$subject = '';
+	        $sqlgetMt1 = 'select * from bbpmsoh.mt07 a where a.iMt07 = "'.$id.'"';
+	        $dmete1 = $this->db->query($sqlgetMt1)->row_array();
+	        $iMt01 = $dmete1['iMt01'];
+
+
+	        $sqlgetMt6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$iMt01.'"';
+	        $dmete6 = $this->db->query($sqlgetMt6)->row_array();
+	        
+
+
+
+	        $qsql="
+	                select * 
+	                from bbpmsoh.mt01 a 
+	                join hrd.employee b on b.cNip=a.iCustomer
+	                join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+	                where a.lDeleted=0 
+	                and a.iMt01 = '".$iMt01."'
+
+	        ";
+	        $rsql = $this->db->query($qsql)->row_array();
+
+	        $subject = 'e-Pengujian -> Submit MT7 '.$rsql['vNo_transaksi'];
+            $precontent = 'Ada Sample Pengujian masuk ';
+
+            if($subject <> ""){
+                    $qsql="
+                            select * 
+                            from bbpmsoh.mt01 a 
+                            join hrd.employee b on b.cNip=a.iCustomer
+                            join bbpmsoh.m_tujuan_pengujian c on c.iM_tujuan_pengujian=a.iM_tujuan_pengujian
+                            where a.lDeleted=0 
+                            and a.iMt01 = '".$iMt01."'
+
+                    ";
+                    $rsql = $this->db->query($qsql)->row_array();
+
+                    $iAm = $this->whoAmI($dmete1['iCustomer']);
+
+                    
+                    $cc = $iAm['cNip'] ;
+
+                    $sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT"';
+                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+                    $sq= $dEmpAr['vContent'];
+                    $dataTO = $this->db->query($sq)->result_array();
+
+                    $to = '0';
+                    foreach ($dataTO as $toto) {
+                        $to .=','.$toto['cNIP'];
+                    }
+
+                    if($dmete6['iDist_virologi']==1){
+
+                    	$sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT_VIRO"';
+	                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+	                    $sq= $dEmpAr['vContent'];
+	                    $dataTO = $this->db->query($sq)->result_array();
+
+	                    foreach ($dataTO as $toto) {
+	                        $to .=','.$toto['cNIP'];
+	                    }
+
+
+                    }
+
+
+                    if($dmete6['iDist_bakteri']==1){
+
+                    	$sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT_BAK"';
+	                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+	                    $sq= $dEmpAr['vContent'];
+	                    $dataTO = $this->db->query($sq)->result_array();
+
+	                    
+	                    foreach ($dataTO as $toto) {
+	                        $to .=','.$toto['cNIP'];
+	                    }
+                    
+
+                    }
+
+                    if($dmete6['iDist_farmastetik']==1){
+
+                    	$sqlEmpAr = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_MT07_SUBMIT_FAR"';
+	                    $dEmpAr =  $this->db->query($sqlEmpAr)->row_array();
+	                    $sq= $dEmpAr['vContent'];
+	                    $dataTO = $this->db->query($sq)->result_array();
+
+	                    foreach ($dataTO as $toto) {
+	                        $to .=','.$toto['cNIP'];
+	                    }
+                    
+
+                    }
+
+                    $bccMail = 'select * from bbpmsoh.sysparam a where a.vVariable="MAIL_BCC"';
+                    $dBcc =  $this->db->query($bccMail)->row_array();
+
+                    $to = $to;
+                    $cc = $this->user->gNIP.','.$dBcc['vContent'];
+
+                    
+                    $content="
+                            <p>Diberitahukan bahwa ".$precontent." yang membutuhkan Follow up, dengan rincian sebagai berikut : <p>
+                            <br><br>  
+                            <table border='1' style='width: 750px;border-collapse: collapse;'>
+                                <tr>
+                                        <td style='width: 30%;'><b>Nomor Transaksi</b></td>
+                                        <td> : ".$rsql['vNo_transaksi']."</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>No Permintaan</b></td>
+                                        <td> : ".$rsql['vNomor']."</td>
+                                </tr> 
+
+                                <tr>
+                                        <td><b>Nama Sample</b></td>
+                                        <td> : ".$rsql['vNama_sample']."</td>
+                                </tr>  
+                                <tr>
+                                        <td><b>Status</b></td>
+                                        <td> : Approve</td>
+                                </tr>
+
+                                <tr>
+                                        <td><b>Lokasi Modul</b></td>
+                                        <td> e-Pengujian -> Transaksi -> Mt7</td>
+                                </tr>
+                                
+                            </table> 
+
+                        <br/> <br/>
+                        Demikian, mohon segera follow up  pada aplikasi e-Pengujian. Terimakasih.<br><br><br>
+                        Post Master"; 
+
+                        $this->sess_auth->send_message_erp($this->uri->segment_array(),$to, $cc, $subject, $content);
+                }
+
+
+
+        }
+
+
+    
+    }
+
+
+    /*Confirm View*/
+
+    function confirm_view() { 
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;
+                                var group_id = o.group_id;
+                                var modul_id = o.modul_id;
+                                var url = "'.base_url().'processor/'.$this->urlpath.'";                             
+                                if(o.status == true) { 
+                                    $("#alert_dialog_form").dialog("close");
+                                         $.get(url+"?action=update&id="+last_id+"&foreign_key=0&company_id=3&group_id="+group_id+"&modul_id="+modul_id, function(data) {
+                                         $("div#form_'.$this->url.'").html(data);
+                                         
+                                    });
+                                    
+                                }
+                                    reload_grid("grid_'.$this->url.'");
+                            }
+                            
+                         })
+                     }
+                 </script>';
+        $echo .= '<h1>Confirm</h1><br />';
+        $echo .= '<form id="form_'.$this->url.'_confirm" action="'.base_url().'processor/'.$this->urlpath.'?action=confirm_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="'.$this->main_table_pk.'" value="'.$this->input->get($this->main_table_pk).'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="iM_modul_activity" value="'.$this->input->get('iM_modul_activity').'" />
+                
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_'.$this->url.'_confirm\')">Confirm</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    } 
+
+     function confirm_process() {
+        $post = $this->input->post();
+        $cNip= $this->user->gNIP;
+        $vName= $this->user->gName;
+        $pk = $post[$this->main_table_pk];
+        $vRemark = $post['vRemark'];
+        $modul_id = $post['modul_id'];
+        $iM_modul_activity = $post['iM_modul_activity'];
+
+        $activity = $this->db->get_where('plc3.m_modul_activity', array('iM_modul_activity'=>$iM_modul_activity, 'lDeleted'=>0))->row_array();
+
+        $field = $activity['vFieldName'];
+        $update = array($field => 2);
+        $this->db->where($this->main_table_pk, $pk);
+        $this->db->update($this->main_table, $update);
+
+        $peka=$this->main_table_pk;
+        $iupb_id[]=$this->lib_plc->getUpbId($peka,$pk);
+
+        $this->lib_plc->InsertActivityModule($iupb_id,$modul_id,$pk,$activity['iM_activity'],$activity['iSort'],$vRemark,2);
+        
+        $data['status']  = true;
+        $data['last_id'] = $post[$this->main_table_pk];
+        $data['group_id'] = $post['group_id'];
+        $data['modul_id'] = $post['modul_id'];
+        return json_encode($data);
+    }
+
+    function approve_view() {
+        $echo = '<script type="text/javascript">
+                     function submit_ajax(form_id) {
+
+                        return $.ajax({
+                            url: $("#"+form_id).attr("action"),
+                            type: $("#"+form_id).attr("method"),
+                            data: $("#"+form_id).serialize(),
+                            success: function(data) {
+                                var o = $.parseJSON(data);
+                                var last_id = o.last_id;                            
+                                if(o.status == true) {
+                                    $("#alert_dialog_form").dialog("close");
+                                        $.get(base_url+"processor/pengujian/mt07?action=view&id="+last_id+"&group_id="+o.group_id+"&modul_id="+o.modul_id, function(data) {
+                                             $("div#form_mt07").html(data);
+                                        });
+                                    
+                                }
+                                    reload_grid("grid_mt07");
+                            }
+                            
+                         })
+                     }
+                 </script>';
+        $echo .= '<h1>Approval</h1><br />';
+        $echo .= '<form id="form_mt07_approve" action="'.base_url().'processor/pengujian/mt07?action=approve_process" method="post">';
+        $echo .= '<div style="vertical-align: top;">';
+        $echo .= 'Remark : 
+                <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
+                <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
+                <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
+                <textarea name="vRemark"></textarea>
+        <button type="button" onclick="submit_ajax(\'form_mt07_approve\')">Approve</button>';
+            
+        $echo .= '</div>';
+        $echo .= '</form>';
+        return $echo;
+    }
+
+    function approve_process(){
+        $post = $this->input->post();
+        $dataupdate['cUpdated']= $this->user->gNIP;
+        $dataupdate['dUpdated']= date('Y-m-d H:i:s');
+        $dataupdate['cApprove_unit_uji']= $this->user->gNIP;
+        $dataupdate['dApprove_unit_uji']= date('Y-m-d H:i:s');
+        $dataupdate['vRemark_unit_uji']= $post['vRemark'];
+        $dataupdate['iApprove_unit_uji']= 2;
+        $updet = $this->db->where('iMt07',$post['last_id'])->update('bbpmsoh.mt07',$dataupdate);
+
+        if($updet){
+        	
+
+
+
+        }
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
         $data['status']  = true;
@@ -893,17 +1304,20 @@ class mt07 extends MX_Controller {
 
     function getDetailsReq() {
     	$term = $this->input->get('term');
-    	$sql='select mt01.*,m_tujuan_pengujian.cKode from bbpmsoh.mt01
+    	$sql='select mt01.*,m_tujuan_pengujian.cKode,mt03.* , if(m_tujuan_pengujian.iM_tujuan_pengujian!=6,m_tujuan_pengujian.vKeterangan , concat(m_tujuan_pengujian.vNama_tujuan,mt01.vTujuan_pengujian_ket )  ) as  vKeterangan 
+    			from bbpmsoh.mt01
+    			join bbpmsoh.mt03 on mt03.iMt01 = mt01.iMt01
     			join bbpmsoh.m_tujuan_pengujian on m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian
 				where mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where iApprove_sphu=2 and lDeleted=0) 
 				AND mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt07 where lDeleted=0)
-				AND mt01.vNomor like "%'.$term.'%" and mt01.lDeleted=0 order by vNomor ASC';
+				AND mt03.vnomor_03 like "%'.$term.'%" 
+				and mt01.lDeleted=0 order by vNomor ASC';
     	$dt=$this->db->query($sql);
     	$data = array();
     	if($dt->num_rows>0){
     		foreach($dt->result_array() as $line) {
 	
-				$row_array['value'] = trim($line['vNomor']);
+				$row_array['value'] = trim($line['vnomor_03']);
 				$row_array['id']    = $line['iMt01'];
 				foreach ($line as $kline => $vline) {
 					$row_array[$kline]=$vline;
@@ -927,15 +1341,16 @@ class mt07 extends MX_Controller {
     		$this->main_table_pk=>$id
     		,'mt07.lDeleted'=>0
     		);
-    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,mt07.iMt07,mt07.vSuhu_penyimpanan,mt07.vKeterangan")
+    	$this->db->select("mt01.*,m_tujuan_pengujian.cKode,m_tujuan_pengujian.vKeterangan as ket,mt07.iMt07,mt03.*, if(m_tujuan_pengujian.iM_tujuan_pengujian!=6,m_tujuan_pengujian.vKeterangan , concat(m_tujuan_pengujian.vNama_tujuan,mt01.vTujuan_pengujian_ket )  ) as  vKeterangan ")
     				->from("bbpmsoh.mt07")
     				->join("bbpmsoh.mt01","mt01.iMt01=mt07.iMt01")
+    				->join("bbpmsoh.mt03","mt03.iMt01=mt01.iMt01")
     				->join("bbpmsoh.m_tujuan_pengujian","m_tujuan_pengujian.iM_tujuan_pengujian=mt01.iM_tujuan_pengujian")
     				->where($where);
     	$q=$this->db->get(); 
 
 		//$rsel=array('vNomor'=>'Nomor Pengujian','vNama_sample'=>'Nama Sample','vNama_produsen'=>'Produsen','vZat_aktif'=>'Zat Aktif / Strain','vNo_registrasi'=>'No. Registrasi','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','vKemasan'=>'Kemasan','iJumlah_diserahkan'=>'Jumlah Sample','cKode'=>'Keterangan');
-		$rsel=array('vNomor'=>'Nomor Pengujian','vSuhu_penyimpanan'=>'Suhu Penyimpanan','vKeterangan'=>'Keterangan','vZat_aktif'=>'Zat Aktif / Strain','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','iJumlah_diserahkan'=>'Jumlah Sample');
+		$rsel=array('vnomor_03'=>'Nomor Pengujian','vSuhu_penyimpanan'=>'Suhu Penyimpanan','vKeterangan'=>'Keterangan','vZat_aktif'=>'Zat Aktif / Strain','vBatch_lot'=>'No. Batch','dTgl_kadaluarsa'=>'Waktu Kadaluarsa','iJumlah_diserahkan'=>'Jumlah Sample');
 		$data = new StdClass;
 		$data->records=$q->num_rows();
 		$i=0;
@@ -946,13 +1361,13 @@ class mt07 extends MX_Controller {
 			foreach ($rsel as $dsel => $vsel) {
 				if($dsel=="iAction"){
 					$dataar[$z]="<a href='javascript:;' onclick='javascript:hapus_row_".$nmTable."(".$i.")'><center><span class='ui-icon ui-icon-trash'></span></center></a>";
-				}elseif($dsel=="vNomor"){
-					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt07."][]' id='grid_details_nomor_request_".$i."' value='".$k->vNomor."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
-				}elseif($dsel=="vSuhu_penyimpanan"){
+				}elseif($dsel=="vnomor_03"){
+					$dataar[$z]="<input type='hidden' class='num_rows_".$nmTable."' value='".$i."' /><input type='text' name='grid_details_nomor_request[".$k->iMt07."][]' id='grid_details_nomor_request_".$i."' value='".$k->vnomor_03."' class='get_sample_req_".$nmTable." required' size='25'><input type='hidden' name='".$this->url."_iMt01' id='grid_details_".$nmTable."_iMt01_".$i."' value='".$k->iMt01."' class='required' size='25'>";
+				}/*elseif($dsel=="vSuhu_penyimpanan"){
 					$dataar[$z]="<input type='text' name='".$this->url."_vSuhu_penyimpanan' id='grid_details_".$nmTable."_vSuhu_penyimpanan_".$i."' value='".$k->vSuhu_penyimpanan."' class='required' size='25'>";
 				}elseif($dsel=="vKeterangan"){
 					$dataar[$z]="<input type='text' name='".$this->url."_vKeterangan' id='grid_details_".$nmTable."_vKeterangan_".$i."' value='".$k->vKeterangan."' class='required' size='25'>";
-				}else{
+				}*/else{
 					$dataar[$z]="<p id='grid_".$nmTable."_".$dsel."_".$i."'>".$k->{$dsel}."</p>";
 				}
 				$z++;

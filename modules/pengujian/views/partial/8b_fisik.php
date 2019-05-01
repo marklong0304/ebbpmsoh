@@ -60,13 +60,13 @@
 							<b>Kandungan Bakteri / Spora / Virus</b>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-							<textarea type="text" value="<?php echo $row['vKandungan'] ?>" name="vKandungan" class="vKandungan required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vKandungan']) ?></textarea>
+							<textarea type="text" value="<?php echo $row['vKandungan'] ?>" name="vKandungan" class="vKandungan " style="width: 95%; text-align: left;"><?php echo nl2br($row['vKandungan']) ?></textarea>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" value="<?php echo $row['vKandungan_metoda'] ?>" name="vKandungan_metoda"class="vKandungan_metoda required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vKandungan_metoda']) ?></textarea>
+							<textarea type="text" value="<?php echo $row['vKandungan_metoda'] ?>" name="vKandungan_metoda"class="vKandungan_metoda " style="width: 95%; text-align: left;"><?php echo nl2br($row['vKandungan_metoda']) ?></textarea>
 						</td>	
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" value="<?php echo $row['vKandungan_mutu'] ?>" name="vKandungan_mutu"  class="vKandungan_mutu required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vKandungan_mutu']) ?></textarea>
+							<textarea type="text" value="<?php echo $row['vKandungan_mutu'] ?>" name="vKandungan_mutu"  class="vKandungan_mutu " style="width: 95%; text-align: left;"><?php echo nl2br($row['vKandungan_mutu']) ?></textarea>
 						</td>
 						<td style="border: 1px solid #dddddd; width: 10%">
 							<input type="text" value="<?php echo $row['dKandungan_tanggal'] ?>" name="dKandungan_tanggal"  class="dKandungan_tanggal tanggal" style="width: 90%" />
@@ -85,28 +85,28 @@
 								<tr>
 									<td>Patologi</td>
 									<td>:
-										<textarea type="text" name="vPatologi" value="<?php echo $row['vPatologi'] ?>" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi']) ?></textarea>
+										<textarea type="text" name="vPatologi" value="<?php echo $row['vPatologi'] ?>" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>Jenis Hwn</td>
 									<td>:
-										<textarea type="text" name="vPatologi_jenis" value="<?php echo $row['vPatologi_jenis'] ?>" class="vPatologi_jenis required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_jenis']) ?></textarea>
+										<textarea type="text" name="vPatologi_jenis" value="<?php echo $row['vPatologi_jenis'] ?>" class="vPatologi_jenis " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_jenis']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>Umur</td>
 									<td>:
-										<textarea type="text" name="vPatologi_umur" value="<?php echo $row['vPatologi_umur'] ?>" class="vPatologi_umur required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_umur']) ?></textarea>
+										<textarea type="text" name="vPatologi_umur" value="<?php echo $row['vPatologi_umur'] ?>" class="vPatologi_umur " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_umur']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>BB</td>
 									<td>:
-										<textarea type="text" name="vPatologi_bb" value="<?php echo $row['vPatologi_bb'] ?>" class="vPatologi_bb required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_bb']) ?></textarea>
+										<textarea type="text" name="vPatologi_bb" value="<?php echo $row['vPatologi_bb'] ?>" class="vPatologi_bb " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_bb']) ?></textarea>
 									</td>
 								</tr>
 
@@ -114,42 +114,42 @@
 								<tr>
 									<td>Perlakuan</td>
 									<td>:
-										<textarea type="text" name="vPatologi_perlakuan" value="<?php echo $row['vPatologi_perlakuan'] ?>" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_perlakuan']) ?></textarea>
+										<textarea type="text" name="vPatologi_perlakuan" value="<?php echo $row['vPatologi_perlakuan'] ?>" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_perlakuan']) ?></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td>Prosentase</td>
 									<td>:
-										<textarea type="text" name="vPatologi_persen" value="<?php echo $row['vPatologi_persen'] ?>" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_persen']) ?></textarea>
+										<textarea type="text" name="vPatologi_persen" value="<?php echo $row['vPatologi_persen'] ?>" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_persen']) ?></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td>Kontrol</td>
 									<td>:
-										<textarea type="text" name="vPatologi_kontrol" value="<?php echo $row['vPatologi_kontrol'] ?>" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_kontrol']) ?></textarea>
+										<textarea type="text" name="vPatologi_kontrol" value="<?php echo $row['vPatologi_kontrol'] ?>" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_kontrol']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>MDL</td>
 									<td>:
-										<textarea type="text" name="vPatologi_mdl" value="<?php echo $row['vPatologi_mdl'] ?>" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_mdl']) ?></textarea>
+										<textarea type="text" name="vPatologi_mdl" value="<?php echo $row['vPatologi_mdl'] ?>" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_mdl']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>CDL</td>
 									<td>:
-										<textarea type="text" name="vPatologi_cdl" value="<?php echo $row['vPatologi_cdl'] ?>" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_cdl']) ?></textarea>
+										<textarea type="text" name="vPatologi_cdl" value="<?php echo $row['vPatologi_cdl'] ?>" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPatologi_cdl']) ?></textarea>
 									</td>
 								</tr>
 							</table>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vPatologi_metoda" value="<?php echo $row['vPatologi_metoda'] ?>" class="vPatologi_metoda required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vPatologi_metoda']) ?></textarea>
+							<textarea type="text" name="vPatologi_metoda" value="<?php echo $row['vPatologi_metoda'] ?>" class="vPatologi_metoda " style="width: 95%; text-align: left;"><?php echo nl2br($row['vPatologi_metoda']) ?></textarea>
 						</td>	
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vPatologi_mutu" value="<?php echo $row['vPatologi_mutu'] ?>" class="vPatologi_mutu required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vPatologi_mutu']) ?></textarea>
+							<textarea type="text" name="vPatologi_mutu" value="<?php echo $row['vPatologi_mutu'] ?>" class="vPatologi_mutu " style="width: 95%; text-align: left;"><?php echo nl2br($row['vPatologi_mutu']) ?></textarea>
 						</td>
 						<td style="border: 1px solid #dddddd; width: 10%">
 							<input type="text" name="dPatologi_tanggal" value="<?php echo $row['dPatologi_tanggal'] ?>" class="dPatologi_tanggal tanggal" style="width: 90%" />
@@ -168,28 +168,28 @@
 								<tr>
 									<td>Potensi</td>
 									<td>:
-										<textarea type="text" name="vPotensi" value="<?php echo $row['vPotensi'] ?>" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi']) ?></textarea>
+										<textarea type="text" name="vPotensi" value="<?php echo $row['vPotensi'] ?>" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>Jenis Hwn</td>
 									<td>:
-										<textarea type="text" name="vPotensi_jenis" value="<?php echo $row['vPotensi_jenis'] ?>" class="vPotensi_jenis required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_jenis']) ?></textarea>
+										<textarea type="text" name="vPotensi_jenis" value="<?php echo $row['vPotensi_jenis'] ?>" class="vPotensi_jenis " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_jenis']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>Umur</td>
 									<td>:
-										<textarea type="text" name="vPotensi_umur" value="<?php echo $row['vPotensi_umur'] ?>" class="vPotensi_umur required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_umur']) ?></textarea>
+										<textarea type="text" name="vPotensi_umur" value="<?php echo $row['vPotensi_umur'] ?>" class="vPotensi_umur " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_umur']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>BB</td>
 									<td>:
-										<textarea type="text" name="vPotensi_bb" value="<?php echo $row['vPotensi_bb'] ?>" class="vPotensi_bb required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_bb']) ?></textarea>
+										<textarea type="text" name="vPotensi_bb" value="<?php echo $row['vPotensi_bb'] ?>" class="vPotensi_bb " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_bb']) ?></textarea>
 									</td>
 								</tr>
 
@@ -197,42 +197,42 @@
 								<tr>
 									<td>Perlakuan</td>
 									<td>:
-										<textarea type="text" name="vPotensi_perlakuan" value="<?php echo $row['vPotensi_perlakuan'] ?>" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_perlakuan']) ?></textarea>
+										<textarea type="text" name="vPotensi_perlakuan" value="<?php echo $row['vPotensi_perlakuan'] ?>" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_perlakuan']) ?></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td>Prosentase</td>
 									<td>:
-										<textarea type="text" name="vPotensi_persen" value="<?php echo $row['vPotensi_persen'] ?>" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_persen']) ?></textarea>
+										<textarea type="text" name="vPotensi_persen" value="<?php echo $row['vPotensi_persen'] ?>" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_persen']) ?></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td>Kontrol</td>
 									<td>:
-										<textarea type="text" name="vPotensi_kontrol" value="<?php echo $row['vPotensi_kontrol'] ?>" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_kontrol']) ?></textarea>
+										<textarea type="text" name="vPotensi_kontrol" value="<?php echo $row['vPotensi_kontrol'] ?>" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_kontrol']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>MDL</td>
 									<td>:
-										<textarea type="text" name="vPotensi_mdl" value="<?php echo $row['vPotensi_mdl'] ?>" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_mdl']) ?></textarea>
+										<textarea type="text" name="vPotensi_mdl" value="<?php echo $row['vPotensi_mdl'] ?>" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_mdl']) ?></textarea>
 									</td>
 								</tr>
 
 								<tr>
 									<td>CDL</td>
 									<td>:
-										<textarea type="text" name="vPotensi_cdl" value="<?php echo $row['vPotensi_cdl'] ?>" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_cdl']) ?></textarea>
+										<textarea type="text" name="vPotensi_cdl" value="<?php echo $row['vPotensi_cdl'] ?>" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vPotensi_cdl']) ?></textarea>
 									</td>
 								</tr>
 							</table>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vPotensi_metoda" value="<?php echo $row['vPotensi_metoda'] ?>" class="vPotensi_metoda required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vPotensi_metoda']) ?></textarea>
+							<textarea type="text" name="vPotensi_metoda" value="<?php echo $row['vPotensi_metoda'] ?>" class="vPotensi_metoda " style="width: 95%; text-align: left;"><?php echo nl2br($row['vPotensi_metoda']) ?></textarea>
 						</td>	
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vPotensi_mutu" value="<?php echo $row['vPotensi_mutu'] ?>" class="vPotensi_mutu required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vPotensi_mutu']) ?></textarea>
+							<textarea type="text" name="vPotensi_mutu" value="<?php echo $row['vPotensi_mutu'] ?>" class="vPotensi_mutu " style="width: 95%; text-align: left;"><?php echo nl2br($row['vPotensi_mutu']) ?></textarea>
 						</td>
 						<td style="border: 1px solid #dddddd; width: 10%">
 							<input type="text" name="dPotensi_tanggal" value="<?php echo $row['dPotensi_tanggal'] ?>" class="dPotensi_tanggal tanggal" style="width: 90%" />
@@ -247,13 +247,13 @@
 							<b>Identitas</b>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-							<textarea type="text" value="<?php echo $row['vIdentitas'] ?>" name="vIdentitas" class="vIdentitas required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vIdentitas']) ?></textarea>
+							<textarea type="text" value="<?php echo $row['vIdentitas'] ?>" name="vIdentitas" class="vIdentitas " style="width: 95%; text-align: left;"><?php echo nl2br($row['vIdentitas']) ?></textarea>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" value="<?php echo $row['vIdentitas_metoda'] ?>" name="vIdentitas_metoda" value="" class="vIdentitas_metoda required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vIdentitas_metoda']) ?></textarea>
+							<textarea type="text" value="<?php echo $row['vIdentitas_metoda'] ?>" name="vIdentitas_metoda" value="" class="vIdentitas_metoda " style="width: 95%; text-align: left;"><?php echo nl2br($row['vIdentitas_metoda']) ?></textarea>
 						</td>	
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" value="<?php echo $row['vIdentitas_mutu'] ?>" name="vIdentitas_mutu" value="" class="vIdentitas_mutu required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vIdentitas_mutu']) ?></textarea>
+							<textarea type="text" value="<?php echo $row['vIdentitas_mutu'] ?>" name="vIdentitas_mutu" value="" class="vIdentitas_mutu " style="width: 95%; text-align: left;"><?php echo nl2br($row['vIdentitas_mutu']) ?></textarea>
 						</td>
 						<td style="border: 1px solid #dddddd; width: 10%">
 							<input type="text" value="<?php echo $row['dIdentitas_tanggal'] ?>" name="dIdentitas_tanggal" value="" class="dIdentitas_tanggal tanggal" style="width: 90%" />
@@ -272,34 +272,34 @@
 								<tr>
 									<td>Jenis Hwn / telur</td>
 									<td>:
-										<textarea type="text" name="vInaktivasi_jenis" value="<?php echo $row['vInaktivasi_jenis'] ?>" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_jenis']) ?></textarea>
+										<textarea type="text" name="vInaktivasi_jenis" value="<?php echo $row['vInaktivasi_jenis'] ?>" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_jenis']) ?></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td>Perlakuan</td>
 									<td>:
-										<textarea type="text" name="vInaktivasi_perlakuan" value="<?php echo $row['vInaktivasi_perlakuan'] ?>" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_perlakuan']) ?></textarea>
+										<textarea type="text" name="vInaktivasi_perlakuan" value="<?php echo $row['vInaktivasi_perlakuan'] ?>" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_perlakuan']) ?></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td>Prosentase</td>
 									<td>:
-										<textarea type="text" name="vInaktivasi_persen" value="<?php echo $row['vInaktivasi_persen'] ?>" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_persen']) ?></textarea>
+										<textarea type="text" name="vInaktivasi_persen" value="<?php echo $row['vInaktivasi_persen'] ?>" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_persen']) ?></textarea>
 									</td>
 								</tr>
 								<tr>
 									<td>Kontrol</td>
 									<td>:
-										<textarea type="text" name="vInaktivasi_kontrol" value="<?php echo $row['vInaktivasi_kontrol'] ?>" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_kontrol']) ?></textarea>
+										<textarea type="text" name="vInaktivasi_kontrol" value="<?php echo $row['vInaktivasi_kontrol'] ?>" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"><?php echo nl2br($row['vInaktivasi_kontrol']) ?></textarea>
 									</td>
 								</tr>
 							</table>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vInaktivasi_metoda" value="<?php echo $row['vInaktivasi_metoda'] ?>" class="vInaktivasi_metoda required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vInaktivasi_metoda']) ?></textarea>
+							<textarea type="text" name="vInaktivasi_metoda" value="<?php echo $row['vInaktivasi_metoda'] ?>" class="vInaktivasi_metoda " style="width: 95%; text-align: left;"><?php echo nl2br($row['vInaktivasi_metoda']) ?></textarea>
 						</td>	
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vInaktivasi_mutu" value="<?php echo $row['vInaktivasi_mutu'] ?>" class="vInaktivasi_mutu required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vInaktivasi_mutu']) ?></textarea>
+							<textarea type="text" name="vInaktivasi_mutu" value="<?php echo $row['vInaktivasi_mutu'] ?>" class="vInaktivasi_mutu " style="width: 95%; text-align: left;"><?php echo nl2br($row['vInaktivasi_mutu']) ?></textarea>
 						</td>
 						<td style="border: 1px solid #dddddd; width: 10%">
 							<input type="text" name="dInaktivasi_tanggal" value="<?php echo $row['dInaktivasi_tanggal'] ?>" class="dInaktivasi_tanggal tanggal" style="width: 90%" />
@@ -314,13 +314,13 @@
 							<b>Kontaminasi Virus Lain</b>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-							<textarea type="text" name="vVirus" value="<?php echo $row['vVirus'] ?>" class="vVirus required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vVirus']) ?></textarea>
+							<textarea type="text" name="vVirus" value="<?php echo $row['vVirus'] ?>" class="vVirus " style="width: 95%; text-align: left;"><?php echo nl2br($row['vVirus']) ?></textarea>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vVirus_metoda" value="<?php echo $row['vVirus_metoda'] ?>" class="vVirus_metoda required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vVirus_metoda']) ?></textarea>
+							<textarea type="text" name="vVirus_metoda" value="<?php echo $row['vVirus_metoda'] ?>" class="vVirus_metoda " style="width: 95%; text-align: left;"><?php echo nl2br($row['vVirus_metoda']) ?></textarea>
 						</td>	
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vVirus_mutu" value="<?php echo $row['vVirus_mutu'] ?>" class="vVirus_mutu required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vVirus_mutu']) ?></textarea>
+							<textarea type="text" name="vVirus_mutu" value="<?php echo $row['vVirus_mutu'] ?>" class="vVirus_mutu " style="width: 95%; text-align: left;"><?php echo nl2br($row['vVirus_mutu']) ?></textarea>
 						</td>
 						<td style="border: 1px solid #dddddd; width: 10%">
 							<input type="text" name="dVirus_tanggal" value="<?php echo $row['dVirus_tanggal'] ?>" class="dVirus_tanggal tanggal" style="width: 90%" />
@@ -337,13 +337,13 @@
 							<b>Lain-lain</b>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-							<textarea type="text" name="vLain" value="<?php echo $row['vLain'] ?>" class="vLain required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vLain']) ?></textarea>
+							<textarea type="text" name="vLain" value="<?php echo $row['vLain'] ?>" class="vLain " style="width: 95%; text-align: left;"><?php echo nl2br($row['vLain']) ?></textarea>
 						</td>		
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vLain_metoda" value="<?php echo $row['vLain_metoda'] ?>" class="vLain_metoda required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vLain_metoda']) ?></textarea>
+							<textarea type="text" name="vLain_metoda" value="<?php echo $row['vLain_metoda'] ?>" class="vLain_metoda " style="width: 95%; text-align: left;"><?php echo nl2br($row['vLain_metoda']) ?></textarea>
 						</td>	
 						<td style="border: 1px solid #dddddd; width: 25%">
-							<textarea type="text" name="vLain_mutu" value="<?php echo $row['vLain_mutu'] ?>" class="vLain_mutu required" style="width: 95%; text-align: left;"><?php echo nl2br($row['vLain_mutu']) ?></textarea>
+							<textarea type="text" name="vLain_mutu" value="<?php echo $row['vLain_mutu'] ?>" class="vLain_mutu " style="width: 95%; text-align: left;"><?php echo nl2br($row['vLain_mutu']) ?></textarea>
 						</td>
 						<td style="border: 1px solid #dddddd; width: 10%">
 							<input type="text" name="dLain_tanggal" value="<?php echo $row['dLain_tanggal'] ?>" class="dLain_tanggal tanggal" style="width: 90%" />
@@ -364,13 +364,13 @@
 						<b>Kandungan Bakteri / Spora / Virus</b>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-						<textarea type="text" name="vKandungan" value="" class="vKandungan required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vKandungan" value="" class="vKandungan " style="width: 95%; text-align: left;"></textarea>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vKandungan_metoda" value="" class="vKandungan_metoda required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vKandungan_metoda" value="" class="vKandungan_metoda " style="width: 95%; text-align: left;"></textarea>
 					</td>	
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vKandungan_mutu" value="" class="vKandungan_mutu required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vKandungan_mutu" value="" class="vKandungan_mutu " style="width: 95%; text-align: left;"></textarea>
 					</td>
 					<td style="border: 1px solid #dddddd; width: 10%">
 						<input type="text" name="dKandungan_tanggal" value="" class="dKandungan_tanggal tanggal" style="width: 90%" />
@@ -389,27 +389,27 @@
 							<tr>
 								<td>Patologi</td>
 								<td>:
-									<textarea type="text" name="vPatologi" value="" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi" value="" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Jenis Hwn</td>
 								<td>:
-									<textarea type="text" name="vPatologi_jenis" value="" class="vPatologi_jenis required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_jenis" value="" class="vPatologi_jenis " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>Umur</td>
 								<td>:
-									<textarea type="text" name="vPatologi_bb" value="" class="vPatologi_bb required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_bb" value="" class="vPatologi_bb " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>BB</td>
 								<td>:
-									<textarea type="text" name="vPatologi_umur" value="" class="vPatologi_umur required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_umur" value="" class="vPatologi_umur " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
@@ -417,33 +417,33 @@
 							<tr>
 								<td>Perlakuan</td>
 								<td>:
-									<textarea type="text" name="vPatologi_perlakuan" value="" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_perlakuan" value="" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Prosentase</td>
 								<td>:
-									<textarea type="text" name="vPatologi_persen" value="" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_persen" value="" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Kontrol</td>
 								<td>:
-									<textarea type="text" name="vPatologi_kontrol" value="" class="vPatologi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_kontrol" value="" class="vPatologi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>MDl</td>
 								<td>:
-									<textarea type="text" name="vPatologi_mdl" value="" class="vPatologi_mdl required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_mdl" value="" class="vPatologi_mdl " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>CDL</td>
 								<td>:
-									<textarea type="text" name="vPatologi_cdl" value="" class="vPatologi_cdl required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPatologi_cdl" value="" class="vPatologi_cdl " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
@@ -451,10 +451,10 @@
 						</table>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vPatologi_metoda" value="" class="vPatologi_metoda required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vPatologi_metoda" value="" class="vPatologi_metoda " style="width: 95%; text-align: left;"></textarea>
 					</td>	
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vPatologi_mutu" value="" class="vPatologi_mutu required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vPatologi_mutu" value="" class="vPatologi_mutu " style="width: 95%; text-align: left;"></textarea>
 					</td>
 					<td style="border: 1px solid #dddddd; width: 10%">
 						<input type="text" name="dPatologi_tanggal" value="" class="dPatologi_tanggal tanggal" style="width: 90%" />
@@ -473,27 +473,27 @@
 							<tr>
 								<td>Potensi</td>
 								<td>:
-									<textarea type="text" name="vPotensi" value="" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi" value="" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Jenis Hwn</td>
 								<td>:
-									<textarea type="text" name="vPotensi_jenis" value="" class="vPotensi_jenis required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_jenis" value="" class="vPotensi_jenis " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>Umur</td>
 								<td>:
-									<textarea type="text" name="vPotensi_bb" value="" class="vPotensi_bb required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_bb" value="" class="vPotensi_bb " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>BB</td>
 								<td>:
-									<textarea type="text" name="vPotensi_umur" value="" class="vPotensi_umur required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_umur" value="" class="vPotensi_umur " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
@@ -501,33 +501,33 @@
 							<tr>
 								<td>Perlakuan</td>
 								<td>:
-									<textarea type="text" name="vPotensi_perlakuan" value="" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_perlakuan" value="" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Prosentase</td>
 								<td>:
-									<textarea type="text" name="vPotensi_persen" value="" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_persen" value="" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Kontrol</td>
 								<td>:
-									<textarea type="text" name="vPotensi_kontrol" value="" class="vPotensi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_kontrol" value="" class="vPotensi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>MDl</td>
 								<td>:
-									<textarea type="text" name="vPotensi_mdl" value="" class="vPotensi_mdl required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_mdl" value="" class="vPotensi_mdl " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
 							<tr>
 								<td>CDL</td>
 								<td>:
-									<textarea type="text" name="vPotensi_cdl" value="" class="vPotensi_cdl required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vPotensi_cdl" value="" class="vPotensi_cdl " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 
@@ -535,10 +535,10 @@
 						</table>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vPotensi_metoda" value="" class="vPotensi_metoda required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vPotensi_metoda" value="" class="vPotensi_metoda " style="width: 95%; text-align: left;"></textarea>
 					</td>	
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vPotensi_mutu" value="" class="vPotensi_mutu required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vPotensi_mutu" value="" class="vPotensi_mutu " style="width: 95%; text-align: left;"></textarea>
 					</td>
 					<td style="border: 1px solid #dddddd; width: 10%">
 						<input type="text" name="dPotensi_tanggal" value="" class="dPotensi_tanggal tanggal" style="width: 90%" />
@@ -553,13 +553,13 @@
 						<b>Identitas</b>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-						<textarea type="text" name="vIdentitas" value="" class="vIdentitas required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vIdentitas" value="" class="vIdentitas " style="width: 95%; text-align: left;"></textarea>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vIdentitas_metoda" value="" class="vIdentitas_metoda required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vIdentitas_metoda" value="" class="vIdentitas_metoda " style="width: 95%; text-align: left;"></textarea>
 					</td>	
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vIdentitas_mutu" value="" class="vIdentitas_mutu required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vIdentitas_mutu" value="" class="vIdentitas_mutu " style="width: 95%; text-align: left;"></textarea>
 					</td>
 					<td style="border: 1px solid #dddddd; width: 10%">
 						<input type="text" name="dIdentitas_tanggal" value="" class="dIdentitas_tanggal tanggal" style="width: 90%" />
@@ -578,34 +578,34 @@
 							<tr>
 								<td>Jenis Hewan</td>
 								<td>:
-									<textarea type="text" name="vInaktivasi_jenis" value="" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vInaktivasi_jenis" value="" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Perlakuan</td>
 								<td>:
-									<textarea type="text" name="vInaktivasi_perlakuan" value="" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vInaktivasi_perlakuan" value="" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Prosentase</td>
 								<td>:
-									<textarea type="text" name="vInaktivasi_persen" value="" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vInaktivasi_persen" value="" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 							<tr>
 								<td>Kontrol</td>
 								<td>:
-									<textarea type="text" name="vInaktivasi_kontrol" value="" class="vInaktivasi required" style="width: 85%; text-align: left;" text-align: left;"/>		
+									<textarea type="text" name="vInaktivasi_kontrol" value="" class="vInaktivasi " style="width: 85%; text-align: left;" text-align: left;"/>		
 								</td>
 							</tr>
 						</table>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vInaktivasi_metoda" value="" class="vInaktivasi_metoda required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vInaktivasi_metoda" value="" class="vInaktivasi_metoda " style="width: 95%; text-align: left;"></textarea>
 					</td>	
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vInaktivasi_mutu" value="" class="vInaktivasi_mutu required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vInaktivasi_mutu" value="" class="vInaktivasi_mutu " style="width: 95%; text-align: left;"></textarea>
 					</td>
 					<td style="border: 1px solid #dddddd; width: 10%">
 						<input type="text" name="dInaktivasi_tanggal" value="" class="dInaktivasi_tanggal tanggal" style="width: 90%" />
@@ -620,13 +620,13 @@
 						<b>Kontaminasi Virus Lain</b>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-						<textarea type="text" name="vVirus" value="" class="vVirus required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vVirus" value="" class="vVirus " style="width: 95%; text-align: left;"></textarea>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vVirus_metoda" value="" class="vVirus_metoda required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vVirus_metoda" value="" class="vVirus_metoda " style="width: 95%; text-align: left;"></textarea>
 					</td>	
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vVirus_mutu" value="" class="vVirus_mutu required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vVirus_mutu" value="" class="vVirus_mutu " style="width: 95%; text-align: left;"></textarea>
 					</td>
 					<td style="border: 1px solid #dddddd; width: 10%">
 						<input type="text" name="dVirus_tanggal" value="" class="dVirus_tanggal tanggal" style="width: 90%" />
@@ -645,13 +645,13 @@
 						<b>Lain-lain</b>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%; text-align: center;">
-						<textarea type="text" name="vLain" value="" class="vLain required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vLain" value="" class="vLain " style="width: 95%; text-align: left;"></textarea>
 					</td>		
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vLain_metoda" value="" class="vLain_metoda required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vLain_metoda" value="" class="vLain_metoda " style="width: 95%; text-align: left;"></textarea>
 					</td>	
 					<td style="border: 1px solid #dddddd; width: 25%">
-						<textarea type="text" name="vLain_mutu" value="" class="vLain_mutu required" style="width: 95%; text-align: left;"></textarea>
+						<textarea type="text" name="vLain_mutu" value="" class="vLain_mutu " style="width: 95%; text-align: left;"></textarea>
 					</td>
 					<td style="border: 1px solid #dddddd; width: 10%">
 						<input type="text" name="dLain_tanggal" value="" class="dLain_tanggal tanggal" style="width: 90%" />

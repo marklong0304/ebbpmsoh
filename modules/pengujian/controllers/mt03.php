@@ -39,6 +39,12 @@ class mt03 extends MX_Controller {
 
        /* $checkMod = $this->auth->modul_set($this->input->get('modul_id'));
         $this->validation =$checkMod['iValidation'];*/
+        
+        $this->url       = 'mt03'; 
+		$this->report    = $this->load->library('report');
+		$url             = $_SERVER['HTTP_REFERER'];
+		$company_id      = substr($url, strrpos($url, '/') + 1);
+		$this->masterUrl = base_url()."processor/pengujian/mt03?company_id={$this->input->get('company_id')}";
 
     }
 
@@ -51,12 +57,12 @@ class mt03 extends MX_Controller {
         $grid->setUrl('mt03');
 
         //List Table
-        $grid->addList('mt01.vNo_transaksi','mt01.vBatch_lot','vnomor_03','dtanggal_03','mt01.vNama_produsen','iSubmit','iApprove'); 
+        $grid->addList('mt01.vNo_transaksi','mt01.vBatch_lot','vnomor_03','dtanggal_03','mt01.vNama_produsen','iSubmit'); 
         $grid->setSortBy('iMt03');
         $grid->setSortOrder('DESC');  
 
         //List field
-        $grid->addFields('iSubmit','iApprove','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','vBatch','iTgl_expired','dTgl_expired','iM_jenis_brosur','vEtiket_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan','vUploadFile');
+        $grid->addFields('iSubmit','iMt01','vnomor_03','dtanggal_03','vNama_tujuan','vCompName','vNama_sample','vNama_produsen','iAda_batch','vBatch','iTgl_expired','dTgl_expired','iM_jenis_brosur','vEtiket_brosur','iReq_permohonan','iPengantar_direktorat','iHasil_ppoh','iBahan_standard','tCatatan');
 
         //Setting Grid Width Name 
         /*
@@ -89,7 +95,7 @@ class mt03 extends MX_Controller {
     
         $grid->setWidth('vnomor_03', '100');
         $grid->setAlign('vnomor_03', 'left');
-        $grid->setLabel('vnomor_03','Nomor');
+        $grid->setLabel('vnomor_03','Nomor Pengujian');
     
         $grid->setWidth('dtanggal_03', '100');
         $grid->setAlign('dtanggal_03', 'left');
@@ -445,6 +451,10 @@ class mt03 extends MX_Controller {
             case 'get_data_prev':
                 echo $this->get_data_prev();
                 break;
+				
+			case 'getDataMemo':
+				echo $this->getDataMemo();
+				break;
 
             case 'download':
                     $this->download($this->input->get('file'));
@@ -455,14 +465,84 @@ class mt03 extends MX_Controller {
         }
     }
 
+	function getDataMemo() {
+
+		$id   = $this->input->post('id');	
+		//echo $id; exit;	
+		$data = array();
+
+    	$sql = "select b.vNama_produsen, c.vName_company, a.* ,d.vNama_tujuan as tujuandanketerangan,b.*
+        from bbpmsoh.mt03 a
+    	left join bbpmsoh.mt01 b on b.iMt01 = a.iMt01
+    	left join hrd.employee c on c.cNip = b.iCustomer
+        join bbpmsoh.m_tujuan_pengujian d on d.iM_tujuan_pengujian=b.iM_tujuan_pengujian
+        WHERE a.iMt03 = '{$id}'";
+    	$query = $this->db->query($sql);
+
+    	foreach ($query->result() as $row) {
+    		
+			$row_array['vnomor_03']  	= ucwords(strtolower($row->vnomor_03));			
+			$tanggal = $row->dtanggal_03;
+			function tanggal_indo($tanggal, $cetak_hari = false)
+			{
+				$hari = array ( 1 =>    'Senin',
+							'Selasa',
+							'Rabu',
+							'Kamis',
+							'Jumat',
+							'Sabtu',
+							'Minggu'
+						);
+						
+				$bulan = array (1 =>   'Januari',
+							'Februari',
+							'Maret',
+							'April',
+							'Mei',
+							'Juni',
+							'Juli',
+							'Agustus',
+							'September',
+							'Oktober',
+							'November',
+							'Desember'
+						);
+				$split 	  = explode('-', $tanggal);
+				$tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+				
+				if ($cetak_hari) {
+					$num = date('N', strtotime($tanggal));
+					return $hari[$num];
+				}
+				return $tgl_indo;
+			}
+			
+			$row_array['dtanggal_03']            = tanggal_indo($row->dtanggal_03, false);
+			$row_array['vNama_produsen']  	= ucwords(strtolower($row->vNama_produsen));
+			$row_array['vBatch']  	= ucwords(strtolower($row->vBatch));
+			$row_array['iTgl_expired']  	= tanggal_indo($row->iTgl_expired, false);
+			$row_array['vEtiket_brosur']  	= ucwords(strtolower($row->vEtiket_brosur));
+			$row_array['iBahan_standard']  	= ucwords(strtolower($row->iBahan_standard));
+			$row_array['tCatatan']  	= ucwords(strtolower($row->tCatatan));
+			$row_array['vName_company']  	= ucwords(strtolower($row->vName_company));
+            $row_array['tujuandanketerangan']     = ucwords(strtolower($row->tujuandanketerangan));
+            $row_array['vNama_sample']     = ucwords(strtolower($row->vNama_sample));
+
+			array_push($data, $row_array);
+    	}
+
+    	echo json_encode($data);
+    }
+
 
 
     //Jika Ingin Menambahkan Seting grid seperti button edit enable dalam kondisi tertentu
      function listBox_Action($row, $actions) {
-        if ($row->iApprove>0) { 
-                unset($actions['edit']);
-        }
+        /*if ($row->iApprove>0) { 
+                
+        }*/
         if ($row->iSubmit>0) { 
+                unset($actions['edit']);
                 unset($actions['delete']);
         }
         return $actions;
@@ -509,21 +589,41 @@ class mt03 extends MX_Controller {
         }
 
         function insertBox_mt03_dTgl_expired($field, $id) {
-            $return = '<input name="'.$id.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
-            $return .=  '<script>
+            $return = '<input name="'.$id.'" id="'.$id.'" type="text" size="20" readonly="readonly" class="input_tgl required" style="width:130px"/>';
+            /*$return .=  '<script>
                             $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
                         </script>';
+            
+            */
+
             return $return;
         }
 
         function updateBox_mt03_dTgl_expired($field, $id, $value, $rowData) {
-            $return = '<input value="'.$value.'" name="'.$id.'" id="'.$id.'" type="text" size="20" class="input_tgl datepicker required" style="width:130px"/>';
-            $return .=  '<script>
+            $return = '<input value="'.$value.'" name="'.$id.'" id="'.$id.'" readonly="readonly" type="text" size="20" class="input_tgl required" style="width:130px"/>';
+            /*$return .=  '<script>
                             $("#'.$id.'").datepicker({dateFormat:"yy-mm-dd"});
-                        </script>';
+                        </script>';*/
             if($this->input->get('action')=='view'){
                 $return=$value;
             }
+            return $return;
+        }
+
+
+        function insertBox_mt03_vBatch($field, $id) {
+            $return = '<input type="text" name="'.$field.'" readonly="readonly" id="'.$id.'"  class="input_rows1 required" size="30"  />';
+            return $return;
+        }
+        
+        function updateBox_mt03_vBatch($field, $id, $value, $rowData) {
+                if ($this->input->get('action') == 'view') {
+                     $return= $value; 
+                }else{ 
+                    $return = '<input type="text" name="'.$field.'" readonly="readonly"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+
+                }
+                
             return $return;
         }
 
@@ -927,8 +1027,7 @@ class mt03 extends MX_Controller {
         $dataupdate['dApprove']= date('Y-m-d H:i:s');
         $dataupdate['vRemark']= $post['vRemark'];
         $dataupdate['iApprove']= 2;
-        $this->db->where('iMt03',$post['last_id'])
-                    ->update('bbpmsoh.mt03',$dataupdate);
+        $this->db->where('iMt03',$post['last_id'])->update('bbpmsoh.mt03',$dataupdate);
 
         $data['group_id']=$post['group_id'];
         $data['modul_id']=$post['modul_id'];
@@ -1086,18 +1185,74 @@ class mt03 extends MX_Controller {
         $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_mt03"  class="ui-button-text icon-save" >Approve</button>';
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/mt03?action=reject&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_mt03"  class="ui-button-text icon-save" >Reject</button>';
         
+		$grid          = $this->url;
+		$url           = $this->masterUrl;
 
+        $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
+		$btnUpk .= "<script>
+						function btnUpk_{$this->url}(url, grid, dis) {
+    
+							custom_confirm('Print Dokumen ?', function() {
+								template = 'mt03.docx';
+								var loadFile = function(url, callback) {
+									JSZipUtils.getBinaryContent(url, callback);
+								}
+								loadFile('../files/pengujian/template/'+template, function(err, content) {
+									if (err) {throw e};
+
+									$.ajax({
+										url: url+'&action=getDataMemo',
+										type: 'POST',
+										dataType: 'json',
+										data: '&id={$peka}',
+										success: function(data) {
+
+											doc = new Docxgen(content);
+
+											doc.setData({
+												'vnomor_03'   : data[0].vnomor_03,
+												'dtanggal_03'   : data[0].dtanggal_03,
+												'vNama_produsen'   : data[0].vNama_produsen,
+												'vBatch'   : data[0].vBatch,
+												'iTgl_expired'   : data[0].iTgl_expired,
+												'vEtiket_brosur'   : data[0].vEtiket_brosur,
+												'iBahan_standard'   : data[0].iBahan_standard,
+												'tCatatan'   : data[0].tCatatan,
+		    									'vName_company'   : data[0].vName_company,
+                                                'tujuandanketerangan' : data[0].tujuandanketerangan,
+                                                'vNama_sample'  :  data[0].vNama_sample,
+											})
+
+											doc.render()
+		    								out = doc.getZip().generate({type:'blob'})
+
+		    								nmdok = 'MT01';
+		    								saveAs(out, nmdok+' - ' + data[0].vnomor_03 + '.docx')
+										}
+									})
+								})
+							})
+						}
+					</script>";
 
 
         if ($this->input->get('action') == 'view') {
             unset($buttons['update']);
+            $buttons['update'] = $btnUpk;  
         }
         else{ 
-            if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
+            unset($buttons['update']);
+
+            /*if($rowData['iApprove']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }elseif($rowData['iApprove']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
+            }*/
+
+            if($rowData['iSubmit']==0){
+                $buttons['update'] = $iframe.$update_draft.$update.$js;    
             }
+
         }
         
         return $buttons;

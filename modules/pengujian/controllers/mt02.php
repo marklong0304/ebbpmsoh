@@ -30,18 +30,23 @@ class mt02 extends MX_Controller {
 
         $datagrid['addFields']=array(
                 'iMt01'=>'Nomor Transaksi'
-                ,'vNama_sample'=>'Nama Sample'
-                ,'vAcuan_metode_uji'=>'Acuan Metode'
                 ,'dTgl_Kontrak'=>'Tanggal Kontrak'
                 ,'p1_nama'=>'Nama Pihak I'
                 ,'p1_jabatan' =>'Jabatan Pihak I'
                 ,'p1_perusahaan'=>'Perusahaan Pihak I'
                 ,'p1_alamat'=>'Alamat Pihak I'
+<<<<<<< HEAD
                 
                 //,'p1_an'=>'Pihak I Atas Nama'
                 ,'p2_nip'=>'NIP Pihak II'
+=======
+>>>>>>> d0ac6f2f1370b9fb244d5bb6fbd461d49dea014a
                 ,'p2_nama'=>'Nama Pihak II'
                 ,'p2_jabatan'=>'Jabatan Pihak II'
+                
+                ,'vNama_sample'=>'Nama Sample'
+                ,'vAcuan_metode_uji'=>'Acuan Metode'
+                //,'p1_an'=>'Pihak I Atas Nama'
                 ,'vKeterangan'=>'Keterangan'
                 );
         $datagrid['isRequired']=array('all_form');
@@ -120,7 +125,12 @@ class mt02 extends MX_Controller {
                 foreach ($vv as $list => $vlist) {
                     if($vlist=="all_form"){
                         foreach ($this->datagrid['addFields'] as $kfield => $vfield) {
-                            $grid->setRequired($kfield);
+                            if($kfield == "vKeterangan"){
+
+                            }else{
+                                $grid->setRequired($kfield);    
+                            }
+                            
                         }
                     }
                 }
@@ -456,7 +466,7 @@ class mt02 extends MX_Controller {
     /*Manipulate Insert/Update Form*/
     function insertBox_mt02_iMt01($field, $id) {
         $ff=str_replace("form_","", $field);
-        $where=array('lDeleted'=>0,'iApprove'=>2);
+        $where=array('lDeleted'=>0,'iSubmit'=>1);
         $this->db->select('*')
             ->from('bbpmsoh.mt01')
             ->where($where)
@@ -567,7 +577,7 @@ class mt02 extends MX_Controller {
 
     function updateBox_mt02_iMt01($field,$id,$value,$rowData){
         $ff=str_replace("form_","", $field);
-        $where=array('lDeleted'=>0,'iApprove'=>2);
+        $where=array('lDeleted'=>0,'iSubmit'=>1);
         $this->db->select('*')
             ->from('bbpmsoh.mt01')
             ->where($where)

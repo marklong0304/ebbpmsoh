@@ -16,7 +16,7 @@ class M_login extends CI_Model{
 		//$this->db->where('cNip', $username);
 		//$query = $this->db->get('privi_password');
 		
-		$DB2->where('cNip', $username);
+		$DB2->where('vEmail_company', $username);
 		$query = $DB2->get('employee');
 		
 		if($query->num_rows == 1){
@@ -25,7 +25,7 @@ class M_login extends CI_Model{
 			//$this->db->where('vPassword', md5($password));
 			//$query2 = $this->db->get('privi_password');
 			/*change by mansur 20181029 req by pak eddy on group WA Me Tech Tech*/
-			$DB2->where('cNip', $username);
+			$DB2->where('vEmail_company', $username);
 			$DB2->where('vPassword', md5(addslashes($password)));
 			$query2 = $DB2->get('employee');
 

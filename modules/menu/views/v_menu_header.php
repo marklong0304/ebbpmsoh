@@ -52,11 +52,11 @@ if($_SERVER["HTTP_HOST"] == 'www.npl-net.com' ||$_SERVER["HTTP_HOST"] == 'npl-ne
 		<li>
 			<a href="#" id="btn_other_opt"><?php echo $this->lang->line('menu_setting');?></a>
 			<ul class="ui-widget ui-widget-content ui-corner-bottom">
-				<li class="list_other_opt">
+				<!-- <li class="list_other_opt">
 					<a href="#!" class="file" id="0" group="0" rel="menu/change/profile0" title="<?php echo $this->lang->line('menu_my_profile');?>">
 						<?php echo $this->lang->line('menu_my_profile');?>
 					</a>
-				</li>
+				</li> -->
 				<li class="list_other_opt">
 					<a href="#!" class="file" id="0" group="0" rel="menu/change/password" title="<?php echo $this->lang->line('menu_chg_password');?>">
 						<?php echo $this->lang->line('menu_chg_password');?>

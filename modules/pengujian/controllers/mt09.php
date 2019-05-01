@@ -14,8 +14,8 @@ class Mt09 extends MX_Controller {
 		$this->main_table = $this->maintable;	
 		$this->main_table_pk = 'iMt09';	
 		$datagrid['islist'] = array(
-			'mt01.vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
-			,'vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
+			'mt03.vnomor_03' => array('label'=>'Nomor Pengujian','width'=>100,'align'=>'center','search'=>true)
+			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>250,'align'=>'left','search'=>true)
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_unit_uji' => array('label'=>'Approval Yanji','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_qa' => array('label'=>'Approval QA','width'=>150,'align'=>'left','search'=>true)
@@ -26,11 +26,12 @@ class Mt09 extends MX_Controller {
 
 		$datagrid['jointableinner']=array(
             0=>array('bbpmsoh.mt01'=>'mt01.iMt01=bbpmsoh.mt09.iMt01')
+            ,1=>array('bbpmsoh.mt03'=>'mt01.iMt01=bbpmsoh.mt03.iMt01')
             );
 
 
 		$datagrid['addFields']=array(
-				'iMt01'=>'Nomor '
+				'iMt01'=>'Nomor Pengujian '
 				,'vKomposisi' => 'Komposisi / Zat Aktif'
 				,'uji_fisik' => 'Pengujian'
 				,'iKesimpulan'  => 'Kesimpulan Uji Umum'
@@ -123,8 +124,8 @@ class Mt09 extends MX_Controller {
 		$grid->setJoinTable('bbpmsoh.mt01', 'mt09.iMt01 = mt01.iMt01', 'inner');
 		$grid->setJoinTable('bbpmsoh.m_jenis_sediaan', 'm_jenis_sediaan.iM_jenis_sediaan = mt01.iM_jenis_sediaan', 'inner');
 
-		$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
-		$grid->changeFieldType('iKesimpulan_khusus','combobox','',array(''=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
+		$grid->changeFieldType('iKesimpulan','combobox','',array(''=>'Belum ditentukan','0'=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
+		$grid->changeFieldType('iKesimpulan_khusus','combobox','',array(''=>'Belum ditentukan','0'=>'Belum ditentukan',1=>'Tidak memenuhi syarat', 2=>'Memenuhi syarat'));
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
 		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 		$grid->changeFieldType('iApprove_qa', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
@@ -322,7 +323,7 @@ class Mt09 extends MX_Controller {
     }
     
     function listBox_Action($row, $actions) {
-        if ($row->iApprove_qa > 1) { 
+        if ($row->iApprove_qa > 1 &&  $row->iApprove_unit_uji > 1) { 
                 unset($actions['edit']);
         }
         if ($row->iSubmit>0) { 
@@ -387,10 +388,13 @@ class Mt09 extends MX_Controller {
          		unset($buttons['update']);   	
             	if($groupnya['idprivi_group'] == 11 and $rowData['iApprove_qa'] <> 2 ){
              		$buttons['update'] = $iframe.$approve.$reject;
-             	}
-		        if($groupnya['idprivi_group'] == 2 and $rowData['iApprove_unit_uji'] <> 2 ){
-		            $buttons['update'] = $iframe.$approve.$reject;
-		        }
+             	}else{
+                    if($groupnya['idprivi_group'] == 2 and $rowData['iApprove_unit_uji'] <> 2 and $rowData['iApprove_qa']==2 ){
+		                $buttons['update'] = $iframe.$update.$js.$approve.$reject;
+                    }
+                
+                 }
+		        
 
 
                 
@@ -458,9 +462,10 @@ class Mt09 extends MX_Controller {
 			,'mt06.lDeleted'=>0	
 			,'mt06.iApprove_sphu'=>2	
 		);
-		$this->db->select("mt01.*")
+		$this->db->select("mt01.*,mt03.*")
 				->from("bbpmsoh.mt01")
 				->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
+				->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
 				->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt09 where lDeleted=0 AND iApprove_unit_uji in (0,2) )')
 				->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_farmastetik =1) )')
 				->where($arr);
@@ -470,12 +475,12 @@ class Mt09 extends MX_Controller {
 		$qq=$this->db->get();
 		if($qq->num_rows()>0){
 			foreach ($qq->result_array() as $key => $value) {
-				$return.="<option value='".$value['iMt01']."'>".$value['vNo_transaksi']." | ".$value['vNama_sample']."</option>";
+				$return.="<option value='".$value['iMt01']."'>".$value['vnomor_03']." | ".$value['vNama_sample']."</option>";
 			}
 		}
 		$return.="</select>";
 		$return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
@@ -486,7 +491,7 @@ class Mt09 extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'></span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'></span> </td>
 					 	</tr>
 					 </table>";
@@ -521,12 +526,13 @@ class Mt09 extends MX_Controller {
         $arr=array(
 			'mt01.lDeleted'=>0
 			,'mt06.lDeleted'=>0	
-			,'mt06.iApprove_sphu'=>2	
+			//,'mt06.iApprove_sphu'=>2	
 		);
 
-        $this->db->select('*')
+        $this->db->select("mt01.*,mt03.*")
             ->from('bbpmsoh.mt01')
             ->join("bbpmsoh.mt06","mt06.iMt01=bbpmsoh.mt01.iMt01")
+            ->join("bbpmsoh.mt03","mt03.iMt01=bbpmsoh.mt01.iMt01")
             ->where($arr)
             ->where('bbpmsoh.mt01.iMt01 NOT IN (select iMt01 from bbpmsoh.mt09 where lDeleted=0 AND iMt01 !='.$value.' )')
             ->where('bbpmsoh.mt01.iMt01 IN (select iMt01 from bbpmsoh.mt06 where lDeleted=0 AND ( iDist_farmastetik = 1) )');
@@ -541,11 +547,11 @@ class Mt09 extends MX_Controller {
             if($value==$vv['iMt01']){
                 $value=$vv['vNomor'];
             }
-            $return.='<option value="'.$vv['iMt01'].'" '.$select.' >'.$vv['vNomor'].'</option>';
+            $return.="<option value='".$vv['iMt01']."' ".$select.">".$vv['vnomor_03']." | ".$vv['vNama_sample']."</option>";
         }
         $return.='</select>';
         $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	
 					 	<tr>
 					 		<td style='width: 30%;'>No Batch / Lot</td>
@@ -556,7 +562,7 @@ class Mt09 extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
 					 	</tr>
 					 </table>";
@@ -584,11 +590,15 @@ class Mt09 extends MX_Controller {
 		$return.="</script>";
         $return .= '<input type="hidden" name="isdraft" id="isdraft" class="input_rows1 " size="30"  />';
         if($this->input->get('action')=='view'){
-            $return=$value;
-            $sqlinfo = 'select * from bbpmsoh.mt01 a where a.iMt01= "'.$viewval.'" ';
+            $sqlinfo = 'select * 
+            			from bbpmsoh.mt01 a 
+            			join bbpmsoh.mt03 b on b.iMt01=a.iMt01
+            			where a.iMt01= "'.$viewval.'" ';
+            			
         	$dMt01 = $this->db->query($sqlinfo)->row_array();
+        	$return = $dMt01['vnomor_03'];
             $return.="<div id='info_mt01'>";
-				$return .= " <table cellspacing='0' cellpadding='3' style='width: 50%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
+				$return .= " <table cellspacing='0' cellpadding='3' style='width: 70%; border: 1px solid #dddddd; background: #DBC0D2 none repeat; border-collapse: collapse'>
 					 	<tr>
 					 		<td style='width: 30%;'>Nama Sample</td>
 					 		<td >: <span id='det_vNama_sample'>".$dMt01['vNama_sample']."</span> </td>
@@ -602,7 +612,7 @@ class Mt09 extends MX_Controller {
 					 		<td >: <span id='det_dTgl_kadaluarsa'>".$dMt01['dTgl_kadaluarsa']."</span>  </td>
 					 	</tr>
 					 	<tr>
-					 		<td style='width: 30%;'>No Reg Deptan</td>
+					 		<td style='width: 30%;'>No Reg Kementan</td>
 					 		<td >: <span id='det_vNo_registrasi'>".$dMt01['vNo_registrasi']."</span> </td>
 					 	</tr>
 					 </table>";
@@ -671,6 +681,154 @@ class Mt09 extends MX_Controller {
         return $return;
     }
 
+    function insertBox_mt09_iKesimpulan($field, $id) {
+
+    	/*
+            idprivi_group;vNamaGroup
+            11 ; QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 2){
+            
+            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+        }else{
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+        }
+
+
+		$return='<select id="'.$id.'" name="'.$field.'" class="required">';
+        foreach ($pilihan as $kk => $vv) {
+        	$return.='<option value="'.$kk.'">'.$vv.'</option>';
+        }
+        $return.='</select>';
+
+		return $return;
+    }
+
+    function updateBox_mt09_iKesimpulan($field, $id, $value, $rowData) {
+    	
+        if ($this->input->get('action') == 'view') {
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+            $return = $pilihan[$value];
+        } else {
+        	$return = '';
+        	$groupnya = $this->checkgroup($this->user->gNIP);             
+	        if( $groupnya['idprivi_group']== 2 || $groupnya['idprivi_group']== 11){
+	            
+	            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+	            $return .= '<script>';
+	            $return .= '
+	            				$("form#form_update_mt8b input[type=text] ,form#form_update_mt8b textarea").attr("readonly",true);
+	            				$("form#form_update_mt8b input[type=text]").datepicker("disable");
+	            				
+	            			';
+
+	            $return .= '</script>';
+
+	        }else{
+	        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+	        }
+
+            $return .='<select id="'.$id.'" name="'.$field.'" class="required">';
+            foreach($pilihan as $k=>$v) {
+                if ($k == $value) $selected = ' selected';
+                else $selected = '';
+                $return.='<option '.$selected.' value="'.$k.'">'.$v.'</option>';
+            }            
+            $return .= '</select>';
+        }
+
+        return $return;
+
+    }
+
+    function insertBox_mt09_iKesimpulan_khusus($field, $id) {
+
+    	/*
+            idprivi_group;vNamaGroup
+            11 ; QA
+            10;Keuangan
+            9;Tu
+            8;Kepala balai
+            7;Customer
+            4;Admin Virologi
+            5;Admin Farmastetik & Premiks
+            3;Admin Biologik
+            6;Admin SPHU
+            2;Admini Yanji
+            1;Administrator
+
+
+        */ 
+        $groupnya = $this->checkgroup($this->user->gNIP);             
+        if( $groupnya['idprivi_group']== 2){
+            
+            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+        }else{
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+        }
+
+
+		$return='<select id="'.$id.'" name="'.$field.'" class="required">';
+        foreach ($pilihan as $kk => $vv) {
+        	$return.='<option value="'.$kk.'">'.$vv.'</option>';
+        }
+        $return.='</select>';
+
+		return $return;
+    }
+
+    function updateBox_mt09_iKesimpulan_khusus($field, $id, $value, $rowData) {
+    	
+        if ($this->input->get('action') == 'view') {
+        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+            $return = $pilihan[$value];
+        } else {
+        	$return = '';
+        	$groupnya = $this->checkgroup($this->user->gNIP);             
+	        if( $groupnya['idprivi_group']== 2 || $groupnya['idprivi_group']== 11){
+	            
+	            $pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+	            $return .= '<script>';
+	            $return .= '
+	            				$("form#form_update_mt8b input[type=text] ,form#form_update_mt8b textarea").attr("readonly",true);
+	            				$("form#form_update_mt8b input[type=text]").datepicker("disable");
+	            				
+	            			';
+
+	            $return .= '</script>';
+
+	        }else{
+	        	$pilihan = array(''=>'--Pilih--',0=>'Belum Ditentukan');
+	        }
+
+            $return .='<select id="'.$id.'" name="'.$field.'" class="required">';
+            foreach($pilihan as $k=>$v) {
+                if ($k == $value) $selected = ' selected';
+                else $selected = '';
+                $return.='<option '.$selected.' value="'.$k.'">'.$v.'</option>';
+            }            
+            $return .= '</select>';
+        }
+
+        return $return;
+
+    }
+
+
+
     
 
    
@@ -725,72 +883,67 @@ class Mt09 extends MX_Controller {
     	$post = $this->input->post();
     	$idet['iMt09'] = $id;
 
-		$idet['vWarna'] = $post['vWarna'];
-$idet['vWarna_metoda'] = $post['vWarna_metoda'];
-$idet['vWarna_mutu'] = $post['vWarna_mutu'];
-$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
-$idet['vAsing'] = $post['vAsing'];
-$idet['vAsing_metoda'] = $post['vAsing_metoda'];
-$idet['vAsing_mutu'] = $post['vAsing_mutu'];
-$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
-$idet['vKelarutan'] = $post['vKelarutan'];
-$idet['vKelarutan_metoda'] = $post['vKelarutan_metoda'];
-$idet['vKelarutan_mutu'] = $post['vKelarutan_mutu'];
-$idet['dKelarutan_tanggal'] = $post['dKelarutan_tanggal'];
-$idet['vSeragam'] = $post['vSeragam'];
-$idet['vSeragam_metoda'] = $post['vSeragam_metoda'];
-$idet['vSeragam_mutu'] = $post['vSeragam_mutu'];
-$idet['dSeragam_tanggal'] = $post['dSeragam_tanggal'];
-$idet['vLembab'] = $post['vLembab'];
-$idet['vLembab_metoda'] = $post['vLembab_metoda'];
-$idet['vLembab_mutu'] = $post['vLembab_mutu'];
-$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
-$idet['vIdentitas'] = $post['vIdentitas'];
-$idet['vIdentitas_metoda'] = $post['vIdentitas_metoda'];
-$idet['vIdentitas_mutu'] = $post['vIdentitas_mutu'];
-$idet['dIdentitas_tanggal'] = $post['dIdentitas_tanggal'];
-$idet['vSteril37'] = $post['vSteril37'];
-$idet['vSteril37_metoda'] = $post['vSteril37_metoda'];
-$idet['vSteril37_mutu'] = $post['vSteril37_mutu'];
-$idet['dSteril37_tanggal'] = $post['dSteril37_tanggal'];
-$idet['vSteril22'] = $post['vSteril22'];
-$idet['vSteril22_metoda'] = $post['vSteril22_metoda'];
-$idet['vSteril22_mutu'] = $post['vSteril22_mutu'];
-$idet['dSteril22_tanggal'] = $post['dSteril22_tanggal'];
-$idet['vKontaminasi'] = $post['vKontaminasi'];
-$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
-$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
-$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
-$idet['vColi'] = $post['vColi'];
-$idet['vColi_metoda'] = $post['vColi_metoda'];
-$idet['vColi_mutu'] = $post['vColi_mutu'];
-$idet['dColi_tanggal'] = $post['dColi_tanggal'];
-$idet['vSalmon'] = $post['vSalmon'];
-$idet['vSalmon_metoda'] = $post['vSalmon_metoda'];
-$idet['vSalmon_mutu'] = $post['vSalmon_mutu'];
-$idet['dSalmon_tanggal'] = $post['dSalmon_tanggal'];
-$idet['vPh'] = $post['vPh'];
-$idet['vPh_metoda'] = $post['vPh_metoda'];
-$idet['vPh_mutu'] = $post['vPh_mutu'];
-$idet['dPh_tanggal'] = $post['dPh_tanggal'];
-$idet['vToksis'] = $post['vToksis'];
-$idet['vToksis_metoda'] = $post['vToksis_metoda'];
-$idet['vToksis_mutu'] = $post['vToksis_mutu'];
-$idet['dToksis_tanggal'] = $post['dToksis_tanggal'];
-$idet['vPirogen'] = $post['vPirogen'];
-$idet['vPirogen_metoda'] = $post['vPirogen_metoda'];
-$idet['vPirogen_mutu'] = $post['vPirogen_mutu'];
-$idet['dPirogen_tanggal'] = $post['dPirogen_tanggal'];
-$idet['vPotensi_object'] = $post['vPotensi_object'];
-$idet['vPotensi'] = $post['vPotensi'];
-$idet['vPotensi_metoda'] = $post['vPotensi_metoda'];
-$idet['vPotensi_mutu'] = $post['vPotensi_mutu'];
-$idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
-
-
-
-
-
+		$idet['vWarna'] = $postData['vWarna'];
+        $idet['vWarna_metoda'] = $postData['vWarna_metoda'];
+        $idet['vWarna_mutu'] = $postData['vWarna_mutu'];
+        $idet['dWarna_tanggal'] = ($postData['dWarna_tanggal']!='')?$postData['dWarna_tanggal']:NULL;
+        $idet['vAsing'] = $postData['vAsing'];
+        $idet['vAsing_metoda'] = $postData['vAsing_metoda'];
+        $idet['vAsing_mutu'] = $postData['vAsing_mutu'];
+        $idet['dAsing_tanggal'] =($postData['dAsing_tanggal']!='')?$postData['dAsing_tanggal']:NULL;
+        $idet['vKelarutan'] = $postData['vKelarutan'];
+        $idet['vKelarutan_metoda'] = $postData['vKelarutan_metoda'];
+        $idet['vKelarutan_mutu'] = $postData['vKelarutan_mutu'];
+        $idet['dKelarutan_tanggal'] = ($postData['dKelarutan_tanggal']!='')?$postData['dKelarutan_tanggal']:NULL;
+        $idet['vSeragam'] = $postData['vSeragam'];
+        $idet['vSeragam_metoda'] = $postData['vSeragam_metoda'];
+        $idet['vSeragam_mutu'] = $postData['vSeragam_mutu'];
+        $idet['dSeragam_tanggal'] = ($postData['dSeragam_tanggal']!='')?$postData['dSeragam_tanggal']:NULL;
+        $idet['vLembab'] = $postData['vLembab'];
+        $idet['vLembab_metoda'] = $postData['vLembab_metoda'];
+        $idet['vLembab_mutu'] = $postData['vLembab_mutu'];
+        $idet['dLembab_tanggal'] =($postData['dLembab_tanggal']!='')?$postData['dLembab_tanggal']:NULL;
+        $idet['vIdentitas'] = $postData['vIdentitas'];
+        $idet['vIdentitas_metoda'] = $postData['vIdentitas_metoda'];
+        $idet['vIdentitas_mutu'] = $postData['vIdentitas_mutu'];
+        $idet['dIdentitas_tanggal'] = ($postData['dIdentitas_tanggal']!='')?$postData['dIdentitas_tanggal']:NULL;
+        $idet['vSteril37'] = $postData['vSteril37'];
+        $idet['vSteril37_metoda'] = $postData['vSteril37_metoda'];
+        $idet['vSteril37_mutu'] = $postData['vSteril37_mutu'];
+        $idet['dSteril37_tanggal'] = ($postData['dSteril37_tanggal']!='')?$postData['dSteril37_tanggal']:NULL;
+        $idet['vSteril22'] = $postData['vSteril22'];
+        $idet['vSteril22_metoda'] = $postData['vSteril22_metoda'];
+        $idet['vSteril22_mutu'] = $postData['vSteril22_mutu'];
+        $idet['dSteril22_tanggal'] = ($postData['dSteril22_tanggal']!='')?$postData['dSteril22_tanggal']:NULL;
+        $idet['vKontaminasi'] = $postData['vKontaminasi'];
+        $idet['vKontaminasi_metoda'] = $postData['vKontaminasi_metoda'];
+        $idet['vKontaminasi_mutu'] = $postData['vKontaminasi_mutu'];
+        $idet['dKontaminasi_tanggal'] =($postData['dKontaminasi_tanggal']!='')?$postData['dKontaminasi_tanggal']:NULL;
+        $idet['vColi'] = $postData['vColi'];
+        $idet['vColi_metoda'] = $postData['vColi_metoda'];
+        $idet['vColi_mutu'] = $postData['vColi_mutu'];
+        $idet['dColi_tanggal'] = ($postData['dColi_tanggal']!='')?$postData['dColi_tanggal']:NULL;
+        $idet['vSalmon'] = $postData['vSalmon'];
+        $idet['vSalmon_metoda'] = $postData['vSalmon_metoda'];
+        $idet['vSalmon_mutu'] = $postData['vSalmon_mutu'];
+        $idet['dSalmon_tanggal'] = ($postData['dSalmon_tanggal']!='')?$postData['dSalmon_tanggal']:NULL;
+        $idet['vPh'] = $postData['vPh'];
+        $idet['vPh_metoda'] = $postData['vPh_metoda'];
+        $idet['vPh_mutu'] = $postData['vPh_mutu'];
+        $idet['dPh_tanggal'] = ($postData['dPh_tanggal']!='')?$postData['dPh_tanggal']:NULL;
+        $idet['vToksis'] = $postData['vToksis'];
+        $idet['vToksis_metoda'] = $postData['vToksis_metoda'];
+        $idet['vToksis_mutu'] = $postData['vToksis_mutu'];
+        $idet['dToksis_tanggal'] = ($postData['dToksis_tanggal']!='')?$postData['dToksis_tanggal']:NULL;
+        $idet['vPirogen'] = $postData['vPirogen'];
+        $idet['vPirogen_metoda'] = $postData['vPirogen_metoda'];
+        $idet['vPirogen_mutu'] = $postData['vPirogen_mutu'];
+        $idet['dPirogen_tanggal'] =($postData['dPirogen_tanggal']!='')?$postData['dPirogen_tanggal']:NULL;
+        $idet['vPotensi_object'] = $postData['vPotensi_object'];
+        $idet['vPotensi'] = $postData['vPotensi'];
+        $idet['vPotensi_metoda'] = $postData['vPotensi_metoda'];
+        $idet['vPotensi_mutu'] = $postData['vPotensi_mutu'];
+        $idet['dPotensi_tanggal'] = ($postData['dPotensi_tanggal']!='')?$postData['dPotensi_tanggal']:NULL;
 
 		
 		$this->db->insert('bbpmsoh.mt09_fisik', $idet);
@@ -804,67 +957,67 @@ $idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
     function after_update_processor($fields, $id, $postData) {
     	$post=$this->input->post();
 	    
-	    $idet['vWarna'] = $post['vWarna'];
-		$idet['vWarna_metoda'] = $post['vWarna_metoda'];
-		$idet['vWarna_mutu'] = $post['vWarna_mutu'];
-		$idet['dWarna_tanggal'] = $post['dWarna_tanggal'];
-		$idet['vAsing'] = $post['vAsing'];
-		$idet['vAsing_metoda'] = $post['vAsing_metoda'];
-		$idet['vAsing_mutu'] = $post['vAsing_mutu'];
-		$idet['dAsing_tanggal'] = $post['dAsing_tanggal'];
-		$idet['vKelarutan'] = $post['vKelarutan'];
-		$idet['vKelarutan_metoda'] = $post['vKelarutan_metoda'];
-		$idet['vKelarutan_mutu'] = $post['vKelarutan_mutu'];
-		$idet['dKelarutan_tanggal'] = $post['dKelarutan_tanggal'];
-		$idet['vSeragam'] = $post['vSeragam'];
-		$idet['vSeragam_metoda'] = $post['vSeragam_metoda'];
-		$idet['vSeragam_mutu'] = $post['vSeragam_mutu'];
-		$idet['dSeragam_tanggal'] = $post['dSeragam_tanggal'];
-		$idet['vLembab'] = $post['vLembab'];
-		$idet['vLembab_metoda'] = $post['vLembab_metoda'];
-		$idet['vLembab_mutu'] = $post['vLembab_mutu'];
-		$idet['dLembab_tanggal'] = $post['dLembab_tanggal'];
-		$idet['vIdentitas'] = $post['vIdentitas'];
-		$idet['vIdentitas_metoda'] = $post['vIdentitas_metoda'];
-		$idet['vIdentitas_mutu'] = $post['vIdentitas_mutu'];
-		$idet['dIdentitas_tanggal'] = $post['dIdentitas_tanggal'];
-		$idet['vSteril37'] = $post['vSteril37'];
-		$idet['vSteril37_metoda'] = $post['vSteril37_metoda'];
-		$idet['vSteril37_mutu'] = $post['vSteril37_mutu'];
-		$idet['dSteril37_tanggal'] = $post['dSteril37_tanggal'];
-		$idet['vSteril22'] = $post['vSteril22'];
-		$idet['vSteril22_metoda'] = $post['vSteril22_metoda'];
-		$idet['vSteril22_mutu'] = $post['vSteril22_mutu'];
-		$idet['dSteril22_tanggal'] = $post['dSteril22_tanggal'];
-		$idet['vKontaminasi'] = $post['vKontaminasi'];
-		$idet['vKontaminasi_metoda'] = $post['vKontaminasi_metoda'];
-		$idet['vKontaminasi_mutu'] = $post['vKontaminasi_mutu'];
-		$idet['dKontaminasi_tanggal'] = $post['dKontaminasi_tanggal'];
-		$idet['vColi'] = $post['vColi'];
-		$idet['vColi_metoda'] = $post['vColi_metoda'];
-		$idet['vColi_mutu'] = $post['vColi_mutu'];
-		$idet['dColi_tanggal'] = $post['dColi_tanggal'];
-		$idet['vSalmon'] = $post['vSalmon'];
-		$idet['vSalmon_metoda'] = $post['vSalmon_metoda'];
-		$idet['vSalmon_mutu'] = $post['vSalmon_mutu'];
-		$idet['dSalmon_tanggal'] = $post['dSalmon_tanggal'];
-		$idet['vPh'] = $post['vPh'];
-		$idet['vPh_metoda'] = $post['vPh_metoda'];
-		$idet['vPh_mutu'] = $post['vPh_mutu'];
-		$idet['dPh_tanggal'] = $post['dPh_tanggal'];
-		$idet['vToksis'] = $post['vToksis'];
-		$idet['vToksis_metoda'] = $post['vToksis_metoda'];
-		$idet['vToksis_mutu'] = $post['vToksis_mutu'];
-		$idet['dToksis_tanggal'] = $post['dToksis_tanggal'];
-		$idet['vPirogen'] = $post['vPirogen'];
-		$idet['vPirogen_metoda'] = $post['vPirogen_metoda'];
-		$idet['vPirogen_mutu'] = $post['vPirogen_mutu'];
-		$idet['dPirogen_tanggal'] = $post['dPirogen_tanggal'];
-		$idet['vPotensi_object'] = $post['vPotensi_object'];
-		$idet['vPotensi'] = $post['vPotensi'];
-		$idet['vPotensi_metoda'] = $post['vPotensi_metoda'];
-		$idet['vPotensi_mutu'] = $post['vPotensi_mutu'];
-		$idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
+	    $idet['vWarna'] = $postData['vWarna'];
+        $idet['vWarna_metoda'] = $postData['vWarna_metoda'];
+        $idet['vWarna_mutu'] = $postData['vWarna_mutu'];
+        $idet['dWarna_tanggal'] = ($postData['dWarna_tanggal']!='')?$postData['dWarna_tanggal']:NULL;
+        $idet['vAsing'] = $postData['vAsing'];
+        $idet['vAsing_metoda'] = $postData['vAsing_metoda'];
+        $idet['vAsing_mutu'] = $postData['vAsing_mutu'];
+        $idet['dAsing_tanggal'] =($postData['dAsing_tanggal']!='')?$postData['dAsing_tanggal']:NULL;
+        $idet['vKelarutan'] = $postData['vKelarutan'];
+        $idet['vKelarutan_metoda'] = $postData['vKelarutan_metoda'];
+        $idet['vKelarutan_mutu'] = $postData['vKelarutan_mutu'];
+        $idet['dKelarutan_tanggal'] = ($postData['dKelarutan_tanggal']!='')?$postData['dKelarutan_tanggal']:NULL;
+        $idet['vSeragam'] = $postData['vSeragam'];
+        $idet['vSeragam_metoda'] = $postData['vSeragam_metoda'];
+        $idet['vSeragam_mutu'] = $postData['vSeragam_mutu'];
+        $idet['dSeragam_tanggal'] = ($postData['dSeragam_tanggal']!='')?$postData['dSeragam_tanggal']:NULL;
+        $idet['vLembab'] = $postData['vLembab'];
+        $idet['vLembab_metoda'] = $postData['vLembab_metoda'];
+        $idet['vLembab_mutu'] = $postData['vLembab_mutu'];
+        $idet['dLembab_tanggal'] =($postData['dLembab_tanggal']!='')?$postData['dLembab_tanggal']:NULL;
+        $idet['vIdentitas'] = $postData['vIdentitas'];
+        $idet['vIdentitas_metoda'] = $postData['vIdentitas_metoda'];
+        $idet['vIdentitas_mutu'] = $postData['vIdentitas_mutu'];
+        $idet['dIdentitas_tanggal'] = ($postData['dIdentitas_tanggal']!='')?$postData['dIdentitas_tanggal']:NULL;
+        $idet['vSteril37'] = $postData['vSteril37'];
+        $idet['vSteril37_metoda'] = $postData['vSteril37_metoda'];
+        $idet['vSteril37_mutu'] = $postData['vSteril37_mutu'];
+        $idet['dSteril37_tanggal'] = ($postData['dSteril37_tanggal']!='')?$postData['dSteril37_tanggal']:NULL;
+        $idet['vSteril22'] = $postData['vSteril22'];
+        $idet['vSteril22_metoda'] = $postData['vSteril22_metoda'];
+        $idet['vSteril22_mutu'] = $postData['vSteril22_mutu'];
+        $idet['dSteril22_tanggal'] = ($postData['dSteril22_tanggal']!='')?$postData['dSteril22_tanggal']:NULL;
+        $idet['vKontaminasi'] = $postData['vKontaminasi'];
+        $idet['vKontaminasi_metoda'] = $postData['vKontaminasi_metoda'];
+        $idet['vKontaminasi_mutu'] = $postData['vKontaminasi_mutu'];
+        $idet['dKontaminasi_tanggal'] =($postData['dKontaminasi_tanggal']!='')?$postData['dKontaminasi_tanggal']:NULL;
+        $idet['vColi'] = $postData['vColi'];
+        $idet['vColi_metoda'] = $postData['vColi_metoda'];
+        $idet['vColi_mutu'] = $postData['vColi_mutu'];
+        $idet['dColi_tanggal'] = ($postData['dColi_tanggal']!='')?$postData['dColi_tanggal']:NULL;
+        $idet['vSalmon'] = $postData['vSalmon'];
+        $idet['vSalmon_metoda'] = $postData['vSalmon_metoda'];
+        $idet['vSalmon_mutu'] = $postData['vSalmon_mutu'];
+        $idet['dSalmon_tanggal'] = ($postData['dSalmon_tanggal']!='')?$postData['dSalmon_tanggal']:NULL;
+        $idet['vPh'] = $postData['vPh'];
+        $idet['vPh_metoda'] = $postData['vPh_metoda'];
+        $idet['vPh_mutu'] = $postData['vPh_mutu'];
+        $idet['dPh_tanggal'] = ($postData['dPh_tanggal']!='')?$postData['dPh_tanggal']:NULL;
+        $idet['vToksis'] = $postData['vToksis'];
+        $idet['vToksis_metoda'] = $postData['vToksis_metoda'];
+        $idet['vToksis_mutu'] = $postData['vToksis_mutu'];
+        $idet['dToksis_tanggal'] = ($postData['dToksis_tanggal']!='')?$postData['dToksis_tanggal']:NULL;
+        $idet['vPirogen'] = $postData['vPirogen'];
+        $idet['vPirogen_metoda'] = $postData['vPirogen_metoda'];
+        $idet['vPirogen_mutu'] = $postData['vPirogen_mutu'];
+        $idet['dPirogen_tanggal'] =($postData['dPirogen_tanggal']!='')?$postData['dPirogen_tanggal']:NULL;
+        $idet['vPotensi_object'] = $postData['vPotensi_object'];
+        $idet['vPotensi'] = $postData['vPotensi'];
+        $idet['vPotensi_metoda'] = $postData['vPotensi_metoda'];
+        $idet['vPotensi_mutu'] = $postData['vPotensi_mutu'];
+        $idet['dPotensi_tanggal'] = ($postData['dPotensi_tanggal']!='')?$postData['dPotensi_tanggal']:NULL;
 
 
 
@@ -1048,6 +1201,8 @@ $idet['dPotensi_tanggal'] = $post['dPotensi_tanggal'];
 	        $dataupdate['vRemark']= $post['vRemark'];
 	        $dataupdate['iApprove_unit_uji']= 2;
 
+	        $subject = 'e-Pengujian -> Approve Yanji MT9 '.$rsql['vNo_transaksi'];
+	        $precontent = 'Admin Yanji telah melakukan Approval Pengujian MT9';
      	}
 		 
 

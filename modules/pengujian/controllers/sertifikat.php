@@ -53,6 +53,9 @@ class sertifikat extends MX_Controller {
         $datagrid['islist'] = array(
             'vNo_transaksi' => array('label'=>'No Transaksi','width'=>100,'align'=>'center','search'=>true)
             ,'vNomor' => array('label'=>'Nomor','width'=>100,'align'=>'center','search'=>true)
+            ,'mt06.iDist_bakteri' => array('label'=>'Lab Bakterologi','width'=>100,'align'=>'center','search'=>true)
+            ,'mt06.iDist_virologi' => array('label'=>'Lab Virologi','width'=>100,'align'=>'center','search'=>true)
+            ,'mt06.iDist_farmastetik' => array('label'=>'Lab Farmastetik','width'=>100,'align'=>'center','search'=>true)
             ,'vNama_produsen' => array('label'=>'Nama Produsen','width'=>300,'align'=>'left','search'=>true)
             ,'iSubmit_sertifikat' => array('label'=>'Submit','width'=>100,'align'=>'center','search'=>true)
             ,'iStatus_sertifikat' => array('label'=>'Status Sertifikat','width'=>200,'align'=>'center','search'=>true)
@@ -73,6 +76,14 @@ class sertifikat extends MX_Controller {
         		,'vPerihal' => 'Perihal'
         		,'dTanggal' => 'Tanggal'
         		,'iCustomer' => 'Customer'
+                ,'vNomor1' => 'Nomor Sertifikat 1'
+                ,'vNomor2' => 'Nomor Sertifikat 2'
+                ,'vNoKep_menteri' => 'No Kep. Menteri'
+                ,'dKep_menteri' => 'Tanggal Kep. Menteri'
+                ,'vNoSk_menteri' => 'No SK Menteri'
+                ,'dSk_menteri' => 'Tanggal SK Menteri'
+                ,'vNama_kabalai' => 'Nama Kepala Balai'
+                ,'vNip_kabalai' => 'NIP Kepala Balai'
                 );
         $datagrid['isRequired']=array('all_form');
         $datagrid['shortBy']=array('mt01.dUpdated'=>'Desc');
@@ -190,7 +201,7 @@ class sertifikat extends MX_Controller {
                                             where a.lDeleted=0 
                                             and  a.iMt01= `mt01`.iMt01 ) = 1 ,
                                                  `mt01`.iMt01 in  (select a.iMt01 
-                                                                                        from bbpmsoh.mt08a a
+                                                                                        from bbpmsoh.mt08b a
                                                                                         where a.lDeleted=0 
                                                                                         and  a.iApprove_qa=2  ) 
                                                                                         
@@ -202,7 +213,7 @@ class sertifikat extends MX_Controller {
                                             where a.lDeleted=0 
                                             and  a.iMt01= `mt01`.iMt01 ) = 1 ,
                                                  `mt01`.iMt01 in  (select a.iMt01 
-                                                                                        from bbpmsoh.mt08b a
+                                                                                        from bbpmsoh.mt08a a
                                                                                         where a.lDeleted=0 
                                                                                         and  a.iApprove_qa=2  ) 
                                                                                         
@@ -311,30 +322,395 @@ class sertifikat extends MX_Controller {
     }
 
 
+    function tanggal_indo($tanggal, $cetak_hari = false)
+    {
+        $hari = array ( 1 =>    'Senin',
+                    'Selasa',
+                    'Rabu',
+                    'Kamis',
+                    'Jumat',
+                    'Sabtu',
+                    'Minggu'
+                );
+                
+        $bulan = array (1 =>   'Januari',
+                    'Februari',
+                    'Maret',
+                    'April',
+                    'Mei',
+                    'Juni',
+                    'Juli',
+                    'Agustus',
+                    'September',
+                    'Oktober',
+                    'November',
+                    'Desember'
+                );
+        $split    = explode('-', $tanggal);
+        $tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+        
+        if ($cetak_hari) {
+            $num = date('N', strtotime($tanggal));
+            return $hari[$num];
+        }
+        return $tgl_indo;
+    }
+
+    function tanggal_english($tanggal, $cetak_hari = false)
+    {
+        $hari = array ( 1 =>    'Senin',
+                    'Selasa',
+                    'Rabu',
+                    'Kamis',
+                    'Jumat',
+                    'Sabtu',
+                    'Minggu'
+                );
+                
+        $bulan = array (1 =>   'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June',
+                    'July',
+                    'August',
+                    'September',
+                    'October',
+                    'November',
+                    'December'
+                );
+        $split    = explode('-', $tanggal);
+        $tgl_indo = $split[2] . ' ' . $bulan[ (int)$split[1] ] . ' ' . $split[0];
+        
+        if ($cetak_hari) {
+            $num = date('N', strtotime($tanggal));
+            return $hari[$num];
+        }
+        return $tgl_indo;
+    }
+
+
+
+
     function getDataMemo() {
 		$id   = $this->input->post('id');
 		$data = array();
 
-    	$sql = "select * 
+        $cekMT6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$id.'"';
+        $dMt06 = $this->db->query($cekMT6)->row_array();
+
+
+
+        if($dMt06['iDist_virologi']==1 or $dMt06['iDist_bakteri']==1 ){
+            $sql = "select *,a.vNama_sample as NAMA_DAGANG,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH, f.iKesimpulan as simpul8a , g.iKesimpulan as simpul8b
+                from bbpmsoh.mt01 a
+                join hrd.employee b on cNip=a.iCustomer
+                join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
+                left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
+                left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
+
+                left join bbpmsoh.mt08a f on f.iMt01 = a.iMt01
+                left join bbpmsoh.mt08a_fisik f1 on f1.iMt8a = f.iMt8a
+
+                left join bbpmsoh.mt08b g on g.iMt01 = a.iMt01
+                left join bbpmsoh.mt08b_fisik g1 on g1.iMt8b = g.iMt8b
+
+                WHERE a.iMt01 = '{$id}'";
+
+
+        }else{
+           $sql = "select *,a.vNama_sample as NAMA_DAGANG,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH , h.iKesimpulan as simpul9
+                from bbpmsoh.mt01 a
+                join hrd.employee b on cNip=a.iCustomer
+                join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
+                left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
+                left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
+
+                left join bbpmsoh.mt09 h on h.iMt01 = a.iMt01
+                left join bbpmsoh.mt09_fisik h1 on h1.iMt09 = h.iMt09
+
+                WHERE a.iMt01 = '{$id}'";
+        }
+
+
+    	/*$sql = "select *,a.vNama_sample as NAMA_DAGANG,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH, f.iKesimpulan as simpul8a , g.iKesimpulan as simpul8b
     			from bbpmsoh.mt01 a
     			join hrd.employee b on cNip=a.iCustomer
     			join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
-    			WHERE a.iMt01 = '{$id}'";
+                left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
+                left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
+
+                left join bbpmsoh.mt08a f on f.iMt01 = a.iMt01
+                left join bbpmsoh.mt08a_fisik f1 on f1.iMt8a = f.iMt8a
+
+                left join bbpmsoh.mt08b g on g.iMt01 = a.iMt01
+                left join bbpmsoh.mt08b_fisik g1 on g1.iMt8b = g.iMt8b
+
+                left join bbpmsoh.mt09 h on h.iMt01 = a.iMt01
+                left join bbpmsoh.mt09_fisik h1 on h1.iMt09 = h.iMt09
+
+    			WHERE a.iMt01 = '{$id}'";*/
 
     			
     	$query = $this->db->query($sql);
 
     	foreach ($query->result() as $row) {
+
+            
+
+
     		
 			$row_array['NAMA_PEMOHON']      = ucwords(strtolower($row->vName));
 			$row_array['ALAMAT_PEMOHON']      = ucwords(strtolower($row->vAddress));
 			$row_array['NAMA_PRODUSEN']      = ucwords(strtolower($row->vNama_produsen));
 			$row_array['ALAMAT_PRODUSEN']      = ucwords(strtolower($row->vAlamat_produsen));
-			$row_array['KADALUARSA']      = ucwords(strtolower($row->dTgl_kadaluarsa));
+			$row_array['KADALUARSA']      = $this->tanggal_indo($row->dTgl_kadaluarsa, false);
 			$row_array['NOREG']      = ucwords(strtolower($row->vNo_registrasi));
 			$row_array['KEMASAN']      = ucwords(strtolower($row->vKemasan));
 			$row_array['JENIS']      = ucwords(strtolower($row->vJenis_sediaan));
 			$row_array['NOMOR_UJI']      = ucwords(strtolower($row->vNomor));
+
+            $row_array['NAMA_DAGANG']      = ucwords(strtolower($row->NAMA_DAGANG));
+            $row_array['NOMOR_TRADING']      = ucwords(strtolower($row->vBatch_lot));
+            $row_array['TANGGAL_TERIMA_CONTOH']  = $this->tanggal_indo($row->TANGGAL_TERIMA_CONTOH, false);
+
+
+            $row_array['ACUAN']      = ucwords(strtolower($row->vAcuan_metode_uji));
+
+
+            $row_array['NOMOR1']      = ucwords(strtolower($row->vNomor1));
+            $row_array['NOMOR2']      = ucwords(strtolower($row->vNomor2));
+
+            $row_array['NOMOR3'] = ucwords(strtolower($row->vNoKep_menteri));
+            $row_array['TANGGAL1']   = $this->tanggal_indo($row->dKep_menteri, false);
+
+            $row_array['NOMOR5'] = ucwords(strtolower($row->vNoKep_menteri));
+            $row_array['TANGGAL3']   = $this->tanggal_english($row->dKep_menteri, false);
+
+
+            $row_array['NOMOR4']      = ucwords(strtolower($row->vNoSk_menteri));
+            $row_array['TANGGAL2']   = $this->tanggal_indo($row->dSk_menteri, false);
+
+            $row_array['NOMOR6']      = ucwords(strtolower($row->vNoSk_menteri));
+            $row_array['TANGGAL4']   = $this->tanggal_english($row->dSk_menteri, false);
+
+            $row_array['TTD1']      = ucwords(strtolower($row->vNama_kabalai));
+            $row_array['TTD2']      = ucwords(strtolower($row->vNip_kabalai));
+
+
+            /*mt8a start*/
+                $row_array['WARNA1']      = ($row->dWarna_tanggal ? ucwords(strtolower($row->dWarna_tanggal)) : '') ;
+                $row_array['WARNA2']      = ($row->vWarna_metoda ? ucwords(strtolower($row->vWarna_metoda)) : '') ;
+                $row_array['WARNA3']      = ($row->vWarna ? ucwords(strtolower($row->vWarna)) : '') ;
+                $row_array['WARNA4']      = ($row->vWarna_mutu ? ucwords(strtolower($row->vWarna_mutu)) : '') ;
+                
+
+                $row_array['BAU1']      = '';
+                $row_array['BAU2']      = '';
+                $row_array['BAU3']      = '';
+                $row_array['BAU4']      = '';
+
+
+
+                $row_array['PARTIKEL_ASING1']      = ($row->vWarna_mutu ? ucwords(strtolower($row->dAsing_tanggal)) : '') ;
+                $row_array['PARTIKEL_ASING2']      = ($row->vAsing_metoda ? ucwords(strtolower($row->vAsing_metoda)) : '');
+                $row_array['PARTIKEL_ASING3']      = ($row->vAsing ? ucwords(strtolower($row->vAsing)) : '') ;
+                $row_array['PARTIKEL_ASING4']      = ($row->vAsing_mutu ? ucwords(strtolower($row->vAsing_mutu)) : '') ;
+
+                $row_array['HOMOGENITAS1']      = ($row->dHomogen_tanggal ? ucwords(strtolower($row->dHomogen_tanggal)) : '') ;
+                $row_array['HOMOGENITAS2']      = ($row->vHomogen_metoda ? ucwords(strtolower($row->vHomogen_metoda)) : '') ;
+                $row_array['HOMOGENITAS4']      = ($row->vHomogen_mutu ? ucwords(strtolower($row->vHomogen_mutu)) : '') ;
+                $row_array['HOMOGENITAS3']      = ($row->vHomogen ? ucwords(strtolower($row->vHomogen)) : '') ;
+
+                $row_array['KEVAKUMAN1']      = ($row->dVakum_tanggal ? ucwords(strtolower($row->dVakum_tanggal)) : '') ;
+                $row_array['KEVAKUMAN2']      = ($row->vVakum_metoda ? ucwords(strtolower($row->vVakum_metoda)) : '') ;
+                $row_array['KEVAKUMAN4']      = ($row->vVakum_mutu ? ucwords(strtolower($row->vVakum_mutu)) : '') ;
+                $row_array['KEVAKUMAN3']      = ($row->vVakum ? ucwords(strtolower($row->vVakum)) : '') ;
+
+                $row_array['KELEMBABAN1']      = ($row->dLembab_tanggal ? ucwords(strtolower($row->dLembab_tanggal)) : '') ;
+                $row_array['KELEMBABAN2']      = ($row->vLembab_metoda ? ucwords(strtolower($row->vLembab_metoda)) : '') ;
+                $row_array['KELEMBABAN4']      = ($row->vLembab_mutu ? ucwords(strtolower($row->vLembab_mutu)) : '') ;
+                $row_array['KELEMBABAN3']      = ($row->vLembab ? ucwords(strtolower($row->vLembab)) : '') ;
+
+                $row_array['KEMURNIAN1']      = ($row->dMurni_tanggal ? ucwords(strtolower($row->dMurni_tanggal)) : '') ;
+                $row_array['KEMURNIAN2']      = ($row->vMurni_metoda ? ucwords(strtolower($row->vMurni_metoda)) : '') ;
+                $row_array['KEMURNIAN4']      = ($row->vMurni_mutu ? ucwords(strtolower($row->vMurni_mutu)) : '') ;
+                $row_array['KEMURNIAN3']      = ($row->vMurni_37 ? ucwords(strtolower($row->vMurni_37)) : '') ;
+
+                $row_array['STERIL1']      = ($row->dSteril_tanggal ? ucwords(strtolower($row->dSteril_tanggal)) : '') ;
+                $row_array['STERIL2']      = ($row->vSteril_metoda ? ucwords(strtolower($row->vSteril_metoda)) : '') ;
+                $row_array['STERIL4']      = ($row->vSteril_mutu ? ucwords(strtolower($row->vSteril_mutu)) : '') ;
+                $row_array['STERIL3']      = ($row->vSteril_37 ? ucwords(strtolower($row->vSteril_37)) : '') ;
+
+                $row_array['MYCROPLASMA1']      = ($row->dKontaminasi_tanggal ? ucwords(strtolower($row->dKontaminasi_tanggal)) : '') ;
+                $row_array['MYCROPLASMA2']      = ($row->vKontaminasi_metoda ? ucwords(strtolower($row->vKontaminasi_metoda)) : '') ;
+                $row_array['MYCROPLASMA3']      = ($row->vKontaminasi_mico ? ucwords(strtolower($row->vKontaminasi_mico)) : '') ;
+                $row_array['MYCROPLASMA4']      = ($row->vKontaminasi_mutu ? ucwords(strtolower($row->vKontaminasi_mutu)) : '') ;
+
+                $row_array['SALMONELLA1']      = ($row->dKontaminasi_tanggal ? ucwords(strtolower($row->dKontaminasi_tanggal)) : '') ;
+                $row_array['SALMONELLA2']      = ($row->vKontaminasi_metoda ? ucwords(strtolower($row->vKontaminasi_metoda)) : '') ;
+                $row_array['SALMONELLA3']      = ($row->vKontaminasi_salmon ? ucwords(strtolower($row->vKontaminasi_salmon)) : '') ;
+                $row_array['SALMONELLA4']      = ($row->vKontaminasi_mutu ? ucwords(strtolower($row->vKontaminasi_mutu)) : '') ;
+
+                $row_array['COLI1']      = ($row->dKontaminasi_tanggal ? ucwords(strtolower($row->dKontaminasi_tanggal)) : '') ;
+                $row_array['COLI2']      = ($row->vKontaminasi_metoda ? ucwords(strtolower($row->vKontaminasi_metoda)) : '') ;
+                $row_array['COLI3']      = ($row->vKontaminasi_jamur ? ucwords(strtolower($row->vKontaminasi_jamur)) : '') ;
+                $row_array['COLI4']      = ($row->vKontaminasi_mutu ? ucwords(strtolower($row->vKontaminasi_mutu)) : '') ;
+
+                $row_array['JAMUR1']      = ($row->dKontaminasi_tanggal ? ucwords(strtolower($row->dKontaminasi_tanggal)) : '') ;
+                $row_array['JAMUR2']      = ($row->vKontaminasi_metoda ? ucwords(strtolower($row->vKontaminasi_metoda)) : '') ;
+                $row_array['JAMUR3']      = ($row->vKontaminasi_coli ? ucwords(strtolower($row->vKontaminasi_coli)) : '') ;
+                $row_array['JAMUR4']      = ($row->vKontaminasi_mutu ? ucwords(strtolower($row->vKontaminasi_mutu)) : '') ;
+
+                $row_array['ORGANISME1']      = ($row->dKontaminasi_tanggal ? ucwords(strtolower($row->dKontaminasi_tanggal)) : '') ;
+                $row_array['ORGANISME2']      = ($row->vKontaminasi_metoda ? ucwords(strtolower($row->vKontaminasi_metoda)) : '') ;
+                $row_array['ORGANISME3']      = ($row->vKontaminasi_lain ? ucwords(strtolower($row->vKontaminasi_lain)) : '') ;
+                $row_array['ORGANISME4']      = ($row->vKontaminasi_mutu ? ucwords(strtolower($row->vKontaminasi_mutu)) : '') ;
+
+                $row_array['BAKTERI1']      = ($row->dKandungan_tanggal ? ucwords(strtolower($row->dKandungan_tanggal)) : '') ;
+                $row_array['BAKTERI2']      = ($row->vKandungan_metoda ? ucwords(strtolower($row->vKandungan_metoda)) : '') ;
+                $row_array['BAKTERI3']      = ($row->vKandungan ? ucwords(strtolower($row->vKandungan)) : '') ;
+                $row_array['BAKTERI4']      = ($row->vKandungan_mutu ? ucwords(strtolower($row->vKandungan_mutu)) : '') ;
+
+                $row_array['IDENTITAS1']      = ($row->dIdentitas_tanggal ? ucwords(strtolower($row->dIdentitas_tanggal)) : '') ;
+                $row_array['IDENTITAS2']      = ($row->vIdentitas_metoda ? ucwords(strtolower($row->vIdentitas_metoda)) : '') ;
+                $row_array['IDENTITAS3']      = ($row->vIdentitas ? ucwords(strtolower($row->vIdentitas)) : '') ;
+                $row_array['IDENTITAS4']      = ($row->vIdentitas_mutu ? ucwords(strtolower($row->vIdentitas_mutu)) : '') ;
+
+                $row_array['INAKTIF1']      = ($row->dInaktivasi_tanggal ? ucwords(strtolower($row->dInaktivasi_tanggal)) : '') ;
+                $row_array['INAKTIF2']      = ($row->vInaktivasi_metoda ? ucwords(strtolower($row->vInaktivasi_metoda)) : '') ;
+                $row_array['INAKTIF3']      = ($row->vInaktivasi_jenis ? ucwords(strtolower($row->vInaktivasi_jenis)) : '') ;
+                $row_array['INAKTIF4']      = ($row->vInaktivasi_mutu ? ucwords(strtolower($row->vInaktivasi_mutu)) : '') ;
+
+                $row_array['TOXIC1']      = ($row->dPatologi_tanggal ? ucwords(strtolower($row->dPatologi_tanggal)) : '') ;
+                $row_array['TOXIC2']      = ($row->vPatologi_metoda ? ucwords(strtolower($row->vPatologi_metoda)) : '') ;
+                $row_array['TOXIC3']      = ($row->vPatologi ? ucwords(strtolower($row->vPatologi)) : '') ;
+                $row_array['TOXIC4']      = ($row->vPatologi_mutu ? ucwords(strtolower($row->vPatologi_mutu)) : '') ;
+
+                $row_array['KEAMANAN1']      = ($row->vPatologi_perlakuan ? ucwords(strtolower($row->vPatologi_perlakuan)) : '') ;
+
+                $row_array['POTENSI']      = ($row->vPotensi_perlakuan ? ucwords(strtolower($row->vPotensi_perlakuan)) : '') ;
+                $row_array['POTENSI1']      = ($row->dPotensi_tanggal ? ucwords(strtolower($row->dPotensi_tanggal)) : '') ;
+                $row_array['POTENSI2']      = ($row->vPotensi_metoda ? ucwords(strtolower($row->vPotensi_metoda)) : '') ;
+                $row_array['POTENSI3']      = ($row->vPotensi ? ucwords(strtolower($row->vPotensi)) : '') ;
+                $row_array['POTENSI4']      = ($row->vPotensi_mutu ? ucwords(strtolower($row->vPotensi_mutu)) : '') ;
+
+                $row_array['LAIN1']      = ($row->dLain_tanggal ? ucwords(strtolower($row->dLain_tanggal)) : '') ;
+                $row_array['LAIN2']      = ($row->vLain_metoda ? ucwords(strtolower($row->vLain_metoda)) : '') ;
+                $row_array['LAIN3']      = ($row->vLain ? ucwords(strtolower($row->vLain)) : '') ;
+                $row_array['LAIN4']      = ($row->vLain_mutu ? ucwords(strtolower($row->vLain_mutu)) : '') ;
+
+
+                $cekMT6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$row->iMt01.'"';
+                $dMt06 = $this->db->query($cekMT6)->row_array();
+
+
+                $nilai ="";
+                if($dMt06['iDist_virologi']==1 or $dMt06['iDist_bakteri']==1 ){
+                   
+
+                    if($row->simpul8a <> "" ||  $row->simpul8a <> 0){
+                        if($row->simpul8a == 1){
+                            $nilai .= 'Kesimpulan Uji Umum : Tidak memenuhi syarat';
+                        }else{
+                            $nilai .= 'Kesimpulan Uji Umum : Memenuhi Syarat';
+                        }
+                        
+
+                    }
+
+                    if($row->simpul8b <> "" ||  $row->simpul8b <> 0){
+                        if($row->simpul8b == 1){
+                            $nilai .= ', Kesimpulan Uji Khusus : Tidak memenuhi syarat';
+                        }else{
+                            $nilai .= ', Kesimpulan Uji Khusus : Memenuhi Syarat';
+                        }
+                        
+
+                    }
+
+                }else{
+
+                    /*farma*/
+
+                     if($row->simpul9 <> "" ||  $row->simpul9 <> 0){
+                        if($row->simpul9 == 1){
+                            $nilai .= 'Tidak memenuhi syarat';
+                        }else{
+                            $nilai .= 'Memenuhi Syarat';
+                        }
+                        
+
+                    }
+
+
+
+                    $row_array['KELARUTAN1']      = ($row->dKelarutan_tanggal ? ucwords(strtolower($row->dKelarutan_tanggal)) : '') ;
+                    $row_array['KELARUTAN2']      = ($row->vKelarutan_metoda ? ucwords(strtolower($row->vKelarutan_metoda)) : '') ;
+                    $row_array['KELARUTAN3']      = ($row->vKelarutan ? ucwords(strtolower($row->vKelarutan)) : '') ;
+                    $row_array['KELARUTAN4']      = ($row->vKelarutan_mutu ? ucwords(strtolower($row->vKelarutan_mutu)) : '') ;
+
+                    $row_array['HOMOGENITAS1']      = ($row->dSeragam_tanggal ? ucwords(strtolower($row->dSeragam_tanggal)) : '') ;
+                    $row_array['HOMOGENITAS2']      = ($row->vSeragam_metoda ? ucwords(strtolower($row->vSeragam_metoda)) : '') ;
+                    $row_array['HOMOGENITAS4']      = ($row->vSeragam_mutu ? ucwords(strtolower($row->vSeragam_mutu)) : '') ;
+                    $row_array['HOMOGENITAS3']      = ($row->vSeragam ? ucwords(strtolower($row->vSeragam)) : '') ;
+
+                    $row_array['KEASAMAN1']      = ($row->dPh_tanggal ? ucwords(strtolower($row->dPh_tanggal)) : '') ;
+                    $row_array['KEASAMAN2']      = ($row->vPh_metoda ? ucwords(strtolower($row->vPh_metoda)) : '') ;
+                    $row_array['KEASAMAN4']      = ($row->vPh_mutu ? ucwords(strtolower($row->vPh_mutu)) : '') ;
+                    $row_array['KEASAMAN3']      = ($row->vPh ? ucwords(strtolower($row->vPh)) : '') ;
+
+                    $row_array['STERIL1']      = ($row->dSteril37_tanggal ? ucwords(strtolower($row->dSteril37_tanggal)) : '') ;
+                    $row_array['STERIL2']      = ($row->vSteril37_metoda ? ucwords(strtolower($row->vSteril37_metoda)) : '') ;
+                    $row_array['STERIL4']      = ($row->vSteril37_mutu ? ucwords(strtolower($row->vSteril37_mutu)) : '') ;
+                    $row_array['STERIL3']      = ($row->vSteril_37 ? ucwords(strtolower($row->vSteril_37)) : '') ;
+
+                    $row_array['STERIL1a']      = ($row->dSteril22_tanggal ? ucwords(strtolower($row->dSteril22_tanggal)) : '') ;
+                    $row_array['STERIL2a']      = ($row->vSteril22_metoda ? ucwords(strtolower($row->vSteril22_metoda)) : '') ;
+                    $row_array['STERIL4a']      = ($row->vSteril22_mutu ? ucwords(strtolower($row->vSteril22_mutu)) : '') ;
+                    $row_array['STERIL3a']      = ($row->vSteril22 ? ucwords(strtolower($row->vSteril22)) : '') ;
+
+
+                    $row_array['TOXIC1']      = ($row->dToksis_tanggal ? ucwords(strtolower($row->dToksis_tanggal)) : '') ;
+                    $row_array['TOXIC2']      = ($row->vToksis_metoda ? ucwords(strtolower($row->vToksis_metoda)) : '') ;
+                    $row_array['TOXIC3']      = ($row->vToksis ? ucwords(strtolower($row->vToksis)) : '') ;
+                    $row_array['TOXIC4']      = ($row->vToksis_mutu ? ucwords(strtolower($row->vToksis_mutu)) : '') ;
+
+                    $row_array['PIROGENITAS1']      = ($row->dPirogen_tanggal ? ucwords(strtolower($row->dPirogen_tanggal)) : '') ;
+                    $row_array['PIROGENITAS2']      = ($row->vPirogen_metoda ? ucwords(strtolower($row->vPirogen_metoda)) : '') ;
+                    $row_array['PIROGENITAS3']      = ($row->vPirogen ? ucwords(strtolower($row->vPirogen)) : '') ;
+                    $row_array['PIROGENITAS4']      = ($row->vPirogen_mutu ? ucwords(strtolower($row->vPirogen_mutu)) : '') ;
+
+                    
+                    $row_array['KADAR']      = ($row->vPotensi_object ? ucwords(strtolower($row->vPotensi_object)) : '') ;
+                    $row_array['KADAR1']      = ($row->dPotensi_tanggal ? ucwords(strtolower($row->dPotensi_tanggal)) : '') ;
+                    $row_array['KADAR2']      = ($row->vPotensi_metoda ? ucwords(strtolower($row->vPotensi_metoda)) : '') ;
+                    $row_array['KADAR3']      = ($row->vPotensi ? ucwords(strtolower($row->vPotensi)) : '') ;
+                    $row_array['KADAR4']      = ($row->vPotensi_mutu ? ucwords(strtolower($row->vPotensi_mutu)) : '') ;
+
+                    
+
+
+                  
+                }
+
+
+                
+
+
+
+                $row_array['PENILAIAN']      = $nilai;
+
+
+                
+                
+
+
+            /*mt8a end*/
+
+
+
 			
 
 			array_push($data, $row_array);
@@ -342,6 +718,34 @@ class sertifikat extends MX_Controller {
 
     	echo json_encode($data);
     }
+
+    function listBox_sertifikat_mt06_iDist_bakteri($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
+    function listBox_sertifikat_mt06_iDist_virologi($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
+    function listBox_sertifikat_mt06_iDist_farmastetik($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
 
 
     function checkgroup($nip){
@@ -457,6 +861,45 @@ class sertifikat extends MX_Controller {
                                 
                             return $return;
                         }
+
+
+                        function insertBox_sertifikat_dKep_menteri($field, $id) {
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal required" size="8" />';
+                            return $return;
+                        }
+                        
+                        function updateBox_sertifikat_dKep_menteri($field, $id, $value, $rowData) {
+                                if ($this->input->get('action') == 'view') {
+                                     $return= $value; 
+                                }else{ 
+                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
+                                    
+
+                                }
+                                
+                            return $return;
+                        }
+
+
+
+                        function insertBox_sertifikat_dSk_menteri($field, $id) {
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal required" size="8" />';
+                            return $return;
+                        }
+                        
+                        function updateBox_sertifikat_dSk_menteri($field, $id, $value, $rowData) {
+                                if ($this->input->get('action') == 'view') {
+                                     $return= $value; 
+                                }else{ 
+                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 tanggal  required" size="8" value="'.$value.'"/>';
+                                    
+
+                                }
+                                
+                            return $return;
+                        }
+
+
                         
                         function insertBox_sertifikat_iCustomer($field, $id) {
                             $groupnya = $this->checkgroup($this->user->gNIP);             
@@ -1489,6 +1932,7 @@ class sertifikat extends MX_Controller {
         $update_draft = '<button onclick="javascript:update_draft_btn(\'sertifikat\', \' '.base_url().'processor/pengujian/sertifikat?draft=true \',this,true )"  id="button_update_draft_sertifikat"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\'sertifikat\', \' '.base_url().'processor/pengujian/sertifikat?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_sertifikat"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
 
+
         $cekMT6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$peka.'"';
         $dMt06 = $this->db->query($cekMT6)->row_array();
 
@@ -1528,6 +1972,8 @@ class sertifikat extends MX_Controller {
 											doc = new Docxgen(content);
 
 											doc.setData({
+                                                'NAMA_LAB' : 'BBPMSOH',
+                                                'ALAMAT_LAB' : 'Jl Raya Pembangunan Gunung Sindur, Gn. Sindur, Bogor, Jawa Barat 16340',
 												'NAMA_PEMOHON' : data[0].NAMA_PEMOHON,
 												'ALAMAT_PEMOHON' : data[0].ALAMAT_PEMOHON,
 												'NAMA_PRODUSEN' : data[0].NAMA_PRODUSEN,
@@ -1536,7 +1982,163 @@ class sertifikat extends MX_Controller {
 												'NOREG' : data[0].NOREG,
 												'KEMASAN' : data[0].KEMASAN,
 												'JENIS' : data[0].JENIS,
-												'NOMOR_UJI' : data[0].NOMOR_UJI
+												'NOMOR_UJI' : data[0].NOMOR_UJI,
+                                                'NAMA_DAGANG' : data[0].NAMA_DAGANG,
+                                                'NOMOR_TRADING' : data[0].NOMOR_TRADING,
+                                                'TANGGAL_TERIMA_CONTOH' : data[0].TANGGAL_TERIMA_CONTOH,
+
+                                                'NOMOR1' : data[0].NOMOR1,
+                                                'NOMOR2' : data[0].NOMOR2,
+
+                                                'NOMOR3' : data[0].NOMOR3,
+                                                'TANGGAL1' : data[0].TANGGAL1,
+
+                                                'NOMOR5' : data[0].NOMOR5,
+                                                'TANGGAL3' : data[0].TANGGAL3,
+
+                                                'NOMOR4' : data[0].NOMOR4,
+                                                'TANGGAL2' : data[0].TANGGAL2,
+
+                                                'NOMOR6' : data[0].NOMOR6,
+                                                'TANGGAL4' : data[0].TANGGAL4,
+
+                                                'TTD1' : data[0].TTD1,
+                                                'TTD2' : data[0].TTD2,
+
+                                                'ACUAN' : data[0].ACUAN,
+
+                                                'WARNA1' : data[0].WARNA1,
+                                                'WARNA2' : data[0].WARNA2,
+                                                'WARNA3' : data[0].WARNA3,
+                                                'WARNA4' : data[0].WARNA4,
+
+
+                                                'BAU1' : data[0].BAU1,
+                                                'BAU2' : data[0].BAU2,
+                                                'BAU3' : data[0].BAU3,
+                                                'BAU4' : data[0].BAU4,
+
+
+
+                                                'PARTIKEL_ASING1' : data[0].PARTIKEL_ASING1,
+                                                'PARTIKEL_ASING2' : data[0].PARTIKEL_ASING2,
+                                                'PARTIKEL_ASING3' : data[0].PARTIKEL_ASING3,
+                                                'PARTIKEL_ASING4' : data[0].PARTIKEL_ASING4,
+
+                                                'HOMOGENITAS1' : data[0].HOMOGENITAS1,
+                                                'HOMOGENITAS2' : data[0].HOMOGENITAS2,
+                                                'HOMOGENITAS4' : data[0].HOMOGENITAS4,
+                                                'HOMOGENITAS3' : data[0].HOMOGENITAS3,
+
+                                                'KEVAKUMAN1' : data[0].KEVAKUMAN1,
+                                                'KEVAKUMAN2' : data[0].KEVAKUMAN2,
+                                                'KEVAKUMAN4' : data[0].KEVAKUMAN4,
+                                                'KEVAKUMAN3' : data[0].KEVAKUMAN3,
+
+                                                'KELEMBABAN1' : data[0].KELEMBABAN1,
+                                                'KELEMBABAN2' : data[0].KELEMBABAN2,
+                                                'KELEMBABAN4' : data[0].KELEMBABAN4,
+                                                'KELEMBABAN3' : data[0].KELEMBABAN3,
+
+                                                'KEMURNIAN1' : data[0].KEMURNIAN1,
+                                                'KEMURNIAN2' : data[0].KEMURNIAN2,
+                                                'KEMURNIAN4' : data[0].KEMURNIAN4,
+                                                'KEMURNIAN3' : data[0].KEMURNIAN3,
+
+                                                'STERIL1' : data[0].STERIL1,
+                                                'STERIL2' : data[0].STERIL2,
+                                                'STERIL4' : data[0].STERIL4,
+                                                'STERIL3' : data[0].STERIL3,
+
+                                                'MYCROPLASMA1' : data[0].MYCROPLASMA1,
+                                                'MYCROPLASMA2' : data[0].MYCROPLASMA2,
+                                                'MYCROPLASMA3' : data[0].MYCROPLASMA3,
+                                                'MYCROPLASMA4' : data[0].MYCROPLASMA4,
+
+                                                'SALMONELLA1' : data[0].SALMONELLA1,
+                                                'SALMONELLA2' : data[0].SALMONELLA2,
+                                                'SALMONELLA3' : data[0].SALMONELLA3,
+                                                'SALMONELLA4' : data[0].SALMONELLA4,
+
+                                                'COLI1' : data[0].COLI1,
+                                                'COLI2' : data[0].COLI2,
+                                                'COLI3' : data[0].COLI3,
+                                                'COLI4' : data[0].COLI4,
+
+                                                'JAMUR1' : data[0].JAMUR1,
+                                                'JAMUR2' : data[0].JAMUR2,
+                                                'JAMUR3' : data[0].JAMUR3,
+                                                'JAMUR4' : data[0].JAMUR4,
+
+                                                'ORGANISME1' : data[0].ORGANISME1,
+                                                'ORGANISME2' : data[0].ORGANISME2,
+                                                'ORGANISME3' : data[0].ORGANISME3,
+                                                'ORGANISME4' : data[0].ORGANISME4,
+
+                                                'BAKTERI1' : data[0].BAKTERI1,
+                                                'BAKTERI2' : data[0].BAKTERI2,
+                                                'BAKTERI3' : data[0].BAKTERI3,
+                                                'BAKTERI4' : data[0].BAKTERI4,
+
+                                                'IDENTITAS1' : data[0].IDENTITAS1,
+                                                'IDENTITAS2' : data[0].IDENTITAS2,
+                                                'IDENTITAS3' : data[0].IDENTITAS3,
+                                                'IDENTITAS4' : data[0].IDENTITAS4,
+
+                                                'INAKTIF1' : data[0].INAKTIF1,
+                                                'INAKTIF2' : data[0].INAKTIF2,
+                                                'INAKTIF3' : data[0].INAKTIF3,
+                                                'INAKTIF4' : data[0].INAKTIF4,
+
+                                                'TOXIC1' : data[0].TOXIC1,
+                                                'TOXIC2' : data[0].TOXIC2,
+                                                'TOXIC3' : data[0].TOXIC3,
+                                                'TOXIC4' : data[0].TOXIC4,
+
+                                                'KEAMANAN1' : data[0].KEAMANAN1,
+
+                                                'POTENSI' : data[0].POTENSI,
+                                                'POTENSI1' : data[0].POTENSI1,
+                                                'POTENSI2' : data[0].POTENSI2,
+                                                'POTENSI3' : data[0].POTENSI3,
+                                                'POTENSI4' : data[0].POTENSI4,
+
+                                                'LAIN1' : data[0].LAIN1,
+                                                'LAIN2' : data[0].LAIN2,
+                                                'LAIN3' : data[0].LAIN3,
+                                                'LAIN4' : data[0].LAIN4,
+
+
+                                                'KEASAMAN1' : data[0].KEASAMAN1,
+                                                'KEASAMAN2' : data[0].KEASAMAN2,
+                                                'KEASAMAN3' : data[0].KEASAMAN3,
+                                                'KEASAMAN4' : data[0].KEASAMAN4,
+
+                                                'KELARUTAN1' : data[0].KELARUTAN1,
+                                                'KELARUTAN2' : data[0].KELARUTAN2,
+                                                'KELARUTAN3' : data[0].KELARUTAN3,
+                                                'KELARUTAN4' : data[0].KELARUTAN4,
+
+                                                'STERIL1a' : data[0].STERIL1a,
+                                                'STERIL2a' : data[0].STERIL2a,
+                                                'STERIL4a' : data[0].STERIL4a,
+                                                'STERIL3a' : data[0].STERIL3a,
+
+                                                'PIROGENITAS1' : data[0].PIROGENITAS1,
+                                                'PIROGENITAS2' : data[0].PIROGENITAS2,
+                                                'PIROGENITAS3' : data[0].PIROGENITAS3,
+                                                'PIROGENITAS4' : data[0].PIROGENITAS4,
+
+                                                'KADAR' : data[0].KADAR,
+                                                'KADAR1' : data[0].KADAR1,
+                                                'KADAR2' : data[0].KADAR2,
+                                                'KADAR3' : data[0].KADAR3,
+                                                'KADAR4' : data[0].KADAR4,
+
+
+
+                                                'PENILAIAN' : data[0].PENILAIAN
+
 		    									
 											})
 

@@ -44,9 +44,9 @@
 				}
 			});
 			
-			$('#username').keyup(function(){
+			/*$('#username').keyup(function(){
 				$(this).val(String($(this).val()).toUpperCase());
-			});
+			});*/
 			
 			focusCursor();
 			$("#password").keypress(function(e){ 
@@ -60,16 +60,30 @@
 			    }
 			});
 
+			focusCursor();
+			$("#password").keypress(function(e){ 
+			    var code = e.which; 
+			    if(code==13)e.preventDefault();
+			    if(code==32||code==13||code==188||code==186){
+			    	var uName = $( "#username" ).val();
+					var uPass = $( "#password" ).val();
+					var uComp = $( "#company" ).val();
+					doLogin(uName, uPass, uComp);
+			    }
+			});
+			
+
 		});
 		
 		function checkLength( o, n, min, max ) {
-			if ( o.val().length > max || o.val().length < min ) {
+			/*if ( o.val().length > max || o.val().length < min ) {
 				o.addClass( "ui-state-error" );
 				updateTips("<?php echo $this->lang->line('warning_empty_field');?>");
 				return false;
 			} else {
 				return true;
-			}
+			}*/
+			return true;
 		}
 		
 		function updateTips( t ) {

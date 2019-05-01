@@ -1,0 +1,14 @@
+#BBPMSOH
+1. Form MT07 , autofill suhu & keterangan
+2. Menu Laporan
+3. Print Doc MT 03 -> 09
+4. print doc sertifikat halaman depan
+
+
+# UMUM
+1. fix modul daftar employee +. test dengan pssword encrypt = done
+2. fix modul daftar customer , show password decrypt => done
+3. hilangkan edit profile => done
+4. fix reset password => done 
+
+
