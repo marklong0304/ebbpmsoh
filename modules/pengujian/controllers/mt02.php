@@ -19,6 +19,7 @@ class mt02 extends MX_Controller {
             'mt01.vNo_transaksi' => array('label'=>'No Transaksi','width'=>100,'align'=>'center','search'=>true)
             ,'mt01.vNama_produsen' => array('label'=>'Nama Produsen','width'=>300,'align'=>'left','search'=>true)
             ,'dTgl_Kontrak' => array('label'=>'Tanggal Kontrak','width'=>100,'align'=>'center','search'=>false)
+            ,'vKeterangan' => array('label'=>'Remark','width'=>300,'align'=>'left','search'=>false)
             ,'iSubmit' => array('label'=>'Submit','width'=>100,'align'=>'center','search'=>true)
             ,'iApprove' => array('label'=>'Approval','width'=>100,'align'=>'center','search'=>true)
         );
@@ -36,7 +37,9 @@ class mt02 extends MX_Controller {
                 ,'p1_jabatan' =>'Jabatan Pihak I'
                 ,'p1_perusahaan'=>'Perusahaan Pihak I'
                 ,'p1_alamat'=>'Alamat Pihak I'
+                
                 //,'p1_an'=>'Pihak I Atas Nama'
+                ,'p2_nip'=>'NIP Pihak II'
                 ,'p2_nama'=>'Nama Pihak II'
                 ,'p2_jabatan'=>'Jabatan Pihak II'
                 ,'vKeterangan'=>'Keterangan'

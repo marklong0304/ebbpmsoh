@@ -145,8 +145,10 @@
 				<input type="text" name="username" id="username" class="text ui-widget-content ui-corner-all" />
 				<label for="password">Password</label>
 				<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-				<label for="company">Company</label>
-				<select name="company" id="company" class="text ui-widget-content ui-corner-all" style="cursor:pointer;"><?php echo $getCompany;?></select>
+				<input type="hidden" name="company" value="	3" id="company" class="text ui-widget-content ui-corner-all" />
+				
+				<!-- <label for="company">Company</label>
+				<select name="company" id="company" class="text ui-widget-content ui-corner-all" style="cursor:pointer;"><?php echo $getCompany;?></select> -->
 				<input type="hidden" name="flag" value="hore"/>
 			</fieldset>
 		</form>
