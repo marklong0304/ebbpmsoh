@@ -192,7 +192,7 @@ class sertifikat extends MX_Controller {
 
 
         $groupnya = $this->checkgroup($this->user->gNIP);             
-        if( $groupnya['idprivi_group'] == 2){
+        if( $groupnya['idprivi_group'] == 6){
             // syaratnya pengujian semuanya beres
             //$grid->setQuery('iSubmit_sertifikat in (0)',NULL);
 
@@ -244,7 +244,7 @@ class sertifikat extends MX_Controller {
             }
 
 
-        }else if($groupnya['idprivi_group'] == 6){
+        }else if($groupnya['idprivi_group'] == 2){
 
         	$grid->setQuery('iStatus_sertifikat',2);
 
@@ -2180,9 +2180,9 @@ class sertifikat extends MX_Controller {
         */ 
 
         	$groupnya = $this->checkgroup($this->user->gNIP);             
-	        if( $groupnya['idprivi_group']== 2 and $rowData['iSubmit_sertifikat']==0 ){
+	        if( $groupnya['idprivi_group']== 6 and $rowData['iSubmit_sertifikat']==0 ){
 	            $buttons['update'] = $iframe.$update_draft.$update.$js;    
-	        }else if($groupnya['idprivi_group']== 6 and $rowData['iSubmit_sertifikat']==1 and $rowData['iSphu_app']==0){
+	        }else if($groupnya['idprivi_group']== 2 and $rowData['iSubmit_sertifikat']==1 and $rowData['iSphu_app']==0){
 	        	$approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/sertifikat?action=approve&level=1&iMt01='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_sertifikat"  class="ui-button-text icon-save" >Approve</button>';
         		$reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/sertifikat?action=reject&level=1&iMt01='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_sertifikat"  class="ui-button-text icon-save" >Reject</button>';
         		$buttons['update'] = $iframe.$approve.$reject;    

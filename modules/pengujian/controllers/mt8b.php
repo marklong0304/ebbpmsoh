@@ -20,6 +20,7 @@ class mt8b extends MX_Controller {
 			,'iApprove_unit_uji' => array('label'=>'Approval Yanji','width'=>150,'align'=>'left','search'=>true)
 			,'iApprove_qa' => array('label'=>'Approval QA','width'=>150,'align'=>'left','search'=>true)
 			,'iKesimpulan' => array('label'=>'Kesimpulan Uji Khusus','width'=>200,'align'=>'center','search'=>false)
+			,'vRemark' => array('label'=>'Remark','width'=>300,'align'=>'left','search'=>false)
 			
 		);
 

@@ -26,8 +26,15 @@ class mt07 extends MX_Controller {
 			,'mt03.vnomor_03' => array('label'=>'Nomor Pengujian','width'=>100,'align'=>'center','search'=>true)
 			,'mt01.vNama_produsen' => array('label'=>'Produsen','width'=>200,'align'=>'left','search'=>true)
 			,'mt01.vNama_sample' => array('label'=>'Nama Sample','width'=>300,'align'=>'left','search'=>true)
+			,'mt06.iDist_bakteri' => array('label'=>'Lab Bakterologi','width'=>100,'align'=>'center','search'=>false)
+			,'iApprove_bio' => array('label'=>'Approval Lab Bakterologi','width'=>150,'align'=>'center','search'=>false)
+            ,'mt06.iDist_virologi' => array('label'=>'Lab Virologi','width'=>100,'align'=>'center','search'=>false)
+            ,'iApprove_viro' => array('label'=>'Approval Lab Virologi','width'=>150,'align'=>'center','search'=>false)
+            ,'mt06.iDist_farmastetik' => array('label'=>'Lab Farmastetik','width'=>100,'align'=>'center','search'=>false)
+            ,'iApprove_farma' => array('label'=>'Approval Lab Farmastetik','width'=>150,'align'=>'center','search'=>false)
+
 			,'iSubmit' => array('label'=>'Submit','width'=>150,'align'=>'left','search'=>true)
-			/*,'iApprove_unit_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)*/
+			/*,'iApprove_uji' => array('label'=>'Approval','width'=>150,'align'=>'left','search'=>true)*/
 		);
 
 		$datagrid['jointableinner']=array(
@@ -167,7 +174,9 @@ class mt07 extends MX_Controller {
 
 
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
-		$grid->changeFieldType('iApprove_unit_uji', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+		$grid->changeFieldType('iApprove_bio', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+		$grid->changeFieldType('iApprove_viro', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+		$grid->changeFieldType('iApprove_farma', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 
 		$grid->setGridView('grid');
 
@@ -289,6 +298,41 @@ class mt07 extends MX_Controller {
 				break;
 		}
     }
+
+    function listBox_mt07_mt06_iDist_bakteri($value, $pk, $name, $rowData){
+    	/*$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt07 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join bbpmsoh.mt06 b on b.iMt01=c.iMt01
+						where a.iMt07 = "'.$id.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();*/
+
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
+    function listBox_mt07_mt06_iDist_virologi($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
+    function listBox_mt07_mt06_iDist_farmastetik($value, $pk, $name, $rowData){
+        $ret = 'Tidak';
+        if($value==1){
+            $ret = 'Ya';
+        }
+        return $ret;
+
+    }
+
 
     function getDataMemo() {
 
@@ -470,12 +514,22 @@ class mt07 extends MX_Controller {
         
         $update_draft = '<button onclick="javascript:update_draft_btn(\''.$this->url.'\', \' '.base_url().'processor/'.$this->urlpath.'?draft=true&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').'\',this,true )"  id="button_update_draft_'.$this->url.'"  class="ui-button-text icon-save" >Update as Draft</button>';
         $update = '<button onclick="javascript:update_btn_back(\''.$this->url.'\', \' '.base_url().'processor/'.$this->urlpath.'?company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \',this,true )"  id="button_update_submit_'.$this->url.'"  class="ui-button-text icon-save" >Update &amp; Submit</button>';
+        
         $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
+
+        $approve_bio = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&lvl=1&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
+        $approve_viro = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&lvl=2&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
+        $approve_farma = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=approve&lvl=3&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_'.$this->url.'"  class="ui-button-text icon-save" >Approve</button>';
+
+        $reject_bio = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&lvl=1&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
+        $reject_viro = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&lvl=2&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
+        $reject_farma = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&lvl=3&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
+
         $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/'.$this->urlpath.'?action=reject&approve&last_id='.$this->input->get('id').'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_'.$this->url.'"  class="ui-button-text icon-save" >Reject</button>';
         
-         $peka=$rowData['iMt07'];
-      $grid          = $this->url;
-      $url           = $this->masterUrl;
+        $peka=$rowData['iMt07'];
+      	$grid          = $this->url;
+      	$url           = $this->masterUrl;
 
       $btnUpk  = "<button class='ui-button icon-print' onClick='btnUpk_{$this->url}(\"{$url}\", \"{$grid}\", this)'>Print</button>";
       $btnUpk .= "<script>
@@ -577,23 +631,70 @@ class mt07 extends MX_Controller {
             $buttons['update'] = $btnUpk; 
         }
         else{ 
-            /*if($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==0){
+            /*if($rowData['iApprove_uji']==0 && $rowData['iSubmit']==0){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }elseif($rowData['iApprove_unit_uji']==0 && $rowData['iSubmit']==1){
+            }elseif($rowData['iApprove_uji']==0 && $rowData['iSubmit']==1){
                 $buttons['update'] = $iframe.$approve.$reject;
             }*/
+
+             /*
+            idprivi_group;vNamaGroup
+			1;Administrator
+			2;Admini Yanji
+			3;Admin Biologik
+			4;Admin Virologi
+			5;Admin Farmastetik & Premiks
+			6;Admin SPHU
+			7;Customer
+			8;Kepala Balai
+			9;TU
+			10;Keuangan
+
+
+
+        */ 
+
+            $groupnya = $this->checkgroup($this->user->gNIP);             
 
             unset($buttons['update']);
 
             if($rowData['iSubmit']==0){
-                $buttons['update'] = $iframe.$update_draft.$update.$js;    
+            	if($groupnya['idprivi_group']==2){
+            		$buttons['update'] = $iframe.$update_draft.$update.$js;    
+            	}
+                
+            }else{
+
+	            if($rowData['iApprove_bio']==0 && $rowData['iSubmit']==1){
+	            	if($groupnya['idprivi_group']==3){
+	                	$buttons['update'] = $iframe.$reject_bio.$approve_bio.$js;    
+	                }
+	            }
+
+	            if($rowData['iApprove_viro']==0 && $rowData['iSubmit']==1){
+	            	if($groupnya['idprivi_group']==4){
+	                	$buttons['update'] = $iframe.$reject_viro.$approve_viro.$js;    
+	            	}
+	            }
+
+	            if($rowData['iApprove_farma']==0 && $rowData['iSubmit']==1){
+	            	if($groupnya['idprivi_group']==5){
+	                	$buttons['update'] = $iframe.$reject_farma.$approve_farma.$js;    
+	                }
+	            }
+
+
             }
 
 
         }
+
+        //$buttons['update'] = $rowData['iApprove_bio'].' '.$rowData['iSubmit'].' '.$groupnya;
         
         return $buttons;
     }
+
+
 
 	function manipulate_insert_button($buttons){        
         $cNip= $this->user->gNIP;
@@ -612,12 +713,37 @@ class mt07 extends MX_Controller {
 
 	/*List Box*/
 	 function listBox_Action($row, $actions) {
-        /*if ($row->iApprove_unit_uji>0) { 
+	 	$groupnya = $this->checkgroup($this->user->gNIP);             
+
+        /*if ($row->iApprove_uji>0) { 
                 
         }*/
         if ($row->iSubmit>0) { 
                 unset($actions['delete']);
-                unset($actions['edit']);
+
+                if($groupnya['idprivi_group']==3){
+                	if($row->iApprove_bio==0 && $row->iSubmit==1){
+
+		            }else{
+		            	unset($actions['edit']);		
+		            }
+
+
+                }else if($groupnya['idprivi_group']==4){
+					if($row->iApprove_viro==0 && $row->iSubmit==1){
+
+		            }else{
+		            	unset($actions['edit']);		
+		            }
+
+                }else{
+					if($row->iApprove_farma==0 && $row->iSubmit==1){
+
+		            }else{
+		            	unset($actions['edit']);		
+		            }                	
+                }
+                
         }
         return $actions;
     }
@@ -1189,6 +1315,7 @@ class mt07 extends MX_Controller {
         $echo .= '<form id="form_mt07_approve" action="'.base_url().'processor/pengujian/mt07?action=approve_process" method="post">';
         $echo .= '<div style="vertical-align: top;">';
         $echo .= 'Remark : 
+        		<input type="hidden" name="lvl" value="'.$this->input->get('lvl').'" />
                 <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
                 <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
                 <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
@@ -1202,12 +1329,28 @@ class mt07 extends MX_Controller {
 
     function approve_process(){
         $post = $this->input->post();
+
+        $lvl = $post['lvl'];
+        if($lvl==1){
+        	$dataupdate['cApprove_bio']= $this->user->gNIP;
+	        $dataupdate['dApprove_bio']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_bio']= $post['vRemark'];
+	        $dataupdate['iApprove_bio']= 2;
+
+        }else if($lvl==2){
+        	$dataupdate['cApprove_viro']= $this->user->gNIP;
+	        $dataupdate['dApprove_viro']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_viro']= $post['vRemark'];
+	        $dataupdate['iApprove_viro']= 2;
+        }else{
+        	$dataupdate['cApprove_farma']= $this->user->gNIP;
+	        $dataupdate['dApprove_farma']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_farma']= $post['vRemark'];
+	        $dataupdate['iApprove_farma']= 2;
+        }
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-        $dataupdate['cApprove_unit_uji']= $this->user->gNIP;
-        $dataupdate['dApprove_unit_uji']= date('Y-m-d H:i:s');
-        $dataupdate['vRemark_unit_uji']= $post['vRemark'];
-        $dataupdate['iApprove_unit_uji']= 2;
+        
         $updet = $this->db->where('iMt07',$post['last_id'])->update('bbpmsoh.mt07',$dataupdate);
 
         if($updet){
@@ -1259,6 +1402,7 @@ class mt07 extends MX_Controller {
         $echo .= '<form id="form_mt07_reject" action="'.base_url().'processor/pengujian/mt07?action=reject_process" method="post">';
         $echo .= '<div style="vertical-align: top;">';
         $echo .= 'Remark : 
+        		<input type="hidden" name="lvl" value="'.$this->input->get('lvl').'" />
                 <input type="hidden" name="last_id" value="'.$this->input->get('last_id').'" />
                 <input type="hidden" name="group_id" value="'.$this->input->get('group_id').'" />
                 <input type="hidden" name="modul_id" value="'.$this->input->get('modul_id').'" />
@@ -1288,10 +1432,27 @@ class mt07 extends MX_Controller {
         $post = $this->input->post();
         $dataupdate['cUpdated']= $this->user->gNIP;
         $dataupdate['dUpdated']= date('Y-m-d H:i:s');
-        $dataupdate['cApprove_unit_uji']= $this->user->gNIP;
-        $dataupdate['dApprove_unit_uji']= date('Y-m-d H:i:s');
-        $dataupdate['vRemark_unit_uji']= $post['vRemark'];
-        $dataupdate['iApprove_unit_uji']= 1;
+        
+        $lvl = $post['lvl'];
+        if($lvl==1){
+        	$dataupdate['cApprove_bio']= $this->user->gNIP;
+	        $dataupdate['dApprove_bio']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_bio']= $post['vRemark'];
+	        $dataupdate['iApprove_bio']= 1;
+
+        }else if($lvl==2){
+        	$dataupdate['cApprove_viro']= $this->user->gNIP;
+	        $dataupdate['dApprove_viro']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_viro']= $post['vRemark'];
+	        $dataupdate['iApprove_viro']= 1;
+        }else{
+        	$dataupdate['cApprove_farma']= $this->user->gNIP;
+	        $dataupdate['dApprove_farma']= date('Y-m-d H:i:s');
+	        $dataupdate['vRemark_farma']= $post['vRemark'];
+	        $dataupdate['iApprove_farma']= 1;
+        }
+
+        
         $this->db->where('iMt07',$post['last_id'])
                     ->update('bbpmsoh.mt07',$dataupdate);
         $data['group_id']=$post['group_id'];
