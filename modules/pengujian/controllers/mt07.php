@@ -174,9 +174,9 @@ class mt07 extends MX_Controller {
 
 
 		$grid->changeFieldType('iSubmit', 'combobox','',array(''=>'--select--', 0=>'Draft', 1=>'Submit'));
-		$grid->changeFieldType('iApprove_bio', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+		/*$grid->changeFieldType('iApprove_bio', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
 		$grid->changeFieldType('iApprove_viro', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
-		$grid->changeFieldType('iApprove_farma', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));
+		$grid->changeFieldType('iApprove_farma', 'combobox','',array(''=>'--select--', 0=>'Waiting Approval', 1=>'Rejected', 2=>'Approved'));*/
 
 		$grid->setGridView('grid');
 
@@ -297,6 +297,80 @@ class mt07 extends MX_Controller {
 				$grid->render_grid();
 				break;
 		}
+    }
+
+    function listBox_mt07_iApprove_bio($value, $pk, $name, $rowData){
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt07 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join bbpmsoh.mt06 b on b.iMt01=c.iMt01
+						where a.iMt07 = "'.$rowData->iMt07.'"';
+				/*		echo $sqlgetMt1;
+						exit;*/
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+		
+        
+        if($dmete1['iDist_bakteri']==1){
+            if($rowData->iApprove_bio==0){
+            	$ret = 'Waiting Approval';	
+            }else if($rowData->iApprove_bio==2){
+            	$ret = 'Approved';	
+            }else{
+            	$ret = 'Rejected';	
+            }
+        }else{
+        	$ret = 'Not Needed';	
+        }
+        return $ret;
+
+    }
+
+    function listBox_mt07_iApprove_viro($value, $pk, $name, $rowData){
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt07 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join bbpmsoh.mt06 b on b.iMt01=c.iMt01
+						where a.iMt07 = "'.$rowData->iMt07.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+
+        
+        if($dmete1['iDist_virologi']==1){
+            if($rowData->iApprove_viro==0){
+            	$ret = 'Waiting Approval';	
+            }else if($rowData->iApprove_viro==2){
+            	$ret = 'Approved';	
+            }else{
+            	$ret = 'Rejected';	
+            }
+        }else{
+        	$ret = 'Not Needed';	
+        }
+        return $ret;
+
+    }
+
+    function listBox_mt07_iApprove_farma($value, $pk, $name, $rowData){
+    	$sqlgetMt1 = 'select * 
+						from bbpmsoh.mt07 a 
+						join bbpmsoh.mt01 c on c.iMt01=a.iMt01
+						join bbpmsoh.mt06 b on b.iMt01=c.iMt01
+						where a.iMt07 = "'.$rowData->iMt07.'"';
+		$dmete1 = $this->db->query($sqlgetMt1)->row_array();
+
+        
+        if($dmete1['iDist_farmastetik']==1){
+            if($rowData->iApprove_farma==0){
+            	$ret = 'Waiting Approval';	
+            }else if($rowData->iApprove_farma==2){
+            	$ret = 'Approved';	
+            }else{
+            	$ret = 'Rejected';	
+            }
+        }else{
+        	$ret = 'Not Needed';	
+        }
+        return $ret;
+
     }
 
     function listBox_mt07_mt06_iDist_bakteri($value, $pk, $name, $rowData){
