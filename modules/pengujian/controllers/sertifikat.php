@@ -246,7 +246,8 @@ class sertifikat extends MX_Controller {
 
         }else if($groupnya['idprivi_group'] == 2){
 
-            $grid->setQuery('iStatus_sertifikat',2);
+            //$grid->setQuery('iStatus_sertifikat',2);
+            $grid->setQuery('iSubmit_sertifikat',1);
 
         }else if($groupnya['idprivi_group'] == 9){
             $grid->setQuery('iSphu_app',2);
@@ -365,8 +366,18 @@ class sertifikat extends MX_Controller {
     {
 
         $id = $_GET['id'];
+
+        $sql= 'select * 
+                from bbpmsoh.mt01 a 
+                where a.lDeleted=0 
+                and a.iMt01= "'.$id.'"';
+        $dMt01 = $this->db->query($sql)->row_array();
+        
+        $isi = $dMt01['vNomor1'].';'.$dMt01['vNomor2'].';'.$dMt01['vNama_sample'].';'.$dMt01['vBatch_lot'].';'.$dMt01['vNomor'].';';
+
+        
         $this->load->library('ciqrcode');
-        $params['data'] = 'This is a text to encode become QR Code';
+        $params['data'] = $isi;
         $params['level'] = 'H';
         $params['size'] = 10;
         
@@ -377,16 +388,12 @@ class sertifikat extends MX_Controller {
 
     public function form_cetak_petunjuk2($get){
 
-        $iRequest_deviasi = $get['iRequest_deviasi']; 
-        $ttanggal_acp_1 = $get['ttanggal_acp_1'];
-        $ttanggal_acp_2 = $get['ttanggal_acp_2']; 
-        $ttanggal_reg_1 = $get['ttanggal_reg_1'];
-        $ttanggal_reg_2 = $get['ttanggal_reg_2']; 
-
-       
-
- 
+        $id = $_GET['id'];
         $data['id'] = $_GET['id'];
+        $arr = $this->getDataMemo($id);
+
+        $data['item'] = json_decode($arr);
+
         $data['judul'] = 'oke';
         $o=$this->load->view("report/sertifikatB",$data,TRUE);
         return $o;
@@ -394,6 +401,42 @@ class sertifikat extends MX_Controller {
 
 
 
+    function updateBox_sertifikat_iStatus_sertifikat($field, $id, $value, $rowData) {
+
+        if ($this->input->get('action') == 'view') {
+            $pilihan = array(''=>'',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+            $return = $pilihan[$value];
+        } else {
+            $return = '';
+            $groupnya = $this->checkgroup($this->user->gNIP);             
+            if( $groupnya['idprivi_group']== 2 ){
+                $pilihan = array(''=>'',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+                $return .='<select id="'.$id.'" name="'.$field.'" class="required">';
+                foreach($pilihan as $k=>$v) {
+                    if ($k == $value) $selected = ' selected';
+                    else $selected = '';
+                    $return.='<option '.$selected.' value="'.$k.'">'.$v.'</option>';
+                }            
+                $return .= '</select>';
+
+            }else{
+                if($rowData['iStatus_sertifikat'] <> "" and $rowData['iStatus_sertifikat'] <> 0){
+                    $pilihan = array(''=>'',1=>'Tidak Memenuhi Syarat', 2=>'Memenuhi Syarat');
+                    $return = $pilihan[$value];
+                }else{
+                    /*tidak perlu ada inputan*/
+                    $return = '<input type="hidden" id="'.$id.'" name="'.$field.'" class="input_rows1 " size="30"  />';
+                    $return .= 'Yang menentukan Admin Yanji';
+                }
+                
+            }
+
+            
+        }
+
+        return $return;
+
+    }
 
     function tanggal_indo($tanggal, $cetak_hari = false)
     {
@@ -465,17 +508,40 @@ class sertifikat extends MX_Controller {
 
 
 
-
-    function getDataMemo() {
-        $id   = $this->input->post('id');
+    function getDataMemo($id) {
         $data = array();
 
         $cekMT6 = 'select * from bbpmsoh.mt06 a where a.iMt01 = "'.$id.'"';
         $dMt06 = $this->db->query($cekMT6)->row_array();
 
+        
+
+        $row_array['iDist_bakteri'] = $dMt06['iDist_bakteri'];
+        $row_array['iDist_farmastetik'] = $dMt06['iDist_farmastetik'];
+        $row_array['iDist_virologi'] = $dMt06['iDist_virologi'];
 
 
-        if($dMt06['iDist_virologi']==1 or $dMt06['iDist_bakteri']==1 ){
+
+
+
+        if($dMt06['iDist_bakteri']== 1 and $dMt06['iDist_farmastetik'] ==1){
+            // farmastetik
+            $templatenya = 'sertifikatF.docx';
+        }else if($dMt06['iDist_bakteri']== 1 and $dMt06['iDist_virologi'] ==1){
+            // biologik
+            $templatenya = 'sertifikatB.docx';
+        }else if($dMt06['iDist_bakteri']== 1){
+            // biologik
+            $templatenya = 'sertifikatB.docx';
+        }else if($dMt06['iDist_virologi']== 1){
+            // biologik
+            $templatenya = 'sertifikatB.docx';
+        }else{
+            //$dMt06['iDist_farmastetik'] ==1;
+            $templatenya = 'sertifikatF.docx';
+        }
+
+        if($templatenya== 'sertifikatB.docx'){
             $sql = "select *,a.vNama_sample as NAMA_DAGANG,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH, f.iKesimpulan as simpul8a , g.iKesimpulan as simpul8b
                 from bbpmsoh.mt01 a
                 join hrd.employee b on cNip=a.iCustomer
@@ -490,50 +556,33 @@ class sertifikat extends MX_Controller {
                 left join bbpmsoh.mt08b_fisik g1 on g1.iMt8b = g.iMt8b
 
                 WHERE a.iMt01 = '{$id}'";
-
-
         }else{
-           $sql = "select *,a.vNama_sample as NAMA_DAGANG,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH , h.iKesimpulan as simpul9
-                from bbpmsoh.mt01 a
-                join hrd.employee b on cNip=a.iCustomer
-                join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
-                left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
-                left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
+                       $sql = "select *,a.vNama_sample as NAMA_DAGANG,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH , h.iKesimpulan as simpul9
+                            from bbpmsoh.mt01 a
+                            join hrd.employee b on cNip=a.iCustomer
+                            join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
+                            left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
+                            left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
 
-                left join bbpmsoh.mt09 h on h.iMt01 = a.iMt01
-                left join bbpmsoh.mt09_fisik h1 on h1.iMt09 = h.iMt09
+                            left join bbpmsoh.mt09 h on h.iMt01 = a.iMt01
+                            left join bbpmsoh.mt09_fisik h1 on h1.iMt09 = h.iMt09
 
-                WHERE a.iMt01 = '{$id}'";
+                            WHERE a.iMt01 = '{$id}'";
+
+
         }
+        //echo '<pre>'.$sql;
 
-
-        /*$sql = "select *,a.vNama_sample as NAMA_DAGANG,dTgl_penerimaan as TANGGAL_TERIMA_CONTOH, f.iKesimpulan as simpul8a , g.iKesimpulan as simpul8b
-                from bbpmsoh.mt01 a
-                join hrd.employee b on cNip=a.iCustomer
-                join bbpmsoh.m_jenis_sediaan c on c.iM_jenis_sediaan=a.iM_jenis_sediaan
-                left join bbpmsoh.mt02 d on d.iMt01=a.iMt01
-                left join bbpmsoh.mt05 e on e.iMt01=a.iMt01
-
-                left join bbpmsoh.mt08a f on f.iMt01 = a.iMt01
-                left join bbpmsoh.mt08a_fisik f1 on f1.iMt8a = f.iMt8a
-
-                left join bbpmsoh.mt08b g on g.iMt01 = a.iMt01
-                left join bbpmsoh.mt08b_fisik g1 on g1.iMt8b = g.iMt8b
-
-                left join bbpmsoh.mt09 h on h.iMt01 = a.iMt01
-                left join bbpmsoh.mt09_fisik h1 on h1.iMt09 = h.iMt09
-
-                WHERE a.iMt01 = '{$id}'";*/
-
-                
         $query = $this->db->query($sql);
 
         foreach ($query->result() as $row) {
 
             
+            $row_array['KABALAI_NAMA'] = ucwords(strtolower($row->vNama_kabalai));
+            $row_array['KABALAI_NIP'] = ucwords(strtolower($row->vNip_kabalai));
 
 
-            
+            $row_array['TANGGAL_NOW'] = $this->tanggal_indo(date('Y-m-d'), false);
             $row_array['NAMA_PEMOHON']      = ucwords(strtolower($row->vName));
             $row_array['ALAMAT_PEMOHON']      = ucwords(strtolower($row->vAddress));
             $row_array['NAMA_PRODUSEN']      = ucwords(strtolower($row->vNama_produsen));
@@ -775,11 +824,6 @@ class sertifikat extends MX_Controller {
 
                 $row_array['PENILAIAN']      = $nilai;
 
-
-                
-                
-
-
             /*mt8a end*/
 
 
@@ -789,9 +833,11 @@ class sertifikat extends MX_Controller {
             array_push($data, $row_array);
         }
 
-        echo json_encode($data);
+        return json_encode($data);
     }
 
+
+  
     function listBox_sertifikat_mt06_iDist_bakteri($value, $pk, $name, $rowData){
         $ret = 'Tidak';
         if($value==1){
@@ -2274,10 +2320,15 @@ class sertifikat extends MX_Controller {
             $groupnya = $this->checkgroup($this->user->gNIP);             
             if( $groupnya['idprivi_group']== 6 and $rowData['iSubmit_sertifikat']==0 ){
                 $buttons['update'] = $iframe.$update_draft.$update.$js;    
-            }else if($groupnya['idprivi_group']== 2 and $rowData['iSubmit_sertifikat']==1 and $rowData['iSphu_app']==0){
+            }else if($groupnya['idprivi_group']== 2 and $rowData['iSubmit_sertifikat']==1 /*and $rowData['iApprove']==0*/){
                 $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/sertifikat?action=approve&level=1&iMt01='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_sertifikat"  class="ui-button-text icon-save" >Approve</button>';
                 $reject = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/sertifikat?action=reject&level=1&iMt01='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \' )"  id="button_reject_sertifikat"  class="ui-button-text icon-save" >Reject</button>';
-                $buttons['update'] = $iframe.$approve.$reject;    
+                if($rowData['iStatus_sertifikat']==0 || $rowData['iStatus_sertifikat']== "" ){
+                    $buttons['update'] = $iframe.$update;    
+                }else{
+                    $buttons['update'] = $iframe.$approve.$reject;    
+                }
+                
 
             }else if($groupnya['idprivi_group']== 9 and $rowData['iSphu_app']==2 and $rowData['iTu_app']==0){
                 $approve = '<button onclick="javascript:load_popup(\' '.base_url().'processor/pengujian/sertifikat?action=approve&level=2&iMt01='.$peka.'&company_id='.$this->input->get('company_id').'&group_id='.$this->input->get('group_id').'&modul_id='.$this->input->get('modul_id').' \')"  id="button_approve_sertifikat"  class="ui-button-text icon-save" >Approve</button>';

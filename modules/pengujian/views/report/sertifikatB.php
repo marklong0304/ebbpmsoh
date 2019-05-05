@@ -1,3 +1,7 @@
+<?php 
+//print_r($item)    ;
+    
+ ?>
 <style type="text/css">
     .infokiri{
         width: 2%;
@@ -38,7 +42,7 @@ body {
 									SNI ISO 9001 : 2008 ( ISO 9001 : 2008 )
                                 </td>
                                 <td width="50%" class="ttd" style="text-align: right;">
-                        			<span id="nomor1" style="float:right;margin-left: 80%;"><b>No. B 10000000</b></span>
+                        			<span id="nomor1" style="float:right;margin-left: 70%;"><b>No. B-<?php echo $item[0]->NOMOR1; ?></b></span>
                                 </td>
                             </tr>
                         </table>
@@ -76,12 +80,12 @@ body {
                     </div>
                      
                     <div class="tengah">
-                        <span class="" ><b>Nomor :10000000</b></span>
+                        <span class="" ><b>Nomor : <?php echo $item[0]->NOMOR2; ?></b></span>
                     </div>
                     <div class="tengah">
                         <p style="text-align: justify;">
-                            Berdasarkan Surat Keputusan Menteri Pertanian Nomor : <NOMOR3>, Tanggal <TANGGAL1> dan Keputusan Menteri Pertanian Nomor : <NOMOR4> Tanggal <TANGGAL2>, telah dilakukan pengujian mutu terhadap obat hewan tersebut di bawah ini dan hasil uji telah lulus memenuhi standar persyaratan mutu.
-                            According to Decree of The Minister of Agriculture of The Republic of Indonesia dated <TANGGAL3>, No : <NOMOR5>, and Undersigned of The Minister of Agriculture of Republic of Indonesia dated <TANGGAL4>, No : <NOMOR6>, certifies that quality control of the following veterinary drug has been carried out and met test requirements.
+                            Berdasarkan Surat Keputusan Menteri Pertanian Nomor : <?php echo $item[0]->NOMOR3; ?>, Tanggal <?php echo $item[0]->TANGGAL1; ?> dan Keputusan Menteri Pertanian Nomor : <?php echo $item[0]->NOMOR4; ?> Tanggal <?php echo $item[0]->TANGGAL2; ?>, telah dilakukan pengujian mutu terhadap obat hewan tersebut di bawah ini dan hasil uji telah lulus memenuhi standar persyaratan mutu.
+                            According to Decree of The Minister of Agriculture of The Republic of Indonesia dated <?php echo $item[0]->TANGGAL3; ?>, No : <?php echo $item[0]->NOMOR5; ?>, and Undersigned of The Minister of Agriculture of Republic of Indonesia dated <?php echo $item[0]->NOMOR4; ?>, No : <?php echo $item[0]->NOMOR6; ?>, certifies that quality control of the following veterinary drug has been carried out and met test requirements.
                         </p>    
                     </div>
                     <div>
@@ -101,7 +105,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Address of Assay Laboratory</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: Jl Raya Pembangunan Gunung Sindur, Gn. Sindur, Bogor, Jawa Barat 16340</td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -109,7 +113,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Name of Applicant</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->NAMA_PEMOHON; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -117,7 +121,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Address of Applicant</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->ALAMAT_PEMOHON; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -125,7 +129,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Name of Produces</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->NAMA_PRODUSEN; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -133,7 +137,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Trade Name</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->NAMA_DAGANG; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -141,7 +145,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Batch No. / Lot</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->NOMOR_TRADING; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -149,7 +153,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Expired Date</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->KADALUARSA; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -157,7 +161,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Registration No.</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->NOREG; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -165,7 +169,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Packaging</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->KEMASAN; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -173,7 +177,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Nama</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->JENIS; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -181,7 +185,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Date of Sample Acceptance</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->TANGGAL_TERIMA_CONTOH; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -189,7 +193,7 @@ body {
                                         <br>
                                         <span class="en" style="font-size: 9.5px;">Sampling Procedure Referece</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->ACUAN; ?></td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -197,7 +201,7 @@ body {
                                         <br>
                                         <span class="en " style="font-size: 9.5px;">Assay No.</span>
                                     </td>
-                                    <td>: BBPMSOH</td>
+                                    <td>: <?php echo $item[0]->NOMOR_UJI; ?></td>
                                 </tr>
                            </tbody>
                         </table>
@@ -209,7 +213,7 @@ body {
 									?>
                                 </td>
                                 <td width="50%" class="ttd" style="text-align: center;">
-                                    Bogor, Tanggal 
+                                    Bogor, <?php echo $item[0]->TANGGAL_NOW; ?>
                                     <br>
                                     Kepala Balai Besar Pengajuan Mutu dan <br> Sertifikasi Obat Hewan 
                                     <br>
@@ -219,9 +223,9 @@ body {
                                     <br>
                                     <br>
 
-                                    <span style="text-decoration:underline;">Nama</span>
+                                    <span style="text-decoration:underline;"><?php echo $item[0]->KABALAI_NAMA; ?></span>
                                     <br>
-                                    NIP
+                                    <?php echo $item[0]->KABALAI_NIP; ?>
                                 </td>
                             </tr>
                         </table>
@@ -250,7 +254,7 @@ body {
                 <td>: SERTIFIKAT PENGUJIAN</td>
 
                 <td>NO</td>
-                <td>: Nomor</td>
+                <td>: <?php echo $item[0]->NOMOR1; ?></td>
 
             </tr>
             <tr>
@@ -266,192 +270,83 @@ body {
     <tr>
     	<td></td>
     	<td>
-        <div class="tengah" style="font-weight: bold; margin-top: 2%;">
-            HASIL PENGUJIAN PRODUK BIOLOGIK
-            <br>
-            <span class="en">
-                RESULT OF ASSAY FOR BIOLOGICAL PRODUCT
-            </span>
-        </div>
+        <?php 
+            if($dMt06['iDist_bakteri']== 1 and $dMt06['iDist_farmastetik'] ==1){
+                    // farmastetik
+                    $templatenya = 'sertifikatF.docx';
+                }else if($dMt06['iDist_bakteri']== 1 and $dMt06['iDist_virologi'] ==1){
+                    // biologik
+                    $templatenya = 'sertifikatB.docx';
+                }else if($dMt06['iDist_bakteri']== 1){
+                    // biologik
+                    $templatenya = 'sertifikatB.docx';
+                }else if($dMt06['iDist_virologi']== 1){
+                    // biologik
+                    $templatenya = 'sertifikatB.docx';
+                }else{
+                    //$dMt06['iDist_farmastetik'] ==1;
+                    $templatenya = 'sertifikatF.docx';
+                }
+
+                if($templatenya== 'sertifikatB.docx'){
+                ?>
+                    <div class="tengah" style="font-weight: bold; margin-top: 2%;">
+                        HASIL PENGUJIAN PRODUK BIOLOGIK
+                        <br>
+                        <span class="en">
+                            RESULT OF ASSAY FOR BIOLOGICAL PRODUCT
+                        </span>
+                    </div>
+                <?php 
+                
+                }else{
+                ?>
+                    <div class="tengah" style="font-weight: bold; margin-top: 2%;">
+                        HASIL PENGUJIAN PRODUK FARMASETIK DAN PREMIKS
+                        <br>
+                        <span class="en">
+                            RESULT OF ASSAY FOR PHARMACEUTICAL AND PREMIX PRODUCT
+                        </span>
+                    </div>
+
+                <?php 
+                
+                }
+         ?>
+
         </td>
         <td></td>
     </tr>
     <tr>
     	<td></td>
     	<td>
-            <!-- table pengujian -->
-                <style type="text/css">
-                .tg  {border-collapse:collapse;border-spacing:0;}
-                .tg td{font-family:Arial, sans-serif;font-size:10.5px;/*padding:10.5 5px;*/border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-                .tg th{font-family:Arial, sans-serif;font-size:10.5px;font-weight:normal;/*padding:10.5 5px*/;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-                .tg .tg-baqh{text-align:center;vertical-align:top}
-                .tg .tg-0lax{text-align:left;vertical-align:top}
-                .tg .tg-8zwo{font-style:italic;text-align:left;vertical-align:top}
-                </style>
-                <table class="tg" style="width: 100%;">
-                  <tr>
-                    <th style="width: 40%;"class="tg-baqh" colspan="2">Jenis Uji <br><span style="font-style:italic">Kind of Test</span></th>
-                    <th style="width: 10%;" class="tg-baqh">Tanggal Uji <br><span style="font-style:italic">Date of Test</span></th>
-                    <th style="width: 15%;"class="tg-baqh">Acuan Metoda<br><span style="font-style:italic">Method Reference</span></th>
-                    <th style="width: 20%;"class="tg-baqh">Hasil<br><span style="font-style:italic">Result</span></th>
-                    <th style="width: 15%;"class="tg-baqh">Persyaratan Mutu<br><span style="font-style:italic">Requirement</span></th>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" rowspan="4">Fisik <br><span style="font-style:italic">Property</span></td>
-                    <td class="tg-0lax">Warna<br><span style="font-style:italic">Colour</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">Bau<br><span style="font-style:italic">Odor</span><br></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">Partikel Asing<br><span style="font-style:italic">Foreign Particles</span><br></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">Homogenitas<br><span style="font-style:italic">Homogenity</span><br></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Kevakuman<br>Acidity Alkalinity</td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Kelembaban<br><span style="font-style:italic">Moisture</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Kemurnian<br><span style="font-style:italic">Purity</span><br></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Sterilitas<br><span style="font-style:italic">Sterility</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" rowspan="5">Kontaminasi<br><span style="font-style:italic">Contamination</span><br></td>
-                    <td class="tg-8zwo">Mycoplasma</td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax"><span style="font-style:italic">Salmonella</span><br></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax"><span style="font-style:italic">Echerichia Coli</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">Jamur / <span style="font-style:italic">Fungi</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax">Mikroorganisme Hidup Lain / <br><span style="font-style:italic">Other Live Microorganism</span><br></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Kandungan Bakteri / Spora<br><span style="font-style:italic">Bacteria or Spore Count</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Kandungan Virus<br><span style="font-style:italic">Virus Content</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Identitas<br><span style="font-style:italic">Identity</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Inaktifasi<br><span style="font-style:italic">Inactivation</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Toksisitas Abnormal<br><span style="font-style:italic">Abnormal Toxicity</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Keamanan<br><span style="font-style:italic">Safety</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Potensi<br><span style="font-style:italic">Potency</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" colspan="2">Lain - Lain<br><span style="font-style:italic">Others</span></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                    <td class="tg-0lax"></td>
-                  </tr>
-                  <tr>
-                    <td class="tg-0lax" >Penilaian<br><span style="font-style:italic">Judgement</span></td>
-                    <td class="tg-0lax" colspan="5"></td>
-                  </tr>
-                </table>
-            <!-- tabel pengujian -->
+            <?php 
+                $data['item'] = $item;
+                if($dMt06['iDist_bakteri']== 1 and $dMt06['iDist_farmastetik'] ==1){
+                    // farmastetik
+                    $templatenya = 'sertifikatF.docx';
+                }else if($dMt06['iDist_bakteri']== 1 and $dMt06['iDist_virologi'] ==1){
+                    // biologik
+                    $templatenya = 'sertifikatB.docx';
+                }else if($dMt06['iDist_bakteri']== 1){
+                    // biologik
+                    $templatenya = 'sertifikatB.docx';
+                }else if($dMt06['iDist_virologi']== 1){
+                    // biologik
+                    $templatenya = 'sertifikatB.docx';
+                }else{
+                    //$dMt06['iDist_farmastetik'] ==1;
+                    $templatenya = 'sertifikatF.docx';
+                }
+
+                if($templatenya== 'sertifikatB.docx'){
+                    echo $this->load->view('report/tipe_b',$data,true);    
+                }else{
+                    echo $this->load->view('report/tipe_f',$data,true);
+                }
+                
+             ?>
+            
         </td>
         <td></td>
     </tr>
@@ -462,7 +357,7 @@ body {
                 <td width="60%" class="qrcode" style="text-align: center;">
                 </td>
                 <td width="40%" class="ttd" style="text-align: center;">
-                    Bogor, Tanggal 
+                    Bogor, <?php echo $item[0]->TANGGAL_NOW; ?>
                     <br>
                     Kepala Balai Besar Pengajuan Mutu dan <br> Sertifikasi Obat Hewan 
                     <br>
@@ -472,9 +367,9 @@ body {
                     <br>
                     <br>
                     <br>
-                    <span style="text-decoration:underline;">Nama</span>
+                    <span style="text-decoration:underline;"><?php echo $item[0]->KABALAI_NAMA; ?></span>
                     <br>
-                    NIP
+                    <?php echo $item[0]->KABALAI_NIP; ?>
                 </td>
             </tr>
         </table>
