@@ -106,7 +106,7 @@ class mt01 extends MX_Controller {
     
         $grid->setWidth('iCustomer', '100');
         $grid->setAlign('iCustomer', 'left');
-        $grid->setLabel('iCustomer','Customer');
+        $grid->setLabel('iCustomer','Pemohon');
     
         $grid->setWidth('iType_pemohon', '100');
         $grid->setAlign('iType_pemohon', 'left');
@@ -925,7 +925,7 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_vNama_produsen($field, $id) {
-                            $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
+                            $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1 required" size="30"  />';
                             return $return;
                         }
                         
@@ -933,7 +933,7 @@ class mt01 extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= $value; 
                                 }else{ 
-                                    $return = '<input type="text" readonly="readonly" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
+                                    $return = '<input type="text" name="'.$field.'"  id="'.$id.'"  class="input_rows1  required" size="30" value="'.$value.'"/>';
 
                                 }
                                 
@@ -941,7 +941,7 @@ class mt01 extends MX_Controller {
                         }
                         
                         function insertBox_mt01_vAlamat_produsen($field, $id) {
-                            $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
+                            $return = '<textarea name="'.$field.'" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250"></textarea>';
                             return $return;
                         }
                         
@@ -949,7 +949,7 @@ class mt01 extends MX_Controller {
                                 if ($this->input->get('action') == 'view') {
                                      $return= '<label title="Note">'.nl2br($value).'</label>'; 
                                 }else{ 
-                                    $return = '<textarea name="'.$field.'" readonly="readonly" id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
+                                    $return = '<textarea name="'.$field.'"  id="'.$id.'" class="required" style="width: 240px; height: 75px;" size="250" maxlength ="250">'.nl2br($value).'</textarea>';
 
                                 }
                                 
@@ -1548,9 +1548,6 @@ class mt01 extends MX_Controller {
         $data['get']=$this->input->get();
         
         $return = ''.' <b>UPLOAD DOKUMEN BERIKUT </b> :
-                            <br>
-                            Surat pengantar sampel dari keswan*
-                            <br>
                             Hasil Rapat PPOH*
                             <br>
                             Lampiran A (komposisi)
@@ -1575,8 +1572,6 @@ class mt01 extends MX_Controller {
         $data['get']=$this->input->get();
         
         $return = ''.' <b>UPLOAD DOKUMEN BERIKUT </b> :
-                            <br>
-                            Surat pengantar sampel dari keswan*
                             <br>
                             Hasil Rapat PPOH*
                             <br>
